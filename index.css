@@ -1,0 +1,59 @@
+body{
+  background-color: lightgrey;
+}
+
+p {
+  color: black;
+}
+
+a{
+  color:black;
+}
+
+h1{
+  margin-left: 200px;
+}
+
+.navbar-inverse{
+  height: 113px;
+}
+
+#left_container{
+  height: auto;
+  width: 500px;
+  margin-left: 200px;
+  margin-top: 50px;
+}
+
+#right_container{
+  height: auto;
+  width: 301px;
+  margin-left: 950px;
+  margin-top: -490px;
+}
+
+#generate_button{
+  margin-right: 640px;
+  position: relative;
+  top: 50px;
+}
+
+button[type=button]{
+  margin-left: 381px!important;
+  margin-top: 50px!important;
+  width: 200px!important;
+  height: 100px!important;
+  color: black;
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.page-footer{
+  background-color: grey;
+  height: 75px;
+  margin-top: 66px;
+}
+
+.footer-copyright{
+  padding-top: 28px;
+}
