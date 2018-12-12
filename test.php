@@ -16,12 +16,12 @@
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Gruschool</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Page 1</a></li>
-      <li><a href="#">Page 2</a></li>
+      <li class="active"><a href="http://localhost/Grundschule/test.php">Home</a></li>
+      <li><a href="http://localhost/Grundschule/test.php">Page 1</a></li>
+      <li><a href="">Page 2</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -39,7 +39,7 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
 
 <div id="generate_button">
   <h1>GENERATE YOUR WEBSITE NOW!</h1>
-  <button type="button" class="btn btn-warning">GENERATE</button>
+  <a class="btn btn-warning" href="generate.html" role="button">GENERATE</a>
 </div>
 
 <div id="right_container">
