@@ -18,11 +18,6 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
     </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="http://localhost/Grundschule/test.php">Home</a></li>
-      <li><a href="http://localhost/Grundschule/test.php">Page 1</a></li>
-      <li><a href="">Page 2</a></li>
-    </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

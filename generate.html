@@ -18,11 +18,6 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
     </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="http://localhost/Grundschule/test.php">Home</a></li>
-      <li><a href="http://localhost/Grundschule/test.php">Page 1</a></li>
-      <li><a href="#">Page 2</a></li>
-    </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -30,19 +25,18 @@
   </div>
 </nav>
 
-<a href="#" class="show-modules" onclick="vanish()" >Show Modules and Choose Some </a>
+<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Choose Some</p>
 
 <div id="main-container">
   <div class="module1">
-    <a class="module1" onclick="module1()" role="button">This Is A Module</a>
+    <a onclick="module1()" role="button">This Is A Module</a>
   </div>
   <div class="module2">
-    <a class="module2" onclick="module2()" role="button">This Is A Module</a>
+    <a onclick="module2()" role="button">This Is A Module</a>
   </div>
   <div class="module3">
-    <a class="module3" onclick="module3()" role="button">This Is A Module</a>
+    <a onclick="module3()" role="button">This Is A Module</a>
   </div>
-  <a href="#" class="show-modules"</a>
 </div>
 
 <div id="conf-module1">
@@ -100,6 +94,12 @@ function vanish(){
     document.getElementById('conf-module1').style.display="none";
     document.getElementById('conf-module2').style.display="none";
     document.getElementById('conf-module3').style.display="none";
+    document.getElementsByClassName('show-modules')[0].innerHTML="Show Modules and Choose Some";
+    document.getElementsByClassName('show-modules')[0].style.backgroundColor="lightgrey";
+  }else{
+    document.getElementsByClassName('show-modules')[0].innerHTML="Click to close";
+    document.getElementsByClassName('show-modules')[0].style.backgroundColor="wheat";
+
   }
 }
 
@@ -113,5 +113,7 @@ $(document).ready(function () {
         $(".page-footer").css({"top":"23px"});
     });
 });
+
+
 </script>
 </html>

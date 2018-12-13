@@ -65,6 +65,7 @@ h1{
    width: 500px;
    padding-top: 1px;
    padding-bottom: 43px;
+   background-color: wheat;
 }
 
  .module1{
@@ -96,40 +97,45 @@ h1{
 }
 
 .show-modules {
-    margin-left: 43px;
+  width: 500px;
+  padding-left: 43px;
+  margin-top: -20px;
+  height: 33px;
+  margin-bottom: 0px;
+  padding-top: 27px;
 }
 
 #conf-module1{
   position: relative;
   left: 700px;
-  top: -467px;
+  top: -425px;
   display: none;
   background-color: gray;
   width: 500px;
   height: 200px;
   margin-bottom: 10px;
-  background-color: lightgrey;
+  background-color: white;
 }
 
 #conf-module2{
   position: relative;
   left: 700px;
-  top: -467px;
+  top: -425px;
   display: none;
   background-color: gray;
   width: 500px;
   height: 200px;
   margin-bottom: 10px;
-  background-color: lightgrey;
+  background-color: white;
 }
 
 #conf-module3{
   position: relative;
   left: 700px;
-  top: -467px;
+  top: -425px;
   display: none;
   background-color: gray;
   width: 500px;
   height: 200px;
-  background-color: lightgrey;
+  background-color: white;
 }
