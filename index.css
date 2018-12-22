@@ -139,3 +139,73 @@ h1{
   height: 200px;
   background-color: white;
 }
+
+#costume-module{
+  position: relative;
+  left: 700px;
+  top: -425px;
+  display: none;
+  background-color: gray;
+  width: 500px;
+  height: 200px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+#costume-module input[type=text]{
+
+}
+
+#costume-module textarea{
+  width: 500px;
+  height: 91px;
+
+}
+
+#news{
+  margin: auto;
+  width: 50%;
+}
+
+#news{
+  background-color: grey;
+  padding-top: 10px;
+  height: 250px;
+}
+
+#news .title{
+  background-color: white;
+  width: 60%;
+  margin-left: 10px;
+}
+
+#news .date{
+  background-color: white;
+  width: 30%;
+  position: relative;
+  left: 494px;
+  top: -30px;
+}
+
+#news .text{
+  background-color: white;
+  width: 60%;
+  margin-left: 10px;
+  position: relative;
+  top: -30px;
+  height: 200px;
+
+}
+
+#news .row{
+  background-color: white;
+  position: relative;
+  width: 30%;
+  left: 494px;
+  top: -230px;
+  height: 200px;
+}
+
+img{
+  width: 100%;
+}

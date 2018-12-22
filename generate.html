@@ -29,27 +29,36 @@
 
 <div id="main-container">
   <div class="module1">
-    <a onclick="module1()" role="button">This Is A Module</a>
+    <a onclick="module1()" role="button">Costume Module</a>
   </div>
   <div class="module2">
-    <a onclick="module2()" role="button">This Is A Module</a>
+    <a onclick="module2()" role="button">Kalender Module</a>
   </div>
   <div class="module3">
     <a onclick="module3()" role="button">This Is A Module</a>
   </div>
 </div>
 
-<div id="conf-module1">
-  <p>lalalalala</p>
+<div id="costume-module">
+    <div class="form-group">
+      <p>Title:</p>
+        <input type="text" class="form-control" id="title" placeholder="Title" name="title" required="required">
+    </div>
+  <div class="form-group">
+    <p>Code</p>
+    <textarea name="text" cols="40" rows="5" id="code"></textarea>
+  </div>
 </div>
 
 <div id="conf-module2">
-  <p>lalalalala</p>
+  <p>Google Kalender</p>
 </div>
 
 <div id="conf-module3">
-  <p>lalalalala</p>
+  <p>News</p>
 </div>
+
+
 
 <footer class="page-footer font-small blue">
 
@@ -66,10 +75,10 @@
 <script>
 
 function module1(){
-  if(document.getElementById('conf-module1').style.display=="none"){
-     document.getElementById('conf-module1').style.display="block";
+  if(document.getElementById('costume-module').style.display=="none"){
+     document.getElementById('costume-module').style.display="block";
   }else{
-    document.getElementById('conf-module1').style.display="none";
+    document.getElementById('costume-module').style.display="none";
   }
 }
 
@@ -91,7 +100,7 @@ function module3(){
 
 function vanish(){
   if(!(document.getElementById('main-container').style.display=="none")){
-    document.getElementById('conf-module1').style.display="none";
+    document.getElementById('costume-module').style.display="none";
     document.getElementById('conf-module2').style.display="none";
     document.getElementById('conf-module3').style.display="none";
     document.getElementsByClassName('show-modules')[0].innerHTML="Show Modules and Choose Some";
