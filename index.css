@@ -136,7 +136,7 @@ h1{
   display: none;
   background-color: gray;
   width: 500px;
-  height: 200px;
+  height: 230px;
   background-color: white;
 }
 
@@ -147,7 +147,7 @@ h1{
   display: none;
   background-color: gray;
   width: 500px;
-  height: 200px;
+  height: 231px;
   margin-bottom: 10px;
   background-color: white;
 }
@@ -208,4 +208,9 @@ h1{
 
 img{
   width: 100%;
+}
+
+.events{
+  margin-left: 21px;
+  margin-top: -19px;
 }
