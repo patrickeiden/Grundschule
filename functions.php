@@ -119,7 +119,6 @@ function checkDoubleRegistration($mail){
 }
 
 function createAccount($email, $pswd, $pswd_repeat){
-    echo $email;
     global $conn;
     $mail = mysqli_real_escape_string($conn, $email);
     $psw = mysqli_real_escape_string($conn, $pswd);
@@ -147,3 +146,40 @@ function createAccount($email, $pswd, $pswd_repeat){
       exit();
     }
 }
+
+function logIn($email, $pswd){
+    global $conn;
+    $mail = mysqli_real_escape_string($conn, $email);
+    $psw = mysqli_real_escape_string($conn, $pswd);
+
+    //Error Handlers
+    //Check for empty fields
+    if(empty($mail) || empty($psw)){
+      header('Location: http://localhost/Grundschule/SignUp.php?login=empty');
+      exit();
+    }else{
+      $sql = "SELECT reg_id, mail, password FROM registration WHERE mail='$mail'";
+      $result = mysqli_query($conn, $sql);
+      $resultCheck = mysqli_num_rows($result);
+      if($resultCheck < 1){
+        header('Location: http://localhost/Grundschule/SignUp.php?login=error1');
+        exit();
+      }else{
+        if($row = mysqli_fetch_assoc($result)){
+          //De-hashing the Password
+          $hashedPwdCheck = strcmp($psw, $row['password']);
+          if($hashedPwdCheck < 0 &&  $hashedPwdCheck > 0){
+            //header('Location: http://localhost/Grundschule/SignUp.php?login=error2');
+            exit();
+          }else if($hashedPwdCheck == 0){
+            //Log In the user here
+            $_SESSION['u_id'] = $row['reg_id'];
+            $_SESSION['u_mail'] = $row['mail'];
+            $_SESSION['u_pwd'] = $row['password'];
+            header('Location: http://localhost/Grundschule/generate.php?login=success');
+            exit();
+          }
+        }
+      }
+    }
+  }

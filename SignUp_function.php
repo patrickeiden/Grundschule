@@ -1,7 +1,9 @@
 <?php
+
 include 'functions.php';
-if(isset($POST['next_test'])){
-  createAccount($POST['email'], $POST['psw'], $POST['psw-repeat']);
+
+if(isset($_POST['next_test'])){
+  createAccount($_POST['email'], $_POST['psw'], $_POST['psw-repeat']);
 }
 
 ?>

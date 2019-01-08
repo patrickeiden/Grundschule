@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +39,7 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
 
 <div id="generate_button">
   <h1>GENERATE YOUR WEBSITE NOW!</h1>
-  <a class="btn btn-warning" href="generate.html" role="button">GENERATE</a>
+  <a class="btn btn-warning" href="generate.php" role="button">GENERATE</a>
 </div>
 
 <div id="right_container">
