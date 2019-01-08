@@ -101,3 +101,49 @@ function createNews($number, $news_number){
     $stmt->execute();
   }
 }
+
+function checkDoubleRegistration($mail){
+  global $conn;
+  $value = 0;
+  $stmt = $conn->prepare("SELECT mail FROM registration WHERE mail = ?");
+  $stmt->bind_param("s", $mail);
+  $stmt->execute();
+  $stmt->store_result();
+  $stmt->fetch();
+  $numberofrows = $stmt->num_rows();
+  if($numberofrows > 0){
+    $value = 1;
+  }
+  return $value;
+
+}
+
+function createAccount($email, $pswd, $pswd_repeat){
+    echo $email;
+    global $conn;
+    $mail = mysqli_real_escape_string($conn, $email);
+    $psw = mysqli_real_escape_string($conn, $pswd);
+    $psw_repeat = mysqli_real_escape_string($conn, $pswd_repeat);
+    //Error Handler
+    //Check for empty fields
+    if(empty($mail) || empty($psw) || empty($psw_repeat)){
+      header('Location: http://localhost/Grundschule/SignUp.php?signup=empty');
+      exit();
+    }else if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
+      header('Location: http://localhost/Grundschule/SignUp.php?signup=email');
+      exit();
+    }else if(checkDoubleRegistration($mail) == 1){
+    header('Location: http://localhost/Grundschule/SignUp.php?signup=DoubleEmail');
+      exit();
+    }else{
+      echo "hi";
+      //Hasing the password
+      $hashedpwd = password_hash($psw, PASSWORD_DEFAULT);
+      //Insert data into Database
+      $stmt = $conn->prepare("INSERT INTO registration (mail, password, repassword) VALUES (?, ?, ?)");
+      $stmt->bind_param("sss", $mail, $psw, $psw_repeat);
+      $stmt->execute();
+      header('Location: http://localhost/Grundschule/SignUp.php?signup=success');
+      exit();
+    }
+}
