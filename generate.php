@@ -23,8 +23,8 @@ session_start();
       <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="LogIn.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
     </ul>
   </div>
 </nav>

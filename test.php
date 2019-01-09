@@ -13,8 +13,17 @@ session_start();
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<?php
+if(isset($_SESSION['u_id'])){
+  echo '<link rel="stylesheet" type="text/css" href="index_Logout.css">
+  <link rel="stylesheet" type="text/css" href="LogIn.css">';
+}else{
+  echo '<link rel="stylesheet" type="text/css" href="index.css">
+  <link rel="stylesheet" type="text/css" href="LogIn.css">';
+}
 
-  <link rel="stylesheet" type="text/css" href="index.css">
+?>
+
 <title>Page Title</title>
 </head>
 <body>
@@ -23,12 +32,35 @@ session_start();
     <div class="navbar-header">
       <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
     </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="LogIn.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    </ul>
-  </div>
-</nav>
+    <?php
+      if(isset($_SESSION['u_id'])){
+        echo '<form action="LogOut_function.php" method="POST">
+          <p class="loggedIn"> Logged in with:';
+        echo $_SESSION['u_mail'];
+        echo '<button type="submit" name="logout" formmethod="POST" class="logout">Logout</button></li>
+      </form> </div>
+    </nav>';
+  }else{
+    echo '  <form action="LogIn_function.php" method="POST">
+      <div class="container">
+        <label for="uname"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><button type="submit" name="login" formmethod="POST"><span class="glyphicon glyphicon-log-in"></span> Login</button></li>
+        <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      </ul>
+    </div>
+  </nav>';
+  }
+    ?>
+
 <h1>My First Heading</h1>
 <div id="left_container">
   <h3>lalalalalalala</h6>
