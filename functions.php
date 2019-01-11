@@ -162,14 +162,14 @@ function logIn($email, $pswd){
       $result = mysqli_query($conn, $sql);
       $resultCheck = mysqli_num_rows($result);
       if($resultCheck < 1){
-        header('Location: http://localhost/Grundschule/SignUp.php?login=error1');
+        header('Location: http://localhost/Grundschule/test.php?login=error1');
         exit();
       }else{
         if($row = mysqli_fetch_assoc($result)){
           //De-hashing the Password
           $hashedPwdCheck = strcmp($psw, $row['password']);
-          if($hashedPwdCheck < 0 &&  $hashedPwdCheck > 0){
-            //header('Location: http://localhost/Grundschule/SignUp.php?login=error2');
+          if($hashedPwdCheck < 0 ||  $hashedPwdCheck > 0){
+            header('Location: http://localhost/Grundschule/test.php?login=error2');
             exit();
           }else if($hashedPwdCheck == 0){
             //Log In the user here
