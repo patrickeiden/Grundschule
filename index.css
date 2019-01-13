@@ -267,3 +267,81 @@ button {
   width: 100%;
   margin-top: 18px;
 }
+
+#interface_generate_button{
+  width: 30%;
+}
+
+#interface_generate_button .text{
+  width: 100%;
+  margin-left: 80px;
+}
+
+#interface_generate_button .btn-warning{
+  margin-left: 175px!important;
+}
+
+#interface_personal_button{
+  width: 30%;
+  margin-left: 461px;
+  margin-top: -216px;
+}
+
+#interface_personal_button .text{
+  width: 101%;
+  margin-left: 80px;
+}
+
+#interface_personal_button .btn-warning{
+  margin-left: 175px!important;
+}
+
+#interface_manage_button{
+  width: 30%;
+  margin-left: 66%;
+  margin-top: -17%;
+}
+
+#interface_manage_button .text{
+  width: 100%;
+  margin-left: 80px;
+}
+
+#interface_manage_button .btn-warning{
+  margin-left: 175px!important;
+}
+
+#module_container{
+
+}
+
+#module_container .costumeModule{
+  background-color: gray;
+  width: 34%;
+  height: 120px;
+}
+
+#module_container .calendarModule{
+  background-color: gray;
+  width: 34%;
+  height: 120px;
+}
+
+#currentPage{
+  width: 42%;
+  margin-left: 800px;
+  margin-top: -240px;
+}
+
+#currentPage .page_custome{
+  display: none;
+
+}
+
+#currentPage .page_calendar{
+  display: none;
+}
+
+#currentPage .currentPage_footer{
+  margin-top: -400px!important;
+}

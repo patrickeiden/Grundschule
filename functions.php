@@ -89,6 +89,20 @@ function createCustome($title, $code, $number){
   header('Location: http://localhost/Grundschule/generate.php');
 }
 
+function printCustome(){
+  global $conn;
+  $output = "";
+  $sql = "SELECT costume_code FROM Module WHERE module_id=2";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["costume_code"];
+    }
+  }
+  return $output;
+}
+
 function createNews($number, $news_number){
   global $conn;
   if($number == 1){
@@ -205,7 +219,7 @@ function logIn($email, $pswd){
             $_SESSION['u_id'] = $row['reg_id'];
             $_SESSION['u_mail'] = $row['mail'];
             $_SESSION['u_pwd'] = $row['password'];
-            header('Location: http://localhost/Grundschule/generate.php?login=success');
+            header('Location: http://localhost/Grundschule/interface.php?login=success');
             exit();
           }
         }
@@ -219,4 +233,33 @@ function logout(){
   session_destroy();
   header("Location: http://localhost/Grundschule/test.php?logout=success");
   exit();
+}
+
+//if the cutome module is part of your side this functions checks whether a section should be created or not
+function CustomeOn(){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT costume_on FROM Module WHERE module_id = 2";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $number = $row['costume_on'];
+    }
+  }
+  return $number;
+}
+
+function CalendarOn(){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT calender_on FROM Calender WHERE calender_id = 1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $number = $row['calender_on'];
+    }
+  }
+  return $number;
 }
