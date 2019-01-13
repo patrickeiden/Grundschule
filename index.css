@@ -184,50 +184,6 @@ h1{
 
 }
 
-#news{
-  margin: auto;
-  width: 50%;
-}
-
-#news{
-  background-color: grey;
-  padding-top: 10px;
-  height: 250px;
-}
-
-#news .title{
-  background-color: white;
-  width: 60%;
-  margin-left: 10px;
-}
-
-#news .date{
-  background-color: white;
-  width: 30%;
-  position: relative;
-  left: 494px;
-  top: -30px;
-}
-
-#news .text{
-  background-color: white;
-  width: 60%;
-  margin-left: 10px;
-  position: relative;
-  top: -30px;
-  height: 200px;
-
-}
-
-#news .row{
-  background-color: white;
-  position: relative;
-  width: 30%;
-  left: 494px;
-  top: -230px;
-  height: 200px;
-}
-
 img{
   width: 100%;
 }
@@ -319,18 +275,27 @@ button {
   background-color: gray;
   width: 34%;
   height: 120px;
+  margin-bottom: 20px;
 }
 
 #module_container .calendarModule{
   background-color: gray;
   width: 34%;
   height: 120px;
+  margin-bottom: 20px;
+}
+
+#module_container .newsModule{
+  background-color: gray;
+  width: 34%;
+  height: 120px;
+  margin-bottom: 20px;
 }
 
 #currentPage{
   width: 42%;
   margin-left: 800px;
-  margin-top: -240px;
+  margin-top: -400px;
 }
 
 #currentPage .page_custome{
@@ -340,6 +305,40 @@ button {
 
 #currentPage .page_calendar{
   display: none;
+}
+#page_news{
+  display: none;
+}
+
+#page_news .title{
+  background-color: white;
+  width: 60%;
+}
+
+#page_news .date{
+  background-color: white;
+  width: 30%;
+  position: relative;
+  left: 425px;
+  top: -30px;
+}
+
+#page_news .text{
+  background-color: white;
+  width: 60%;
+  position: relative;
+  top: -30px;
+  height: 200px;
+
+}
+
+#page_news .row{
+  background-color: white;
+  position: relative;
+  width: 30%;
+  left: 440px;
+  top: -230px;
+  height: 200px;
 }
 
 #currentPage .currentPage_footer{

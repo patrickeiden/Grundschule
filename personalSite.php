@@ -59,6 +59,11 @@ include 'functions.php';
           <p> the calendar module is currently intergrated on your website</p>
           </div>';
         }
+        if(NewsOn() == 1){
+          echo '<div class="newsModule" onclick="clickedNews()">
+          <p> the news module is currently intergrated on your website</p>
+          </div>';
+        }
       ?>
     </div>
 
@@ -79,6 +84,30 @@ include 'functions.php';
         <?php
           echo printCalendar();
         ?>
+      </div>
+      <div id="page_news">
+        <div class="title">
+          <?php
+            echo returnTitle();
+          ?>
+        </div>
+        <div class="date">
+          <?php
+            echo returnDate();
+          ?>
+        </div>
+        <div class="text">
+          <?php
+            echo returnText();
+          ?>
+        </div>
+        <div class="row">
+          <div class="col">
+            <?php
+              echo returnImage();
+            ?>
+          </div>
+      </div>
       </div>
       <div class="currentPage_footer">
         <footer class="page-footer font-small blue">
@@ -108,10 +137,17 @@ include 'functions.php';
       function clickedCustome(){
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
+        document.getElementById('page_news').style.display="none";
       }
       function cickedCalendar(){
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
+        document.getElementById('page_news').style.display="none";
+      }
+      function clickedNews(){
+        document.getElementById('page_news').style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
       }
 
     </script>

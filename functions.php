@@ -263,3 +263,17 @@ function CalendarOn(){
   }
   return $number;
 }
+
+function NewsOn(){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT news_on FROM new_news WHERE news_id = 1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $number = $row['news_on'];
+    }
+  }
+  return $number;
+}
