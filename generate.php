@@ -54,6 +54,9 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <div class="module3">
       <a onclick="module3()" role="button">News Module</a>
     </div>
+    <div class="module4">
+      <a onclick="module4()" role="button">Jobs module</a>
+    </div>
   </div>
 
   <form action="generate_html.php" method="POST">
@@ -73,7 +76,7 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
    <div id="conf-module2">
     <p><b>Calendar module</b></p>
     <p>Your site will contain an editable calendar showing events and important dates.</p>
-    <div id="calendar">-calendar-</div>
+    <div id="calendar"></div>
     <input type="checkbox" name="costume_button" value="1"/>
     <p class="events">Check this box if you want to include this calendar module</p>
   </div>
@@ -93,6 +96,16 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <input type ="checkbox" name ="costume_button" value="1"/>
     <p class="events">Check this Box if you want to include this module</p>
   </div>
+
+  <div id="conf-module4">
+    <p>Your site will contain a page with jobs offered by your school.</p>
+    <input type="checkbox" name="jobs_form" value="Form" />
+    <p>Integrated application form</p>
+    <input type="checkbox" name="costume_button" value="1" />
+    <p class="events">Check this box if you want to include this jobs module</p>
+  </div>
+
+
    <button type="submit" name="test" formmethod="POST">Generate</button>
   </form>';
 }else{
@@ -107,6 +120,9 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     </div>
     <div class="module3">
       <a onclick="module3()" role="button">News Module</a>
+    </div>
+    <div class="module4">
+      <a onclick="module4()" role="button">Jobs module</a>
     </div>
   </div>
 
@@ -147,6 +163,15 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <input type ="checkbox" name ="costume_button" value="1"/>
     <p class="events">Check this Box if you want to include this module</p>
   </div>
+
+  <div id="conf-module4">
+    <p>Your site will contain a page with jobs offered by your school.</p>
+    <input type="checkbox" name="jobs_form" value="Form" />
+    <p class="events">Integrated application form</p>
+    <input type="checkbox" name="costume_button" value="1" />
+    <p class="events">Check this box if you want to include this jobs module</p>
+  </div>
+
    <button type="submit" name="test" formmethod="POST">Generate the website</button>
   </form>';
 }
@@ -194,11 +219,20 @@ function module3(){
   }
 }
 
+function module4() {
+  if(document.getElementById('conf-module4').style.display=="none") {
+    document.getElementById('conf-module4').style.display="block";
+  } else {
+    document.getElementById('conf-module4').style.display="none";
+  }
+}
+
 function vanish(){
   if(!(document.getElementById('main-container').style.display=="none")){
     document.getElementById('costume-module').style.display="none";
     document.getElementById('conf-module2').style.display="none";
     document.getElementById('conf-module3').style.display="none";
+    document.getElementById('conf-module4').style.display="none";
     document.getElementsByClassName('show-modules')[0].innerHTML="Show Modules and Choose Some";
     document.getElementsByClassName('show-modules')[0].style.backgroundColor="lightgrey";
   }else{
