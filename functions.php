@@ -102,6 +102,35 @@ function createNews($number, $news_number){
   }
 }
 
+function createCalendar($number){
+  global $conn;
+  $bool_Value = 0;
+  if($number == 1){
+    $stmt = $conn->prepare("UPDATE Calender SET calender_on=? WHERE calender_id=?");
+    $bool_Value = 1;
+    $stmt->bind_param("ii", $number, $bool_Value);
+    $stmt->execute();
+  }else{
+    $stmt = $conn->prepare("UPDATE Calender SET calender_on=? WHERE calender_id=?");
+    $stmt->bind_param("ii", $number, $bool_Value);
+    $stmt->execute();
+  }
+}
+
+function printCalendar(){
+  global $conn;
+  $output = "";
+  $sql = "SELECT calender_code FROM calender";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["calender_code"];
+    }
+  }
+  return $output;
+}
+
 function checkDoubleRegistration($mail){
   global $conn;
   $value = 0;

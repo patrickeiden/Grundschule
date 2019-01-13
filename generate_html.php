@@ -13,6 +13,10 @@ if(isset($_POST['test'])){
   }else{
     createNews(0, 0);
   }
+#function for Calendar Modul
+if(isset($_POST['calendar'])){
+  createCalendar(1);
+}
 }
 
 ?>
