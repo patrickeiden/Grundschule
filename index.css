@@ -95,6 +95,15 @@ h1{
   padding-top: 38px;
   padding-left: 61px;
 }
+.module4{
+  background-color: white;
+  height: 100px;
+  width: 400px;
+  margin-top: 40px;
+  margin-left: 41px;
+  padding-top: 38px;
+  padding-left: 61px;
+}
 
 .show-modules {
   width: 500px;
@@ -134,9 +143,22 @@ h1{
   left: 700px;
   top: -425px;
   display: none;
-  background-color: gray;
+  background-color: white;
   width: 500px;
   height: 230px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+#conf-module4{
+  position: relative;
+  left: 700px;
+  top: -425px;
+  display: none;
+  background-color: white;
+  width: 500px;
+  height: 230px;
+  margin-bottom: 10px;
   background-color: white;
 }
 
