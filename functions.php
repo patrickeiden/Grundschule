@@ -178,7 +178,6 @@ function createAccount($email, $pswd, $pswd_repeat){
     header('Location: http://localhost/Grundschule/SignUp.php?signup=DoubleEmail');
       exit();
     }else{
-      echo "hi";
       //Hasing the password
       $hashedpwd = password_hash($psw, PASSWORD_DEFAULT);
       //Insert data into Database
