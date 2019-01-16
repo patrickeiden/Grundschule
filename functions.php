@@ -122,11 +122,11 @@ function createCalendar($number){
   if($number == 1){
     $stmt = $conn->prepare("UPDATE Calender SET calender_on=? WHERE calender_id=?");
     $bool_Value = 1;
-    $stmt->bind_param("ii", $number, $bool_Value);
+    $stmt->bind_param("ii", $bool_Value, 1);
     $stmt->execute();
   }else{
     $stmt = $conn->prepare("UPDATE Calender SET calender_on=? WHERE calender_id=?");
-    $stmt->bind_param("ii", $number, $bool_Value);
+    $stmt->bind_param("ii",$bool_Value, 1);
     $stmt->execute();
   }
 }
@@ -143,6 +143,25 @@ function printCalendar(){
     }
   }
   return $output;
+}
+
+function createJob($number, $numberjobs){
+  global $conn;
+  $bool_Value = 0;
+  if($number == 1){
+    $stmt = $conn->prepare("INSERT INTO jobs (job_on, job_title, job_content, job_number) VALUES (?, ?, ?, ?)");
+    $bool_Value = 1;
+    $stmt->bind_param("issi", $bool_Value,"", "", $numberjobs);
+    $stmt->execute();
+  }else{
+    $stmt = $conn->prepare("INSERT INTO jobs (job_on, job_title, job_content, job_number) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("issi", $bool_Value,"", "", $numberjobs);
+    $stmt->execute();
+  }
+}
+
+function printJob(){
+
 }
 
 function checkDoubleRegistration($mail){

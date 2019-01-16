@@ -55,7 +55,7 @@ include 'functions.php';
                 </div>';
         }
         if(CalendarOn() == 1){
-          echo '<div class="calendarModule" onclick="cickedCalendar()">
+          echo '<div class="calendarModule" onclick="clickedCalendar()">
           <p> the calendar module is currently intergrated on your website</p>
           </div>';
         }
@@ -139,7 +139,7 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
         document.getElementById('page_news').style.display="none";
       }
-      function cickedCalendar(){
+      function clickedCalendar(){
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
         document.getElementById('page_news').style.display="none";

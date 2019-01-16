@@ -8,7 +8,7 @@ if(isset($_POST['test'])){
     createCustome("", "", 0);
   }
 #function for News Modul
-  if(isset($_POST['news_number']) && ($_POST['news_number']==3 || $_POST['news_number']==4 || $_POST['news_number']==5)){
+  if(isset($_POST['news_number']) && ($_POST['news_number']==3 || $_POST['news_number']==4 || $_POST['news_number']==5) && $_POST['news_button']){
     createNews(1, $_POST['news_number']);
   }else{
     createNews(0, 0);
@@ -16,6 +16,14 @@ if(isset($_POST['test'])){
 #function for Calendar Modul
 if(isset($_POST['calendar'])){
   createCalendar(1);
+}else{
+  createCalendar(0);
+}
+#function for Job Modul
+if($_POST['job_number'] && ($_POST['job_number']==3 || $_POST['job_number']==4 || $_POST['job_number']==5) && $_POST['job_button']){
+  createJob(1, $_POST['job_number']);
+}else{
+  createJob(0, 3);
 }
 }
 

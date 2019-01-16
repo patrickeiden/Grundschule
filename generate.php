@@ -65,7 +65,7 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
    <div id="conf-module2">
     <p><b>Calendar module</b></p>
     <p>Your site will contain an editable calendar showing events and important dates.</p>
-    <input type="checkbox" name="calendar"/>
+    <input type="checkbox" name="calendar" value="1"/>
     <p class="events">Check this box if you want to include this calendar module</p>
   </div>
 
@@ -81,7 +81,7 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <input type ="radio" name ="news_number" value="5"/>
     <p class="events">5</p>
     </div>
-    <input type ="checkbox" name ="costume_button" value="1"/>
+    <input type ="checkbox" name ="news_button" value="1"/>
     <p class="events">Check this Box if you want to include this module</p>
   </div>
 
@@ -89,7 +89,17 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <p>Your site will contain a page with jobs offered by your school.</p>
     <input type="checkbox" name="jobs_form" value="Form" />
     <p>Integrated application form</p>
-    <input type="checkbox" name="costume_button" value="1" />
+    <p> choose a number between 3-5 to select the number of news your site will show on the front page</p>
+    <div class="form-group">
+    <h5 class="events_h">Number of News</h5>
+    <input type ="radio" name ="job_number" value="3"/>
+    <p class="events">3</p>
+    <input type ="radio" name ="job_number" value="4"/>
+    <p class="events">4</p>
+    <input type ="radio" name ="job_number" value="5"/>
+    <p class="events">5</p>
+    </div>
+    <input type="checkbox" name="job_button" value="1" />
     <p class="events">Check this box if you want to include this jobs module</p>
   </div>
 
