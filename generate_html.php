@@ -15,16 +15,21 @@ if(isset($_POST['test'])){
   }
 #function for Calendar Modul
 if(isset($_POST['calendar'])){
-  createCalendar(1);
+  $number = 1;
+  createCalendar($number);
 }else{
-  createCalendar(0);
+  $number = 0;
+  createCalendar($number);
 }
 #function for Job Modul
-if($_POST['job_number'] && ($_POST['job_number']==3 || $_POST['job_number']==4 || $_POST['job_number']==5) && $_POST['job_button']){
-  createJob(1, $_POST['job_number']);
+if($_POST['job_number'] && $_POST['job_button']){
+  $number = 1;
+  createJob($number, $_POST['job_number']);
 }else{
-  createJob(0, 3);
+  $number = 0;
+  createJob($number, $number);
 }
 }
+
 
 ?>

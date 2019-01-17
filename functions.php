@@ -122,12 +122,15 @@ function createCalendar($number){
   if($number == 1){
     $stmt = $conn->prepare("UPDATE Calender SET calender_on=? WHERE calender_id=?");
     $bool_Value = 1;
-    $stmt->bind_param("ii", $bool_Value, 1);
+    $stmt->bind_param("ii", $bool_Value, $number);
     $stmt->execute();
+    $stmt->close();
   }else{
+    $number = 1;
     $stmt = $conn->prepare("UPDATE Calender SET calender_on=? WHERE calender_id=?");
-    $stmt->bind_param("ii",$bool_Value, 1);
+    $stmt->bind_param("ii",$bool_Value, $number);
     $stmt->execute();
+    $stmt->close();
   }
 }
 
@@ -148,14 +151,15 @@ function printCalendar(){
 function createJob($number, $numberjobs){
   global $conn;
   $bool_Value = 0;
+  $emptystr = "";
   if($number == 1){
     $stmt = $conn->prepare("INSERT INTO jobs (job_on, job_title, job_content, job_number) VALUES (?, ?, ?, ?)");
     $bool_Value = 1;
-    $stmt->bind_param("issi", $bool_Value,"", "", $numberjobs);
+    $stmt->bind_param("issi", $bool_Value, $emptystr, $emptystr, $numberjobs);
     $stmt->execute();
   }else{
     $stmt = $conn->prepare("INSERT INTO jobs (job_on, job_title, job_content, job_number) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("issi", $bool_Value,"", "", $numberjobs);
+    $stmt->bind_param("issi", $bool_Value, $emptystr, $emptystr, $numberjobs);
     $stmt->execute();
   }
 }

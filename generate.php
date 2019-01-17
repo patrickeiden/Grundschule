@@ -62,11 +62,13 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     </div>
   </div>
 
-   <div id="conf-module2">
+   <div id="calendar_module">
     <p><b>Calendar module</b></p>
     <p>Your site will contain an editable calendar showing events and important dates.</p>
+    <div class="form-group">
     <input type="checkbox" name="calendar" value="1"/>
     <p class="events">Check this box if you want to include this calendar module</p>
+    </div>
   </div>
 
   <div id="conf-module3">
@@ -138,10 +140,10 @@ function module1(){
 }
 
 function module2(){
-  if(document.getElementById('conf-module2').style.display=="none"){
-     document.getElementById('conf-module2').style.display="block";
+  if(document.getElementById('calendar_module').style.display=="none"){
+     document.getElementById('calendar_module').style.display="block";
   }else{
-    document.getElementById('conf-module2').style.display="none";
+    document.getElementById('calendar_module').style.display="none";
   }
 }
 
@@ -164,7 +166,7 @@ function module4() {
 function vanish(){
   if(!(document.getElementById('main-container').style.display=="none")){
     document.getElementById('costume-module').style.display="none";
-    document.getElementById('conf-module2').style.display="none";
+    document.getElementById('calendar_module').style.display="none";
     document.getElementById('conf-module3').style.display="none";
     document.getElementById('conf-module4').style.display="none";
     document.getElementsByClassName('show-modules')[0].innerHTML="Show Modules and Choose Some";
