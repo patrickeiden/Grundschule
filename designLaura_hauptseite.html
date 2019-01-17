@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+
+
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      background-color: grey;
+      padding: 20px;
+      margin-bottom: 0px;
+    }
+
+    .Title {
+    	color: rgb(87, 194, 252);
+      text-shadow: 2px 0px black;
+    }
+
+    p, a, h1{
+    	font-family: "Open Sans",sans-serif;
+    }
+
+    .text_blue{
+    	background: rgb(87, 194, 252);
+      font-size: 20px;
+      width: 100%;
+    }
+
+    .glyphicon {
+      color: rgb(87, 194, 252);
+      font-size: 120px;
+    }
+
+    .glyphicon-log-in{
+      font-size: 20px;
+    }
+
+    a {
+    	color: white;
+    	font-size: 20px;
+    	text-transform: uppercase;
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+    img {
+    height: 100%;
+    }
+  </style>
+</head>
+
+
+<body>
+
+<div class="row text-center">
+		<div class="col-sm-6">
+		<h1 class="Title">PAL Content Management</h1>
+		</div>
+</div>
+<div class="row">
+		<div class="col-sm-12">
+			<nav class="navbar">
+			  <div class="container-fluid">
+			      <ul class="nav navbar-nav navbar-center">
+			        <li><a href="#">Home</a></li>
+			        <li><a href="#">Theme</a></li>
+			        <li><a href="#">About Us</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+			  </div>
+			</nav>
+		</div>
+</div>
+  <div class="row">
+    <div class="col-sm-2"></div>
+  </div>
+<div class="row">
+        <div class="container text_blue">
+			    <div class="col-sm-2"></div>
+				    <div class="col-sm-8 text-center">
+				      <h1>Welcome to your new favorite Content Management System!</h1>
+				      <p>PAL is here to build Websites for elementary schools. You can easily make your own Site and we have a variation of modules you can integrate. </p>
+				      <hr>
+				      <h3>How it works:</h3>
+				      <p>You need to make an account, then you can make your own Website! </p>
+				    </div>
+			    <!-- <div class="col-sm-2"></div> -->
+		    </div>
+          <!-- <div class="col-sm-2"></div> -->
+        <div class="container">
+          <div class="col-sm-2"></div>
+            <div class="col-sm-8 text-center">
+              <h1>The different modules</h1>
+              <div>
+              <span class="glyphicon glyphicon-th"></span>
+              <h4>Calendar</h4>
+              </div>
+              <hr>
+              <div>
+              <span class="glyphicon glyphicon-align-left"></span>
+              <h4>Text</h4>
+              </div>
+              <div>
+              <hr>
+              <span class="glyphicon glyphicon-globe"></span>
+              <h4>News</h4>
+              </div>
+              <hr>
+            </div>
+          <!-- <div class="col-sm-2"></div> -->
+      </div>
+          <!-- <div class="col-sm-2"></div> -->
+            <div class="col-sm-12 text-left">
+		<footer class="container-fluid text-center">
+		  <p>© 2018 Copyright</p>
+		</footer>
+  </div>
+</div>
+
+
+</body>
+</html>
