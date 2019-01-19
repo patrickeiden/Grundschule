@@ -168,6 +168,24 @@ function printJob(){
 
 }
 
+function createImage($number, $imageurl){
+global $conn;
+  if($number == 1){
+    $stmt = $conn->prepare("INSERT INTO Image (Image_on, Image_url) VALUES (?, ?)");
+    $stmt->bind_param("is", $number, $imageurl);
+    $stmt->execute();
+  }else{
+    $stmt = $conn->prepare("INSERT INTO Image (Image_on, Image_url) VALUES (?, ?)");
+    $stmt->bind_param("is", $number = 0, $imageurl);
+    $stmt->execute();
+  }
+}
+
+function printImage(){
+
+}
+
+
 function checkDoubleRegistration($mail){
   global $conn;
   $value = 0;
@@ -295,6 +313,20 @@ function NewsOn(){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $number = $row['news_on'];
+    }
+  }
+  return $number;
+}
+
+function ImageOn(){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT Image_on FROM Image WHERE Image_id = 1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $number = $row['Image_on'];
     }
   }
   return $number;

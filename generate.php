@@ -46,6 +46,9 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <div class="module4">
       <a onclick="module4()" role="button">Jobs module</a>
     </div>
+    <div class="module5">
+      <a onclick="module5()" role="button">Image module</a>
+    </div>
   </div>
 
   <form action="generate_html.php" method="POST">
@@ -105,6 +108,15 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <p class="events">Check this box if you want to include this jobs module</p>
   </div>
 
+  <div id="conf-module5">
+      <form action="/action_page.php">
+      <p>Choose your image:</p>
+        <input type="file" name="pic" accept="image/*">
+      </form>
+      <input type ="checkbox" name ="Image_button" value="1"/>
+      <p class="events">Check this Box if you want to include this module</p>
+  </div>
+
 
    <button type="submit" name="test" formmethod="POST">Generate</button>
   </form>';
@@ -113,8 +125,6 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
 }
 
 ?>
-
-
 
 
 <footer class="page-footer font-small blue">
@@ -163,12 +173,21 @@ function module4() {
   }
 }
 
+function module5() {
+  if(document.getElementById('conf-module5').style.display=="none") {
+    document.getElementById('conf-module5').style.display="block";
+  } else {
+    document.getElementById('conf-module5').style.display="none";
+  }
+}
+
 function vanish(){
   if(!(document.getElementById('main-container').style.display=="none")){
     document.getElementById('costume-module').style.display="none";
     document.getElementById('calendar_module').style.display="none";
     document.getElementById('conf-module3').style.display="none";
     document.getElementById('conf-module4').style.display="none";
+    document.getElementById('conf-module5').style.display="none";
     document.getElementsByClassName('show-modules')[0].innerHTML="Show Modules and Choose Some";
     document.getElementsByClassName('show-modules')[0].style.backgroundColor="lightgrey";
   }else{

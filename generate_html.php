@@ -29,6 +29,14 @@ if($_POST['job_number'] && $_POST['job_button']){
   $number = 0;
   createJob($number, $number);
 }
+#function for Image Modul
+if($_POST['Image_button']){
+  $number = 1;
+  createImage($number, $_POST['Image_url']);
+}else{
+  $number = 0;
+  createImage($number, $number);
+}
 }
 
 

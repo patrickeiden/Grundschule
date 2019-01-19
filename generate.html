@@ -40,6 +40,9 @@
   <div class="module4">
     <a onclick="module4()" role="button">Jobs Module</a>
   </div>
+  <div class="module5">
+    <a onclick="module5()" role="button">Image Module</a>
+  </div>
 </div>
 
 <div id="costume-module">
@@ -63,6 +66,10 @@
 
 <div id="conf-module4">
   <p>Jobs</p>
+</div>
+
+<div id="conf-module5">
+  <p>Image</p>
 </div>
 
 
@@ -113,12 +120,21 @@ function module4(){
   }
 }
 
+function module5(){
+  if(document.getElementById('conf-module5').style.display=="none"){
+     document.getElementById('conf-module5').style.display="block";
+  }else{
+    document.getElementById('conf-module5').style.display="none";
+  }
+}
+
 function vanish(){
   if(!(document.getElementById('main-container').style.display=="none")){
     document.getElementById('costume-module').style.display="none";
     document.getElementById('conf-module2').style.display="none";
     document.getElementById('conf-module3').style.display="none";
     document.getElementById('conf-module4').style.display="none";
+    document.getElementById('conf-module5').style.display="none";
     document.getElementsByClassName('show-modules')[0].innerHTML="Show Modules and Choose Some";
     document.getElementsByClassName('show-modules')[0].style.backgroundColor="lightgrey";
   }else{
