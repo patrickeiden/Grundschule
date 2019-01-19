@@ -12,11 +12,12 @@ input[type=text], input[type=password] {
 }
 
 button {
-  background-color: #222;
+  background-color: white;
   color: #9d9d9d;
   border: none;
   cursor: pointer;
   width: 100%;
+  z-index: 0;
 }
 
 button:hover {
