@@ -109,10 +109,8 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
   </div>
 
   <div id="conf-module5">
-      <form action="/action_page.php">
       <p>Choose your image:</p>
-        <input type="file" name="pic" accept="image/*">
-      </form>
+      <input type="file" name="pic" accept="image/*">
       <input type ="checkbox" name ="Image_button" value="1"/>
       <p class="events">Check this Box if you want to include this module</p>
   </div>

@@ -176,7 +176,8 @@ global $conn;
     $stmt->execute();
   }else{
     $stmt = $conn->prepare("INSERT INTO Image (Image_on, Image_url) VALUES (?, ?)");
-    $stmt->bind_param("is", $number = 0, $imageurl);
+    $number = 0;
+    $stmt->bind_param("is", $number, $imageurl);
     $stmt->execute();
   }
 }

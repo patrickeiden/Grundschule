@@ -22,7 +22,7 @@ if(isset($_POST['calendar'])){
   createCalendar($number);
 }
 #function for Job Modul
-if($_POST['job_number'] && $_POST['job_button']){
+if(isset($_POST['job_number']) && isset($_POST['job_button'])){
   $number = 1;
   createJob($number, $_POST['job_number']);
 }else{
@@ -30,7 +30,7 @@ if($_POST['job_number'] && $_POST['job_button']){
   createJob($number, $number);
 }
 #function for Image Modul
-if($_POST['Image_button']){
+if(isset($_POST['Image_button'])){
   $number = 1;
   createImage($number, $_POST['Image_url']);
 }else{
