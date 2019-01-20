@@ -136,7 +136,7 @@
       background-color: orange;
       right: 238px;
       margin-right: -100px;
-      opacity: 0.3;
+      opacity: 0.0;
     }
 
     .dotone{
