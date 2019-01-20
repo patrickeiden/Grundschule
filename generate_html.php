@@ -32,7 +32,7 @@ if(isset($_POST['job_number']) && isset($_POST['job_button'])){
 #function for Image Modul
 if(isset($_POST['Image_button'])){
   $number = 1;
-  createImage($number, $_POST['Image_url']);
+  createImage($number, $_POST['pic']);
 }else{
   $number = 0;
   createImage($number, $number);
