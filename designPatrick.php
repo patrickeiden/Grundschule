@@ -146,6 +146,7 @@
       font-size: 20px;
       width: 30%;
       margin-left: 145px;
+      font-weight: bold;
     }
 
     .dottwo{
@@ -155,7 +156,7 @@
       font-size: 20px;
       width: 20%;
       left: 583px;
-
+      font-weight: bold;
     }
 
     .dotthree{
@@ -165,6 +166,7 @@
       font-size: 20px;
       width: 20%;
       left: 944px;
+      font-weight: bold;
     }
 
     .submit_span{
@@ -178,6 +180,7 @@
     .fragezeichen{
         font-size: 70px;
         color: black;
+        font-weight: bold;
     }
 
     .G{
@@ -210,6 +213,14 @@
         }
       .login_image{
 
+      }
+
+      .text_one{
+        color: black;
+        width: 21%;
+        position: relative;
+        left: 15%;
+        top: 142px;
       }
 
 
@@ -255,6 +266,7 @@
     </div>
 
   <div id="body">
+      <p class="text_one">lalala</p>
       <span class="dot">
         <p class="fragezeichen">?</p>
       </span>
@@ -265,6 +277,7 @@
         <div class="log-in"><img src="login_image3.png" ></div>
       </span>
       <span class="dot4"></span>
+
       <p class="dotone">Informations</p>
       <p class="dottwo">Generate</p>
       <p class="dotthree">Login</p>
@@ -409,6 +422,50 @@
   document.getElementsByClassName('dotthree')[0].style.top="148px";
   document.getElementsByClassName('container-fluid')[0].style.marginTop="178px";
   });
+  $(document).ready(function () {
 
+      $(".text_one").hide();;
+
+      $(".dotone").click(function () {
+
+          if($(".text_one").css('display') == 'none'){
+            $(".dot").animate({top:"-40px"},500);
+            $(".text_one").show();
+
+          }else{
+            $(".text_one").hide();;
+            $(".dot").animate({top:"205px"},500);
+          }
+
+      });
+
+      $(".dottwo").click(function () {
+
+          if($(".text_two").css('display') == 'none'){
+            $(".dot3").animate({top:"-40px"},500);
+            $(".text_two").show();
+
+          }else{
+            $(".text_two").hide();;
+            $(".dot3").animate({top:"205px"},500);
+          }
+
+      });
+
+      $(".dotthree").click(function () {
+
+          if($(".text_three").css('display') == 'none'){
+            $(".dot2").animate({top:"-40px"},500);
+            $(".dot4").animate({top:"-40px"},500);
+            $(".text_three").show();
+
+          }else{
+            $(".text_three").hide();;
+            $(".dot2").animate({top:"205px"},500);
+            $(".dot4").animate({top:"205px"},500);
+          }
+
+      });
+  });
 </script>
 </html>
