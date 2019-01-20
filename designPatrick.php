@@ -80,7 +80,7 @@
       background-color: black;
       color: black;
       padding: 15px;
-      margin-top: 200px;
+      margin-top: 178px;
     }
 
     .dot {
@@ -118,7 +118,7 @@
       border-radius: 50%;
       position: relative;
       display: inline-block;
-      top: 181px;
+      top: 158px;
       background-color: orange;
       right: -123px;
       margin-right: 257px;
@@ -136,7 +136,7 @@
       background-color: orange;
       right: 238px;
       margin-right: -100px;
-      opacity: 0.5;
+      opacity: 0.3;
     }
 
     .dotone{
@@ -187,9 +187,9 @@
 
     .log-in{
         height: 50px;
-        margin-left: 4px;
-        margin-top: 23px;
         position: relative;
+        top: 24px;
+        left: 2px;
     }
 
     #line_one{
@@ -281,18 +281,19 @@
   document.getElementsByClassName('dot')[0].style.height="150px";
   document.getElementsByClassName('dot')[0].style.width="150px";
   document.getElementsByClassName('dot')[0].style.top="180px";
-  document.getElementsByClassName('dot3')[0].style.top="174px";
+  document.getElementsByClassName('dot3')[0].style.top="205px";
   document.getElementsByClassName('dot3')[0].style.right="-98px";
   document.getElementsByClassName('dot2')[0].style.top="158px";
+  document.getElementsByClassName('dot4')[0].style.right="263px";
   document.getElementsByClassName('dot2')[0].style.right="-98px";
   document.getElementsByClassName('fragezeichen')[0].style.position="relative";
   document.getElementsByClassName('fragezeichen')[0].style.top="10px";
   document.getElementsByClassName('fragezeichen')[0].style.fontSize="100px";
-  document.getElementsByClassName('dottwo')[0].style.top="153px";
+  document.getElementsByClassName('dottwo')[0].style.top="184px";
   document.getElementsByClassName('dottwo')[0].style.left="583px";
-  document.getElementsByClassName('dotthree')[0].style.top="117px";
+  document.getElementsByClassName('dotthree')[0].style.top="148px";
   document.getElementsByClassName('dotthree')[0].style.left="944px";
-  document.getElementsByClassName('container-fluid')[0].style.marginTop="169px";
+  document.getElementsByClassName('container-fluid')[0].style.marginTop="178px";
   });
 
   document.getElementsByClassName('dot')[0].addEventListener("mouseout", function() {
@@ -302,15 +303,16 @@
   document.getElementsByClassName('dot')[0].style.top="205px";
   document.getElementsByClassName('dot3')[0].style.top="205px";
   document.getElementsByClassName('dot3')[0].style.right="-123px";
-  document.getElementsByClassName('dot2')[0].style.top="189px";
+  document.getElementsByClassName('dot2')[0].style.top="158px";
   document.getElementsByClassName('dot2')[0].style.right="-123px";
+  document.getElementsByClassName('dot4')[0].style.right="238px";
   document.getElementsByClassName('fragezeichen')[0].style.top="0px";
   document.getElementsByClassName('fragezeichen')[0].style.fontSize="70px";
   document.getElementsByClassName('dottwo')[0].style.top="184px";
   document.getElementsByClassName('dottwo')[0].style.left="583px";
   document.getElementsByClassName('dotthree')[0].style.top="148px";
   document.getElementsByClassName('dotthree')[0].style.left="944px";
-  document.getElementsByClassName('container-fluid')[0].style.marginTop="200px";
+  document.getElementsByClassName('container-fluid')[0].style.marginTop="178px";
   });
 
   document.getElementsByClassName('dot3')[0].addEventListener("mouseenter", function() {
@@ -318,18 +320,20 @@
   document.getElementsByClassName('dot3')[0].style.height="150px";
   document.getElementsByClassName('dot3')[0].style.width="150px";
   document.getElementsByClassName('dot3')[0].style.top="180px";
-  document.getElementsByClassName('dot')[0].style.top="174px";
+  document.getElementsByClassName('dot')[0].style.top="205px";
   document.getElementsByClassName('dot')[0].style.right="-148px";
   document.getElementsByClassName('dot2')[0].style.top="158px";
   document.getElementsByClassName('dot2')[0].style.right="-98px";
+  document.getElementsByClassName('dot4')[0].style.right="263px";
   document.getElementsByClassName('G')[0].style.position="relative";
   document.getElementsByClassName('G')[0].style.top="10px";
   document.getElementsByClassName('G')[0].style.fontSize="100px";
   document.getElementsByClassName('dotone')[0].style.marginLeft="145px";
-  document.getElementsByClassName('dotone')[0].style.top="186px";
-  document.getElementsByClassName('dotthree')[0].style.top="117px";
+  document.getElementsByClassName('dotone')[0].style.top="217px";
+  document.getElementsByClassName('dotthree')[0].style.top="148px";
   document.getElementsByClassName('dotthree')[0].style.left="944px";
-  document.getElementsByClassName('container-fluid')[0].style.marginTop="169px";
+  document.getElementsByClassName('dottwo')[0].style.top="184px";
+  document.getElementsByClassName('container-fluid')[0].style.marginTop="178px";
 
   });
 
@@ -340,70 +344,70 @@
   document.getElementsByClassName('dot3')[0].style.top="205px";
   document.getElementsByClassName('dot')[0].style.top="205px";
   document.getElementsByClassName('dot')[0].style.right="-123px";
-  document.getElementsByClassName('dot2')[0].style.top="189px";
+  document.getElementsByClassName('dot2')[0].style.top="158px";
   document.getElementsByClassName('dot2')[0].style.right="-123px";
+  document.getElementsByClassName('dot4')[0].style.right="238px";
   document.getElementsByClassName('G')[0].style.position="relative";
   document.getElementsByClassName('G')[0].style.top="0px";
   document.getElementsByClassName('G')[0].style.fontSize="70px";
   document.getElementsByClassName('dotone')[0].style.marginLeft="145px";
   document.getElementsByClassName('dotone')[0].style.top="217px";
+  document.getElementsByClassName('dottwo')[0].style.top="184px";
   document.getElementsByClassName('dotthree')[0].style.top="148px";
   document.getElementsByClassName('dotthree')[0].style.left="944px";
-  document.getElementsByClassName('container-fluid')[0].style.marginTop="200px";
+  document.getElementsByClassName('container-fluid')[0].style.marginTop="178px";
   });
 
   document.getElementsByClassName('dot4')[0].addEventListener("mouseenter", function() {
   isOnDiv=true;
   document.getElementsByClassName('dot2')[0].style.height="150px";
   document.getElementsByClassName('dot2')[0].style.width="150px";
-  document.getElementsByClassName('dot2')[0].style.top="159px";
+  document.getElementsByClassName('dot2')[0].style.top="65px";
   document.getElementsByClassName('dot2')[0].style.right="-150px";
   document.getElementsByClassName('dot4')[0].style.height="150px";
   document.getElementsByClassName('dot4')[0].style.width="150px";
   document.getElementsByClassName('dot4')[0].style.top="178px";
   document.getElementsByClassName('dot4')[0].style.right="261px";
-  document.getElementsByClassName('log-in')[0].style.top="-26px";
+  document.getElementsByClassName('log-in')[0].style.top="50px";
   document.getElementsByClassName('log-in')[0].style.height="64px";
 
-  document.getElementsByClassName('dot')[0].style.top="174px";
-  document.getElementsByClassName('dot')[0].style.right="-148px";
-  document.getElementsByClassName('dot3')[0].style.top="158px";
-  document.getElementsByClassName('dot3')[0].style.right="-98px";
-  document.getElementsByClassName('log-in')[0].style.position="relative";
-  document.getElementsByClassName('log-in')[0].style.top="10px";
-  document.getElementsByClassName('log-in')[0].style.fontSize="100px";
+  document.getElementsByClassName('dot')[0].style.top="155px";
+  document.getElementsByClassName('dot')[0].style.right="-173px";
+  document.getElementsByClassName('dot3')[0].style.top="155px";
+  document.getElementsByClassName('dot3')[0].style.right="-173px";
+
   document.getElementsByClassName('dotone')[0].style.marginLeft="145px";
-  document.getElementsByClassName('dotone')[0].style.top="186px";
-  document.getElementsByClassName('dottwo')[0].style.top="117px";
-  document.getElementsByClassName('dottwo')[0].style.left="944px";
-  document.getElementsByClassName('dotthree')[0].style.top="98px";
+  document.getElementsByClassName('dotone')[0].style.top="124px";
+  document.getElementsByClassName('dottwo')[0].style.top="91px";
+  document.getElementsByClassName('dottwo')[0].style.left="583px";
+  document.getElementsByClassName('dotthree')[0].style.top="55px";
+  document.getElementsByClassName('container-fluid')[0].style.marginTop="85px";
   });
 
   document.getElementsByClassName('dot4')[0].addEventListener("mouseout", function() {
   isOnDiv=false;
   document.getElementsByClassName('dot2')[0].style.height="100px";
   document.getElementsByClassName('dot2')[0].style.width="100px";
-  document.getElementsByClassName('dot2')[0].style.top="181px";
+  document.getElementsByClassName('dot2')[0].style.top="158px";
   document.getElementsByClassName('dot2')[0].style.right="-123px";
   document.getElementsByClassName('dot4')[0].style.height="100px";
   document.getElementsByClassName('dot4')[0].style.width="100px";
   document.getElementsByClassName('dot4')[0].style.top="229px";
   document.getElementsByClassName('dot4')[0].style.right="238px";
-  document.getElementsByClassName('log-in')[0].style.top="0px";
+  document.getElementsByClassName('log-in')[0].style.top="24px";
   document.getElementsByClassName('log-in')[0].style.height="50px";
+
 
   document.getElementsByClassName('dot')[0].style.top="205px";
   document.getElementsByClassName('dot')[0].style.right="-123px";
-  document.getElementsByClassName('dot3')[0].style.top="189px";
+  document.getElementsByClassName('dot3')[0].style.top="205px";
   document.getElementsByClassName('dot3')[0].style.right="-123px";
-  document.getElementsByClassName('log-in')[0].style.position="relative";
-  document.getElementsByClassName('log-in')[0].style.top="0px";
-  document.getElementsByClassName('log-in')[0].style.fontSize="70px";
   document.getElementsByClassName('dotone')[0].style.marginLeft="145px";
   document.getElementsByClassName('dotone')[0].style.top="217px";
-  document.getElementsByClassName('dottwo')[0].style.top="148px";
-  document.getElementsByClassName('dottwo')[0].style.left="944px";
-
+  document.getElementsByClassName('dottwo')[0].style.top="184px";
+  document.getElementsByClassName('dottwo')[0].style.left="583px";
+  document.getElementsByClassName('dotthree')[0].style.top="148px";
+  document.getElementsByClassName('container-fluid')[0].style.marginTop="178px";
   });
 
 </script>
