@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'functions.php';
 #function for custome Modul
 if(isset($_POST['test'])){
@@ -37,6 +38,9 @@ if(isset($_POST['Image_button'])){
   $number = 0;
   createImage($number, $number);
 }
+#create a .php file for the site
+fileInDatabase("registration", "reg_id", $_SESSION['u_id'], "siteone_name", "frontpageUser");
+//ThemeOne("frontpageUser1.php");
 }
 
 

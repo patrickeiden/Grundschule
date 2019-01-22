@@ -186,6 +186,37 @@ function printImage(){
 
 }
 
+#creates a .php file and returns the file name(name + id)
+function createFile($id, $name){
+  global $conn;
+  $site_name = $name;
+  $sql = "SELECT reg_id FROM registration WHERE reg_id = $id";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $site_name .= $row['reg_id'];
+    }
+  }
+  $site_name .= ".php";
+
+  //$shell_string = "sudo chmod 777 " .$site_name;
+  //shell_exec($shell_string);
+  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  return $site_name;
+}
+
+#takes the database name, the id name, the id, the value name und the file name and updates the database entry
+function fileInDatabase($dname, $did, $didvalue, $dvalue, $fname){
+  global $conn;
+  $filename = createFile($didvalue, $fname);
+  $dbase = "UPDATE " .$dname ." SET " .$dvalue ."=? " ."WHERE " .$did ."=?";
+  $stmt = $conn->prepare($dbase);
+  $stmt->bind_param("si", $filename, $didvalue);
+  $stmt->execute();
+  $stmt->close();
+}
+
 
 function checkDoubleRegistration($mail){
   global $conn;
@@ -331,4 +362,74 @@ function ImageOn(){
     }
   }
   return $number;
+}
+
+#all function that create a site for Theme1
+function returnphpinclude(){
+  global $conn;
+  $output = "";
+  $sql = "SELECT php FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["php"];
+    }
+  }
+  return $output;
+}
+
+function returnheader(){
+  global $conn;
+  $output = "";
+  $sql = "SELECT header FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["header"];
+    }
+  }
+  return $output;
+}
+
+function returnBody(){
+  global $conn;
+  $output = "";
+  $sql = "SELECT Body FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["Body"];
+    }
+  }
+  return $output;
+}
+
+function returnfooter(){
+  global $conn;
+  $output = "";
+  $sql = "SELECT footer FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["footer"];
+    }
+  }
+  return $output;
+}
+
+function ThemeOne($site_name){
+  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  $txt = returnphpinclude();
+  fwrite($myfile, $txt);
+  $txt = returnheader();
+  fwrite($myfile, $txt);
+  $txt = returnBody();
+  fwrite($myfile, $txt);
+  $txt = returnfooter();
+  fwrite($myfile, $txt);
+  fclose($myfile);
 }
