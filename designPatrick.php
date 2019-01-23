@@ -245,6 +245,10 @@
         font-weight: bold;
       }
 
+      #white{
+        
+      }
+
 
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
@@ -283,6 +287,7 @@
   			      </ul>
   			</nav>
   		</div>
+      <div id="white"></div>
       <div id="line_one"></div>
       <div id="line_two"></div>
     </div>
