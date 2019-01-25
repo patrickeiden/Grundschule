@@ -74,6 +74,25 @@ function returnImage(){
 # Ende News Module
 
 #Anfang Costume Modul
+function setCustome($name, $number, $uid){
+  global $conn;
+  $stmt = $conn->prepare("UPDATE table_data SET custome_on=? WHERE user_id=?");
+  $stmt->bind_param("ii", $number, $uid);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
+  $stmt->bind_param("si", $name, $uid);
+  $stmt->execute();
+  if($number == 1){
+  //create a File for this module
+  $site_name = "custome_id" .$uid .".php";
+  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  //write file in Database
+  $stmt = $conn->prepare("UPDATE table_data SET custome_file_name=? WHERE user_id=?");
+  $stmt->bind_param("si", $site_name, $uid);
+  $stmt->execute();
+  $stmt->close();
+  }
+}
 
 function createCustome($title, $code, $number){
   global $conn;
@@ -104,34 +123,37 @@ function printCustome(){
   return $output;
 }
 
-function createNews($number, $news_number){
+function setNews($number, $news_number, $uid){
   global $conn;
   if($number == 1){
-    $stmt = $conn->prepare("INSERT INTO new_news (news_on, news_number) VALUES (?, ?)");
-    $stmt->bind_param("ii", $number, $news_number);
+    $stmt = $conn->prepare("UPDATE table_data SET news_on=? WHERE user_id=?");
+    $stmt->bind_param("ii", $number, $uid);
+    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE table_data SET news_number=? WHERE user_id=?");
+    $stmt->bind_param("ii", $news_number, $uid);
     $stmt->execute();
   }else{
-    $stmt = $conn->prepare("INSERT INTO new_news (news_on, news_number) VALUES (?, ?)");
-    $stmt->bind_param("ii", $number = 0, $news_number);
+    $stmt = $conn->prepare("UPDATE table_data SET news_on=? WHERE user_id=?");
+    $stmt->bind_param("ii", $number, $uid);
     $stmt->execute();
   }
 }
 
-function createCalendar($number, $uid){
+function setCalendar($number, $uid){
   global $conn;
-  $bool_Value = 0;
+  $stmt = $conn->prepare("UPDATE table_data SET calendar_on=? WHERE user_id=?");
+  $stmt->bind_param("ii", $number, $uid);
+  $stmt->execute();
+  $stmt->close();
   if($number == 1){
-    $stmt = $conn->prepare("UPDATE table_data SET calender_on=? WHERE user_id=?");
-    $bool_Value = 1;
-    $stmt->bind_param("ii", $bool_Value, $uid);
-    $stmt->execute();
-    $stmt->close();
-  }else{
-    $number = 1;
-    $stmt = $conn->prepare("UPDATE Calender SET calender_on=? WHERE calender_id=?");
-    $stmt->bind_param("ii",$bool_Value, $uid);
-    $stmt->execute();
-    $stmt->close();
+  //create a File for this module
+  $site_name = "calendar_id" .$uid .".php";
+  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  //write file in Database
+  $stmt = $conn->prepare("UPDATE table_data SET calendar_file=? WHERE user_id=?");
+  $stmt->bind_param("si", $site_name, $uid);
+  $stmt->execute();
+  $stmt->close();
   }
 }
 
@@ -149,7 +171,7 @@ function printCalendar(){
   return $output;
 }
 
-function createJob($number, $numberjobs, $uid){
+function setJob($number, $numberjobs, $uid){
   global $conn;
   $bool_Value = 0;
   $emptystr = "";
@@ -161,6 +183,14 @@ function createJob($number, $numberjobs, $uid){
     $stmt = $conn->prepare("UPDATE table_data SET job_number=? WHERE user_id=?");
     $stmt->bind_param("ii", $numberjobs, $uid);
     $stmt->execute();
+    //create a File for this module
+    $site_name = "job_id" .$uid .".php";
+    $myfile = fopen($site_name, "w") or die("Unable to open file!");
+    //write file in Database
+    $stmt = $conn->prepare("UPDATE table_data SET job_file_name=? WHERE user_id=?");
+    $stmt->bind_param("si", $site_name, $uid);
+    $stmt->execute();
+    $stmt->close();
   }else{
     $stmt = $conn->prepare("UPDATE table_data SET job_on=? WHERE user_id=?");
     $stmt->bind_param("ii", $bool_Value, $uid);
@@ -172,7 +202,7 @@ function printJob(){
 
 }
 
-function createImage($number, $uid){
+function setImage($number, $uid){
     global $conn;
   //if($number == 1){
   //  $stmt = $conn->prepare("INSERT INTO Image (Image_url, user_id, image_name) VALUES (?, ?, ?, ?)");
@@ -439,3 +469,4 @@ function ThemeOne($site_name){
 //fuer jedes modul muss eine file erstellt werden und dann in die database eingetragen werden
 //database abfragen aendern fuer on
 //image form muss angepasst werden
+
