@@ -4,44 +4,46 @@ include 'fun_def/functions.php';
 #function for custome Modul
 if(isset($_POST['test'])){
   if(isset($_POST['costume_button']) && $_POST['costume_button']==1){
-  createCustome($_POST['title'], $_POST['code'], 1);
+    setCustome($_POST['title'], 1, $_SESSION['u_id']);
   }else{
-    createCustome("", "", 0);
+    setCustome("", 0, $_SESSION['u_id']);
   }
 #function for News Modul
   if(isset($_POST['news_number']) && ($_POST['news_number']==3 || $_POST['news_number']==4 || $_POST['news_number']==5) && $_POST['news_button']){
-    createNews(1, $_POST['news_number']);
+    setNews(1, $_POST['news_number'], $_SESSION['u_id']);
   }else{
-    createNews(0, 0);
+    setNews(0, 0, $_SESSION['u_id']);
   }
 #function for Calendar Modul
 if(isset($_POST['calendar'])){
   $number = 1;
-  createCalendar($number, $_SESSION['u_id']);
+  setCalendar($number, $_SESSION['u_id']);
 }else{
   $number = 0;
-  createCalendar($number, $_SESSION['u_id']);
+  setCalendar($number, $_SESSION['u_id']);
 }
 #function for Job Modul
 if(isset($_POST['job_number']) && isset($_POST['job_button'])){
   $number = 1;
-  createJob($number, $_POST['job_number'], $_SESSION['u_id']);
+  setJob($number, $_POST['job_number'], $_SESSION['u_id']);
 }else{
   $number = 0;
-  createJob($number, $number, $_SESSION['u_id']);
+  setJob($number, $number, $_SESSION['u_id']);
 }
 #function for Image Modul
 if(isset($_POST['Image_button'])){
   $number = 1;
-  createImage($number, $_SESSION['u_id']);
+  setImage($number, $_SESSION['u_id']);
 }else{
   $number = 0;
-  createImage($number, $_SESSION['u_id']);
+  setImage($number, $_SESSION['u_id']);
 }
 #create a .php file for the site
 $filename = fileInDatabase("registration", "reg_id", $_SESSION['u_id'], "siteone_name", "frontpageUser");
 ThemeOne($filename);
+header('Location: http://localhost/Grundschule/generate.php?success');
 }
 
 
 ?>
+
