@@ -27,7 +27,7 @@ session_start();
       <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
     </div>
     <?php
-        echo '<form action="LogOut_function.php" method="POST">
+        echo '<form action="fun_exe/LogOut_function.php" method="POST">
           <p class="loggedIn"> Logged in with:';
         echo $_SESSION['u_mail'];
         echo '<button type="submit" name="logout" formmethod="POST" class="logout">Logout</button></li>

@@ -25,7 +25,7 @@
   </div>
   </nav>
 
-  <form action="SignUp_function.php" style="border:1px solid #ccc" method="POST">
+  <form action="fun_exe/SignUp_function.php" style="border:1px solid #ccc" method="POST">
     <div class="container">
       <h1>Sign Up</h1>
       <p>Please fill in this form to create an account.</p>

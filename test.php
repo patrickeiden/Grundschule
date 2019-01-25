@@ -34,14 +34,14 @@ if(isset($_SESSION['u_id'])){
     </div>
     <?php
       if(isset($_SESSION['u_id'])){
-        echo '<form action="LogOut_function.php" method="POST">
+        echo '<form action="fun_exe/LogOut_function.php" method="POST">
           <p class="loggedIn"> Logged in with:';
         echo $_SESSION['u_mail'];
         echo '<button type="submit" name="logout" formmethod="POST" class="logout">Logout</button></li>
       </form> </div>
     </nav>';
   }else{
-    echo '  <form action="LogIn_function.php" method="POST">
+    echo '  <form action="fun_exe/LogIn_function.php" method="POST">
       <div class="container">
         <label for="uname"><b>Email</b></label>
         <input type="text" placeholder="Enter Email" name="email" required>

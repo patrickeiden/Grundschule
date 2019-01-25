@@ -1,5 +1,5 @@
 <?php
-  include "functions.php";
+  include "fun_def/functions.php";
  ?>
 
 <html>

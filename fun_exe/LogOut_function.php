@@ -1,5 +1,5 @@
 <?php
-include 'functions.php';
+include '../fun_def/functions.php';
 #function for custome Modul
 if(isset($_POST['logout'])){
   logout();
