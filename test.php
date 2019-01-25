@@ -15,11 +15,11 @@ session_start();
 
 <?php
 if(isset($_SESSION['u_id'])){
-  echo '<link rel="stylesheet" type="text/css" href="index_Logout.css">
-  <link rel="stylesheet" type="text/css" href="LogIn.css">';
+  echo '<link rel="stylesheet" type="text/css" href="Css_Files/index_Logout.css">
+  <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">';
 }else{
-  echo '<link rel="stylesheet" type="text/css" href="index.css">
-  <link rel="stylesheet" type="text/css" href="LogIn.css">';
+  echo '<link rel="stylesheet" type="text/css" href="Css_Files/index.css">
+  <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">';
 }
 
 ?>

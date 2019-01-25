@@ -13,9 +13,9 @@ session_start();
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="index_Logout.css">
-  <link rel="stylesheet" type="text/css" href="LogIn.css">
-  <link rel="stylesheet" type="text/css" href="index.css">
+  <link rel="stylesheet" type="text/css" href="Css_Files/index_Logout.css">
+  <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">
+  <link rel="stylesheet" type="text/css" href="Css_Files/index.css">
 
 
 <title>Page Title</title>

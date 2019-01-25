@@ -77,9 +77,10 @@ function returnImage(){
 
 function createCustome($title, $code, $number){
   global $conn;
+  $uid = $_SESSION['u_id'];
   if($number == 1){
-    $stmt = $conn->prepare("INSERT INTO Module (costume_on, costume_title, costume_code) VALUES (?, ?, ?)");
-    $stmt->bind_param("iss", $number, $title, $code);
+    $stmt = $conn->prepare("INSERT INTO Module (costume_on, costume_title, costume_code, user_id) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("iss", $number, $title, $code, $uid);
     $stmt->execute();
   }else{
     $stmt = $conn->prepare("INSERT INTO Module (costume_on, costume_title, costume_code) VALUES (?, ?, ?)");
@@ -116,19 +117,19 @@ function createNews($number, $news_number){
   }
 }
 
-function createCalendar($number){
+function createCalendar($number, $uid){
   global $conn;
   $bool_Value = 0;
   if($number == 1){
-    $stmt = $conn->prepare("UPDATE Calender SET calender_on=? WHERE calender_id=?");
+    $stmt = $conn->prepare("UPDATE table_data SET calender_on=? WHERE user_id=?");
     $bool_Value = 1;
-    $stmt->bind_param("ii", $bool_Value, $number);
+    $stmt->bind_param("ii", $bool_Value, $uid);
     $stmt->execute();
     $stmt->close();
   }else{
     $number = 1;
     $stmt = $conn->prepare("UPDATE Calender SET calender_on=? WHERE calender_id=?");
-    $stmt->bind_param("ii",$bool_Value, $number);
+    $stmt->bind_param("ii",$bool_Value, $uid);
     $stmt->execute();
     $stmt->close();
   }
@@ -148,18 +149,21 @@ function printCalendar(){
   return $output;
 }
 
-function createJob($number, $numberjobs){
+function createJob($number, $numberjobs, $uid){
   global $conn;
   $bool_Value = 0;
   $emptystr = "";
   if($number == 1){
-    $stmt = $conn->prepare("INSERT INTO jobs (job_on, job_title, job_content, job_number) VALUES (?, ?, ?, ?)");
     $bool_Value = 1;
-    $stmt->bind_param("issi", $bool_Value, $emptystr, $emptystr, $numberjobs);
+    $stmt = $conn->prepare("UPDATE table_data SET job_on=? WHERE user_id=?");
+    $stmt->bind_param("ii", $bool_Value, $uid);
+    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE table_data SET job_number=? WHERE user_id=?");
+    $stmt->bind_param("ii", $numberjobs, $uid);
     $stmt->execute();
   }else{
-    $stmt = $conn->prepare("INSERT INTO jobs (job_on, job_title, job_content, job_number) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("issi", $bool_Value, $emptystr, $emptystr, $numberjobs);
+    $stmt = $conn->prepare("UPDATE table_data SET job_on=? WHERE user_id=?");
+    $stmt->bind_param("ii", $bool_Value, $uid);
     $stmt->execute();
   }
 }
@@ -168,18 +172,15 @@ function printJob(){
 
 }
 
-function createImage($number, $imageurl){
-global $conn;
-  if($number == 1){
-    $stmt = $conn->prepare("INSERT INTO Image (Image_on, Image_url) VALUES (?, ?)");
-    $stmt->bind_param("is", $number, $imageurl);
+function createImage($number, $uid){
+    global $conn;
+  //if($number == 1){
+  //  $stmt = $conn->prepare("INSERT INTO Image (Image_url, user_id, image_name) VALUES (?, ?, ?, ?)");
+  //  $stmt->bind_param("sis", $imageurl, $uid, $iname);
+  //  $stmt->execute();
+    $stmt = $conn->prepare("UPDATE table_data SET image_on=? WHERE user_id=?");
+    $stmt->bind_param("ii", $number, $uid);
     $stmt->execute();
-  }else{
-    $stmt = $conn->prepare("INSERT INTO Image (Image_on, Image_url) VALUES (?, ?)");
-    $number = 0;
-    $stmt->bind_param("is", $number, $imageurl);
-    $stmt->execute();
-  }
 }
 
 function printImage(){
@@ -215,6 +216,7 @@ function fileInDatabase($dname, $did, $didvalue, $dvalue, $fname){
   $stmt->bind_param("si", $filename, $didvalue);
   $stmt->execute();
   $stmt->close();
+  return $filename;
 }
 
 
@@ -421,6 +423,7 @@ function returnfooter(){
   return $output;
 }
 
+//Generierung des ersten Themes
 function ThemeOne($site_name){
   $myfile = fopen($site_name, "w") or die("Unable to open file!");
   $txt = returnphpinclude();
@@ -433,3 +436,6 @@ function ThemeOne($site_name){
   fwrite($myfile, $txt);
   fclose($myfile);
 }
+//fuer jedes modul muss eine file erstellt werden und dann in die database eingetragen werden
+//database abfragen aendern fuer on
+//image form muss angepasst werden

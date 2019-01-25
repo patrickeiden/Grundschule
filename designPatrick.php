@@ -246,7 +246,7 @@
       }
 
       #white{
-        
+
       }
 
 
@@ -273,7 +273,7 @@
   <div class="row text-center">
   <div class="screen">
 
-    	<img src="PAl.jpg">
+    	<img src="Images/PAl.jpg">
   		<h2 class="Title">PAL School</h2>
   		<!-- <a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a> -->
   		<div class="col-sm-12">
@@ -311,7 +311,7 @@
         <p class="G">G</p>
       </span>
       <span class="dot2">
-        <div class="log-in"><img src="login_image3.png" ></div>
+        <div class="log-in"><img src="Images/login_image3.png" ></div>
       </span>
       <span class="dot4"></span>
 

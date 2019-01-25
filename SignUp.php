@@ -9,7 +9,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
-  <link rel="stylesheet" type="text/css" href="SignUp.css">
+  <link rel="stylesheet" type="text/css" href="Css_Files/SignUp.css">
 <title>Sign Up</title>
 </head>
 <body>

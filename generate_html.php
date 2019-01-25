@@ -17,30 +17,30 @@ if(isset($_POST['test'])){
 #function for Calendar Modul
 if(isset($_POST['calendar'])){
   $number = 1;
-  createCalendar($number);
+  createCalendar($number, $_SESSION['u_id']);
 }else{
   $number = 0;
-  createCalendar($number);
+  createCalendar($number, $_SESSION['u_id']);
 }
 #function for Job Modul
 if(isset($_POST['job_number']) && isset($_POST['job_button'])){
   $number = 1;
-  createJob($number, $_POST['job_number']);
+  createJob($number, $_POST['job_number'], $_SESSION['u_id']);
 }else{
   $number = 0;
-  createJob($number, $number);
+  createJob($number, $number, $_SESSION['u_id']);
 }
 #function for Image Modul
 if(isset($_POST['Image_button'])){
   $number = 1;
-  createImage($number, $_POST['pic']);
+  createImage($number, $_SESSION['u_id']);
 }else{
   $number = 0;
-  createImage($number, $number);
+  createImage($number, $_SESSION['u_id']);
 }
 #create a .php file for the site
-fileInDatabase("registration", "reg_id", $_SESSION['u_id'], "siteone_name", "frontpageUser");
-//ThemeOne("frontpageUser1.php");
+$filename = fileInDatabase("registration", "reg_id", $_SESSION['u_id'], "siteone_name", "frontpageUser");
+ThemeOne($filename);
 }
 
 

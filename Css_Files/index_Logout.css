@@ -1,0 +1,242 @@
+body{
+  background-color: lightgrey;
+}
+
+p {
+  color: black;
+}
+
+a{
+  color:black;
+}
+
+.btn-warning{
+  margin-left: 381px!important;
+  margin-top: 50px!important;
+  width: 200px!important;
+  height: 100px!important;
+  color: black;
+  font-size: 26px;
+  font-weight: 500;
+  padding-top: 29px;
+}
+
+h1{
+  margin-left: 200px;
+}
+
+.navbar-inverse{
+  height: 113px;
+}
+
+#left_container{
+  height: auto;
+  width: 500px;
+  margin-left: 200px;
+  margin-top: 50px;
+}
+
+#right_container{
+  height: auto;
+  width: 301px;
+  margin-left: 950px;
+  margin-top: -490px;
+}
+
+#generate_button{
+  margin-right: 640px;
+  position: relative;
+  top: 50px;
+}
+
+.page-footer{
+  background-color: grey;
+  height: 75px;
+  margin-top: 66px;
+  position: relative;
+  top: 530px;
+}
+
+.footer-copyright{
+  padding-top: 28px;
+}
+
+#main-container{
+   width: 500px;
+   padding-top: 1px;
+   padding-bottom: 43px;
+   background-color: wheat;
+}
+
+ .module1{
+   background-color: white;
+   height: 100px;
+   width: 400px;
+   margin-top: 40px;
+   margin-left: 41px;
+   padding-top: 38px;
+   padding-left: 59px;
+}
+.module2{
+  background-color: white;
+  height: 100px;
+  width: 400px;
+  margin-top: 40px;
+  margin-left: 41px;
+  padding-top: 38px;
+  padding-left: 61px;
+}
+.module3{
+  background-color: white;
+  height: 100px;
+  width: 400px;
+  margin-top: 40px;
+  margin-left: 41px;
+  padding-top: 38px;
+  padding-left: 61px;
+}
+
+.show-modules {
+  width: 500px;
+  padding-left: 43px;
+  margin-top: -20px;
+  height: 33px;
+  margin-bottom: 0px;
+  padding-top: 27px;
+}
+
+#conf-module1{
+  position: relative;
+  left: 700px;
+  top: -425px;
+  display: none;
+  background-color: gray;
+  width: 500px;
+  height: 200px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+#conf-module2{
+  position: relative;
+  left: 700px;
+  top: -425px;
+  display: none;
+  background-color: gray;
+  width: 500px;
+  height: 200px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+#conf-module3{
+  position: relative;
+  left: 700px;
+  top: -425px;
+  display: none;
+  background-color: gray;
+  width: 500px;
+  height: 230px;
+  background-color: white;
+}
+
+#costume-module{
+  position: relative;
+  left: 700px;
+  top: -425px;
+  display: none;
+  background-color: gray;
+  width: 500px;
+  height: 231px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+#costume-module input[type=text]{
+
+}
+
+#costume-module textarea{
+  width: 500px;
+  height: 91px;
+
+}
+
+#news{
+  margin: auto;
+  width: 50%;
+}
+
+#news{
+  background-color: grey;
+  padding-top: 10px;
+  height: 250px;
+}
+
+#news .title{
+  background-color: white;
+  width: 60%;
+  margin-left: 10px;
+}
+
+#news .date{
+  background-color: white;
+  width: 30%;
+  position: relative;
+  left: 494px;
+  top: -30px;
+}
+
+#news .text{
+  background-color: white;
+  width: 60%;
+  margin-left: 10px;
+  position: relative;
+  top: -30px;
+  height: 200px;
+
+}
+
+#news .row{
+  background-color: white;
+  position: relative;
+  width: 30%;
+  left: 494px;
+  top: -230px;
+  height: 200px;
+}
+
+img{
+  width: 100%;
+}
+
+.events{
+  margin-left: 21px;
+  margin-top: -19px;
+}
+
+.navbar-right {
+    float: right!important;
+    margin-right: -15px;
+    margin-top: -67px;
+}
+
+.navbar-brand {
+    margin-left: -15px;
+    padding-right: 391px;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #9d9d9d;
+    margin-top: 4px;
+}
+
+.loggedIn{
+  color: #9d9d9d;
+  margin-left: 950px;
+}
+
+.logout{
+  right: -50px;
+  width: 86px;
+}
