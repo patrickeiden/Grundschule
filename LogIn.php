@@ -27,7 +27,7 @@
 
   <h2>Login Form</h2>
 
-  <form action="LogIn_function.php" method="POST">
+  <form action="fun_exe/LogIn_function.php" method="POST">
     <div class="imgcontainer">
       <img src="img_avatar2.png" alt="Avatar" class="avatar">
     </div>
