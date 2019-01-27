@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'fun_def/functions.php';
+include 'functions.php';
 #function for custome Modul
 if(isset($_POST['test'])){
   if(isset($_POST['costume_button']) && $_POST['costume_button']==1){
@@ -46,4 +46,3 @@ header('Location: http://localhost/Grundschule/generate.php?success');
 
 
 ?>
-

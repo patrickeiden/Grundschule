@@ -17,10 +17,7 @@
 <body>
   <div class="w3-content w3-section">
       <img class="mySlides" src="Images/elementary-school-788902_1920.jpg" >
-  <img class="mySlides" src="Images/teacher-953427_1920.jpg" >
-  <img class="mySlides" src="Images/kids-1093758_1920.jpg" >
 
-  <img class="mySlides" src="Images/people-3155982_1920.jpg" >
 </div>
 
   <h2 class="Title">PAL School</h2>

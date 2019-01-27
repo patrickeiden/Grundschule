@@ -233,8 +233,7 @@ function createFile($id, $name){
 
   //$shell_string = "sudo chmod 777 " .$site_name;
   //shell_exec($shell_string);
-  $myfile = fopen("/Applications/XAMPP/xamppfiles/htdocs/Grundschule/".$site_name, "w") or die("Unable to open file!");
-  fclose($myfile);
+  $myfile = fopen($site_name, "w") or die("Unable to open file!");
   return $site_name;
 }
 
@@ -470,3 +469,4 @@ function ThemeOne($site_name){
 //fuer jedes modul muss eine file erstellt werden und dann in die database eingetragen werden
 //database abfragen aendern fuer on
 //image form muss angepasst werden
+
