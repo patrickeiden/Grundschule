@@ -49,17 +49,17 @@ include 'functions.php';
     ?>
     <div id="module_container">
       <?php
-        if(CustomeOn() == 1){
+        if(CustomeOn($_SESSION['u_id']) == 1){
           echo '<div class="costumeModule" onclick="clickedCustome()">
                   <p> the costume module is currently intergrated on your website</p>
                 </div>';
         }
-        if(CalendarOn() == 1){
+        if(CalendarOn($_SESSION['u_id']) == 1){
           echo '<div class="calendarModule" onclick="clickedCalendar()">
           <p> the calendar module is currently intergrated on your website</p>
           </div>';
         }
-        if(NewsOn() == 1){
+        if(NewsOn($_SESSION['u_id']) == 1){
           echo '<div class="newsModule" onclick="clickedNews()">
           <p> the news module is currently intergrated on your website</p>
           </div>';
