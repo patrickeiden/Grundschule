@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 }
 
 #News Module / einfach Datenbank Abfrage
-function returnTitle(){
+function returnNewsTitle(){
   global $conn;
   $output = "<p>";
   $sql = "SELECT title FROM new_news";
@@ -27,7 +27,7 @@ function returnTitle(){
   return $output;
 }
 
-function returnDate(){
+function returnNewsDate(){
   global $conn;
   $output = "<p>";
   $sql = "SELECT date FROM new_news";
@@ -42,7 +42,7 @@ function returnDate(){
   return $output;
 }
 
-function returnText(){
+function returnNewsText(){
   global $conn;
   $output = "<p>";
   $sql = "SELECT text FROM new_news";
@@ -57,7 +57,7 @@ function returnText(){
   return $output;
 }
 
-function returnImage(){
+function returnNewsImage(){
   global $conn;
   $output = "<img src='";
   $sql = "SELECT image FROM new_news";
@@ -201,6 +201,45 @@ function setJob($number, $numberjobs, $uid){
 function printJob(){
 
 }
+
+function getJobTitle($uid) {
+  global $conn;
+  $output = "<p>";
+  $sql = "SELECT job_title FROM jobs WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["job_title"];
+        $output.= "</p>";
+    }
+  }
+  return $output;
+}
+
+function setJobTitle() {
+
+}
+
+function getJobDescription($uid) {
+  global $conn;
+  $output = "<p>";
+  $sql = "SELECT job_content FROM jobs WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["job_content"];
+        $output.= "</p>";
+    }
+  }
+  return $output;
+}
+
+function setJobDescription() {
+
+}
+
 
 function setImage($number, $uid){
     global $conn;
@@ -450,6 +489,20 @@ function returnfooter(){
   return $output;
 }
 
+function returninterfacecode(){
+  global $conn;
+  $output = "";
+  $sql = "SELECT interface_code FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["interface_code"];
+    }
+  }
+  return $output;
+}
+
 //Generierung des ersten Themes
 function ThemeOne($site_name){
   $myfile = fopen($site_name, "w") or die("Unable to open file!");
@@ -466,4 +519,3 @@ function ThemeOne($site_name){
 //fuer jedes modul muss eine file erstellt werden und dann in die database eingetragen werden
 //database abfragen aendern fuer on
 //image form muss angepasst werden
-

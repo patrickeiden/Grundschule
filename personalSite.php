@@ -75,6 +75,11 @@ include 'functions.php';
           </div>
         </div>
       </nav>
+      <div class="page_main">
+        <?php
+        echo returninterfacecode();
+         ?>
+      </div>
       <div class="page_custome">
         <?php
         echo printCustome();
@@ -88,23 +93,23 @@ include 'functions.php';
       <div id="page_news">
         <div class="title">
           <?php
-            echo returnTitle();
+            echo returnNewsTitle();
           ?>
         </div>
         <div class="date">
           <?php
-            echo returnDate();
+            echo returnNewsDate();
           ?>
         </div>
         <div class="text">
           <?php
-            echo returnText();
+            echo returnNewsText();
           ?>
         </div>
         <div class="row">
           <div class="col">
             <?php
-              echo returnImage();
+              echo returnNewsImage();
             ?>
           </div>
       </div>
@@ -134,20 +139,46 @@ include 'functions.php';
 
     </body>
     <script>
+    var custome = 0;
       function clickedCustome(){
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
         document.getElementById('page_news').style.display="none";
+        if(document.getElementsByClassName('calendarModule')[0].style.display=="none" && document.getElementsByClassName('newsModule')[0].style.display=="none"){
+          document.getElementsByClassName('calendarModule')[0].style.display="block";
+          document.getElementsByClassName('newsModule')[0].style.display="block";
+        }else{
+          document.getElementsByClassName('calendarModule')[0].style.display="none";
+          document.getElementsByClassName('newsModule')[0].style.display="none";
+        }
       }
+
       function clickedCalendar(){
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
         document.getElementById('page_news').style.display="none";
+        if(document.getElementsByClassName('costumeModule')[0].style.display=="none" && document.getElementsByClassName('newsModule')[0].style.display=="none"){
+          document.getElementsByClassName('costumeModule')[0].style.display="block";
+          document.getElementsByClassName('newsModule')[0].style.display="block";
+        }else{
+          document.getElementsByClassName('costumeModule')[0].style.display="none";
+          document.getElementsByClassName('newsModule')[0].style.display="none";
+        }
       }
       function clickedNews(){
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('page_news').style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
+        if(document.getElementsByClassName('calendarModule')[0].style.display=="none" && document.getElementsByClassName('costumeModule')[0].style.display=="none"){
+          document.getElementsByClassName('calendarModule')[0].style.display="block";
+          document.getElementsByClassName('costumeModule')[0].style.display="block";
+        }else{
+          document.getElementsByClassName('calendarModule')[0].style.display="none";
+          document.getElementsByClassName('costumeModule')[0].style.display="none";
+        }
       }
 
     </script>

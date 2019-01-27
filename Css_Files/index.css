@@ -327,6 +327,10 @@ button {
   margin-top: -400px;
 }
 
+#currentPage .page_main{
+
+}
+
 #currentPage .page_custome{
   display: none;
 

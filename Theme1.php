@@ -28,23 +28,23 @@
 <div id="news">
   <div class="title">
     <?php
-      echo returnTitle();
+      echo returnNewsTitle();
     ?>
   </div>
   <div class="date">
     <?php
-      echo returnDate();
+      echo returnNewsDate();
     ?>
   </div>
   <div class="text">
     <?php
-      echo returnText();
+      echo returnNewsText();
     ?>
   </div>
   <div class="row">
     <div class="col">
       <?php
-        echo returnImage();
+        echo returnNewsImage();
       ?>
     </div>
 </div>
