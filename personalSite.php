@@ -51,17 +51,17 @@ include 'functions.php';
       <?php
         if(CustomeOn($_SESSION['u_id']) == 1){
           echo '<div class="costumeModule" onclick="clickedCustome()">
-                  <p> the costume module is currently intergrated on your website</p>
+                  <p> the costume module is currently integrated on your website</p>
                 </div>';
         }
         if(CalendarOn($_SESSION['u_id']) == 1){
           echo '<div class="calendarModule" onclick="clickedCalendar()">
-          <p> the calendar module is currently intergrated on your website</p>
+          <p> the calendar module is currently integrated on your website</p>
           </div>';
         }
         if(NewsOn($_SESSION['u_id']) == 1){
           echo '<div class="newsModule" onclick="clickedNews()">
-          <p> the news module is currently intergrated on your website</p>
+          <p> the news module is currently integrated on your website</p>
           </div>';
         }
       ?>
@@ -88,17 +88,17 @@ include 'functions.php';
       <div id="page_news">
         <div class="title">
           <?php
-            echo returnTitle();
+            echo returnNewsTitle();
           ?>
         </div>
         <div class="date">
           <?php
-            echo returnDate();
+            echo returnNewsDate();
           ?>
         </div>
         <div class="text">
           <?php
-            echo returnText();
+            echo returnNewsText();
           ?>
         </div>
         <div class="row">

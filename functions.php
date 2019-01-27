@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 }
 
 #News Module / einfach Datenbank Abfrage
-function returnTitle(){
+function returnNewsTitle(){
   global $conn;
   $output = "<p>";
   $sql = "SELECT title FROM new_news";
@@ -27,7 +27,7 @@ function returnTitle(){
   return $output;
 }
 
-function returnDate(){
+function returnNewsDate(){
   global $conn;
   $output = "<p>";
   $sql = "SELECT date FROM new_news";
@@ -42,7 +42,7 @@ function returnDate(){
   return $output;
 }
 
-function returnText(){
+function returnNewsText(){
   global $conn;
   $output = "<p>";
   $sql = "SELECT text FROM new_news";
@@ -199,6 +199,44 @@ function setJob($number, $numberjobs, $uid){
 }
 
 function printJob(){
+
+}
+
+function getJobTitle() {
+  global $conn;
+  $output = "<p>";
+  $sql = "SELECT job_title FROM jobs";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["job_title"];
+        $output.= "</p>";
+    }
+  }
+  return $output;
+}
+
+function setJobTitle() {
+
+}
+
+function getJobDescription() {
+  global $conn;
+  $output = "<p>";
+  $sql = "SELECT job_description FROM jobs";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["job_description"];
+        $output.= "</p>";
+    }
+  }
+  return $output;
+}
+
+function setJobDescription() {
 
 }
 
@@ -374,6 +412,20 @@ function NewsOn($uid){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $number = $row['news_on'];
+    }
+  }
+  return $number;
+}
+
+function JobOn($uid) {
+  global $conn;
+  $number = 0;
+  $sql = "SELECT job_on FROM table_data WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while ($row = $result->fetch_assoc()) {
+      $number = $row['job_on'];
     }
   }
   return $number;
