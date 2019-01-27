@@ -340,38 +340,35 @@ function logout(){
 }
 
 //if the cutome module is part of your side this functions checks whether a section should be created or not
-function CustomeOn(){
+function CustomeOn($uid){
   global $conn;
   $number = 0;
-  $sql = "SELECT costume_on FROM Module WHERE module_id = 2";
+  $sql = "SELECT custome_on FROM table_data WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  $row = $result->fetch_assoc();
+  $number = $row['custome_on'];
+
+  return $number;
+}
+
+function CalendarOn($uid){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT calendar_on FROM table_data WHERE user_id = $uid";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $number = $row['costume_on'];
+        $number = $row['calendar_on'];
     }
   }
   return $number;
 }
 
-function CalendarOn(){
+function NewsOn($uid){
   global $conn;
   $number = 0;
-  $sql = "SELECT calender_on FROM Calender WHERE calender_id = 1";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $number = $row['calender_on'];
-    }
-  }
-  return $number;
-}
-
-function NewsOn(){
-  global $conn;
-  $number = 0;
-  $sql = "SELECT news_on FROM new_news WHERE news_id = 1";
+  $sql = "SELECT news_on FROM table_data WHERE user_id = $uid";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
@@ -382,15 +379,15 @@ function NewsOn(){
   return $number;
 }
 
-function ImageOn(){
+function ImageOn($uid){
   global $conn;
   $number = 0;
-  $sql = "SELECT Image_on FROM Image WHERE Image_id = 1";
+  $sql = "SELECT image_on FROM table_data WHERE user_id = $uid";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $number = $row['Image_on'];
+        $number = $row['image_on'];
     }
   }
   return $number;
