@@ -137,6 +137,38 @@ function printCustomeTitel($uid){
   return $output;
 }
 
+//gibt alle Module, die in einer File sind in Reihenfolge aus (innerhalb eines Strings)
+function printAllCustomeFromFile($file){
+  global $conn;
+  $output = "";
+  $sql = "SELECT costume_code FROM Module WHERE custome_file='$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["costume_code"];
+    }
+  }
+  return $output;
+}
+
+//printet dynamisch alle Module die in einer File benutzt werden und gibt die Möglicheit den Code innerhalb der Module zu verändern
+function printFormforCustome($file){
+  $i = 1;
+  global $conn;
+  $form = '';
+  $sql = "SELECT costume_code, custome_name FROM Module WHERE custome_file='$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $form .='<p>'.'Code Module '.$i.'</p> '.'<textarea name="'.$row["custome_name"].'" cols="40" rows="5" id="code'.$i.'">'.$row["costume_code"].'</textarea>';
+        $i++;
+    }
+  }
+  return $form;
+}
+
 function setNews($number, $news_number, $uid){
   global $conn;
   if($number == 1){
@@ -517,6 +549,20 @@ function returninterfacecode(){
   return $output;
 }
 
+function oneValueFromTableData($uid, $column){
+  global $conn;
+  $sql = "SELECT $column FROM table_data WHERE user_id = $uid";
+  $ncolumn = "'" .$column . "'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $number = $row[$column];
+    }
+  }
+  return $number;
+}
+
 //Generierung des ersten Themes
 function ThemeOne($site_name){
   $myfile = fopen($site_name, "w") or die("Unable to open file!");
@@ -529,6 +575,35 @@ function ThemeOne($site_name){
   $txt = returnfooter();
   fwrite($myfile, $txt);
   fclose($myfile);
+}
+
+//updatet die Werte und den Code innerhalb einer File im custome Module
+function updateCustome($file, $uid){
+  global $conn;
+  $a = array();
+  $post = array();
+  $sql = "SELECT custome_name FROM Module WHERE custome_file='$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $v = $row['custome_name'];
+        array_push($a, $row['custome_name']);
+        $val = $_POST[$v];
+        array_push($post, $val);
+    }
+    for ($i=0; $i < sizeof($a); $i++) {
+      $name = $a[$i];
+      $code = $post[$i];
+      $stmt = $conn->prepare("UPDATE Module SET costume_code=? WHERE custome_name=?");
+      $stmt->bind_param("ss", $code, $name);
+      $stmt->execute();
+    }
+  }
+  $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
+  $stmt->bind_param("ss", $_POST['nav_title'], $uid);
+  $stmt->execute();
+  header('Location: http://localhost/Grundschule/personalSite.php');
 }
 //fuer jedes modul muss eine file erstellt werden und dann in die database eingetragen werden
 //database abfragen aendern fuer on

@@ -50,23 +50,25 @@ include 'functions.php';
     <div id="module_container">
       <?php
       $nav = printCustomeTitel($_SESSION['u_id']);
+      $name = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
+      $result = printFormforCustome($name);
         if(CustomeOn($_SESSION['u_id']) == 1){
           echo '<div class="costumeModule" onclick="clickedCustome()">
                   <p class="text"> the costume module is currently intergrated on your website</p>
                   <div class="c_text">
                     <p>This module exists in order to change important settings on the custome module</p>
+                    <form action="update_site.php" method="POST">
                     <div class="form-group">
                       <p>Change the titel of the nav bar for this module:</p>
                         <input type="c_text" class="form-control" id="nav_title" placeholder="Title" name="nav_title" value="'.$nav .'">
                     </div>
-                    <div class="form-group">
-                      <p>Code</p>
-                      <textarea name="code" cols="40" rows="5" id="code"></textarea>
+                    <div class="form-group">'.$result.'
                       <input type ="checkbox" name ="costume_button" value="1"/>
                       <p class="events">Check this Box if you want to include this Module</p>
-                      <button onclick="CustomeBack()" name="backbutton">Go Back</button>
+                      <button type="submit" name="changes" formmethod="POST" value="'.$name.'">Save Changes</button>
+                      <button class="go_back "onclick="CustomeBack()" name="backbutton">Go Back</button>
                     </div>
-
+                    </form>
                   </div>
                 </div>';
         }
@@ -221,10 +223,10 @@ include 'functions.php';
 
             if(custome == 0){
               custome = 1;
-              $(".costumeModule").animate({height:"350px"},500);
+              $(".costumeModule").animate({height:"400px"},500);
               $(".costumeModule > .text").hide();
             }
-            $(":button").click(function(){
+            $(".go_back").click(function() {
               custome = 0;
               $(".costumeModule").animate({height:"120px"},500);
               $(".costumeModule > .text").show();
