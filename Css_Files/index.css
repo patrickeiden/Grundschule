@@ -218,6 +218,12 @@ img{
   margin-top: -19px;
 }
 
+#currentPage .navbar{
+  position: relative;
+  margin-top: -20px;
+  top: -20px;
+}
+
 .navbar{
   margin-bottom: 45px;
 }
@@ -307,6 +313,17 @@ button {
   margin-bottom: 20px;
 }
 
+#module_container .c_text{
+  display: none;
+}
+
+#module_container .events{
+  margin-left: 0px;
+  margin-top: 0px;
+}
+
+
+
 #module_container .calendarModule{
   background-color: gray;
   width: 34%;
@@ -375,5 +392,5 @@ button {
 }
 
 #currentPage .currentPage_footer{
-  margin-top: -400px!important;
+  margin-top: -500px!important;
 }

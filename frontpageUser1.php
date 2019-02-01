@@ -21,6 +21,7 @@
 
     .Title {
     	color: orange;
+      margin-left: 0px!important;
     }
 
     .glyphicon {
@@ -49,19 +50,49 @@
 
     }
 
+    #news{
+      height: 334px;
+    }
+
+    #news .n-title{
+      background-color: aliceblue;
+      height: 46px;
+      position: relative;
+      top: 0px;
+      width: 89%;
+      padding-top: 0px;
+      left: 50px;
+    }
+
+    #news .container{
+      background-color: white;
+      height: 206px;
+      padding-top: 0px;
+      width: 89%;
+      position: relative;
+      top: 31px;
+    }
+
+    #news .text{
+      width: 65%;
+      height: 100%;
+      background-color: aliceblue;
+    }
+
+    #news .image{
+      height: 100%;
+      width: 30%;
+      position: relative;
+      left: 72%;
+      top: -216px;
+      background-color: aliceblue;
+    }
+    img{
+      height: 100%;
+      width: 100%;
+    }
     /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;}
-    }
-    img {
-    height: 100%;
-    }
-  </style>
-</head><body>
+    @media scree<body>
 
 <div class="row text-center">
   <div class="col-sm-2"></div>

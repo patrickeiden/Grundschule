@@ -59,7 +59,7 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
       </div>
     <div class="form-group">
       <p>Code</p>
-      <textarea name="code" cols="40" rows="5" id="code"></textarea>
+      <textarea name="code" cols="40" rows="5" class="code"></textarea>
       <input type ="checkbox" name ="costume_button" value="1"/>
       <p class="events">Check this Box if you want to include this Module</p>
     </div>

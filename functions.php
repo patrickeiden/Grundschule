@@ -109,15 +109,29 @@ function createCustome($title, $code, $number){
   header('Location: http://localhost/Grundschule/generate.php');
 }
 
-function printCustome(){
+function printCustome($uid){
   global $conn;
   $output = "";
-  $sql = "SELECT costume_code FROM Module WHERE module_id=2";
+  $sql = "SELECT costume_code FROM Module WHERE module_id=$uid";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $output.= $row["costume_code"];
+    }
+  }
+  return $output;
+}
+
+function printCustomeTitel($uid){
+  global $conn;
+  $output = "";
+  $sql = "SELECT custome_name FROM table_data WHERE user_id=$uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["custome_name"];
     }
   }
   return $output;
