@@ -29,7 +29,7 @@ session_start();
     <?php
         echo '<form action="fun_exe/LogOut_function.php" method="POST">
           <p class="loggedIn"> Logged in with:';
-        echo ['u_mail'];
+        echo $_SESSION['u_mail'];
         echo '<button type="submit" name="logout" formmethod="POST" class="logout">Logout</button></li>
       </form> </div>
     </nav>';
