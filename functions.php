@@ -185,6 +185,20 @@ function setNews($number, $news_number, $uid){
   }
 }
 
+function createNews($uid, $title, $date, $text, $image){
+  global $conn;
+  $stmt = $conn->prepare("INSERT INTO new_news (title, date, text, image, user_id) VALUES (?, ?, ?, ?, ?)");
+  $stmt->bind_param("ssssi", $title, $date, $text, $image, $uid);
+  $stmt->execute();
+}
+
+function deleteNews($uid, $title){
+  global $conn;
+  $stmt = $conn->prepare("DELETE FROM new_news WHERE title = ? and user_id = ?");
+  $stmt->bind_param('si', $title, $uid);
+  $stmt->execute();
+}
+
 function setCalendar($number, $uid){
   global $conn;
   $stmt = $conn->prepare("UPDATE table_data SET calendar_on=? WHERE user_id=?");

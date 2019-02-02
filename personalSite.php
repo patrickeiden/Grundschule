@@ -60,7 +60,7 @@ include 'functions.php';
                     <form action="update_site.php" method="POST">
                     <div class="form-group">
                       <p>Change the titel of the nav bar for this module:</p>
-                        <input type="c_text" class="form-control" id="nav_title" placeholder="Title" name="nav_title" value="'.$nav .'">
+                        <input type="text" class="form-control" id="nav_title" placeholder="Title" name="nav_title" value="'.$nav .'">
                     </div>
                     <div class="form-group">'.$result.'
                       <input type ="checkbox" name ="costume_button" value="1"/>
@@ -75,11 +75,41 @@ include 'functions.php';
         if(CalendarOn($_SESSION['u_id']) == 1){
           echo '<div class="calendarModule" onclick="clickedCalendar()">
           <p class="text"> the calendar module is currently intergrated on your website</p>
+          <div class="k_text">
+          <p>This module exists in order to change important settings on the calendar module</p>
+          <div class="form-group">
+            <input type ="checkbox" name ="calendar_button" value="1"/>
+            <p class="events">Check this Box if you want to include this Module</p>
+            <button type="submit" name="changes" formmethod="POST" value="lala">Save Changes</button>
+            <button class="go_back2" onclick="CalendarBack()" name="backbutton">Go Back</button>
+            </div>
+          </div>
           </div>';
         }
         if(NewsOn($_SESSION['u_id']) == 1){
           echo '<div class="newsModule" onclick="clickedNews()">
           <p class="text"> the news module is currently intergrated on your website</p>
+          <div class="n_text">
+            <p>This module exists in order to change important settings on the news module</p>
+            <form action="update_site.php" method="POST">
+              <div class="form-group">
+                <p>With this form you are able to add news</p>
+                <input type="text" class="form-control" id="news_title" placeholder="Title" name="news_title">
+                <input type="text" class="form-control" id="news_date" placeholder="Date" name="news_date">
+                <textarea name="news_text" cols="40" rows="5" id="news_text"></textarea>
+                <input type="file" class="form-control" id="news_img" name="news_image" accept="image/*">
+                <button type="submit" name="changes_news" formmethod="POST" value="lala">Save Changes</button>
+                <button class="go_back3" onclick="NewsBack()" name="backbutton">Go Back</button>
+              </div>
+            </form>
+              <form action="update_site.php" method="POST">
+                <div class="form-group">
+                  <p>Write the exact name of the titel you want to delete</p>
+                  <input type="text" class="form-control" id="delete_news" placeholder="Titel" name="delete_news">
+                  <button type="submit" name="delete_news_button" formmethod="POST" value="lala">Delete</button>
+                </div>
+              </form>
+          </div>
           </div>';
         }
       ?>
@@ -158,6 +188,8 @@ include 'functions.php';
     </body>
     <script>
     var custome = 0;
+    var calendar = 0;
+    var news = 0;
 
       function empty(){
 
@@ -180,40 +212,53 @@ include 'functions.php';
         document.getElementsByClassName('calendarModule')[0].style.display="block";
         document.getElementsByClassName('newsModule')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
-        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px!important";
+        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="none";
         document.getElementById('module_container').getElementsByTagName('div')[0].setAttribute("onclick", "clickedCustome()");
       }
 
       function clickedCalendar(){
-        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
-        document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="block";
         document.getElementById('page_news').style.display="none";
-        if(document.getElementsByClassName('costumeModule')[0].style.display=="none" && document.getElementsByClassName('newsModule')[0].style.display=="none"){
-          document.getElementsByClassName('costumeModule')[0].style.display="block";
-          document.getElementsByClassName('newsModule')[0].style.display="block";
-          document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="-20px";
-        }else{
-          document.getElementsByClassName('costumeModule')[0].style.display="none";
-          document.getElementsByClassName('newsModule')[0].style.display="none";
-          document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="80px";
-        }
-      }
-      function clickedNews(){
+        document.getElementsByClassName('costumeModule')[0].style.display="none";
+        document.getElementsByClassName('newsModule')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
-        document.getElementById('page_news').style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
+        document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="block";
+        document.getElementById('module_container').getElementsByTagName('div')[4].removeAttribute("onclick");
+      }
+
+      function CalendarBack(){
+        document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
+        document.getElementsByClassName('costumeModule')[0].style.display="block";
+        document.getElementsByClassName('newsModule')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
+        document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="none";
+        document.getElementById('module_container').getElementsByTagName('div')[4].setAttribute("onclick", "clickedCalendar()");
+      }
+
+      function clickedNews(){
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
-        if(document.getElementsByClassName('calendarModule')[0].style.display=="none" && document.getElementsByClassName('costumeModule')[0].style.display=="none"){
-          document.getElementsByClassName('calendarModule')[0].style.display="block";
-          document.getElementsByClassName('costumeModule')[0].style.display="block";
-          document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="-20px";
-        }else{
-          document.getElementsByClassName('calendarModule')[0].style.display="none";
-          document.getElementsByClassName('costumeModule')[0].style.display="none";
-          document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="80px";
-        }
+        document.getElementById('page_news').style.display="block";
+        document.getElementsByClassName('costumeModule')[0].style.display="none";
+        document.getElementsByClassName('calendarModule')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
+        document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="block";
+        document.getElementById('module_container').getElementsByTagName('div')[7].removeAttribute("onclick");
+      }
+
+      function NewsBack(){
+        document.getElementById('page_news').style.display="none";
+        document.getElementsByClassName('costumeModule')[0].style.display="block";
+        document.getElementsByClassName('calendarModule')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
+        document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="none";
+        document.getElementById('module_container').getElementsByTagName('div')[7].setAttribute("onclick", "clickedNews()");
       }
 
 
@@ -223,7 +268,7 @@ include 'functions.php';
 
             if(custome == 0){
               custome = 1;
-              $(".costumeModule").animate({height:"400px"},500);
+              $(".costumeModule").animate({height:"542px"},500);
               $(".costumeModule > .text").hide();
             }
             $(".go_back").click(function() {
@@ -236,25 +281,33 @@ include 'functions.php';
 
           $(".calendarModule").click(function () {
 
-              if($(".text").css('display') == 'none'){
-                $(".text").show();
-                $(".calendarModule").animate({height:"120px"},500);
-              }else{
-                $(".calendarModule").animate({height:"300px"},500);
-                $(".text").hide();
-              }
+            if(calendar == 0){
+              calendar = 1;
+              $(".calendarModule").animate({height:"300px"},500);
+              $(".calendarModule > .text").hide();
+            }
+            $(".go_back2").click(function() {
+              calendar = 0;
+              $(".calendarModule").animate({height:"120px"},500);
+              $(".calendarModule > .text").show();
+              return false;
             });
+          });
 
             $(".newsModule").click(function () {
 
-                if($(".text").css('display') == 'none'){
-                  $(".text").show();
-                  $(".newsModule").animate({height:"120px"},500);
-                }else{
-                  $(".newsModule").animate({height:"300px"},500);
-                  $(".text").hide();
-                }
+              if(news == 0){
+                news = 1;
+                $(".newsModule").animate({height:"500px"},500);
+                $(".newsModule > .text").hide();
+              }
+              $(".go_back3").click(function() {
+                news = 0;
+                $(".newsModule").animate({height:"120px"},500);
+                $(".newsModule > .text").show();
+                return false;
               });
+            });
         });
     </script>
     </html>
