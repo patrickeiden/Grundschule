@@ -65,8 +65,13 @@ include 'functions.php';
                         <input type="text" class="form-control" id="nav_title" placeholder="Title" name="nav_title" value="'.$nav .'">
                     </div>
                     <div class="form-group">'.$result.'
-                      <input type ="checkbox" name ="costume_button" value="1"/>
-                      <p class="events">Check this Box if you want to include this Module</p>
+                      <p>add a Module</p>
+                      <p>Title:</p>
+                      <input type="text" class="form-control" id="title" placeholder="Title" name="custome_title">
+                      <p>Code</p>
+                      <textarea name="custome_code" cols="40" rows="5" class="code"></textarea>
+                      <button type="submit" name="newModule" formmethod="POST" value="'.$name.'">add a new Module</button>
+                      <button type="submit" name="delete" formmethod="POST" value="'.$name.'">delete Modules</button>
                       <button type="submit" name="changes" formmethod="POST" value="'.$name.'">Save Changes</button>
                       <button class="go_back "onclick="CustomeBack()" name="backbutton">Go Back</button>
                     </div>
@@ -133,11 +138,13 @@ include 'functions.php';
       <div class="page_custome">
         <?php
         echo printCustomeInInterface($_SESSION['u_id']);
+        echo printInterfacefooter();
          ?>
       </div>
       <div class="page_calendar">
         <?php
-          echo printCalendar();
+          echo printCalendarInterface();
+          echo printInterfacefooter();
         ?>
       </div>
       <div id="page_news">
@@ -160,6 +167,7 @@ include 'functions.php';
           <div class="col">
             <?php
               echo returnNewsImage();
+              echo printInterfacefooter();
             ?>
           </div>
       </div>
@@ -223,6 +231,8 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="block";
         document.getElementById('module_container').getElementsByTagName('div')[4].removeAttribute("onclick");
+        document.getElementById('currentPage').style.marginTop="-320px";
+        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="0px";
       }
 
       function CalendarBack(){
@@ -233,6 +243,8 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="none";
         document.getElementById('module_container').getElementsByTagName('div')[4].setAttribute("onclick", "clickedCalendar()");
+        document.getElementById('currentPage').style.marginTop="-420px";
+        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="0px";
       }
 
       function clickedNews(){
@@ -264,7 +276,7 @@ include 'functions.php';
 
             if(custome == 0){
               custome = 1;
-              $(".costumeModule").animate({height:"542px"},500);
+              $(".costumeModule").animate({height:"809px"},500);
               $(".costumeModule > .text").hide();
             }
             $(".go_back").click(function() {

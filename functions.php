@@ -114,19 +114,47 @@ function setCustome($name, $number, $uid){  //later +1 arguments for the Theme u
   }
 }
 
-function createCustome($title, $code, $number){
+function createCustome($uid, $title, $code, $file){
   global $conn;
   $uid = $_SESSION['u_id'];
-  if($number == 1){
-    $stmt = $conn->prepare("INSERT INTO Module (costume_on, costume_title, costume_code, user_id) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("iss", $number, $title, $code, $uid);
-    $stmt->execute();
-  }else{
-    $stmt = $conn->prepare("INSERT INTO Module (costume_on, costume_title, costume_code) VALUES (?, ?, ?)");
-    $stmt->bind_param("iss", $number = 0, $title, $code);
-    $stmt->execute();
+  $stmt = $conn->prepare("INSERT INTO Module (costume_title, costume_code, user_id, custome_file, custome_name) VALUES (?, ?, ?, ?, ?)");
+  $stmt->bind_param("ssiss", $title, $code, $uid, $file, $title);
+  $stmt->execute();
+  header('Location: http://localhost/Grundschule/personalSite.php');
+}
+
+function deleteCustome($uid){
+  global $conn;
+  $a = array();
+  $b = array();
+  $file = $_POST['delete'];
+  $numb = numberCostume($uid, $file);
+  $sql = "SELECT custome_name FROM Module WHERE custome_file='$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($a, $row['custome_name']);
+    }
   }
-  header('Location: http://localhost/Grundschule/generate.php');
+  for ($i=0; $i < sizeof($a); $i++) {
+      var_dump($a[$i]);
+      $temp = ($_POST[$a[$i]] == 'on') ? true : false;
+      if($_POST['delete_module'] == $a[$i]){
+        $stmt = $conn->prepare("DELETE FROM Module WHERE custome_name = ? and custome_file = ?");
+        $stmt->bind_param('ss', $a[$i], $file);
+        $stmt->execute();
+      }
+  }
+}
+
+function numberCostume($uid, $name){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT custome_name FROM Module WHERE custome_name = '$name'";
+  $result = $conn->query($sql);
+  $number = $result->num_rows;
+  return $number;
 }
 
 function printCustome($uid){
@@ -215,6 +243,7 @@ function printAllCustomeFromFile($file){
 
 //printet dynamisch alle Module die in einer File benutzt werden und gibt die Möglicheit den Code innerhalb der Module zu verändern
 function printFormforCustome($file){
+  $a = oneValueFromModule($_SESSION['u_id'], "custome_name");
   $i = 1;
   global $conn;
   $form = '';
@@ -224,6 +253,9 @@ function printFormforCustome($file){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $form .='<p>'.'Code Module '.$i.'</p> '.'<textarea name="'.$row["custome_name"].'" cols="40" rows="5" id="code'.$i.'">'.$row["costume_code"].'</textarea>';
+        //$form .= '<button type="submit" name="delete_module'.$i.'" formmethod="POST" value"'.$a[$i-1].'">Delete Module</button>';
+        $form .= '<p>Check this Box if you want to delete this Module</p>';
+        $form .= '<input type ="checkbox" name ="delete_module" value="'.$a[$i-1].'"/>';
         $i++;
     }
   }
@@ -276,6 +308,29 @@ function setCalendar($number, $uid){
   $stmt->execute();
   $stmt->close();
   }
+}
+
+function printCalendarInterface(){
+  global $conn;
+  $output = "";
+  $sql = "SELECT calender_code_theme1 FROM Calender";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["calender_code_theme1"];
+    }
+  }
+
+  $sql = "SELECT calender_code FROM Calender";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["calender_code"];
+    }
+  }
+  return $output;
 }
 
 function printCalendar(){
@@ -610,6 +665,21 @@ function returnfooter(){
   return $output;
 }
 
+
+function printInterfacefooter(){
+  global $conn;
+  $output = "";
+  $sql = "SELECT interface_footer FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["interface_footer"];
+    }
+  }
+  return $output;
+}
+
 function returninterfacecode(){
   global $conn;
   $output = "";
@@ -636,6 +706,21 @@ function oneValueFromTableData($uid, $column){
     }
   }
   return $number;
+}
+
+//returns an array with all values from a specific column
+function oneValueFromModule($uid, $column){
+  global $conn;
+  $sql = "SELECT $column FROM Module WHERE user_id = $uid";
+  $a = array();
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($a, $row[$column]);
+    }
+  }
+  return $a;
 }
 
 //Generierung des ersten Themes
