@@ -132,7 +132,7 @@ include 'functions.php';
       </div>
       <div class="page_custome">
         <?php
-        echo printCustome($_SESSION['u_id']);
+        echo printCustomeInInterface($_SESSION['u_id']);
          ?>
       </div>
       <div class="page_calendar">
@@ -196,6 +196,8 @@ include 'functions.php';
           document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px!important";
           document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="block";
           document.getElementById('module_container').getElementsByTagName('div')[0].removeAttribute("onclick");
+          document.getElementsByClassName('page-footer')[0].style.top="400px";
+          document.getElementById('currentPage').style.marginTop="-542px";
       }
 
       function CustomeBack(){
@@ -206,6 +208,9 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="none";
         document.getElementById('module_container').getElementsByTagName('div')[0].setAttribute("onclick", "clickedCustome()");
+        document.getElementsByClassName('page-footer')[0].style.top="200px";
+        document.getElementById('currentPage').style.marginTop="-400px";
+        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="0px";
       }
 
       function clickedCalendar(){

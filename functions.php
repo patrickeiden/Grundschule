@@ -74,7 +74,7 @@ function returnNewsImage(){
 # Ende News Module
 
 #Anfang Costume Modul
-function setCustome($name, $number, $uid){
+function setCustome($name, $number, $uid){  //later +1 arguments for the Theme u want to use
   global $conn;
   $stmt = $conn->prepare("UPDATE table_data SET custome_on=? WHERE user_id=?");
   $stmt->bind_param("ii", $number, $uid);
@@ -89,6 +89,26 @@ function setCustome($name, $number, $uid){
   //write file in Database
   $stmt = $conn->prepare("UPDATE table_data SET custome_file_name=? WHERE user_id=?");
   $stmt->bind_param("si", $site_name, $uid);
+  $stmt->execute();
+  //code for the interface
+  $code = '<div class="topnav" id="myTopnav">
+      <a href="#home" class="active">';
+  $stmt = $conn->prepare("UPDATE table_data SET custome_interface_code_first_theme1=? WHERE user_id=?");
+  $stmt->bind_param("si", $code, $uid);
+  $stmt->execute();
+
+  $code = $name;
+  $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
+  $stmt->bind_param("si", $code, $uid);
+  $stmt->execute();
+
+  $code = '</a>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>';
+  $stmt = $conn->prepare("UPDATE table_data SET custome_interface_code_second_theme1=? WHERE user_id=?");
+  $stmt->bind_param("si", $code, $uid);
   $stmt->execute();
   $stmt->close();
   }
@@ -120,6 +140,47 @@ function printCustome($uid){
         $output.= $row["costume_code"];
     }
   }
+  return $output;
+}
+
+function printCustomeInInterface($uid){
+  global $conn;
+  $output = "";
+  $sql = "SELECT custome_interface_code_first_theme1 FROM table_data WHERE user_id=$uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["custome_interface_code_first_theme1"];
+    }
+  }
+  $sql = "SELECT custome_name FROM table_data WHERE user_id=$uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["custome_name"];
+    }
+  }
+  $sql = "SELECT custome_interface_code_second_theme1 FROM table_data WHERE user_id=$uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["custome_interface_code_second_theme1"];
+    }
+  }
+  $file ='';
+  $sql = "SELECT custome_file_name FROM table_data WHERE user_id=$uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $file .= $row["custome_file_name"];
+    }
+  }
+  $output .= printAllCustomeFromFile($file);
+
   return $output;
 }
 
