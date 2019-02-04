@@ -120,15 +120,14 @@ function createCustome($uid, $title, $code, $file){
   $stmt = $conn->prepare("INSERT INTO Module (costume_title, costume_code, user_id, custome_file, custome_name) VALUES (?, ?, ?, ?, ?)");
   $stmt->bind_param("ssiss", $title, $code, $uid, $file, $title);
   $stmt->execute();
-  header('Location: http://localhost/Grundschule/personalSite.php');
+  //header('Location: http://localhost/Grundschule/personalSite.php');
 }
 
-function deleteCustome($uid){
+function deleteCustome($uid, $button){
   global $conn;
   $a = array();
   $b = array();
-  $file = $_POST['delete'];
-  $numb = numberCostume($uid, $file);
+  $file = $button;
   $sql = "SELECT custome_name FROM Module WHERE custome_file='$file'";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
@@ -138,8 +137,6 @@ function deleteCustome($uid){
     }
   }
   for ($i=0; $i < sizeof($a); $i++) {
-      var_dump($a[$i]);
-      $temp = ($_POST[$a[$i]] == 'on') ? true : false;
       if($_POST['delete_module'] == $a[$i]){
         $stmt = $conn->prepare("DELETE FROM Module WHERE custome_name = ? and custome_file = ?");
         $stmt->bind_param('ss', $a[$i], $file);
@@ -155,6 +152,14 @@ function numberCostume($uid, $name){
   $result = $conn->query($sql);
   $number = $result->num_rows;
   return $number;
+}
+
+//takes a number between 0 and 1. 0 = above, 1 = under
+function updateAboveUnder($number, $name, $file){
+  global $conn;
+  $stmt = $conn->prepare("UPDATE Module SET above_under=? WHERE custome_name=? and custome_file=?");
+  $stmt->bind_param("iss", $number, $name, $file);
+  $stmt->execute();
 }
 
 function printCustome($uid){
@@ -243,7 +248,7 @@ function printAllCustomeFromFile($file){
 
 //printet dynamisch alle Module die in einer File benutzt werden und gibt die Möglicheit den Code innerhalb der Module zu verändern
 function printFormforCustome($file){
-  $a = oneValueFromModule($_SESSION['u_id'], "custome_name");
+  $a = oneValueFromModule($_SESSION['u_id'], "custome_name", $file);
   $i = 1;
   global $conn;
   $form = '';
@@ -322,12 +327,30 @@ function printCalendarInterface(){
     }
   }
 
+  $sql = "SELECT costume_code FROM Module WHERE custome_file='calendar_id1.php' and above_under=0";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["costume_code"];
+    }
+  }
+
   $sql = "SELECT calender_code FROM Calender";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $output.= $row["calender_code"];
+    }
+  }
+
+  $sql = "SELECT costume_code FROM Module WHERE custome_file='calendar_id1.php' and above_under=1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["costume_code"];
     }
   }
   return $output;
@@ -709,9 +732,9 @@ function oneValueFromTableData($uid, $column){
 }
 
 //returns an array with all values from a specific column
-function oneValueFromModule($uid, $column){
+function oneValueFromModule($uid, $column, $file){
   global $conn;
-  $sql = "SELECT $column FROM Module WHERE user_id = $uid";
+  $sql = "SELECT $column FROM Module WHERE custome_file='$file'";
   $a = array();
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
@@ -751,6 +774,7 @@ function updateCustome($file, $uid){
         array_push($a, $row['custome_name']);
         $val = $_POST[$v];
         array_push($post, $val);
+        var_dump($post);
     }
     for ($i=0; $i < sizeof($a); $i++) {
       $name = $a[$i];

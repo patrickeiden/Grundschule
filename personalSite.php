@@ -51,9 +51,9 @@ include 'functions.php';
     ?>
     <div id="module_container">
       <?php
-      $nav = printCustomeTitel($_SESSION['u_id']);
-      $name = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
-      $result = printFormforCustome($name);
+      $nav1 = printCustomeTitel($_SESSION['u_id']);
+      $name1 = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
+      $result1 = printFormforCustome($name1);
         if(CustomeOn($_SESSION['u_id']) == 1){
           echo '<div class="costumeModule" onclick="clickedCustome()">
                   <p class="text"> the costume module is currently intergrated on your website</p>
@@ -62,36 +62,46 @@ include 'functions.php';
                     <form action="update_site.php" method="POST">
                     <div class="form-group">
                       <p>Change the titel of the nav bar for this module:</p>
-                        <input type="text" class="form-control" id="nav_title" placeholder="Title" name="nav_title" value="'.$nav .'">
+                        <input type="text" class="form-control" id="nav_title" placeholder="Title" name="nav_title" value="'.$nav1 .'">
                     </div>
-                    <div class="form-group">'.$result.'
+                    <div class="form-group">'.$result1.'
                       <p>add a Module</p>
                       <p>Title:</p>
                       <input type="text" class="form-control" id="title" placeholder="Title" name="custome_title">
                       <p>Code</p>
                       <textarea name="custome_code" cols="40" rows="5" class="code"></textarea>
-                      <button type="submit" name="newModule" formmethod="POST" value="'.$name.'">add a new Module</button>
-                      <button type="submit" name="delete" formmethod="POST" value="'.$name.'">delete Modules</button>
-                      <button type="submit" name="changes" formmethod="POST" value="'.$name.'">Save Changes</button>
+                      <button type="submit" name="newModule" formmethod="POST" value="'.$name1.'">add a new Module</button>
+                      <button type="submit" name="delete" formmethod="POST" value="'.$name1.'">delete Modules</button>
+                      <button type="submit" name="changes" formmethod="POST" value="'.$name1.'">Save Changes</button>
                       <button class="go_back "onclick="CustomeBack()" name="backbutton">Go Back</button>
                     </div>
                     </form>
                   </div>
                 </div>';
         }
+        $name2 = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
+        $result2 = printFormforCustome($name2);
         if(CalendarOn($_SESSION['u_id']) == 1){
           echo '<div class="calendarModule" onclick="clickedCalendar()">
-          <p class="text"> the calendar module is currently intergrated on your website</p>
-          <div class="k_text">
-          <p>This module exists in order to change important settings on the calendar module</p>
-          <div class="form-group">
-            <input type ="checkbox" name ="calendar_button" value="1"/>
-            <p class="events">Check this Box if you want to include this Module</p>
-            <button type="submit" name="changes" formmethod="POST" value="lala">Save Changes</button>
-            <button class="go_back2" onclick="CalendarBack()" name="backbutton">Go Back</button>
-            </div>
-          </div>
-          </div>';
+                  <p class="text"> the calendar module is currently intergrated on your website</p>
+                  <div class="k_text">
+                    <p>This module exists in order to change important settings on the calendar module</p>
+                    <form action="update_site.php" method="POST">
+                      <div class="form-group">'.$result2.'
+                        <p>add a Module</p>
+                        <p>Title:</p>
+                        <input type="text" class="form-control" id="title" placeholder="Title" name="calendar_title">
+                        <p>Code</p>
+                        <textarea name="calendar_code" cols="40" rows="5" class="code"></textarea>
+                        <button type="submit" name="newModuleabove" formmethod="POST" value="'.$name2.'">add a new Module above the calendar</button>
+                        <button type="submit" name="newModuleunder" formmethod="POST" value="'.$name2.'">add a new Module under the calendar</button>
+                        <button type="submit" name="delete2" formmethod="POST" value="'.$name2.'">delete Modules</button>
+                        <button type="submit" name="changes" formmethod="POST" value="lala">Save Changes</button>
+                        <button class="go_back2" onclick="CalendarBack()" name="backbutton">Go Back</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>';
         }
         if(NewsOn($_SESSION['u_id']) == 1){
           echo '<div class="newsModule" onclick="clickedNews()">
@@ -231,7 +241,7 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="block";
         document.getElementById('module_container').getElementsByTagName('div')[4].removeAttribute("onclick");
-        document.getElementById('currentPage').style.marginTop="-320px";
+        document.getElementById('currentPage').style.marginTop="-1020px";
         document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="0px";
       }
 
@@ -291,7 +301,7 @@ include 'functions.php';
 
             if(calendar == 0){
               calendar = 1;
-              $(".calendarModule").animate({height:"300px"},500);
+              $(".calendarModule").animate({height:"950px"},500);
               $(".calendarModule > .text").hide();
             }
             $(".go_back2").click(function() {
