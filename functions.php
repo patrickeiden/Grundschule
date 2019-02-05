@@ -248,7 +248,7 @@ function printAllCustomeFromFile($file){
 
 //printet dynamisch alle Module die in einer File benutzt werden und gibt die Möglicheit den Code innerhalb der Module zu verändern
 function printFormforCustome($file){
-  $a = oneValueFromModule($_SESSION['u_id'], "custome_name", $file);
+  $a = oneColumnFromTable("custome_name", $file, "Module", "custome_file");
   $i = 1;
   global $conn;
   $form = '';
@@ -283,18 +283,91 @@ function setNews($number, $news_number, $uid){
   }
 }
 
-function createNews($uid, $title, $date, $text, $image){
+function createNews($uid, $title, $date, $text, $image, $file){
   global $conn;
-  $stmt = $conn->prepare("INSERT INTO new_news (title, date, text, image, user_id) VALUES (?, ?, ?, ?, ?)");
-  $stmt->bind_param("ssssi", $title, $date, $text, $image, $uid);
+  $stmt = $conn->prepare("INSERT INTO new_news (title, date, text, image, user_id, news_file) VALUES (?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("ssssis", $title, $date, $text, $image, $uid, $file);
   $stmt->execute();
 }
 
-function deleteNews($uid, $title){
+function deleteNews($uid, $button){
   global $conn;
-  $stmt = $conn->prepare("DELETE FROM new_news WHERE title = ? and user_id = ?");
-  $stmt->bind_param('si', $title, $uid);
-  $stmt->execute();
+  $a = array();
+  $b = array();
+  $file = $button;
+  $sql = "SELECT title FROM new_news WHERE news_file='$file'";
+  $result = $conn->query($sql);
+  echo '<br>';
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($a, $row['title']);
+    }
+  }
+  for ($i=0; $i < sizeof($a); $i++) {
+      if($_POST['delete_news'] == $a[$i]){
+
+        $stmt = $conn->prepare("DELETE FROM new_news WHERE title = ? and news_file = ?");
+        $stmt->bind_param('ss', $a[$i], $file);
+        $stmt->execute();
+      }
+  }
+}
+
+function printFormforNews($uid, $file){
+  global $conn;
+  //in a sind alle news, die in file stehen enthalten
+  $a = oneColumnFromTable("title", $file, "new_news", "news_file");
+  $number_news = sizeof($a);
+  //in $number_on_site ist die Anzahl der News pro Seite enthalten
+  $number_on_site = oneValueFromTableData($uid, "news_number");
+  $loopvar1 = ceil($number_news/$number_on_site);
+  $loopvar2 = $number_on_site;
+  if($number_news < $number_on_site){
+    $loopvar1 = 1;
+    $loopvar2 = $number_news;
+  }
+  $i = 1;
+  $k = 1;
+  $n = 0;
+  $form = '';
+  $title_array = array();
+  $date_array = array();
+  $text_array = array();
+  $image_array = array();
+  $newsString = array();
+  $sql = "SELECT title, date, text, image FROM new_news WHERE news_file='$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($title_array, $row['title']);
+        array_push($date_array, $row['date']);
+        array_push($text_array, $row['text']);
+        array_push($image_array, $row['image']);
+    }
+  }
+  for ($i=0; $i < $loopvar1; $i++) {
+    $form .= '<div id="news"'.$k.'">';
+    for ($j=0; $j < $loopvar2; $j++) {
+      $h = $n +1;
+      $form .='<p>'.'News Number '.$h.'</p>';
+      $form .='<p>Titel </p>'.'<input type="text" class="form-control" class="news_title" placeholder="Title" name="'.'title_'.$title_array[$n].'" value="'.$title_array[$n].'">';
+      $form .='<p>Date </p>'.'<input type="text" class="form-control" class="news_date" placeholder="Date" name="'.'date_'.$title_array[$n].'" value="'.$date_array[$n].'">';
+      $form .='<p>Text</p> '.'<textarea name="'.'text'.$title_array[$n].'" cols="40" rows="5" class="news_text">'.$text_array[$n].'</textarea>';
+      $form .='<p>Image Link </p>'.'<input type="text" class="form-control" class="news_image" placeholder="Image" name="'.'image_'.$title_array[$n].'" value="'.$image_array[$n].'">';
+      //$form .= '<button type="submit" name="delete_module'.$i.'" formmethod="POST" value"'.$a[$i-1].'">Delete Module</button>';
+      $form .= '<p>Check this Box if you want to delete this News</p>';
+      $form .= '<input type ="checkbox" name ="delete_news" value="'.$a[$n].'"/>';
+      $n++;
+    }
+    $form .= '</div>';
+    array_push($newsString, $form);
+    $form = "";
+    $k++;
+  }
+
+  return $newsString;
 }
 
 function setCalendar($number, $uid){
@@ -732,11 +805,12 @@ function oneValueFromTableData($uid, $column){
 }
 
 //returns an array with all values from a specific column
-function oneValueFromModule($uid, $column, $file){
+function oneColumnFromTable($column, $file, $table, $columnfile){
   global $conn;
-  $sql = "SELECT $column FROM Module WHERE custome_file='$file'";
+  $sql = "SELECT $column FROM $table WHERE $columnfile='$file'";
   $a = array();
   $result = $conn->query($sql);
+
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
@@ -774,7 +848,6 @@ function updateCustome($file, $uid){
         array_push($a, $row['custome_name']);
         $val = $_POST[$v];
         array_push($post, $val);
-        var_dump($post);
     }
     for ($i=0; $i < sizeof($a); $i++) {
       $name = $a[$i];
@@ -787,8 +860,70 @@ function updateCustome($file, $uid){
   $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
   $stmt->bind_param("ss", $_POST['nav_title'], $uid);
   $stmt->execute();
-  header('Location: http://localhost/Grundschule/personalSite.php');
 }
+
+function updateNews($file, $uid){
+  global $conn;
+  $a = array();
+  $a_titel = array();
+  $a_date = array();
+  $a_text = array();
+  $a_image = array();
+
+  $post_titel = array();
+  $post_date = array();
+  $post_text = array();
+  $post_image = array();
+
+  $sql = "SELECT title FROM new_news WHERE news_file='$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $var1 = 'titel_'.$row['title'];
+        $var2 = 'date_'.$row['title'];
+        $var3 = 'text_'.$row['title'];
+        $var4 = 'image_'.$row['title'];
+
+        array_push($a_titel, $var1);
+        array_push($a_date, $var2);
+        array_push($a_text, $var3);
+        array_push($a_image, $var4);
+
+        array_push($post_titel, $_POST[$var1]);
+        array_push($post_date, $_POST[$var2]);
+        array_push($post_text, $_POST[$var3]);
+        array_push($post_image, $_POST[$var4]);
+    }
+    for ($i=0; $i < sizeof($a_titel); $i++) {
+      $titel = $a_titel[$i];
+      $date = $a_date[$i];
+      $text = $a_text[$i];
+      $image = $a_image[$i];
+
+      $p_titel = $post_titel[$i];
+      $p_date = $post_date[$i];
+      $p_text = $post_text[$i];
+      $p_image = $post_image[$i];
+      $stmt = $conn->prepare("UPDATE new_news SET title=? WHERE title=?");
+      $stmt->bind_param("ss", $p_titel, $titel);
+      $stmt->execute();
+      $stmt = $conn->prepare("UPDATE new_news SET date=? WHERE title=?");
+      $stmt->bind_param("ss", $title, $name);
+      $stmt->execute();
+      $stmt = $conn->prepare("UPDATE new_news SET title=? WHERE title=?");
+      $stmt->bind_param("ss", $title, $name);
+      $stmt->execute();
+      $stmt = $conn->prepare("UPDATE new_news SET title=? WHERE title=?");
+      $stmt->bind_param("ss", $title, $name);
+      $stmt->execute();
+    }
+  }
+  $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
+  $stmt->bind_param("ss", $_POST['nav_title'], $uid);
+  $stmt->execute();
+}
+
 //fuer jedes modul muss eine file erstellt werden und dann in die database eingetragen werden
 //database abfragen aendern fuer on
 //image form muss angepasst werden

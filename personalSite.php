@@ -103,29 +103,29 @@ include 'functions.php';
                   </div>
                 </div>';
         }
+        $name3 = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
+        $result3 = printFormforNews($_SESSION['u_id'], $name3);
+        if(sizeof($result3) == 0){
+          array_push($result3, "");
+        }
         if(NewsOn($_SESSION['u_id']) == 1){
           echo '<div class="newsModule" onclick="clickedNews()">
           <p class="text"> the news module is currently intergrated on your website</p>
           <div class="n_text">
             <p>This module exists in order to change important settings on the news module</p>
             <form action="update_site.php" method="POST">
-              <div class="form-group">
+              <div class="form-group">'.$result3[0].'
                 <p>With this form you are able to add news</p>
                 <input type="text" class="form-control" id="news_title" placeholder="Title" name="news_title">
                 <input type="text" class="form-control" id="news_date" placeholder="Date" name="news_date">
                 <textarea name="news_text" cols="40" rows="5" id="news_text"></textarea>
                 <input type="file" class="form-control" id="news_img" name="news_image" accept="image/*">
+                <button type="submit" name="newNews" formmethod="POST" value="'.$name3.'">add a new Module</button>
                 <button type="submit" name="changes_news" formmethod="POST" value="lala">Save Changes</button>
+                <button type="submit" name="delete_news_button" formmethod="POST" value="'.$name3.'">Delete</button>
                 <button class="go_back3" onclick="NewsBack()" name="backbutton">Go Back</button>
               </div>
-            </form>
-              <form action="update_site.php" method="POST">
-                <div class="form-group">
-                  <p>Write the exact name of the titel you want to delete</p>
-                  <input type="text" class="form-control" id="delete_news" placeholder="Titel" name="delete_news">
-                  <button type="submit" name="delete_news_button" formmethod="POST" value="lala">Delete</button>
-                </div>
-              </form>
+            </form>              
           </div>
           </div>';
         }
