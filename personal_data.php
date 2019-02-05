@@ -73,8 +73,8 @@ $conn->close();
 ?> 
 </div> -->
 
-<div class="col-sm-2"></div>
-<div class="col-sm-8">
+<!-- <div class="col-sm-2"></div> -->
+<!-- <div class="col-sm-8">
   <form>
     <div class="form-group">
     <label for="name">Name</label>
@@ -94,6 +94,41 @@ $conn->close();
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
+</form> -->
+
+<div class="col-sm-3"></div>
+<form>
+  <div class="form-row">
+    <div class="col-sm">
+      <input type="text" class="form-control" placeholder="First name">
+      <input type="text" class="form-control" placeholder="Last name">
+    </div>
+  </div>
+</br>
+<div class="form-row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm">
+      <input type="text" class="form-control" placeholder="Gender">
+      <input type="text" class="form-control" placeholder="Date of birth">
+    </div>
+  </div>
+</br>
+  <div class="form-row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm">
+      <input type="text" class="form-control" placeholder="Gender">
+      <input type="text" class="form-control" placeholder="Date of birth">
+    </div>
+  </div>
+</br>
+  <div class="form-row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm">
+      <input type="text" class="form-control" rows="3" placeholder="Adress">
+      <input type="text" class="form-control" placeholder="PLZ">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 
@@ -106,7 +141,7 @@ $conn->close();
       <!-- Copyright -->
 
     </footer>
-</div>
-
+<!-- </div>
+ -->
     </body>
     </html>
