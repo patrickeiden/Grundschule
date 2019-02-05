@@ -720,7 +720,7 @@ function returninterfacecode(){
 function oneValueFromTableData($uid, $column){
   global $conn;
   $sql = "SELECT $column FROM table_data WHERE user_id = $uid";
-  $ncolumn = "'" .$column . "'";
+  $number = "";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
