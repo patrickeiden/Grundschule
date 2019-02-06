@@ -36,100 +36,58 @@ session_start();
 
     ?>
 
-<!-- <div class="col-sm-2">bla</div>
-<div class="col-sm-8">    
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, "news");
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
-$sql = "SELECT mail, password FROM registration";
-$result = $conn->query($sql);
+<div class="container">
+  <div class="row">
 
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-      if($row["mail"] == $_SESSION['u_mail'] )
-        echo "E-Mail:";
-        echo "</br>";
-        echo "<input type='text' name= 'mail' value=". $_SESSION['u_mail']. '>' . "<br>";
-        echo "Password:";
-        echo "</br>";
-        echo "<input type='text' name= 'mail' value=". $row["password"]. '>' . "<br>";
-    }
-} else {
-    echo "0 results";
-}
-
-$conn->close();
-?> 
-</div> -->
-
-<!-- <div class="col-sm-2"></div> -->
-<!-- <div class="col-sm-8">
-  <form>
-    <div class="form-group">
-    <label for="name">Name</label>
-    <input type="email" class="form-control" id="name">
-  </div>
-  <div class="form-group">
-    <label for="email"><?php echo $row1['employee_email']; ?></label>
-    <input type="email" class="form-control" id="email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password">
-  </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form> -->
-
-<div class="col-sm-3"></div>
-<form>
-  <div class="form-row">
-    <div class="col-sm">
-      <input type="text" class="form-control" placeholder="First name">
-      <input type="text" class="form-control" placeholder="Last name">
+    <h3 class="text-center">Add your personal Data</h3>
+    </br>
+    <form action=" " method="post">
+      <div class="form-row">
+        <!-- <div class="col-sm-3"></div> -->
+        <div class="text-center">
+          <input type="text" class="form-control" placeholder="First name" name="Firstname">
+          <input type="text" class="form-control" placeholder="Last name" name="Lastname">
+        </div>
+      </div>
+    </br>
+    <div class="form-row">
+        <!-- <div class="col-sm-3"></div> -->
+        <div class="text-center">
+          <input type="text" class="form-control" placeholder="Gender" name="Gender">
+          <input type="text" class="form-control" placeholder="Date of birth" name="Birthdate">
+        </div>
+      </div>
+    </br>
+      <div class="form-row">
+        <!-- <div class="col-sm-3"></div> -->
+        <div class="text-center">
+          <input type="text" class="form-control" placeholder="Adress" name="Adress">
+          <input type="text" class="form-control" placeholder="PLZ" name="PLZ">
+        </div>
+      </div>
+    </br>
+      <div class="form-row">
+        <!-- <div class="col-sm-3"></div> -->
+        <div class="text-center">
+          <input type="text" class="form-control" rows="3" placeholder="Payment" name="Payment">
+          <input type="text" class="form-control" placeholder="Note" name="Note">
+        </div>
+      </div>
+    </br>
+    <div class="form-row">
+      <!-- <div class="col-sm-3"></div> -->
+      <div>
+      <button type="submit" value="Submit" name="submit" class="center-block btn btn-primary">Submit</button>
+      </div>
+      <div class="col-sm-3"></div>
     </div>
+    </form>
   </div>
-</br>
-<div class="form-row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm">
-      <input type="text" class="form-control" placeholder="Gender">
-      <input type="text" class="form-control" placeholder="Date of birth">
-    </div>
-  </div>
-</br>
-  <div class="form-row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm">
-      <input type="text" class="form-control" placeholder="Gender">
-      <input type="text" class="form-control" placeholder="Date of birth">
-    </div>
-  </div>
-</br>
-  <div class="form-row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm">
-      <input type="text" class="form-control" rows="3" placeholder="Adress">
-      <input type="text" class="form-control" placeholder="PLZ">
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</div>
+
 
 
     <footer class="page-footer font-small blue">
@@ -143,5 +101,34 @@ $conn->close();
     </footer>
 <!-- </div>
  -->
+
+<?php
+if(isset($_POST["submit"])){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, "news");
+
+  // Check connection
+  if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+  }
+
+$sql = "INSERT INTO Person(Firstname, Lastname, Gender, Birthdate, Adress, PLZ, Payment, Note)
+VALUES ('".$_POST["Firstname"]."','".$_POST["Lastname"]."','".$_POST["Gender"]."','".$_POST["Birthdate"]."','".$_POST["Adress"]."','".$_POST["PLZ"]."','".$_POST["Payment"]."','".$_POST["Note"]."')";
+
+$result = mysqli_query($conn,$sql);
+
+if ($conn->query($sql) === TRUE) {
+echo "<script type= 'text/javascript'>alert('New record created successfully');</script>";
+} else {
+echo "<script type= 'text/javascript'>alert('Error: " . $sql . "<br>" . $conn->error."');</script>";
+}
+
+$conn->close();
+}
+?>
     </body>
     </html>
