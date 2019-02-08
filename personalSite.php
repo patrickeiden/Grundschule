@@ -96,7 +96,7 @@ include 'functions.php';
                         <button type="submit" name="newModuleabove" formmethod="POST" value="'.$name2.'">add a new Module above the calendar</button>
                         <button type="submit" name="newModuleunder" formmethod="POST" value="'.$name2.'">add a new Module under the calendar</button>
                         <button type="submit" name="delete2" formmethod="POST" value="'.$name2.'">delete Modules</button>
-                        <button type="submit" name="changes" formmethod="POST" value="lala">Save Changes</button>
+                        <button type="submit" name="changes_calendar" formmethod="POST" value="'.$name2.'">Save Changes</button>
                         <button class="go_back2" onclick="CalendarBack()" name="backbutton">Go Back</button>
                       </div>
                     </form>
@@ -108,24 +108,30 @@ include 'functions.php';
         if(sizeof($result3) == 0){
           array_push($result3, "");
         }
+        $string = '';
+        for ($i=0; $i < sizeof($result3)-1; $i++) {
+          $string .= $result3[$i];
+        }
         if(NewsOn($_SESSION['u_id']) == 1){
           echo '<div class="newsModule" onclick="clickedNews()">
           <p class="text"> the news module is currently intergrated on your website</p>
           <div class="n_text">
             <p>This module exists in order to change important settings on the news module</p>
             <form action="update_site.php" method="POST">
-              <div class="form-group">'.$result3[0].'
+              <div class="form-group">'.$string.'
                 <p>With this form you are able to add news</p>
                 <input type="text" class="form-control" id="news_title" placeholder="Title" name="news_title">
                 <input type="text" class="form-control" id="news_date" placeholder="Date" name="news_date">
                 <textarea name="news_text" cols="40" rows="5" id="news_text"></textarea>
                 <input type="file" class="form-control" id="news_img" name="news_image" accept="image/*">
-                <button type="submit" name="newNews" formmethod="POST" value="'.$name3.'">add a new Module</button>
-                <button type="submit" name="changes_news" formmethod="POST" value="lala">Save Changes</button>
+                <button type="submit" name="newNews" formmethod="POST" value="'.$name3.'">add new News</button>
+                <button type="submit" name="changes_news" formmethod="POST" value="'.$name3.'">Save Changes</button>
                 <button type="submit" name="delete_news_button" formmethod="POST" value="'.$name3.'">Delete</button>
                 <button class="go_back3" onclick="NewsBack()" name="backbutton">Go Back</button>
               </div>
-            </form>              
+            </form>
+            <button name="left" value="'.$name3.'" class="left" >Left</button>
+            <button name="right" value="'.$name3.'" class="right" >Right</button>
           </div>
           </div>';
         }
@@ -196,13 +202,23 @@ include 'functions.php';
 
     </body>
     <script>
+
     var custome = 0;
     var calendar = 0;
     var news = 0;
-
-      function empty(){
-
-      }
+    var leftright = 1;
+    <?php
+    $leftright = 1;
+    $jsname = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
+    $jsresult = printFormforNews($_SESSION['u_id'], $jsname);
+    $jsnumber = numberofNews("title", $jsname, "new_news", "news_file");
+    $jstable_data = oneValueFromTableData($_SESSION['u_id'], "news_number");
+    //$jsnewsright = right($leftright, $jsnumber, $jstable_data);
+    //$jsnewsleft = left($leftright, $jsnumber, $jstable_data);
+    echo $jsresult[sizeof($jsresult)-1];
+    echo 'var number ='.$jsnumber.';';
+    echo 'var news_number ='.$jstable_data.';';
+    echo 'var loop_number ='.ceil($jsnumber/$jstable_data).';'; ?>
 
       function clickedCustome(){
           document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="block";
@@ -267,9 +283,11 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="block";
         document.getElementById('module_container').getElementsByTagName('div')[7].removeAttribute("onclick");
+        document.getElementsByClassName('page-footer')[0].style.top="1000px";
       }
 
       function NewsBack(){
+        document.getElementsByClassName('page-footer')[0].style.top="200px";
         document.getElementById('page_news').style.display="none";
         document.getElementsByClassName('costumeModule')[0].style.display="block";
         document.getElementsByClassName('calendarModule')[0].style.display="block";
@@ -280,10 +298,8 @@ include 'functions.php';
       }
 
 
-      $(document).ready(function () {
-
-        $(".costumeModule").click(function () {
-
+        $(document).ready(function () {
+          $(".costumeModule").click(function () {
             if(custome == 0){
               custome = 1;
               $(".costumeModule").animate({height:"809px"},500);
@@ -326,6 +342,42 @@ include 'functions.php';
                 return false;
               });
             });
-        });
+
+            $(".left").click(function () {
+              if(leftright > 1){
+                leftright--;
+                for (var i = 0; i < loop_number; i++) {
+                  if(i+1 == leftright){
+                    var la = i+1;
+                    var lar = la.toString();
+                    $("#news"+lar).show();
+                  }else{
+                    var la = i+1;
+                    var lar = la.toString();
+                    $("#news"+lar).hide();
+                  }
+                }
+              }
+            });
+
+            $(".right").click(function () {
+              if(leftright < loop_number){
+                leftright++;
+                for (var i = 0; i < loop_number; i++) {
+                  if(i+1 == leftright){
+                    var la = i+1;
+                    var lar = la.toString();
+                    $("#news"+lar).show();
+                  }else{
+                    var la = i+1;
+                    var lar = la.toString();
+                    $("#news"+lar).hide();
+                  }
+                }
+              }
+            });
+          });
+
+
     </script>
     </html>

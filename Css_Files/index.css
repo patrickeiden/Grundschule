@@ -306,6 +306,14 @@ button {
 
 }
 
+#module_container .left{
+  width: 30%;
+}
+
+#module_container .right{
+  width: 30%;
+}
+
 #module_container .costumeModule{
   background-color: gray;
   width: 34%;

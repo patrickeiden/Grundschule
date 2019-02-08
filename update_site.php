@@ -23,6 +23,9 @@ if(isset($_POST['newModuleunder'])){
 if(isset($_POST['delete2'])){
   deleteCustome($_SESSION['u_id'], $_POST['delete2']);
 }
+if(isset($_POST['changes_calendar'])){
+  updateCustome($_POST['changes_calendar'], $_SESSION['u_id']);
+}
 if(isset($_POST['newNews'])){
   createNews($_SESSION['u_id'], $_POST['news_title'], $_POST['news_date'], $_POST['news_text'], $_POST['news_image'], $_POST['newNews']);
 }
@@ -32,5 +35,5 @@ if(isset($_POST['changes_news'])){
 if(isset($_POST['delete_news_button'])){
   deleteNews($_SESSION['u_id'], $_POST['delete_news_button']);
 }
-header('Location: http://localhost/Grundschule/personalSite.php');
+//header('Location: http://localhost/Grundschule/personalSite.php');
 ?>
