@@ -268,7 +268,7 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="block";
         document.getElementById('module_container').getElementsByTagName('div')[7].removeAttribute("onclick");
-        document.getElementsByClassName('page-footer')[0].style.top="1000px";
+        document.getElementsByClassName('page-footer')[0].style.top="1200px";
       }
 
       function NewsBack(){

@@ -74,7 +74,7 @@ function returnNewsImage(){
 # Ende News Module
 
 #Anfang Costume Modul
-function setCustome($name, $number, $uid){  //later +1 arguments for the Theme u want to use
+function setCustome($name, $number, $uid, $folder){  //later +1 arguments for the Theme u want to use
   global $conn;
   $stmt = $conn->prepare("UPDATE table_data SET custome_on=? WHERE user_id=?");
   $stmt->bind_param("ii", $number, $uid);
@@ -83,9 +83,14 @@ function setCustome($name, $number, $uid){  //later +1 arguments for the Theme u
   $stmt->bind_param("si", $name, $uid);
   $stmt->execute();
   if($number == 1){
-  //create a File for this module
   $site_name = "custome_id" .$uid .".php";
-  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  if($folder != ""){
+    $folder .= $folder."/".$site_name;
+  }else{
+    $folder = $site_name;
+  }
+  //create a File for this module
+  $myfile = fopen($folder, "w") or die("Unable to open file!");
   //write file in Database
   $stmt = $conn->prepare("UPDATE table_data SET custome_file_name=? WHERE user_id=?");
   $stmt->bind_param("si", $site_name, $uid);
@@ -276,7 +281,7 @@ function printFormforCustome($file){
   return $form;
 }
 
-function setNews($number, $news_number, $uid){
+function setNews($number, $news_number, $uid, $folder){
   global $conn;
   if($number == 1){
     $stmt = $conn->prepare("UPDATE table_data SET news_on=? WHERE user_id=?");
@@ -461,16 +466,21 @@ function printNewsInterface($uid, $file){
   return $array;
 }
 
-function setCalendar($number, $uid){
+function setCalendar($number, $uid, $folder){
   global $conn;
   $stmt = $conn->prepare("UPDATE table_data SET calendar_on=? WHERE user_id=?");
   $stmt->bind_param("ii", $number, $uid);
   $stmt->execute();
   $stmt->close();
   if($number == 1){
-  //create a File for this module
   $site_name = "calendar_id" .$uid .".php";
-  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  if($folder != ""){
+    $folder .= $folder."/".$site_name;
+  }else{
+    $folder = $site_name;
+  }
+    //create a File for this module
+  $myfile = fopen($folder, "w") or die("Unable to open file!");
   //write file in Database
   $stmt = $conn->prepare("UPDATE table_data SET calendar_file=? WHERE user_id=?");
   $stmt->bind_param("si", $site_name, $uid);
@@ -534,7 +544,7 @@ function printCalendar(){
   return $output;
 }
 
-function setJob($number, $numberjobs, $uid){
+function setJob($number, $numberjobs, $uid, $folder){
   global $conn;
   $bool_Value = 0;
   $emptystr = "";
@@ -546,9 +556,14 @@ function setJob($number, $numberjobs, $uid){
     $stmt = $conn->prepare("UPDATE table_data SET job_number=? WHERE user_id=?");
     $stmt->bind_param("ii", $numberjobs, $uid);
     $stmt->execute();
-    //create a File for this module
     $site_name = "job_id" .$uid .".php";
-    $myfile = fopen($site_name, "w") or die("Unable to open file!");
+    if($folder != ""){
+      $folder .= $folder."/".$site_name;
+    }else{
+      $folder = $site_name;
+    }
+    //create a File for this module
+    $myfile = fopen($folder, "w") or die("Unable to open file!");
     //write file in Database
     $stmt = $conn->prepare("UPDATE table_data SET job_file_name=? WHERE user_id=?");
     $stmt->bind_param("si", $site_name, $uid);
@@ -604,7 +619,7 @@ function setJobDescription() {
 }
 
 
-function setImage($number, $uid){
+function setImage($number, $uid, $folder){
     global $conn;
   //if($number == 1){
   //  $stmt = $conn->prepare("INSERT INTO Image (Image_url, user_id, image_name) VALUES (?, ?, ?, ?)");
@@ -620,7 +635,7 @@ function printImage(){
 }
 
 #creates a .php file and returns the file name(name + id)
-function createFile($id, $name){
+function createFile($id, $name, $folder){
   global $conn;
   $site_name = $name;
   $sql = "SELECT reg_id FROM registration WHERE reg_id = $id";
@@ -632,17 +647,22 @@ function createFile($id, $name){
     }
   }
   $site_name .= ".php";
+  if($folder != ""){
+    $folder .= $folder."/".$site_name;
+  }else{
+    $folder = $site_name;
+  }
 
   //$shell_string = "sudo chmod 777 " .$site_name;
   //shell_exec($shell_string);
-  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  $myfile = fopen($folder, "w") or die("Unable to open file!");
   return $site_name;
 }
 
 #takes the database name, the id name, the id, the value name und the file name and updates the database entry
-function fileInDatabase($dname, $did, $didvalue, $dvalue, $fname){
+function fileInDatabase($dname, $did, $didvalue, $dvalue, $fname, $folder){
   global $conn;
-  $filename = createFile($didvalue, $fname);
+  $filename = createFile($didvalue, $fname, $folder);
   $dbase = "UPDATE " .$dname ." SET " .$dvalue ."=? " ."WHERE " .$did ."=?";
   $stmt = $conn->prepare($dbase);
   $stmt->bind_param("si", $filename, $didvalue);
@@ -1041,6 +1061,14 @@ function printjs($a){
   for ($i=0; $i < sizeof($a); $i++) {
    echo $a[$i].';';
   }
+}
+
+function createFolder($uid){
+  $name = 'userid'.$uid;
+  if (!file_exists($name)){
+    mkdir($name, 0777, true);
+  }
+  return $name;
 }
 
 //fuer jedes modul muss eine file erstellt werden und dann in die database eingetragen werden
