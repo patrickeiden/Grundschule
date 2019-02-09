@@ -385,12 +385,80 @@ function printFormforNews($uid, $file){
     array_push($newsString, $form);
     $form = "";
     $k++;
-    if(($number_news - $h)< $loopvar2){
+    if(($number_news - ($n+1))< $loopvar2){
       $loopvar2 = ($number_news - $h);
     }
   }
   array_push($newsString, $js);
   return $newsString;
+}
+
+function printNewsInterface($uid, $file){
+  global $conn;
+  $array = array();
+  $output = '';
+  $js = '';
+  $number_news = numberofNews("title", $file, "new_news", "news_file");
+  $newsperpage = oneValueFromTableData($_SESSION['u_id'], "news_number");
+  $title_array = array();
+  $date_array = array();
+  $text_array = array();
+  $image_array = array();
+  $newsString = array();
+  $titlecode = '';
+  $datecode = '';
+  $textcode = '';
+  $imagecode = '';
+  $endcode = '';
+  //get interface data to print the news in
+  $sql = "SELECT news_interface_code_title, news_interface_code_date, news_interface_code_text, news_interface_code_image, news_interface_code_end FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $titlecode = $row['news_interface_code_title'];
+        $datecode = $row['news_interface_code_date'];
+        $textcode = $row['news_interface_code_text'];
+        $imagecode = $row['news_interface_code_image'];
+        $endcode = $row['news_interface_code_end'];
+    }
+  }
+  $sql = "SELECT title, date, text, image FROM new_news WHERE news_file='$file'";
+  $result = $conn->query($sql);
+  $i = $newsperpage;
+  $j = 1;
+  $k = true;
+  $nppbool = false;
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      if($i == $newsperpage){
+        if($k){
+          $output .= '<div class="newsInterface';
+          $output .= $j.'">';
+          $k = false;
+        }else{
+          $output .= '</div> <div class="newsInterface';
+          $output .= $j.'">';
+          $nppbool = true;
+        }
+        $i = 0;
+        $j++;
+      }
+      $output .= '<div class="news">'.$titlecode.$row['title'].$datecode.$row['date'].$textcode.$row['text'].$imagecode.$row['image'].$endcode.'</div>';
+      if($j > 1 && $nppbool){
+        $js .= 'document.getElementById("page_news").getElementsByClassName("newsInterface'.($j-1).'")[0].style.display="none";';
+        $nppbool = false;
+      }
+      $i++;
+    }
+    if(($number_news % $newsperpage) != 0){
+      $output .= '</div>';
+    }
+  }
+  array_push($array, $output);
+  array_push($array, $js);
+  return $array;
 }
 
 function setCalendar($number, $uid){
@@ -932,7 +1000,7 @@ function updateNews($file, $uid){
     }
   }
 }
-
+//we dont use them atm
 function left($array_for_js, $leftright, $jsnumber, $jstable_data){
   $loop_number = $jsnumber/$jstable_data;
   $lr = $leftright;
@@ -950,7 +1018,7 @@ function left($array_for_js, $leftright, $jsnumber, $jstable_data){
     }
   }
 }
-
+//we dont use them atm
 function right($array_for_js, $leftright, $jsnumber, $jstable_data){
   $loop_number = $jsnumber/$jstable_data;
   $lr = $leftright;
@@ -968,7 +1036,7 @@ function right($array_for_js, $leftright, $jsnumber, $jstable_data){
     }
   }
 }
-
+//we dont use them atm
 function printjs($a){
   for ($i=0; $i < sizeof($a); $i++) {
    echo $a[$i].';';

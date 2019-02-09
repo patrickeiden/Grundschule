@@ -164,29 +164,12 @@ include 'functions.php';
         ?>
       </div>
       <div id="page_news">
-        <div class="title">
-          <?php
-            echo returnNewsTitle();
-          ?>
-        </div>
-        <div class="date">
-          <?php
-            echo returnNewsDate();
-          ?>
-        </div>
-        <div class="text">
-          <?php
-            echo returnNewsText();
-          ?>
-        </div>
-        <div class="row">
-          <div class="col">
-            <?php
-              echo returnNewsImage();
-              echo printInterfacefooter();
-            ?>
-          </div>
-      </div>
+        <?php
+        $fileinterface = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
+        $var = printNewsInterface($_SESSION['u_id'], $fileinterface);
+        echo $var[0];
+        echo printInterfacefooter();
+        ?>
       </div>
     </div>
 
@@ -213,6 +196,8 @@ include 'functions.php';
     $jsresult = printFormforNews($_SESSION['u_id'], $jsname);
     $jsnumber = numberofNews("title", $jsname, "new_news", "news_file");
     $jstable_data = oneValueFromTableData($_SESSION['u_id'], "news_number");
+    $jsinterface = printNewsInterface($_SESSION['u_id'], $jsname);
+    echo $jsinterface[1];
     //$jsnewsright = right($leftright, $jsnumber, $jstable_data);
     //$jsnewsleft = left($leftright, $jsnumber, $jstable_data);
     echo $jsresult[sizeof($jsresult)-1];
@@ -343,6 +328,7 @@ include 'functions.php';
               });
             });
 
+//left and right show the next page of the news
             $(".left").click(function () {
               if(leftright > 1){
                 leftright--;
@@ -351,10 +337,12 @@ include 'functions.php';
                     var la = i+1;
                     var lar = la.toString();
                     $("#news"+lar).show();
+                    $("#page_news > "+".newsInterface"+lar).show();
                   }else{
                     var la = i+1;
                     var lar = la.toString();
                     $("#news"+lar).hide();
+                    $("#page_news > "+".newsInterface"+lar).hide();
                   }
                 }
               }
@@ -368,10 +356,12 @@ include 'functions.php';
                     var la = i+1;
                     var lar = la.toString();
                     $("#news"+lar).show();
+                    $("#page_news > "+".newsInterface"+lar).show();
                   }else{
                     var la = i+1;
                     var lar = la.toString();
                     $("#news"+lar).hide();
+                    $("#page_news > "+".newsInterface"+lar).hide();
                   }
                 }
               }
