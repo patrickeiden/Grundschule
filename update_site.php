@@ -35,5 +35,5 @@ if(isset($_POST['changes_news'])){
 if(isset($_POST['delete_news_button'])){
   deleteNews($_SESSION['u_id'], $_POST['delete_news_button']);
 }
-//header('Location: http://localhost/Grundschule/personalSite.php');
+header('Location: http://localhost/Grundschule/personalSite.php');
 ?>
