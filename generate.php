@@ -56,13 +56,9 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
       <div class="form-group">
         <p>Title:</p>
           <input type="text" class="form-control" id="title" placeholder="Title" name="title">
+          <input type ="checkbox" name ="costume_button" value="1"/>
+          <p class="events">Check this Box if you want to include this Module</p>
       </div>
-    <div class="form-group">
-      <p>Code</p>
-      <textarea name="code" cols="40" rows="5" class="code"></textarea>
-      <input type ="checkbox" name ="costume_button" value="1"/>
-      <p class="events">Check this Box if you want to include this Module</p>
-    </div>
   </div>
 
    <div id="calendar_module">

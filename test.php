@@ -57,6 +57,7 @@ if(isset($_SESSION['u_id'])){
         <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       </ul>
     </div>
+    </form>
   </nav>';
   }
     ?>

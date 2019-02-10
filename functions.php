@@ -85,7 +85,7 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   if($number == 1){
   $site_name = "custome_id" .$uid .".php";
   if($folder != ""){
-    $folder .= $folder."/".$site_name;
+    $folder = $folder."/".$site_name;
   }else{
     $folder = $site_name;
   }
@@ -93,7 +93,17 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   $myfile = fopen($folder, "w") or die("Unable to open file!");
   //write file in Database
   $stmt = $conn->prepare("UPDATE table_data SET custome_file_name=? WHERE user_id=?");
-  $stmt->bind_param("si", $site_name, $uid);
+  $stmt->bind_param("si", $folder, $uid);
+  $stmt->execute();
+
+  $stmt = $conn->prepare("UPDATE Theme1 SET navbar_item=?");
+  $item = '<?php echo printAllCustomeFromFile($folder);?>';
+  $stmt->bind_param("s", $item);
+  $stmt->execute();
+
+  $stmt = $conn->prepare("UPDATE Theme1 SET allcustome=?");
+  $item = '<?php echo printNavItemFunction($_SESSION["u_id"]);?>';
+  $stmt->bind_param("s", $item);
   $stmt->execute();
   //code for the interface
   $code = '<div class="topnav" id="myTopnav">
@@ -117,6 +127,23 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   $stmt->execute();
   $stmt->close();
   }
+  printCustomeInFile($uid, $folder);
+}
+
+//this funtion will ne printed in the generated page in order to always print the latest version on the site
+function printNavItemFunction($uid){
+  global $conn;
+  $output = '<p>';
+  $sql = "SELECT custome_name FROM table_data WHERE user_id=$uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["custome_name"];
+    }
+  }
+  $output .= '</p>';
+  echo $output;
 }
 
 function createCustome($uid, $title, $code, $file){
@@ -176,17 +203,20 @@ function updateAboveUnder($number, $name, $file){
   $stmt->execute();
 }
 
-function printCustome($uid){
+function printCustomeInFile($uid, $site_name){
   global $conn;
   $output = "";
-  $sql = "SELECT costume_code FROM Module WHERE module_id=$uid";
+
+  $sql = "SELECT php, header, navbar_left, navbar_item, navbar_right, allcustome, footer FROM Theme1";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["costume_code"];
+        $output.= $row["php"].$row["header"].$row["navbar_left"].$row["navbar_item"].$row["navbar_right"].$row["allcustome"].$row["footer"];
     }
   }
+  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  fwrite($myfile, $output);
   return $output;
 }
 
@@ -710,6 +740,13 @@ function createAccount($email, $pswd, $pswd_repeat){
       //Insert data into Database
       $stmt = $conn->prepare("INSERT INTO registration (mail, password, repassword) VALUES (?, ?, ?)");
       $stmt->bind_param("sss", $mail, $psw, $psw_repeat);
+      $stmt->execute();
+      $lastid = mysqli_insert_id($conn);
+      $stmt = $conn->prepare("UPDATE registration SET data_id=? WHERE reg_id=?");
+      $stmt->bind_param("ii", $lastid, $lastid);
+      $stmt->execute();
+      $stmt = $conn->prepare("INSERT INTO table_data (user_id) VALUES (?)");
+      $stmt->bind_param("i", $lastid);
       $stmt->execute();
       header('Location: http://localhost/Grundschule/SignUp.php?signup=success');
       exit();
