@@ -97,12 +97,13 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   $stmt->execute();
 
   $stmt = $conn->prepare("UPDATE Theme1 SET navbar_item=?");
-  $item = '<?php echo printAllCustomeFromFile($folder);?>';
+  $item = '<?php echo printNavItemFunction($_SESSION["u_id"]);?>';
   $stmt->bind_param("s", $item);
   $stmt->execute();
 
   $stmt = $conn->prepare("UPDATE Theme1 SET allcustome=?");
-  $item = '<?php echo printNavItemFunction($_SESSION["u_id"]);?>';
+  $item = '<?php echo printAllCustomeFromFile("'.$folder;
+  $item .= '");?>';
   $stmt->bind_param("s", $item);
   $stmt->execute();
   //code for the interface
@@ -205,14 +206,14 @@ function updateAboveUnder($number, $name, $file){
 
 function printCustomeInFile($uid, $site_name){
   global $conn;
-  $output = "";
+  $output = '';
 
-  $sql = "SELECT php, header, navbar_left, navbar_item, navbar_right, allcustome, footer FROM Theme1";
+  $sql = "SELECT include, header, navbar_left, navbar_item, navbar_right, allcustome, footer FROM Theme1";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["php"].$row["header"].$row["navbar_left"].$row["navbar_item"].$row["navbar_right"].$row["allcustome"].$row["footer"];
+        $output.= $row["include"].$row["header"].$row["navbar_left"].$row["navbar_item"].$row["navbar_right"].$row["allcustome"].$row["footer"];
     }
   }
   $myfile = fopen($site_name, "w") or die("Unable to open file!");
