@@ -51,10 +51,10 @@ include 'functions.php';
     ?>
     <div id="module_container">
       <?php
-      $nav1 = printCustomeTitel($_SESSION['u_id']);
-      $name1 = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
-      $result1 = printFormforCustome($name1);
         if(CustomeOn($_SESSION['u_id']) == 1){
+          $nav1 = printCustomeTitel($_SESSION['u_id']);
+          $name1 = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
+          $result1 = printFormforCustome($name1);
           echo '<div class="costumeModule" onclick="clickedCustome()">
                   <p class="text"> the costume module is currently intergrated on your website</p>
                   <div class="c_text">
@@ -79,9 +79,9 @@ include 'functions.php';
                   </div>
                 </div>';
         }
-        $name2 = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
-        $result2 = printFormforCustome($name2);
         if(CalendarOn($_SESSION['u_id']) == 1){
+          $name2 = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
+          $result2 = printFormforCustome($name2);
           echo '<div class="calendarModule" onclick="clickedCalendar()">
                   <p class="text"> the calendar module is currently intergrated on your website</p>
                   <div class="k_text">
@@ -103,16 +103,16 @@ include 'functions.php';
                   </div>
                 </div>';
         }
-        $name3 = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
-        $result3 = printFormforNews($_SESSION['u_id'], $name3);
-        if(sizeof($result3) == 0){
-          array_push($result3, "");
-        }
-        $string = '';
-        for ($i=0; $i < sizeof($result3)-1; $i++) {
-          $string .= $result3[$i];
-        }
         if(NewsOn($_SESSION['u_id']) == 1){
+          $name3 = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
+          $result3 = printFormforNews($_SESSION['u_id'], $name3);
+          if(sizeof($result3) == 0){
+            array_push($result3, "");
+          }
+          $string = '';
+          for ($i=0; $i < sizeof($result3)-1; $i++) {
+            $string .= $result3[$i];
+          }
           echo '<div class="newsModule" onclick="clickedNews()">
           <p class="text"> the news module is currently intergrated on your website</p>
           <div class="n_text">
@@ -153,22 +153,28 @@ include 'functions.php';
       </div>
       <div class="page_custome">
         <?php
-        echo printCustomeInInterface($_SESSION['u_id']);
-        echo printInterfacefooter();
+        if(CustomeOn($_SESSION['u_id']) == 1){
+          echo printCustomeInInterface($_SESSION['u_id']);
+          echo printInterfacefooter();
+        }
          ?>
       </div>
       <div class="page_calendar">
         <?php
+        if(CalendarOn($_SESSION['u_id']) == 1){
           echo printCalendarInterface();
           echo printInterfacefooter();
+        }
         ?>
       </div>
       <div id="page_news">
         <?php
-        $fileinterface = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
-        $var = printNewsInterface($_SESSION['u_id'], $fileinterface);
-        echo $var[0];
-        echo printInterfacefooter();
+        if(NewsOn($_SESSION['u_id']) == 1){
+          $fileinterface = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
+          $var = printNewsInterface($_SESSION['u_id'], $fileinterface);
+          echo $var[0];
+          echo printInterfacefooter();
+        }
         ?>
       </div>
     </div>
@@ -185,32 +191,53 @@ include 'functions.php';
 
     </body>
     <script>
-
     var custome = 0;
     var calendar = 0;
     var news = 0;
     var leftright = 1;
     <?php
-    $leftright = 1;
-    $jsname = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
-    $jsresult = printFormforNews($_SESSION['u_id'], $jsname);
-    $jsnumber = numberofNews("title", $jsname, "new_news", "news_file");
-    $jstable_data = oneValueFromTableData($_SESSION['u_id'], "news_number");
-    $jsinterface = printNewsInterface($_SESSION['u_id'], $jsname);
-    echo $jsinterface[1];
-    //$jsnewsright = right($leftright, $jsnumber, $jstable_data);
-    //$jsnewsleft = left($leftright, $jsnumber, $jstable_data);
-    echo $jsresult[sizeof($jsresult)-1];
-    echo 'var number ='.$jsnumber.';';
-    echo 'var news_number ='.$jstable_data.';';
-    echo 'var loop_number ='.ceil($jsnumber/$jstable_data).';'; ?>
+    if(CustomeOn($_SESSION['u_id']) == 1){
+      echo 'var customeon = 1;';
+    }else{
+      echo 'var customeon = 0;';
+    }
+
+    if(CalendarOn($_SESSION['u_id']) == 1){
+      echo 'var calendaron = 1;';
+    }else{
+      echo 'var calendaron = 0;';
+    }
+
+    if(NewsOn($_SESSION['u_id']) == 1){
+      echo 'var newson = 1;';
+      $leftright = 1;
+      $jsname = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
+      $jsresult = printFormforNews($_SESSION['u_id'], $jsname);
+      $jsnumber = numberofNews("title", $jsname, "new_news", "news_file");
+      $jstable_data = oneValueFromTableData($_SESSION['u_id'], "news_number");
+      $jsinterface = printNewsInterface($_SESSION['u_id'], $jsname);
+      echo $jsinterface[1];
+      //$jsnewsright = right($leftright, $jsnumber, $jstable_data);
+      //$jsnewsleft = left($leftright, $jsnumber, $jstable_data);
+      echo $jsresult[sizeof($jsresult)-1];
+      echo 'var number ='.$jsnumber.';';
+      echo 'var news_number ='.$jstable_data.';';
+      echo 'var loop_number ='.ceil($jsnumber/$jstable_data).';';
+    }else{
+      echo 'var newson = 0;';
+    }
+    ?>
 
       function clickedCustome(){
           document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="block";
           document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
           document.getElementById('page_news').style.display="none";
-          document.getElementsByClassName('calendarModule')[0].style.display="none";
-          document.getElementsByClassName('newsModule')[0].style.display="none";
+          if(calendaron == 1){
+            document.getElementsByClassName('calendarModule')[0].style.display="none";
+          }
+          if(newson == 1){
+            document.getElementsByClassName('newsModule')[0].style.display="none";
+          }
           document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
           document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px!important";
           document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="block";
@@ -221,8 +248,12 @@ include 'functions.php';
 
       function CustomeBack(){
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
-        document.getElementsByClassName('calendarModule')[0].style.display="block";
-        document.getElementsByClassName('newsModule')[0].style.display="block";
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="block";
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="block";
+        }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="none";
@@ -236,8 +267,12 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="block";
         document.getElementById('page_news').style.display="none";
-        document.getElementsByClassName('costumeModule')[0].style.display="none";
-        document.getElementsByClassName('newsModule')[0].style.display="none";
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="none";
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="none";
+        }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="block";
@@ -248,8 +283,12 @@ include 'functions.php';
 
       function CalendarBack(){
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
-        document.getElementsByClassName('costumeModule')[0].style.display="block";
-        document.getElementsByClassName('newsModule')[0].style.display="block";
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="block";
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="block";
+        }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="none";
@@ -262,8 +301,12 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
         document.getElementById('page_news').style.display="block";
-        document.getElementsByClassName('costumeModule')[0].style.display="none";
-        document.getElementsByClassName('calendarModule')[0].style.display="none";
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="none";
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="none";
+        }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="block";
@@ -274,8 +317,12 @@ include 'functions.php';
       function NewsBack(){
         document.getElementsByClassName('page-footer')[0].style.top="200px";
         document.getElementById('page_news').style.display="none";
-        document.getElementsByClassName('costumeModule')[0].style.display="block";
-        document.getElementsByClassName('calendarModule')[0].style.display="block";
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="block";
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="block";
+        }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="none";
