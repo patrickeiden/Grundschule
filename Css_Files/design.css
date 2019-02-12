@@ -141,7 +141,7 @@ input[type=text]:placeholder {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   position: relative;
-  top: -684px;
+
 }
 
 @-webkit-keyframes fadeInDown {
@@ -256,29 +256,11 @@ input[type=text]:placeholder {
 
 .Title {
   width: 26%;
-  position: relative;
-  top: -959px;
   font-size: 35px;
   font-weight: bold;
   color: white;
-}
-
-.navbar_list{
-      display: inline-flex;
-      position: relative;
-      left: 31%;
-}
-
-li{
-  margin: 5px 61px 3px 0;
-  list-style-type: none;
-  font-size: 15px;
-}
-
-p, a, h1, ul{
-  font-family: 'Open Sans', sans-serif;
-  color: white;
-  text-decoration: none
+  margin-left: -250px;
+  margin-top: 30px;
 }
 
 a:hover{
@@ -288,37 +270,32 @@ a:hover{
   font-size: 15px;
 }
 
+p, a, h1, ul{
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  text-decoration: none
+}
+
+.navbar_list{
+      display: inline-flex;
+      position: relative;
+      left: 20%;
+      top: 25px;
+}
+
+li{
+  margin: 5px 61px 3px 0;
+  list-style-type: none;
+  font-size: 15px;
+}
+
 #pal{
   width: 16%;
   position: relative;
-  left: 37%;
-  top: -960px;
+  left: 32%;
+  top: 30px;
   font-size: 175px;
   letter-spacing: 35px;
   color: white;
   font-weight: bold;
-}
-
-.mySlides {
-  width: 100%;
-  height: 100%;
-}
-
-#container{
-  background-color: aliceblue;
-  height: 16px;
-  margin-top: -435px;
-}
-
-body{
-  height: 1px;
-}
-
-.col-sm-12{
-  position: relative;
-  top: -992px;
-}
-
-#icon{
-
 }

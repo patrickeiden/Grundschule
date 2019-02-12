@@ -102,31 +102,15 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   $stmt->execute();
 
   $stmt = $conn->prepare("UPDATE Theme1 SET allcustome=?");
-  $item = '<?php echo printAllCustomeFromFile("'.$folder;
-  $item .= '");?>';
+  $item = '<?php echo printAllCustomeFromFile($_SESSION["u_id"]';
+  $item .= ');?>';
   $stmt->bind_param("s", $item);
-  $stmt->execute();
-  //code for the interface
-  $code = '<div class="topnav" id="myTopnav">
-      <a href="#home" class="active">';
-  $stmt = $conn->prepare("UPDATE table_data SET custome_interface_code_first_theme1=? WHERE user_id=?");
-  $stmt->bind_param("si", $code, $uid);
   $stmt->execute();
 
   $code = $name;
   $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
   $stmt->bind_param("si", $code, $uid);
   $stmt->execute();
-
-  $code = '</a>
-      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
-      </a>
-    </div>';
-  $stmt = $conn->prepare("UPDATE table_data SET custome_interface_code_second_theme1=? WHERE user_id=?");
-  $stmt->bind_param("si", $code, $uid);
-  $stmt->execute();
-  $stmt->close();
   }
   printCustomeInFile($uid, $folder);
 }
@@ -190,7 +174,7 @@ function deleteCustome($uid, $button){
 function numberCostume($uid, $name){
   global $conn;
   $number = 0;
-  $sql = "SELECT custome_name FROM Module WHERE custome_name = '$name'";
+  $sql = "SELECT custome_name FROM Module WHERE custome_file = '$name'";
   $result = $conn->query($sql);
   $number = $result->num_rows;
   return $number;
@@ -213,7 +197,7 @@ function printCustomeInFile($uid, $site_name){
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["include"].$row["header"].$row["navbar_left"].$row["navbar_item"].$row["navbar_right"].$row["allcustome"].$row["footer"];
+        $output.= $row["include"].$row["header"].'</header>'.$row["navbar_left"].$row["navbar_item"].$row["navbar_right"].$row["allcustome"].$row["footer"];
     }
   }
   $myfile = fopen($site_name, "w") or die("Unable to open file!");
@@ -224,12 +208,12 @@ function printCustomeInFile($uid, $site_name){
 function printCustomeInInterface($uid){
   global $conn;
   $output = "";
-  $sql = "SELECT custome_interface_code_first_theme1 FROM table_data WHERE user_id=$uid";
+  $sql = "SELECT nav_interface_code_left FROM Theme1";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["custome_interface_code_first_theme1"];
+        $output.= $row["nav_interface_code_left"];
     }
   }
   $sql = "SELECT custome_name FROM table_data WHERE user_id=$uid";
@@ -240,12 +224,12 @@ function printCustomeInInterface($uid){
         $output.= $row["custome_name"];
     }
   }
-  $sql = "SELECT custome_interface_code_second_theme1 FROM table_data WHERE user_id=$uid";
+  $sql = "SELECT nav_interface_code_right FROM Theme1";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["custome_interface_code_second_theme1"];
+        $output.= $row["nav_interface_code_right"];
     }
   }
   $file ='';
@@ -257,7 +241,7 @@ function printCustomeInInterface($uid){
         $file .= $row["custome_file_name"];
     }
   }
-  $output .= printAllCustomeFromFile($file);
+  $output .= printAllCustomeFromFile($uid);
 
   return $output;
 }
@@ -277,8 +261,9 @@ function printCustomeTitel($uid){
 }
 
 //gibt alle Module, die in einer File sind in Reihenfolge aus (innerhalb eines Strings)
-function printAllCustomeFromFile($file){
+function printAllCustomeFromFile($uid){
   global $conn;
+  $file = 'userid'.$uid.'/custome_id'.$uid.'.php';
   $output = "";
   $sql = "SELECT costume_code FROM Module WHERE custome_file='$file'";
   $result = $conn->query($sql);
@@ -321,6 +306,20 @@ function setNews($number, $news_number, $uid, $folder){
     $stmt = $conn->prepare("UPDATE table_data SET news_number=? WHERE user_id=?");
     $stmt->bind_param("ii", $news_number, $uid);
     $stmt->execute();
+    $site_name = "news_id" .$uid .".php";
+    if($folder != ""){
+      $folder = $folder."/".$site_name;
+    }else{
+      $folder = $site_name;
+    }
+      //create a File for this module
+    $myfile = fopen($folder, "w") or die("Unable to open file!");
+    //write file in Database
+    $stmt = $conn->prepare("UPDATE table_data SET news_file_name=? WHERE user_id=?");
+    $stmt->bind_param("si", $folder, $uid);
+    $stmt->execute();
+    $stmt->close();
+
   }else{
     $stmt = $conn->prepare("UPDATE table_data SET news_on=? WHERE user_id=?");
     $stmt->bind_param("ii", $number, $uid);
@@ -506,7 +505,7 @@ function setCalendar($number, $uid, $folder){
   if($number == 1){
   $site_name = "calendar_id" .$uid .".php";
   if($folder != ""){
-    $folder .= $folder."/".$site_name;
+    $folder = $folder."/".$site_name;
   }else{
     $folder = $site_name;
   }
@@ -514,25 +513,103 @@ function setCalendar($number, $uid, $folder){
   $myfile = fopen($folder, "w") or die("Unable to open file!");
   //write file in Database
   $stmt = $conn->prepare("UPDATE table_data SET calendar_file=? WHERE user_id=?");
-  $stmt->bind_param("si", $site_name, $uid);
+  $stmt->bind_param("si", $folder, $uid);
   $stmt->execute();
   $stmt->close();
+
+  $stmt = $conn->prepare("UPDATE Theme1 SET calendar_above=?");
+  $item = '<?php echo printCalendarAbove($_SESSION["u_id"]';
+  $item .= ');?>';
+  $stmt->bind_param("s", $item);
+  $stmt->execute();
+
+  $stmt = $conn->prepare("UPDATE Theme1 SET calendar_under=?");
+  $item = '<?php echo printCalendarUnder($_SESSION["u_id"]';
+  $item .= ');?>';
+  $stmt->bind_param("s", $item);
+  $stmt->execute();
+  //no extra nav item in code
+  printCalendarInFile($uid, $folder);
   }
 }
 
-function printCalendarInterface(){
+function printCalendarAbove($uid){
   global $conn;
-  $output = "";
-  $sql = "SELECT calender_code_theme1 FROM Calender";
+  $output = '';
+  $file = 'userid'.$uid.'/calendar_id'.$uid.'.php';
+  $sql = "SELECT costume_code FROM Module WHERE custome_file='$file' and above_under=0";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["calender_code_theme1"];
+        $output.= $row["costume_code"];
     }
   }
+  return $output;
+}
 
-  $sql = "SELECT costume_code FROM Module WHERE custome_file='calendar_id1.php' and above_under=0";
+function printCalendarUnder($uid){
+  global $conn;
+  $output = '';
+  $file = 'userid'.$uid.'/calendar_id'.$uid.'.php';
+  $sql = "SELECT costume_code FROM Module WHERE custome_file='$file' and above_under=1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["costume_code"];
+    }
+  }
+  return $output;
+}
+
+function printCalendarInFile($uid, $site_name){
+  global $conn;
+  $output = '';
+  $above = '';
+  $under = '';
+  $sql = "SELECT include, header, calendar_header, navbar_left, navbar_item, navbar_right, calendar_above, calendar_code, calendar_under, footer FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["include"].$row["header"].$row["calendar_header"].'</header>'.$row["navbar_left"].$row["navbar_item"].$row["navbar_right"].$row["calendar_above"].$row["calendar_code"].$row["calendar_under"].$row["footer"];
+    }
+  }
+  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  fwrite($myfile, $output);
+  return $output;
+}
+
+function printCalendarInInterface($uid){
+  global $conn;
+  $output = "";
+  $sql = "SELECT nav_interface_code_left FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["nav_interface_code_left"];
+    }
+  }
+  $sql = "SELECT custome_name FROM table_data WHERE user_id=$uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["custome_name"];
+    }
+  }
+  $sql = "SELECT nav_interface_code_right FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["nav_interface_code_right"];
+    }
+  }
+  $file = 'userid'.$uid.'/calendar_id'.$uid.'.php';
+  $sql = "SELECT costume_code FROM Module WHERE custome_file='$file' and above_under=0";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
@@ -541,16 +618,16 @@ function printCalendarInterface(){
     }
   }
 
-  $sql = "SELECT calender_code FROM Calender";
+  $sql = "SELECT calendar_code FROM Theme1";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["calender_code"];
+        $output.= $row["calendar_code"];
     }
   }
 
-  $sql = "SELECT costume_code FROM Module WHERE custome_file='calendar_id1.php' and above_under=1";
+  $sql = "SELECT costume_code FROM Module WHERE custome_file='$file' and above_under=1";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
@@ -769,14 +846,14 @@ function logIn($email, $pswd){
       $result = mysqli_query($conn, $sql);
       $resultCheck = mysqli_num_rows($result);
       if($resultCheck < 1){
-        header('Location: http://localhost/Grundschule/test.php?login=error1');
+        header('Location: http://localhost/Grundschule/startsite.php?login=error1');
         exit();
       }else{
         if($row = mysqli_fetch_assoc($result)){
           //De-hashing the Password
           $hashedPwdCheck = strcmp($psw, $row['password']);
           if($hashedPwdCheck < 0 ||  $hashedPwdCheck > 0){
-            header('Location: http://localhost/Grundschule/test.php?login=error2');
+            header('Location: http://localhost/Grundschule/startsite.php?login=error2');
             exit();
           }else if($hashedPwdCheck == 0){
             //Log In the user here
@@ -795,7 +872,7 @@ function logout(){
   session_start();
   session_unset();
   session_destroy();
-  header("Location: http://localhost/Grundschule/test.php?logout=success");
+  header("Location: http://localhost/Grundschule/startsite.php?logout=success");
   exit();
 }
 

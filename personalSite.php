@@ -37,11 +37,13 @@ include 'functions.php';
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/startsite.php">Gruschool</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Personal Site</a>
+
     </div>
     <?php
 
-        echo '<form action="LogOut_function.php" method="POST">
+        echo '<form action="fun_exe/LogOut_function.php" method="POST">
           <p class="loggedIn"> Logged in with:';
         echo $_SESSION['u_mail'];
         echo '<button type="submit" name="logout" formmethod="POST" class="logout">Logout</button></li>
@@ -162,7 +164,7 @@ include 'functions.php';
       <div class="page_calendar">
         <?php
         if(CalendarOn($_SESSION['u_id']) == 1){
-          echo printCalendarInterface();
+          echo printCalendarInInterface($_SESSION['u_id']);
           echo printInterfacefooter();
         }
         ?>
@@ -178,6 +180,7 @@ include 'functions.php';
         ?>
       </div>
     </div>
+  </div>
 
     <footer class="page-footer font-small blue">
 
@@ -207,6 +210,13 @@ include 'functions.php';
     }else{
       echo 'var calendaron = 0;';
     }
+    //number of entrys in custome module for different files in order to scale the site
+    $customename = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
+    $calendarname = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
+    $numbercustome = numberCostume($_SESSION['u_id'], $customename);
+    $numbercalendar = numberCostume($_SESSION['u_id'], $calendarname);
+    echo 'var calendarnumber ='.$numbercalendar.';';
+    echo 'var customenumber ='.$numbercustome.';';
 
     if(NewsOn($_SESSION['u_id']) == 1){
       echo 'var newson = 1;';
@@ -219,6 +229,7 @@ include 'functions.php';
       echo $jsinterface[1];
       //$jsnewsright = right($leftright, $jsnumber, $jstable_data);
       //$jsnewsleft = left($leftright, $jsnumber, $jstable_data);
+      echo 'var newsnumber = 0;';
       echo $jsresult[sizeof($jsresult)-1];
       echo 'var number ='.$jsnumber.';';
       echo 'var news_number ='.$jstable_data.';';
@@ -227,6 +238,30 @@ include 'functions.php';
       echo 'var newson = 0;';
     }
     ?>
+
+    //evaluates the number of news that are currently shown on the side and makes the page look good
+    function newsdesign(){
+      if(loop_number == leftright){
+        if(number % news_number == 0 && number >= news_number){
+          newsnumber = news_number;
+        }else{
+          newsnumber = number % news_number;
+        }
+      }
+      if(number == 0){
+        newsnumber = number;
+      }else if(loop_number != leftright){
+        newsnumber = news_number;
+      }
+    }
+
+    var sumup = customeon+calendaron+newson;
+    var marginTopCurrentPage = 0;
+    if(sumup>1){
+       marginTopCurrentPage = ((-sumup+1)*140)-120;
+    }
+
+    document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
 
       function clickedCustome(){
           document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="block";
@@ -239,11 +274,13 @@ include 'functions.php';
             document.getElementsByClassName('newsModule')[0].style.display="none";
           }
           document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
-          document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px!important";
           document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="block";
           document.getElementById('module_container').getElementsByTagName('div')[0].removeAttribute("onclick");
-          document.getElementsByClassName('page-footer')[0].style.top="400px";
-          document.getElementById('currentPage').style.marginTop="-542px";
+          var curr = -554 - (206*customenumber);
+          var foot = 500 + (206*customenumber);
+          document.getElementById('currentPage').style.marginTop=curr+"px";
+          document.getElementsByClassName('page-footer')[0].style.top=foot+"px";
+
       }
 
       function CustomeBack(){
@@ -255,12 +292,11 @@ include 'functions.php';
           document.getElementsByClassName('newsModule')[0].style.display="block";
         }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
-        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="none";
         document.getElementById('module_container').getElementsByTagName('div')[0].setAttribute("onclick", "clickedCustome()");
         document.getElementsByClassName('page-footer')[0].style.top="200px";
-        document.getElementById('currentPage').style.marginTop="-400px";
-        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="0px";
+        var temp = marginTopCurrentPage;
+        document.getElementById('currentPage').style.marginTop=temp+"px";
       }
 
       function clickedCalendar(){
@@ -274,11 +310,9 @@ include 'functions.php';
           document.getElementsByClassName('newsModule')[0].style.display="none";
         }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
-        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="block";
-        document.getElementById('module_container').getElementsByTagName('div')[4].removeAttribute("onclick");
-        document.getElementById('currentPage').style.marginTop="-1020px";
-        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="0px";
+        var curr = -548 + (-206*calendarnumber);
+        document.getElementById('currentPage').style.marginTop=curr+"px";
       }
 
       function CalendarBack(){
@@ -290,14 +324,14 @@ include 'functions.php';
           document.getElementsByClassName('newsModule')[0].style.display="block";
         }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
-        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="none";
         document.getElementById('module_container').getElementsByTagName('div')[4].setAttribute("onclick", "clickedCalendar()");
         document.getElementById('currentPage').style.marginTop="-420px";
-        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="0px";
+        document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
       }
 
       function clickedNews(){
+        newsdesign();
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
         document.getElementById('page_news').style.display="block";
@@ -308,10 +342,12 @@ include 'functions.php';
           document.getElementsByClassName('calendarModule')[0].style.display="none";
         }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
-        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="block";
         document.getElementById('module_container').getElementsByTagName('div')[7].removeAttribute("onclick");
-        document.getElementsByClassName('page-footer')[0].style.top="1200px";
+        var curr = -511 - (402*newsnumber);
+        var foot = 460 + (402*newsnumber);
+        document.getElementById('currentPage').style.marginTop=curr+"px";
+        document.getElementsByClassName('page-footer')[0].style.top=foot+"px";
       }
 
       function NewsBack(){
@@ -324,9 +360,9 @@ include 'functions.php';
           document.getElementsByClassName('calendarModule')[0].style.display="block";
         }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
-        document.getElementById('currentPage').getElementsByClassName('navbar')[0].style.top="30px";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="none";
         document.getElementById('module_container').getElementsByTagName('div')[7].setAttribute("onclick", "clickedNews()");
+        document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
       }
 
 
@@ -334,7 +370,8 @@ include 'functions.php';
           $(".costumeModule").click(function () {
             if(custome == 0){
               custome = 1;
-              $(".costumeModule").animate({height:"809px"},500);
+              var temp = 554+(customenumber*206);
+              $(".costumeModule").animate({height:temp+"px"},500);
               $(".costumeModule > .text").hide();
             }
             $(".go_back").click(function() {
@@ -349,7 +386,8 @@ include 'functions.php';
 
             if(calendar == 0){
               calendar = 1;
-              $(".calendarModule").animate({height:"950px"},500);
+              var temp = 528 + (calendarnumber*208);
+              $(".calendarModule").animate({height:temp+"px"},500);
               $(".calendarModule > .text").hide();
             }
             $(".go_back2").click(function() {
@@ -364,7 +402,8 @@ include 'functions.php';
 
               if(news == 0){
                 news = 1;
-                $(".newsModule").animate({height:"500px"},500);
+                var temp = 511 + (newsnumber*402);
+                $(".newsModule").animate({height:temp+"px"},500);
                 $(".newsModule > .text").hide();
               }
               $(".go_back3").click(function() {
@@ -379,12 +418,19 @@ include 'functions.php';
             $(".left").click(function () {
               if(leftright > 1){
                 leftright--;
+                newsdesign();
                 for (var i = 0; i < loop_number; i++) {
                   if(i+1 == leftright){
                     var la = i+1;
                     var lar = la.toString();
                     $("#news"+lar).show();
                     $("#page_news > "+".newsInterface"+lar).show();
+                    var temp = 511 + (newsnumber*402);
+                    var curr = -511 - (402*newsnumber);
+                    var foot = 460 + (402*newsnumber);
+                    $(".newsModule").animate({height:temp+"px"},500);
+                    $(".page-footer").css('top',foot);
+                    $("#currentPage").css('margin-top',curr);
                   }else{
                     var la = i+1;
                     var lar = la.toString();
@@ -398,12 +444,19 @@ include 'functions.php';
             $(".right").click(function () {
               if(leftright < loop_number){
                 leftright++;
+                newsdesign();
                 for (var i = 0; i < loop_number; i++) {
                   if(i+1 == leftright){
                     var la = i+1;
                     var lar = la.toString();
                     $("#news"+lar).show();
                     $("#page_news > "+".newsInterface"+lar).show();
+                    var temp = 511 + (newsnumber*402);
+                    var curr = -511 - (402*newsnumber);
+                    var foot = 460 + (402*newsnumber);
+                    $(".newsModule").animate({height:temp+"px"},500);
+                    $(".page-footer").css('top',foot);
+                    $("#currentPage").css('margin-top',curr);
                   }else{
                     var la = i+1;
                     var lar = la.toString();

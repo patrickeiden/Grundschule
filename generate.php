@@ -20,7 +20,8 @@ session_start();
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/startsite.php">Gruschool</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Personal Site</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="LogIn.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -30,6 +31,7 @@ session_start();
 </nav>
 
 <?php
+//Step 1-3. this container contains all modules available on the site
 if(isset($_SESSION['u_id'])){
 echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Choose Some</p>
 

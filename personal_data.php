@@ -24,7 +24,8 @@ session_start();
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/startsite.php">Gruschool</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Personal Site</a>
     </div>
     <?php
         echo '<form action="fun_exe/LogOut_function.php" method="POST">
