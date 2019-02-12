@@ -173,7 +173,7 @@ include 'functions.php';
         <?php
         if(NewsOn($_SESSION['u_id']) == 1){
           $fileinterface = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
-          $var = printNewsInterface($_SESSION['u_id'], $fileinterface);
+          $var = printNewsInInterface($_SESSION['u_id'], $fileinterface);
           echo $var[0];
           echo printInterfacefooter();
         }
@@ -225,7 +225,7 @@ include 'functions.php';
       $jsresult = printFormforNews($_SESSION['u_id'], $jsname);
       $jsnumber = numberofNews("title", $jsname, "new_news", "news_file");
       $jstable_data = oneValueFromTableData($_SESSION['u_id'], "news_number");
-      $jsinterface = printNewsInterface($_SESSION['u_id'], $jsname);
+      $jsinterface = printNewsInInterface($_SESSION['u_id'], $jsname);
       echo $jsinterface[1];
       //$jsnewsright = right($leftright, $jsnumber, $jstable_data);
       //$jsnewsleft = left($leftright, $jsnumber, $jstable_data);

@@ -320,11 +320,24 @@ function setNews($number, $news_number, $uid, $folder){
     $stmt->execute();
     $stmt->close();
 
-  }else{
-    $stmt = $conn->prepare("UPDATE table_data SET news_on=? WHERE user_id=?");
-    $stmt->bind_param("ii", $number, $uid);
-    $stmt->execute();
+    printNewsInFile($uid, $folder);
   }
+}
+
+function printNewsInFile(){
+  global $conn;
+  $output = '';
+  $sql = "SELECT include, header, navbar_left, navbar_item, navbar_right, news, footer FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["include"].$row["header"].'</header>'.$row["navbar_left"].$row["navbar_item"].$row["navbar_right"].$row["news"].$row["footer"];
+    }
+  }
+  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  fwrite($myfile, $output);
+  return $output;
 }
 
 function createNews($uid, $title, $date, $text, $image, $file){
@@ -399,36 +412,38 @@ function printFormforNews($uid, $file){
         array_push($image_array, $row['image']);
     }
   }
-  for ($i=0; $i < $loopvar1; $i++) {
-    $form .= '<div id="news'.$k.'">';
-    for ($j=0; $j < $loopvar2; $j++) {
-      $h = $n +1;
-      $form .='<p>'.'News Number '.$h.'</p>';
-      $form .='<p>Titel </p>'.'<input type="text" class="form-control" class="news_title" placeholder="Title" name="'.'title_'.$title_array[$n].'" value="'.$title_array[$n].'">';
-      $form .='<p>Date </p>'.'<input type="text" class="form-control" class="news_date" placeholder="Date" name="'.'date_'.$title_array[$n].'" value="'.$date_array[$n].'">';
-      $form .='<p>Text</p> '.'<textarea name="'.'text_'.$title_array[$n].'" cols="40" rows="5" class="news_text">'.$text_array[$n].'</textarea>';
-      $form .='<p>Image Link </p>'.'<input type="text" class="form-control" class="news_image" placeholder="Image" name="'.'image_'.$title_array[$n].'" value="'.$image_array[$n].'">';
-      //$form .= '<button type="submit" name="delete_module'.$i.'" formmethod="POST" value"'.$a[$i-1].'">Delete Module</button>';
-      $form .= '<p>Check this Box if you want to delete this News</p>';
-      $form .= '<input type ="checkbox" name ="delete_news_'.$a[$n].'" value="'.$a[$n].'"/>';
-      $n++;
-    }
-    if($k>1){
-      $js .= 'document.getElementById("news'.$k.'").style.display="none";';
-    }
-    $form .= '</div>';
-    array_push($newsString, $form);
-    $form = "";
-    $k++;
-    if(($number_news - ($n+1))< $loopvar2){
-      $loopvar2 = ($number_news - $h);
+  if($number_news > 0){
+    for ($i=0; $i < $loopvar1; $i++) {
+      $form .= '<div id="news'.$k.'">';
+      for ($j=0; $j < $loopvar2; $j++) {
+        $h = $n +1;
+        $form .='<p>'.'News Number '.$h.'</p>';
+        $form .='<p>Titel </p>'.'<input type="text" class="form-control" class="news_title" placeholder="Title" name="'.'title_'.$title_array[$n].'" value="'.$title_array[$n].'">';
+        $form .='<p>Date </p>'.'<input type="text" class="form-control" class="news_date" placeholder="Date" name="'.'date_'.$title_array[$n].'" value="'.$date_array[$n].'">';
+        $form .='<p>Text</p> '.'<textarea name="'.'text_'.$title_array[$n].'" cols="40" rows="5" class="news_text">'.$text_array[$n].'</textarea>';
+        $form .='<p>Image Link </p>'.'<input type="text" class="form-control" class="news_image" placeholder="Image" name="'.'image_'.$title_array[$n].'" value="'.$image_array[$n].'">';
+        //$form .= '<button type="submit" name="delete_module'.$i.'" formmethod="POST" value"'.$a[$i-1].'">Delete Module</button>';
+        $form .= '<p>Check this Box if you want to delete this News</p>';
+        $form .= '<input type ="checkbox" name ="delete_news_'.$a[$n].'" value="'.$a[$n].'"/>';
+        $n++;
+      }
+      if($k>1){
+        $js .= 'document.getElementById("news'.$k.'").style.display="none";';
+      }
+      $form .= '</div>';
+      array_push($newsString, $form);
+      $form = "";
+      $k++;
+      if(($number_news - ($n+1))< $loopvar2){
+        $loopvar2 = ($number_news - $h);
+      }
     }
   }
   array_push($newsString, $js);
   return $newsString;
 }
 
-function printNewsInterface($uid, $file){
+function printNewsInInterface($uid, $file){
   global $conn;
   $array = array();
   $output = '';
@@ -445,6 +460,32 @@ function printNewsInterface($uid, $file){
   $textcode = '';
   $imagecode = '';
   $endcode = '';
+
+  //get Theme1 interface navbar
+  $sql = "SELECT nav_interface_code_left FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["nav_interface_code_left"];
+    }
+  }
+  $sql = "SELECT custome_name FROM table_data WHERE user_id=$uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["custome_name"];
+    }
+  }
+  $sql = "SELECT nav_interface_code_right FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["nav_interface_code_right"];
+    }
+  }
   //get interface data to print the news in
   $sql = "SELECT news_interface_code_title, news_interface_code_date, news_interface_code_text, news_interface_code_image, news_interface_code_end FROM Theme1";
   $result = $conn->query($sql);
@@ -1113,6 +1154,10 @@ function updateNews($file, $uid){
         array_push($post_text, $_POST[$var3]);
         array_push($post_image, $_POST[$var4]);
     }
+    var_dump($post_titel);
+    var_dump($post_date);
+    var_dump($post_text);
+    var_dump($post_image);
     for ($i=0; $i < sizeof($a); $i++) {
       $value = $a[$i];
 
