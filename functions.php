@@ -1102,7 +1102,7 @@ function ThemeOne($site_name){
 }
 
 //updatet die Werte und den Code innerhalb einer File im custome Module
-function updateCustome($file, $uid){
+function updateCustome($file, $uid, $newsuse){
   global $conn;
   $a = array();
   $post = array();
@@ -1124,9 +1124,11 @@ function updateCustome($file, $uid){
       $stmt->execute();
     }
   }
-  $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
-  $stmt->bind_param("ss", $_POST['nav_title'], $uid);
-  $stmt->execute();
+  if(!$newsuse){
+    $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
+    $stmt->bind_param("ss", $_POST['nav_title'], $uid);
+    $stmt->execute();
+  }
 }
 
 function updateNews($file, $uid){
