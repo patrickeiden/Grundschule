@@ -19,6 +19,12 @@ session_start();
 
 
 <title>Page Title</title>
+<style>
+  .page-footer{
+    top: 307px;
+    width: 100%;
+  }
+</style>
 </head>
 <body>
   <nav class="navbar navbar-inverse">

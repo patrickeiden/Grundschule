@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>PAL School</title>
   <?php
   if(isset($_SESSION['u_id'])){
     echo '
@@ -27,18 +27,16 @@ session_start();
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="Css_Files/design.css">
   <style>
-  html, body{
-    height: 100%;
-  }
+    html, body{
+      height: 100%;
+    }
 
-  body{
-    background-image: url("Images/elementary-school-788902_1920.jpg");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: left top;
-  }
-
-
+    body{
+      background-image: url("Images/elementary-school-788902_1920.jpg");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: left top;
+    }
   </style>
 </head>
 <body>
@@ -63,7 +61,7 @@ echo '
           <li><a href="#" style="text-decoration: none">Personal Site </a></li>
           <li><a href="#" style="text-decoration: none">Information</a></li>
           <li><a href="#" style="text-decoration: none">Contact</a></li>
-          <li><a  href="SignUp.php" style="text-decoration: none">Submit</a></li>
+          <li><a  href="SignUp.php" style="text-decoration: none">SignUp</a></li>
         </ul>
       </nav>';
 }
@@ -80,7 +78,7 @@ echo '
       <div class="col-sm-12">
         <div class="wrapper fadeInDown">
         <div id="formContent">
-          <form action="fun_exe/LogIn_function.php" method="POST">
+          <form action="fun_exe/LogIn_function.php" method="POST" autocomplete="off">
             <input type="text" id="login" class="fadeIn second" name="email" placeholder="Enter Email" required>
             <input type="text" id="password" class="fadeIn third" name="psw" placeholder="Enter Password" required>
             <input type="submit" class="fadeIn fourth" value="Log In" name="login" formmethod="POST">

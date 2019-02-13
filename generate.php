@@ -37,23 +37,23 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
 
   <div id="main-container">
     <div class="module1">
-      <a onclick="module1()" role="button">Costume Module</a>
+      <a onclick="module1()" role="button">Costume Modul</a>
     </div>
     <div class="module2">
-      <a onclick="module2()" role="button">Kalender Module</a>
+      <a onclick="module2()" role="button">Kalender Modul</a>
     </div>
     <div class="module3">
-      <a onclick="module3()" role="button">News Module</a>
+      <a onclick="module3()" role="button">News Modul</a>
     </div>
     <div class="module4">
-      <a onclick="module4()" role="button">Jobs module</a>
+      <a onclick="module4()" role="button">Einschreibungs Modul</a>
     </div>
     <div class="module5">
-      <a onclick="module5()" role="button">Image module</a>
+      <a onclick="module5()" role="button">Galerie Modul</a>
     </div>
   </div>
 
-  <form action="generate_html.php" method="POST">
+  <form action="generate_html.php" method="POST" autocomplete="off">
   <div id="costume-module">
       <div class="form-group">
         <p>Title:</p>

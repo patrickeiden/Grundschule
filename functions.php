@@ -324,7 +324,7 @@ function setNews($number, $news_number, $uid, $folder){
   }
 }
 
-function printNewsInFile(){
+function printNewsInFile($uid, $site_name){
   global $conn;
   $output = '';
   $sql = "SELECT include, header, navbar_left, navbar_item, navbar_right, news, footer FROM Theme1";
@@ -797,7 +797,7 @@ function createFile($id, $name, $folder){
   }
   $site_name .= ".php";
   if($folder != ""){
-    $folder .= $folder."/".$site_name;
+    $folder = $folder."/".$site_name;
   }else{
     $folder = $site_name;
   }
@@ -975,12 +975,12 @@ function ImageOn($uid){
 function returnphpinclude(){
   global $conn;
   $output = "";
-  $sql = "SELECT php FROM Theme1";
+  $sql = "SELECT include FROM Theme1";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["php"];
+        $output.= $row["include"];
     }
   }
   return $output;
