@@ -175,7 +175,19 @@ h1{
   margin-bottom: 10px;
   background-color: white;
 }
+
 #conf-module5{
+  position: relative;
+  left: 700px;
+  top: -744px;
+  display: none;
+  background-color: white;
+  width: 500px;
+  height: 230px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+#conf-module6{
   position: relative;
   left: 700px;
   top: -744px;
@@ -350,6 +362,17 @@ button {
   margin-bottom: 20px;
 }
 
+#module_container .galleryModule{
+  background-color: gray;
+  width: 34%;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+#module_container .g_text{
+  display: none;
+}
+
 #module_container .n_text{
   display: none;
 }
@@ -374,6 +397,10 @@ button {
   display: none;
 }
 #page_news{
+  display: none;
+}
+
+#currentPage .page_gallery{
   display: none;
 }
 

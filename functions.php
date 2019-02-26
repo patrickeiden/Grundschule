@@ -373,6 +373,21 @@ function deleteNews($uid, $button){
   }
 }
 
+function printAllNewsFromFile($uid){
+  global $conn;
+  $file = 'userid'.$uid.'/news_id'.$uid.'.php';
+  $output = "";
+  $sql = "SELECT title, date, text, image FROM new_news WHERE news_file='$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= '<div class="news">'.$row["title"].$row["date"].$row["text"].$row["image"].'</div>';
+    }
+  }
+  return $output;
+}
+
 function numberofNews($title, $file, $table, $news_file){
   $a = oneColumnFromTable($title, $file, $table, $news_file);
   return sizeof($a);
@@ -783,6 +798,226 @@ function printImage(){
 
 }
 
+function setGallery($number, $uid, $folder){
+  global $conn;
+  if($number == 1){
+    $stmt = $conn->prepare("UPDATE table_data SET gallery_on=? WHERE user_id=?");
+    $stmt->bind_param("ii", $number, $uid);
+    $stmt->execute();
+
+    $site_name = "gallery_id" .$uid .".php";
+    if($folder != ""){
+      $folder = $folder."/".$site_name;
+    }else{
+      $folder = $site_name;
+    }
+    //create a File for this module
+    $myfile = fopen($folder, "w") or die("Unable to open file!");
+    //write file in Database
+    $stmt = $conn->prepare("UPDATE table_data SET gallery_file_name=? WHERE user_id=?");
+    $stmt->bind_param("si", $folder, $uid);
+    $stmt->execute();
+    printGalleryInFile($uid, $folder);
+  }else{
+    $stmt = $conn->prepare("UPDATE table_data SET gallery_on=? WHERE user_id=?");
+    $stmt->bind_param("ii", $number, $uid);
+    $stmt->execute();
+  }
+}
+
+function printGalleryInFile($uid, $folder){
+
+}
+
+function printFormForGallery($uid, $file){
+  global $conn;
+  $output = array();
+  $form = '';
+  $js = '';
+  //first we need the Galeries Names and the Number of the Galleries
+  $number_galleries = oneColumnFromTable('gallery_name', $file, 'Galleries', 'gallery_file_name');
+  //now we can loop throw all the Galeries
+  if(sizeof($number_galleries)>0){
+    $iterate = 1;
+    for ($i=0; $i < sizeof($number_galleries); $i++) {
+      if($i % 3 == 0){
+        $form .= '<div id="galleries'.($iterate).'">';
+        $iterate ++;
+      }
+      $gallery_name = $number_galleries[$i];
+      $form .= '<div id="gallery'.($i+1).'">';
+      $form .= '<p>Gallery: '.$gallery_name.'</p>';
+      //now we need all the images from the i-th gallery
+      $imageArray = array();
+      $sql = "SELECT image_name FROM Image WHERE gallery_name = '$gallery_name'";
+      $result = $conn->query($sql);
+      if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+            array_push($imageArray, $row['image_name']);
+        }
+      }
+      //store the size of a galerie in an array
+      array_push($output, sizeof($imageArray));
+      $size = sizeof($imageArray);
+      //now we can create a Form for all the images
+      //we need k, c and n in order to build a form with a specific hierachie, so we have always 3 images in one class
+      $n = 0;
+      $c = 1;
+      while ($size > 0) {
+          $form .= '<div class="images'.($i+1).'_'.$c.'">';
+          if($size < 4){
+            for ($k=0; $k < $size; $k++) {
+
+              $form .= '<p>Image: '.$imageArray[$k+$n].'</p>';
+              $form .= '<input type ="checkbox" name ="delete_Image_'.$imageArray[$k+$n].'" value="'.$imageArray[$k+$n].'"/>';
+              if($c > 1){
+                $js .= 'document.getElementById("gallery'.($i+1).'").getElementsByClassName("images'.($i+1).'_'.$c.'")[0].style.display="none";';
+              }
+              if($k == $size-1){
+                $size = 0;
+              }
+            }
+          }
+          else if($size > 3){
+            for ($k=0; $k < 3; $k++) {
+              $form .= '<p>Image: '.$imageArray[$k+$n].'</p>';
+              $form .= '<input type ="checkbox" name ="delete_Image_'.$imageArray[$k+$n].'" value="'.$imageArray[$k+$n].'"/>';
+              $size --;
+              if($c > 1){
+                $js .= 'document.getElementById("gallery'.($i+1).'").getElementsByClassName("images'.($i+1).'_'.$c.'")[0].style.display="none";';
+              }
+            }
+          }
+          $n += 3;
+          $c ++;
+          $form .= '</div>';
+      }
+      $form .= '<p>Check this Box if you want to delete this Gallery</p>';
+      $form .= '<input type ="checkbox" name ="delete_Gallerie_'.$number_galleries[$i].'" value="'.$number_galleries[$i].'"/>';
+
+
+      //now we create a Left and a Right button
+      $form .= '<p>Choose an image to add to your gallery</p>';
+      $form .='<p>Name </p>'.'<input type="text" class="form-control" class="name" placeholder="Title" name="'.'name_'.$number_galleries[$i].'" >';
+      $form .= '<input type="file" name="add_image'.($i+1).'" accept="image/*">';
+      $form .= '<button type="button" class="left'.($i+1).'" value="left'.($i+1).'">Left</button>';
+      $form .= '<button type="button" class="right'.($i+1).'" value="right'.($i+1).'">Right</button>';
+      $form .= '</div>';
+      if((($i+1) % 3 == 0 && $i > 0) || ($i == sizeof($number_galleries)-1)){
+        $form .= '</div>';
+      }
+      if($iterate > 1 && $iterate < sizeof($number_galleries)-1){
+        $js .= 'document.getElementById("galleries'.($iterate).'").style.display="none";';
+
+      }
+    }
+    $form .= '<p>switch to left or to right in order to see the other galeries</p>';
+    $form .= '<button type="button" class="left_gallery" value="left_gallery">Left</button>';
+    $form .= '<button type="button" class="right_gallery" value="right_gallery">Right</button>';
+  }
+  array_push($output, $js);
+  array_push($output, $form);
+  return $output;
+}
+
+function createImage($uid, $file){
+  global $conn;
+  $galleries = array();
+  $postvalues = array();
+  $postname = array();
+  $sql = "SELECT gallery_name FROM Galleries WHERE gallery_file_name = '$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($galleries, $row['gallery_name']);
+    }
+  }
+  for ($i=0; $i < sizeof($galleries); $i++) {
+    $lu = $i +1;
+    $var = 'add_image'.$lu;
+    $var2 = 'name_'.$galleries[$i];
+    array_push($postvalues, $_POST[$var]);
+    array_push($postname, $_POST[$var2]);
+  }
+  var_dump($galleries);
+  var_dump($postvalues);
+  var_dump($postname);
+  for ($i=0; $i < sizeof($postvalues); $i++) {
+    if(isset($postvalues[$i]) && $postvalues[$i]!= ""){
+      var_dump(isset($postvalues[$i]));
+      $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name, gallery_name) VALUES (?, ?, ?, ?, ?)");
+      $stmt->bind_param("sisss", $postvalues[$i], $uid, $postname[$i], $file, $galleries[$i]);
+      $stmt->execute();
+    }
+  }
+}
+
+function createGallery($uid, $file, $name){
+  global $conn;
+  $stmt = $conn->prepare("INSERT INTO Galleries (gallery_name, user_id, gallery_file_name) VALUES (?, ?, ?)");
+  $stmt->bind_param("sis", $file, $uid, $name);
+  $stmt->execute();
+}
+
+function deleteGalleries($uid, $file){
+  global $conn;
+  $a = array();
+  $b = array();
+
+  $sql = "SELECT gallery_name FROM Galleries WHERE gallery_file_name='$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($a, $row['gallery_name']);
+        array_push($b, 'delete_Gallerie_'.$row['gallery_name']);
+    }
+  }
+
+  for ($i=0; $i < sizeof($a); $i++){
+    $v = $b[$i];
+      if($_POST[$v] == $a[$i]){
+        $stmt = $conn->prepare("DELETE FROM Galleries WHERE gallery_name = ? and gallery_file_name = ?");
+        $stmt->bind_param('ss', $a[$i], $file);
+        $stmt->execute();
+        $stmt = $conn->prepare("DELETE FROM Image WHERE gallery_name = ? and image_file_name = ?");
+        $stmt->bind_param('ss', $a[$i], $file);
+        $stmt->execute();
+      }
+  }
+}
+
+function deleteImages($uid, $file){
+  global $conn;
+  $a = array();
+  $b = array();
+
+  $sql = "SELECT image_name FROM Image WHERE image_file_name='$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($a, $row['image_name']);
+        array_push($b, 'delete_Image_'.$row['image_name']);
+    }
+  }
+
+  for ($i=0; $i < sizeof($a); $i++){
+    $v = $b[$i];
+      if($_POST[$v] == $a[$i]){
+        $stmt = $conn->prepare("DELETE FROM Image WHERE image_name = ? and image_file_name = ?");
+        $stmt->bind_param('ss', $a[$i], $file);
+        $stmt->execute();
+      }
+  }
+}
+
+function numberofGalleries($uid){
+
+}
+
 #creates a .php file and returns the file name(name + id)
 function createFile($id, $name, $folder){
   global $conn;
@@ -966,6 +1201,20 @@ function ImageOn($uid){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $number = $row['image_on'];
+    }
+  }
+  return $number;
+}
+
+function GalleryOn($uid){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT gallery_on FROM table_data WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $number = $row['gallery_on'];
     }
   }
   return $number;

@@ -45,6 +45,14 @@ if(isset($_POST['Image_button'])){
   $number = 0;
   setImage($number, $_SESSION['u_id'], $folder);
 }
+#function for Gallery Module
+if(isset($_POST['gallery_button'])){
+  $number = 1;
+  setGallery($number, $_SESSION['u_id'], $folder);
+}else{
+  $number = 0;
+  setGallery($number, $_SESSION['u_id'], $folder);
+}
 header('Location: http://localhost/Grundschule/generate.php?success');
 }
 

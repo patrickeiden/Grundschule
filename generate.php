@@ -46,10 +46,10 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
       <a onclick="module3()" role="button">News Modul</a>
     </div>
     <div class="module4">
-      <a onclick="module4()" role="button">Einschreibungs Modul</a>
+      <a onclick="module4()" role="button">Galerie Modul</a>
     </div>
     <div class="module5">
-      <a onclick="module5()" role="button">Galerie Modul</a>
+      <a onclick="module5()" role="button">Einschreibungs Modul</a>
     </div>
   </div>
 
@@ -89,6 +89,13 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
   </div>
 
   <div id="conf-module4">
+    <p>Your site will contain a page with a Galerie containing pictures.<br>
+       You can add a new entry for every case e.g. pictures from a specific day. </p>
+    <input type ="checkbox" name ="gallery_button" value="1"/>
+    <p class="events">Check this Box if you want to include this module</p>
+  </div>
+
+  <div id="conf-module5">
     <p>Your site will contain a page with jobs offered by your school.</p>
     <input type="checkbox" name="jobs_form" value="Form" />
     <p>Integrated application form</p>
@@ -106,7 +113,7 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <p class="events">Check this box if you want to include this jobs module</p>
   </div>
 
-  <div id="conf-module5">
+  <div id="conf-module6">
       <p>Choose your image:</p>
       <input type="file" name="pic" accept="image/*">
       <input type ="checkbox" name ="Image_button" value="1"/>

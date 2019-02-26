@@ -35,5 +35,17 @@ if(isset($_POST['changes_news'])){
 if(isset($_POST['delete_news_button'])){
   deleteNews($_SESSION['u_id'], $_POST['delete_news_button']);
 }
+if(isset($_POST['newImages'])){
+  createImage($_SESSION['u_id'], $_POST['newImages']);
+}
+if(isset($_POST['gallery']) && isset($_POST['newGallery'])){
+  createGallery($_SESSION['u_id'], $_POST['gallery'], $_POST['newGallery']);
+}
+if(isset($_POST['delete_galleries_button'])){
+  deleteGalleries($_SESSION['u_id'], $_POST['delete_galleries_button']);
+}
+if(isset($_POST['delete_images_button'])){
+  deleteImages($_SESSION['u_id'], $_POST['delete_images_button']);
+}
 header('Location: http://localhost/Grundschule/personalSite.php');
 ?>

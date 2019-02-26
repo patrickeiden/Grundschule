@@ -8,7 +8,7 @@
   
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </header><body>
-<h1>hallo</h1><?php echo printNavItemFunction($_SESSION["u_id"]);?><h1>das ist ein Test</h1>  		<footer class="container-fluid text-center">
+<h1>hallo</h1><?php echo printNavItemFunction($_SESSION["u_id"]);?><h1>das ist ein Test</h1><?php echo printAllNewsFromFile($_SESSION["u_id"]);?>  		<footer class="container-fluid text-center">
   		  <p>Footer Text</p>
   		</footer>
     </div>

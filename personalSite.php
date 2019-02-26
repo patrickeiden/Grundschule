@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include 'functions.php';
 ?>
@@ -137,6 +136,26 @@ include 'functions.php';
           </div>
           </div>';
         }
+        if(GalleryOn($_SESSION['u_id']) == 1){
+          $name4 = oneValueFromTableData($_SESSION['u_id'], "gallery_file_name");
+          $result4 = printFormForGallery($_SESSION['u_id'], $name4);
+          echo '<div class="galleryModule" onclick="clickedGallery()">
+          <p class="text"> the gallery module is currently intergrated on your website</p>
+          <div class="g_text">
+          <form action="update_site.php" method="POST">
+            <div class="form-group">'.$result4[sizeof($result4)-1].'
+              <p>With this form you are able to add a Gallery</p>
+              <input type="text" class="form-control" id="gallery" placeholder="Gallery" name="gallery">
+              <button type="submit" name="newImages" formmethod="POST" value="'.$name4.'">add a new Images</button>
+              <button type="submit" name="newGallery" formmethod="POST" value="'.$name4.'">add a new Gallery</button>
+              <button type="submit" name="delete_galleries_button" formmethod="POST" value="'.$name4.'">Delete Galleries</button>
+              <button type="submit" name="delete_images_button" formmethod="POST" value="'.$name4.'">Delete Images</button>
+              <button class="go_back4" onclick="GalleryBack()" name="backbutton">Go Back</button>
+            </div>
+          </form>
+          </div>
+          </div>';
+        }
       ?>
     </div>
 
@@ -179,6 +198,12 @@ include 'functions.php';
         }
         ?>
       </div>
+      <div class="page_gallery">
+        <?php
+        echo printInterfacefooter();
+
+        ?>
+      </div>
     </div>
   </div>
 
@@ -197,7 +222,9 @@ include 'functions.php';
     var custome = 0;
     var calendar = 0;
     var news = 0;
+    var gallery = 0;
     var leftright = 1;
+    var leftrightGallery =1;
     <?php
     if(CustomeOn($_SESSION['u_id']) == 1){
       echo 'var customeon = 1;';
@@ -209,6 +236,20 @@ include 'functions.php';
       echo 'var calendaron = 1;';
     }else{
       echo 'var calendaron = 0;';
+    }
+
+    if(GalleryOn($_SESSION['u_id']) == 1){
+      $filenameGallery = oneValueFromTableData($_SESSION['u_id'], "gallery_file_name");
+      $resultGallery = printFormForGallery($_SESSION['u_id'], $filenameGallery);
+      $numberGalleries = oneColumnFromTable("gallery_name", $filenameGallery, "Galleries", "gallery_file_name");
+      for ($i=0; $i < sizeof($numberGalleries); $i++) {
+        echo 'var leftright'.($i+1).'= 1;';
+      }
+      echo 'var numbergalleries = '.sizeof($numberGalleries).';';
+      echo $resultGallery[sizeof($resultGallery)-2];
+      echo 'var galleryon = 1;';
+    }else{
+      echo 'var galleryon = 0;';
     }
     //number of entrys in custome module for different files in order to scale the site
     $customename = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
@@ -255,7 +296,7 @@ include 'functions.php';
       }
     }
 
-    var sumup = customeon+calendaron+newson;
+    var sumup = customeon+calendaron+newson+galleryon;
     var marginTopCurrentPage = 0;
     if(sumup>1){
        marginTopCurrentPage = ((-sumup+1)*140)-120;
@@ -267,11 +308,15 @@ include 'functions.php';
           document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="block";
           document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
           document.getElementById('page_news').style.display="none";
+          document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
           if(calendaron == 1){
             document.getElementsByClassName('calendarModule')[0].style.display="none";
           }
           if(newson == 1){
             document.getElementsByClassName('newsModule')[0].style.display="none";
+          }
+          if(galleryon == 1){
+            document.getElementsByClassName('galleryModule')[0].style.display="none";
           }
           document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
           document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="block";
@@ -291,6 +336,9 @@ include 'functions.php';
         if(newson == 1){
           document.getElementsByClassName('newsModule')[0].style.display="block";
         }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="block";
+        }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="none";
         document.getElementById('module_container').getElementsByTagName('div')[0].setAttribute("onclick", "clickedCustome()");
@@ -303,11 +351,15 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="block";
         document.getElementById('page_news').style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
         if(customeon == 1){
           document.getElementsByClassName('costumeModule')[0].style.display="none";
         }
         if(newson == 1){
           document.getElementsByClassName('newsModule')[0].style.display="none";
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="none";
         }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="block";
@@ -323,6 +375,9 @@ include 'functions.php';
         if(newson == 1){
           document.getElementsByClassName('newsModule')[0].style.display="block";
         }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="block";
+        }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="none";
         document.getElementById('module_container').getElementsByTagName('div')[4].setAttribute("onclick", "clickedCalendar()");
@@ -335,11 +390,15 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
         document.getElementById('page_news').style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
         if(customeon == 1){
           document.getElementsByClassName('costumeModule')[0].style.display="none";
         }
         if(calendaron == 1){
           document.getElementsByClassName('calendarModule')[0].style.display="none";
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="none";
         }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="block";
@@ -359,10 +418,59 @@ include 'functions.php';
         if(calendaron == 1){
           document.getElementsByClassName('calendarModule')[0].style.display="block";
         }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="block";
+        }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="none";
         document.getElementById('module_container').getElementsByTagName('div')[7].setAttribute("onclick", "clickedNews()");
         document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
+      }
+
+      function clickedGallery(){
+        document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
+        document.getElementById('page_news').style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="block";
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="none";
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="none";
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="none";
+        }
+        if(loop_number == 1){
+          document.getElementById('module_container').getElementsByTagName('div')[11].removeAttribute("onclick");
+        }else{
+          document.getElementById('module_container').getElementsByTagName('div')[10+loop_number].removeAttribute("onclick");
+        }
+        document.getElementById('currentPage').style.marginTop="-120px";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
+        document.getElementById('module_container').getElementsByClassName('g_text')[0].style.display="block";
+        document.getElementsByClassName('page-footer')[0].style.top="900px";
+      }
+
+      function GalleryBack(){
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="block";
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="block";
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="block";
+        }
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
+        document.getElementById('module_container').getElementsByClassName('g_text')[0].style.display="none";
+        if(loop_number == 1){
+          document.getElementById('module_container').getElementsByTagName('div')[11].setAttribute("onclick", "clickedGallery()");
+        }else{
+          document.getElementById('module_container').getElementsByTagName('div')[10+loop_number].setAttribute("onclick", "clickedGallery()");
+        }
+        document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
+        document.getElementsByClassName('page-footer')[0].style.top="200px";
       }
 
 
@@ -410,6 +518,21 @@ include 'functions.php';
                 news = 0;
                 $(".newsModule").animate({height:"120px"},500);
                 $(".newsModule > .text").show();
+                return false;
+              });
+            });
+
+            $(".galleryModule").click(function () {
+
+              if(gallery == 0){
+                gallery = 1;
+                $(".galleryModule").animate({height:"700px"},500);
+                $(".galleryModule > .text").hide();
+              }
+              $(".go_back4").click(function() {
+                news = 0;
+                $(".galleryModule").animate({height:"120px"},500);
+                $(".galleryModule > .text").show();
                 return false;
               });
             });
@@ -466,6 +589,91 @@ include 'functions.php';
                 }
               }
             });
+
+            //left and right for the Gallery Module (Images)
+              <?php
+              $temp = 1;
+              $temp2 = 1;
+              for ($p=0; $p < sizeof($numberGalleries); $p++) {
+
+                echo '$("#gallery'.$temp2.' > .right'.($p+1).'").click(function () {
+                  if(leftright'.$temp2.' < '.ceil($resultGallery[$temp2-1]/3).'){
+                    leftright'.$temp2.'++;
+                    for (var j = 0; j < '.ceil($resultGallery[$temp2-1]/3).'; j++) {
+                      if(j+1 == leftright'.$temp2.'){
+                        var la = j+1;
+                        var lar = la.toString();
+                        $("#gallery'.$temp2.' > .images'.$temp2.'_"+lar).show();
+                      }else{
+                        var la = j+1;
+                        var lar = la.toString();
+                        $("#gallery'.$temp2.' > .images'.$temp2.'_"+lar).hide();
+                      }
+                    }
+                  }
+                });';
+                $temp2++;
+              }
+
+              for ($p=0; $p < sizeof($numberGalleries); $p++) {
+                echo '$("#gallery'.$temp.' > .left'.($p+1).'").click(function () {
+                  if(leftright'.$temp.' > 1){
+                    leftright'.$temp.'--;
+                    for (var j = 0; j < '.ceil($resultGallery[$temp-1]/3).'; j++) {
+                      if(j+1 == leftright'.$temp.'){
+                        var la = j+1;
+                        var lar = la.toString();
+                        $("#gallery'.$temp.' > .images'.$temp.'_"+lar).show();
+                      }else{
+                        var la = j+1;
+                        var lar = la.toString();
+                        $("#gallery'.$temp.' > .images'.$temp.'_"+lar).hide();
+                      }
+                    }
+                  }
+                });';
+                $temp++;
+              }
+              ?>
+              //left and right for the Gallery Module (Galleries)
+              $(".left_gallery").click(function () {
+                if(leftrightGallery > 1){
+                  leftrightGallery--;
+                  if(numbergalleries > 2){
+                    for (var i = 0; i < Math.ceil(numbergalleries/3); i++) {
+                      if(i+1 == leftrightGallery){
+                        var la = i+1;
+                        var lar = la.toString();
+                        $("#galleries"+lar).show();
+                      }else{
+                        var la = i+1;
+                        var lar = la.toString();
+                        $("#galleries"+lar).hide();
+                      }
+                    }
+                  }
+                }
+              });
+
+              $(".right_gallery").click(function () {
+                if(leftrightGallery < Math.ceil(numbergalleries/3)){
+                  leftrightGallery++;
+                  if(numbergalleries > 2){
+                    for (var i = 0; i < Math.ceil(numbergalleries/3); i++) {
+                      if(i+1 == leftrightGallery){
+                        var la = i+1;
+                        var lar = la.toString();
+                        $("#galleries"+lar).show();
+                      }else{
+                        var la = i+1;
+                        var lar = la.toString();
+                        $("#galleries"+lar).hide();
+                      }
+                    }
+                  }
+                }
+              });
+
           });
 
 
