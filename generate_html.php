@@ -53,6 +53,13 @@ if(isset($_POST['gallery_button'])){
   $number = 0;
   setGallery($number, $_SESSION['u_id'], $folder);
 }
+if(isset($_POST['building_button'])){
+  $number = 1;
+  setBuilding($number, $_SESSION['u_id'], $folder);
+}else{
+  $number = 0;
+  setBuilding($number, $_SESSION['u_id'], $folder);
+}
 header('Location: http://localhost/Grundschule/generate.php?success');
 }
 

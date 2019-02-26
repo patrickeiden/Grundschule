@@ -156,6 +156,13 @@ include 'functions.php';
           </div>
           </div>';
         }
+        if(BuildingOn($_SESSION['u_id']) == 1){
+          echo '<div class="buildingModule" onclick="clickedGallery()">
+            <p class="text"> the building module is currently intergrated on your website</p>
+            <div class="b_text">
+            </div>
+          </div>';
+        }
       ?>
     </div>
 
@@ -278,6 +285,12 @@ include 'functions.php';
     }else{
       echo 'var newson = 0;';
     }
+
+    if(BuildingOn($_SESSION['u_id']) == 1){
+      echo 'var buildingon = 1;';
+    }else{
+      echo 'var buildingon = 0;';
+    }
     ?>
 
     //evaluates the number of news that are currently shown on the side and makes the page look good
@@ -296,7 +309,7 @@ include 'functions.php';
       }
     }
 
-    var sumup = customeon+calendaron+newson+galleryon;
+    var sumup = customeon+calendaron+newson+galleryon+buildingon;
     var marginTopCurrentPage = 0;
     if(sumup>1){
        marginTopCurrentPage = ((-sumup+1)*140)-120;
@@ -673,6 +686,7 @@ include 'functions.php';
                   }
                 }
               });
+          
 
           });
 

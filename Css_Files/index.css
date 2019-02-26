@@ -121,6 +121,15 @@ h1{
   padding-top: 38px;
   padding-left: 61px;
 }
+.module6{
+  background-color: white;
+  height: 100px;
+  width: 400px;
+  margin-top: 40px;
+  margin-left: 41px;
+  padding-top: 38px;
+  padding-left: 61px;
+}
 .show-modules {
   width: 500px;
   padding-left: 43px;
@@ -188,6 +197,17 @@ h1{
   background-color: white;
 }
 #conf-module6{
+  position: relative;
+  left: 700px;
+  top: -744px;
+  display: none;
+  background-color: white;
+  width: 500px;
+  height: 230px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+#conf-module7{
   position: relative;
   left: 700px;
   top: -744px;
@@ -363,6 +383,13 @@ button {
 }
 
 #module_container .galleryModule{
+  background-color: gray;
+  width: 34%;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+#module_container .buildingModule{
   background-color: gray;
   width: 34%;
   height: 120px;

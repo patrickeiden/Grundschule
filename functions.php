@@ -1014,8 +1014,25 @@ function deleteImages($uid, $file){
   }
 }
 
-function numberofGalleries($uid){
-
+function setBuilding($number, $uid, $folder){
+  global $conn;
+  $stmt = $conn->prepare("UPDATE table_data SET building_on=? WHERE user_id=?");
+  $stmt->bind_param("ii", $number, $uid);
+  $stmt->execute();
+  if($number == 1){
+  $site_name = "building_id" .$uid .".php";
+  if($folder != ""){
+    $folder = $folder."/".$site_name;
+  }else{
+    $folder = $site_name;
+  }
+  //create a File for this module
+  $myfile = fopen($folder, "w") or die("Unable to open file!");
+  //write file in Database
+  $stmt = $conn->prepare("UPDATE table_data SET building_file_name=? WHERE user_id=?");
+  $stmt->bind_param("si", $folder, $uid);
+  $stmt->execute();
+  }
 }
 
 #creates a .php file and returns the file name(name + id)
@@ -1215,6 +1232,20 @@ function GalleryOn($uid){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $number = $row['gallery_on'];
+    }
+  }
+  return $number;
+}
+
+function BuildingOn($uid){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT building_on FROM table_data WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $number = $row['building_on'];
     }
   }
   return $number;

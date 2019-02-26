@@ -49,7 +49,10 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
       <a onclick="module4()" role="button">Galerie Modul</a>
     </div>
     <div class="module5">
-      <a onclick="module5()" role="button">Einschreibungs Modul</a>
+      <a onclick="module5()" role="button">Job Modul</a>
+    </div>
+    <div class="module6">
+      <a onclick="module6()" role="button">Gebäude Modul</a>
     </div>
   </div>
 
@@ -110,14 +113,13 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <p class="events">5</p>
     </div>
     <input type="checkbox" name="job_button" value="1" />
-    <p class="events">Check this box if you want to include this jobs module</p>
+    <p class="events">Check this box if you want to include this module</p>
   </div>
 
   <div id="conf-module6">
-      <p>Choose your image:</p>
-      <input type="file" name="pic" accept="image/*">
-      <input type ="checkbox" name ="Image_button" value="1"/>
-      <p class="events">Check this Box if you want to include this module</p>
+    <p>Your site will contain a page with the geographic structur of your school.</p>
+    <input type="checkbox" name="building_button" value="1" />
+    <p class="events">Check this box if you want to include this module</p>
   </div>
 
 
@@ -184,6 +186,14 @@ function module5() {
   }
 }
 
+function module6() {
+  if(document.getElementById('conf-module6').style.display=="none") {
+    document.getElementById('conf-module6').style.display="block";
+  } else {
+    document.getElementById('conf-module6').style.display="none";
+  }
+}
+
 function vanish(){
   if(!(document.getElementById('main-container').style.display=="none")){
     document.getElementById('costume-module').style.display="none";
@@ -191,6 +201,7 @@ function vanish(){
     document.getElementById('conf-module3').style.display="none";
     document.getElementById('conf-module4').style.display="none";
     document.getElementById('conf-module5').style.display="none";
+    document.getElementById('conf-module6').style.display="none";
     document.getElementsByClassName('show-modules')[0].innerHTML="Show Modules and Choose Some";
     document.getElementsByClassName('show-modules')[0].style.backgroundColor="lightgrey";
   }else{
