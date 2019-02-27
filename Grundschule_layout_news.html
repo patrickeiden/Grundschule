@@ -10,7 +10,7 @@
   <style>
 
     .navbar {
-      background-color: rgb(101, 161, 223);
+      background-color: red;
       padding: 10px;
       margin-bottom: 0px;
     }
@@ -27,10 +27,6 @@
     .glyphicon {
       color: white;
       font-size: 18px;
-    }
-
-    .carousel-inner{
-      height: 600px;
     }
 
     p, a, h1{
@@ -53,6 +49,16 @@
     img {
     height: 100%;
     }
+
+    .card-img-top{
+      height: 350px;
+    }
+
+    .glyphicon-calendar{
+      color: black;
+      font-size: 14px;
+    }
+
 
   </style>
 </head>
@@ -80,58 +86,39 @@
   			<nav class="navbar">
           <div class="col-sm-2"></div>
   			      <ul class="nav navbar-nav pull-sm-left">
-              <li><a href="#"><span class="glyphicon glyphicon-home"></span> Über Uns</a></li>
+              <li><a href="Grundschule_layout.html"><span class="glyphicon glyphicon-home"></span> Über Uns</a></li>
               <li><a href="#"><span class="glyphicon glyphicon-star"></span> Klassen</a></li>
               <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> EInschreibung</a></li>
               <li><a href="#"><span class="glyphicon glyphicon-user"></span> Mitarbeiter</a></li>
-              <li><a href="Grundschule_layout_news.html"><span class="glyphicon glyphicon-envelope"></span> Neuigkeiten</a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Neuigkeiten</a></li>
               </ul>
   			</nav>
   		</div>
   </div>
 
   <div class="row">
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-    </ol>
-
-
-    <div class="carousel-inner">
-      <div class="item active">
-        <img src="Images/klasse.jpg">
-      </div>
-
-      <div class="item">
-        <img src="Images/grundschule.jpg">
-      </div>
-    </div>
-
-
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="row">
-
-    <div class="col-sm-2"></div>
-	    <div class="col-sm-8 text-center">
+    <div class="col-sm-3"></div>
+	    <div class="col-sm-8">
         <hr>
-	      <h3>Text über Schule</h3>
-	      <p>Die Grundschule Saarbrücken-Dellengarten liegt in der Kernstadt von Saarbrücken im historischen Stadtteil Alt-Saarbrücken. Sie ist seit 1980 im heute fast 100jährigen Gebäude der ehemaligen Hauptschule Dellengarten untergebracht; seit 1990 bewohnt sie dieses herrschaftliche Schulhaus mit großzügigem Raumangebot alleine.
-
-        Umgeben ist das Gebäude von einem Außengelände, das seit 2006 kontinuierlich zum attraktiven Schulhof umgestaltet wurde und allen Kindergruppen intensive Spiel- und Bewegungsmöglichkeiten bietet.
-
-        Unsere 3-zügige Schule besuchen ca. 250 Kinder aus 25 verschiedenen Nationen. Dabei werden sie von einem Lehrerteam unterrichtet, das sich aus GrundschullehrerInnen, FörderschullehrerInnen und Lehrerinnen mit Zusatzqualifikationen besteht. Außerdem werden die Schüler im Rahmen der Gebundenen Ganztagsschule von einem Team des Sozialpädagogischen Bereichs begleitet. Darüber hinaus steht den Kindern ein integrierter Hort (bis 18 Uhr) zur Verfügung.</p>
+          <div>
+            <h1>Neuigkeiten:</h1>
+            <hr>
+            <img src="Images/Ostseekinder_02.jpg" class="card-img-top">
+            <div>
+              <h3>Elterninfo 4</h3>
+              <p><span class="glyphicon glyphicon-calendar"></span> 10.10.19</p>
+              <p>Liebe Eltern!
+              Wir begrüßen Sie im neuen Jahr und wünschen Ihnen und Ihren Familien alles Gute und viel Gesundheit.
+              Wir starten das neue Halbjahr mit einigen Neuerungen, welche die Verzahnung zwischen SPB und Schule
+              betreffen, über die Sie auf den Elternabenden im Februar informiert wurden/werden.
+              Neu im Lehrerteam begrüßen wir auch Herrn Thorsten Haug, der die Klasse 2.1 von Frau Jennifer Linz
+              übernommen hat.
+              Frau Linz danken wir herzlich für Ihre Arbeit an unserer Schule und wünschen ihr privat und beruflich alles
+              Gute. Unserer Erzieherin, Charlotte Kammer, gratulieren wir zu ihrem Baby und wünschen ihr und dem
+              frischgebackenen Papa eine schöne Elternzeit. </p>
+            </div>
+          </div>
 	      <hr>
      </div>
 
