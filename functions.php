@@ -217,6 +217,7 @@ function printCustomeInInterface($uid){
     }
   }
   $sql = "SELECT custome_name FROM table_data WHERE user_id=$uid";
+
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
@@ -242,7 +243,6 @@ function printCustomeInInterface($uid){
     }
   }
   $output .= printAllCustomeFromFile($uid);
-
   return $output;
 }
 
@@ -265,12 +265,14 @@ function printAllCustomeFromFile($uid){
   global $conn;
   $file = 'userid'.$uid.'/custome_id'.$uid.'.php';
   $output = "";
-  $sql = "SELECT costume_code FROM Module WHERE custome_file='$file'";
+  $sql = "SELECT costume_code, custome_name FROM Module WHERE custome_file='$file'";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
+        $output.= '<div class="custome_'.$row["custome_name"].'">';
         $output.= $row["costume_code"];
+        $output.= '</div>';
     }
   }
   return $output;
@@ -1399,8 +1401,8 @@ function updateCustome($file, $uid, $newsuse){
     for ($i=0; $i < sizeof($a); $i++) {
       $name = $a[$i];
       $code = $post[$i];
-      $stmt = $conn->prepare("UPDATE Module SET costume_code=? WHERE custome_name=?");
-      $stmt->bind_param("ss", $code, $name);
+      $stmt = $conn->prepare("UPDATE Module SET costume_code=? WHERE custome_name=? and custome_file=?");
+      $stmt->bind_param("sss", $code, $name, $file);
       $stmt->execute();
     }
   }
@@ -1408,6 +1410,22 @@ function updateCustome($file, $uid, $newsuse){
     $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
     $stmt->bind_param("ss", $_POST['nav_title'], $uid);
     $stmt->execute();
+  }
+}
+
+function updateOneModule($uid, $file, $name, $code){
+  if($code == ""){
+    $code = "empty";
+  }
+  global $conn;
+  $numberCustome = oneColumnFromTable("custome_name", $file, "Module", "custome_file");
+  echo $code;
+  for ($i=0; $i < sizeof($numberCustome); $i++) {
+    if($numberCustome[$i] == $name){
+      $stmt = $conn->prepare("UPDATE Module SET costume_code=? WHERE custome_name=? and custome_file=?");
+      $stmt->bind_param("sss", $code, $name, $file);
+      $stmt->execute();
+    }
   }
 }
 

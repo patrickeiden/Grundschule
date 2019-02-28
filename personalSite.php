@@ -4,6 +4,7 @@ include 'functions.php';
 ?>
 
 <!DOCTYPE html>
+<?php header('Access-Control-Allow-Origin: *'); ?>
 <html>
 <head>
   <title>Gruschool</title>
@@ -686,7 +687,49 @@ include 'functions.php';
                   }
                 }
               });
-          
+              //show directly changes on the site for custome module
+              <?php
+                $numberCustome = oneColumnFromTable("custome_name", $name1, "Module", "custome_file");
+                $num_rowsCustome = sizeof($numberCustome);
+                echo 'var customeRows ='.$num_rowsCustome.';';
+                for ($i=0; $i < $num_rowsCustome; $i++) {
+                  echo 'var numberLoop'.($i+1).' ='.($i+1).';';
+                  $name = 'customeName_'.($i+1);
+                  $_SESSION[$name]= $numberCustome[$i];
+                  echo '
+                    $("#code'.($i+1).'").keyup(function (){
+                      document.getElementById("currentPage").getElementsByClassName("custome_'.$numberCustome[$i].'")[0].innerHTML = $(this).val();
+
+                    });
+                    $("#code'.($i+1).'").change(function() {
+                        var text = $("#code'.($i+1).'").val();
+                        $.ajax({
+                          type:"POST",
+                          url: "onChange.php",
+                          data: {ajaxCode:text, number:numberLoop'.($i+1).'},
+                          success: function (data) {
+                          }
+                      });
+
+                      var http = new XMLHttpRequest();
+                      var url = "onChange.php";
+                      http.open("POST", "onChange.php", true);
+
+                      //Send the proper header information along with the request
+                      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                      http.onreadystatechange = function() {//Call a function when the state changes.
+                          if(http.readyState == 4 && http.status == 200) {
+                              document.getElementById("currentPage").getElementsByClassName("custome_'.$numberCustome[$i].'")[0].innerHTML=this.responseText;
+                          }
+                      }
+                      http.send();
+                    });
+                  ';
+                }
+
+              ?>
+
 
           });
 
