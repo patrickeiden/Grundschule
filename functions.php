@@ -279,7 +279,7 @@ function printAllCustomeFromFile($uid){
 }
 
 //printet dynamisch alle Module die in einer File benutzt werden und gibt die Möglicheit den Code innerhalb der Module zu verändern
-function printFormforCustome($file){
+function printFormforCustome($file, $checkValue){
   $a = oneColumnFromTable("custome_name", $file, "Module", "custome_file");
   $i = 1;
   global $conn;
@@ -289,7 +289,12 @@ function printFormforCustome($file){
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $form .='<p>'.'Code Module '.$i.'</p> '.'<textarea name="'.$row["custome_name"].'" cols="40" rows="5" id="code'.$i.'">'.$row["costume_code"].'</textarea>';
+        if($checkValue){
+          $id = 'calendarCode'.$i;
+        }else{
+          $id = 'code'.$i;
+        }
+        $form .='<p>'.'Code Module '.$i.'</p> '.'<textarea name="'.$row["custome_name"].'" cols="40" rows="5" id="'.$id.'">'.$row["costume_code"].'</textarea>';
         //$form .= '<button type="submit" name="delete_module'.$i.'" formmethod="POST" value"'.$a[$i-1].'">Delete Module</button>';
         $form .= '<p>Check this Box if you want to delete this Module</p>';
         $form .= '<input type ="checkbox" name ="delete_module_'.$a[$i-1].'" value="'.$a[$i-1].'"/>';
@@ -667,12 +672,14 @@ function printCalendarInInterface($uid){
     }
   }
   $file = 'userid'.$uid.'/calendar_id'.$uid.'.php';
-  $sql = "SELECT costume_code FROM Module WHERE custome_file='$file' and above_under=0";
+  $sql = "SELECT costume_code, custome_name FROM Module WHERE custome_file='$file' and above_under=0";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
+        $output.= '<div class="calendar_'.$row["custome_name"].'">';
         $output.= $row["costume_code"];
+        $output.= '</div>';
     }
   }
 
@@ -685,12 +692,14 @@ function printCalendarInInterface($uid){
     }
   }
 
-  $sql = "SELECT costume_code FROM Module WHERE custome_file='$file' and above_under=1";
+  $sql = "SELECT costume_code, custome_name FROM Module WHERE custome_file='$file' and above_under=1";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
+        $output.= '<div class="calendar_'.$row["custome_name"].'">';
         $output.= $row["costume_code"];
+        $output.= '</div>';
     }
   }
   return $output;
@@ -1419,7 +1428,6 @@ function updateOneModule($uid, $file, $name, $code){
   }
   global $conn;
   $numberCustome = oneColumnFromTable("custome_name", $file, "Module", "custome_file");
-  echo $code;
   for ($i=0; $i < sizeof($numberCustome); $i++) {
     if($numberCustome[$i] == $name){
       $stmt = $conn->prepare("UPDATE Module SET costume_code=? WHERE custome_name=? and custome_file=?");

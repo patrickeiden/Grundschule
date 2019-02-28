@@ -56,7 +56,7 @@ include 'functions.php';
         if(CustomeOn($_SESSION['u_id']) == 1){
           $nav1 = printCustomeTitel($_SESSION['u_id']);
           $name1 = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
-          $result1 = printFormforCustome($name1);
+          $result1 = printFormforCustome($name1, false);
           echo '<div class="costumeModule" onclick="clickedCustome()">
                   <p class="text"> the costume module is currently intergrated on your website</p>
                   <div class="c_text">
@@ -83,7 +83,7 @@ include 'functions.php';
         }
         if(CalendarOn($_SESSION['u_id']) == 1){
           $name2 = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
-          $result2 = printFormforCustome($name2);
+          $result2 = printFormforCustome($name2, true);
           echo '<div class="calendarModule" onclick="clickedCalendar()">
                   <p class="text"> the calendar module is currently intergrated on your website</p>
                   <div class="k_text">
@@ -699,7 +699,6 @@ include 'functions.php';
                   echo '
                     $("#code'.($i+1).'").keyup(function (){
                       document.getElementById("currentPage").getElementsByClassName("custome_'.$numberCustome[$i].'")[0].innerHTML = $(this).val();
-
                     });
                     $("#code'.($i+1).'").change(function() {
                         var text = $("#code'.($i+1).'").val();
@@ -721,6 +720,45 @@ include 'functions.php';
                       http.onreadystatechange = function() {//Call a function when the state changes.
                           if(http.readyState == 4 && http.status == 200) {
                               document.getElementById("currentPage").getElementsByClassName("custome_'.$numberCustome[$i].'")[0].innerHTML=this.responseText;
+                          }
+                      }
+                      http.send();
+                    });
+                  ';
+                }
+
+                //show directly changes on the site for Calendar module
+                $numberCalendar = oneColumnFromTable("custome_name", $name2, "Module", "custome_file");
+                $num_rowsCustome = sizeof($numberCalendar);
+                echo 'var calendarRows ='.$num_rowsCustome.';';
+                for ($i=0; $i < $num_rowsCustome; $i++) {
+                  echo 'var numberLoopCalendar'.($i+1).' ='.($i+1).';';
+                  $name = 'calendarName_'.($i+1);
+                  $_SESSION[$name]= $numberCalendar[$i];
+                  echo '
+                    $("#calendarCode'.($i+1).'").keyup(function (){
+                      document.getElementById("currentPage").getElementsByClassName("calendar_'.$numberCalendar[$i].'")[0].innerHTML = $(this).val();
+                    });
+                    $("#calendarCode'.($i+1).'").change(function() {
+                        var text = $("#calendarCode'.($i+1).'").val();
+                        $.ajax({
+                          type:"POST",
+                          url: "onChangeCustome.php",
+                          data: {ajaxCode:text, number:numberLoopCalendar'.($i+1).'},
+                          success: function (data) {
+                          }
+                      });
+
+                      var http = new XMLHttpRequest();
+                      var url = "onChange.php";
+                      http.open("POST", "onChangeCustome.php", true);
+
+                      //Send the proper header information along with the request
+                      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                      http.onreadystatechange = function() {//Call a function when the state changes.
+                          if(http.readyState == 4 && http.status == 200) {
+                              document.getElementById("currentPage").getElementsByClassName("calendar_'.$numberCalendar[$i].'")[0].innerHTML=this.responseText;
                           }
                       }
                       http.send();
