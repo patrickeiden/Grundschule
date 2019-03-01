@@ -394,6 +394,7 @@ button {
   width: 34%;
   height: 120px;
   margin-bottom: 20px;
+  display: none;
 }
 
 #module_container .g_text{

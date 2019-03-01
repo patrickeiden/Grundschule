@@ -7,9 +7,6 @@ $checkValue = true;
 if(isset($_POST['ajaxCode']) && $_POST['ajaxCode'] != "" && $checkValue){
   $val = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
   $arg = 'calendarName_'.$_POST['number'];
-  echo 'arg: '.$val;
-  echo 'post: '.$_SESSION[$arg];
-  echo 'post: '.$_POST['ajaxCode'];
   updateOneModule($_SESSION['u_id'], $val, $_SESSION[$arg], $_POST['ajaxCode']);
   $_SESSION['CalendarNumber'] = $_POST['number'];
   $checkValue = false;

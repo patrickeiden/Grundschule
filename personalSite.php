@@ -310,7 +310,7 @@ include 'functions.php';
       }
     }
 
-    var sumup = customeon+calendaron+newson+galleryon+buildingon;
+    var sumup = customeon+calendaron+newson+galleryon;
     var marginTopCurrentPage = 0;
     if(sumup>1){
        marginTopCurrentPage = ((-sumup+1)*140)-120;
