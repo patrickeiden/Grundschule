@@ -1334,17 +1334,54 @@ function printInterfacefooter(){
   return $output;
 }
 
-function returninterfacecode(){
+function returninterfacecode($uid){
   global $conn;
+  returnNavbar($uid);
   $output = "";
-  $sql = "SELECT interface_code FROM Theme1";
+  $sql = "SELECT interface_code_left, navfunktion, interface_code_right FROM Theme1";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["interface_code"];
+        $output.= $row["interface_code_left"];
+        $output.= $row["navfunktion"];
+        $output.= $row["interface_code_right"];
     }
   }
+  return $output;
+}
+
+function returnNavbar($uid){
+  global $conn;
+  $output = '<div class="row text-center">
+  		<div class="col">
+  			<nav class="navbar2">
+          <div class="col-sm-3"></div>
+  			      <ul class="nav navbar-nav pull-sm-left">
+              <li><a href="#"><span class="glyphicon glyphicon-home"></span>Home</a></li>';
+  if(CustomeOn($uid) == 1){
+    $var = printCustomeTitel($uid);
+    $output.= '<li><a href="#"><span class="glyphicon glyphicon-star"></span>'.$var.'</a></li>';
+  }
+  if(CalendarOn($uid) == 1){
+    $output.= '<li><a href="#"><span class="glyphicon glyphicon-calendar"></span>Events</a></li>';
+  }
+  if(NewsOn($uid) == 1){
+    $output.= '<li><a href="#"><span class="glyphicon glyphicon-globe"></span>Neuigkeiten</a></li>';
+  }
+  if(GalleryOn($uid) == 1){
+    $output.= '<li><a href="#"><span class="glyphicon glyphicon-picture"></span>Gallerie</a></li>';
+  }
+  if(BuildingOn($uid) == 1){
+    $output.= '<li><a href="#"><span class="glyphicon glyphicon-th"></span>Lageplan</a></li>';
+  }
+  $output .= '</ul>
+            </nav>
+          </div>
+        </div>';
+  $stmt = $conn->prepare("UPDATE Theme1 SET navfunktion=?");
+  $stmt->bind_param("s", $output);
+  $stmt->execute();
   return $output;
 }
 

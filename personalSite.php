@@ -168,16 +168,9 @@ include 'functions.php';
     </div>
 
     <div id="currentPage">
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
-          </div>
-        </div>
-      </nav>
       <div class="page_main">
         <?php
-        echo returninterfacecode();
+        echo returninterfacecode($_SESSION['u_id']);
          ?>
       </div>
       <div class="page_custome">
