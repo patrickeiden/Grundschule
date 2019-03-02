@@ -76,6 +76,16 @@ h1{
    background-color: wheat;
 }
 
+.moduleStart{
+  background-color: white;
+  height: 100px;
+  width: 400px;
+  margin-top: 40px;
+  margin-left: 41px;
+  padding-top: 38px;
+  padding-left: 59px;
+}
+
  .module1{
    background-color: white;
    height: 100px;
@@ -219,6 +229,18 @@ h1{
   background-color: white;
 }
 
+#start-module{
+  position: relative;
+  left: 700px;
+  top: -744px;
+  display: none;
+  background-color: gray;
+  width: 500px;
+  height: 340px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
 #costume-module{
   position: relative;
   left: 700px;
@@ -344,6 +366,17 @@ button {
 
 #module_container .right{
   width: 30%;
+}
+
+#module_container .startModule{
+  background-color: gray;
+  width: 34%;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+#module_container .s_text{
+  display: none;
 }
 
 #module_container .costumeModule{

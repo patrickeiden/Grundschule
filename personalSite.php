@@ -164,6 +164,25 @@ include 'functions.php';
             </div>
           </div>';
         }
+        echo '<div class="startModule" onclick="clickedStart()">
+                <p class="text">Konfiguriere die Startseite</p>
+                <div class="s_text">
+                  <p>This module exists in order to change important settings on the Start site</p>
+                  <form action="update_site.php" method="POST">
+                    <div class="form-group">
+                      <p>Change the Name of your school:</p>
+                      <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.'$nav1' .'">
+                      <p>Change the Logo of your school:</p>
+                      <input type="file" name="school_logo" accept="image/*">
+                      <p>Change the header of your school:</p>
+                      <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_description" value="'.'$nav1' .'">
+                      <p>Change the text of your school:</p>
+                      <textarea name="school_desciption" cols="40" rows="5" class="school_desciption" required>'.'$nav1'.'</textarea>
+                      <button class="go_back5" onclick="StartBack()" name="backbutton">Go Back</button>
+                    </div>
+                  </form>
+                </div>
+              </div>';
       ?>
     </div>
 
@@ -220,6 +239,8 @@ include 'functions.php';
 
     </body>
     <script>
+    var starton = 1;
+    var start = 0;
     var custome = 0;
     var calendar = 0;
     var news = 0;
@@ -251,6 +272,7 @@ include 'functions.php';
       echo 'var galleryon = 1;';
     }else{
       echo 'var galleryon = 0;';
+      $numberGalleries = array();
     }
     //number of entrys in custome module for different files in order to scale the site
     $customename = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
@@ -303,7 +325,7 @@ include 'functions.php';
       }
     }
 
-    var sumup = customeon+calendaron+newson+galleryon;
+    var sumup = customeon+calendaron+newson+galleryon+starton;
     var marginTopCurrentPage = 0;
     if(sumup>1){
        marginTopCurrentPage = ((-sumup+1)*140)-120;
@@ -480,6 +502,48 @@ include 'functions.php';
         document.getElementsByClassName('page-footer')[0].style.top="200px";
       }
 
+      function clickedStart(){
+        document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
+        document.getElementById('page_news').style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="none";
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="none";
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="none";
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="none";
+        }
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
+        document.getElementById('module_container').getElementsByClassName('s_text')[0].style.display="block";
+        document.getElementById('module_container').getElementsByTagName('div')[12].removeAttribute("onclick");
+        document.getElementById('currentPage').style.marginTop="-720px";
+        document.getElementById('currentPage').getElementsByClassName('page-footer')[0].style.marginTop="-199px";
+
+      }
+
+      function StartBack(){
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="block";
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="block";
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="block";
+        }
+        document.getElementById('module_container').getElementsByClassName('s_text')[0].style.display="none";
+        document.getElementById('module_container').getElementsByTagName('div')[12].setAttribute("onclick", "clickedStart()");
+        document.getElementsByClassName('page-footer')[0].style.top="200px";
+        var temp = marginTopCurrentPage;
+        document.getElementById('currentPage').style.marginTop="-420px";
+      }
+
 
         $(document).ready(function () {
           $(".costumeModule").click(function () {
@@ -544,6 +608,21 @@ include 'functions.php';
               });
             });
 
+            $(".startModule").click(function () {
+
+              if(start == 0){
+                start = 1;
+                $(".startModule").animate({height:"700px"},500);
+                $(".startModule > .text").hide();
+              }
+              $(".go_back5").click(function() {
+                start = 0;
+                $(".startModule").animate({height:"120px"},500);
+                $(".startModule > .text").show();
+                return false;
+              });
+            });
+
 //left and right show the next page of the news
             $(".left").click(function () {
               if(leftright > 1){
@@ -598,6 +677,8 @@ include 'functions.php';
             });
 
             //left and right for the Gallery Module (Images)
+            if(galleryon == 1){
+              alert('galli');
               <?php
               $temp = 1;
               $temp2 = 1;
@@ -680,6 +761,7 @@ include 'functions.php';
                   }
                 }
               });
+            }
               //show directly changes on the site for custome module
               <?php
                 $numberCustome = oneColumnFromTable("custome_name", $name1, "Module", "custome_file");

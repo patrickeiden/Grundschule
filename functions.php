@@ -73,6 +73,14 @@ function returnNewsImage(){
 }
 # Ende News Module
 
+#Anfang start-Modul
+function setStart($uid, $file, $name, $logo, $text, $header){
+  global $conn;
+  $stmt = $conn->prepare("INSERT INTO Page (page_file_name, name, header, text, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("sssssi", $file, $name, $header, $text, $logo, $uid);
+  $stmt->execute();
+}
+
 #Anfang Costume Modul
 function setCustome($name, $number, $uid, $folder){  //later +1 arguments for the Theme u want to use
   global $conn;
@@ -1573,6 +1581,8 @@ function createFolder($uid){
   if (!file_exists($name)){
     mkdir($name, 0777, true);
   }
+  $string = 'sudo chmod 777'.$name;
+  shell_exec($string);
   return $name;
 }
 

@@ -36,6 +36,9 @@ if(isset($_SESSION['u_id'])){
 echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Choose Some</p>
 
   <div id="main-container">
+  <div class="moduleStart">
+    <a onclick="Startmodul()" role="button">Start Modul</a>
+  </div>
     <div class="module1">
       <a onclick="module1()" role="button">Costume Modul</a>
     </div>
@@ -52,11 +55,23 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
       <a onclick="module5()" role="button">Job Modul</a>
     </div>
     <div class="module6">
-      <a onclick="module6()" role="button">Gebäude Modul</a>
+      <a onclick="module6()" role="button">Anfahrt Modul</a>
     </div>
   </div>
 
   <form action="generate_html.php" method="POST" autocomplete="off">
+  <div id="start-module">
+      <div class="form-group">
+        <p>Name der Schule:</p>
+        <input type="text" class="form-control" id="nameSchool" placeholder="Name der Schule" name="nameSchool" required>
+        <p>Schullogo</p>
+        <input type="file" name="logo" accept="image/*" required>
+        <p>Überschrift des Textes:</p>
+        <input type="text" class="form-control" id="header" placeholder="Überschrift" name="header" required>
+        <p>Beschreibungstext:</p>
+        <textarea name="desciption" cols="40" rows="5" class="desciption" required></textarea>
+      </div>
+  </div>
   <div id="costume-module">
       <div class="form-group">
         <p>Title:</p>
@@ -145,6 +160,13 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
 </body>
 
 <script>
+function Startmodul(){
+  if(document.getElementById('start-module').style.display=="none"){
+     document.getElementById('start-module').style.display="block";
+  }else{
+    document.getElementById('start-module').style.display="none";
+  }
+}
 
 function module1(){
   if(document.getElementById('costume-module').style.display=="none"){
@@ -196,6 +218,7 @@ function module6() {
 
 function vanish(){
   if(!(document.getElementById('main-container').style.display=="none")){
+    document.getElementById('start-module').style.display="none";
     document.getElementById('costume-module').style.display="none";
     document.getElementById('calendar_module').style.display="none";
     document.getElementById('conf-module3').style.display="none";

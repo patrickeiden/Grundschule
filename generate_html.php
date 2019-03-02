@@ -7,7 +7,10 @@ if(isset($_POST['test'])){
   $folder = createFolder($_SESSION['u_id']);
   #create a .php file for the site and puts it into the database
   $filename = fileInDatabase("registration", "reg_id", $_SESSION['u_id'], "siteone_name", "frontpageUser", $folder);
-  ThemeOne($filename);
+
+
+  #creates a start site
+  setStart($_SESSION['u_id'], $filename, $_POST['nameSchool'], $_POST['logo'], $_POST['desciption'], $_POST['header']);
 
   #creates multiple modules
   if(isset($_POST['costume_button']) && $_POST['costume_button']==1){
