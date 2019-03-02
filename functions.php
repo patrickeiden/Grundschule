@@ -1346,14 +1346,62 @@ function returninterfacecode($uid){
   global $conn;
   returnNavbar($uid);
   $output = "";
-  $sql = "SELECT interface_code_left, navfunktion, interface_code_right FROM Theme1";
+  $name= "";
+  $header= "";
+  $text= "";
+  $image= "";
+  $street= "";
+  $plz= "";
+  $ort= "";
+  $number= "";
+  $fax= "";
+  $mail= "";
+  $sql = "SELECT name, header, text, image, street, plz, ort, number, fax, mail FROM Page WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $name.= $row["name"];
+        $header.= $row["header"];
+        $text.= $row["text"];
+        $image.= $row["image"];
+        $street.= $row["street"];
+        $plz.= $row["plz"];
+        $ort.= $row["ort"];
+        $number.= $row["number"];
+        $fax.= $row["fax"];
+        $mail.= $row["mail"];
+    }
+  }
+  $sql = "SELECT interface_code_left, interface_code_name, interface_code_image, navfunktion, interface_code_right, interface_code_header, interface_code_text, interface_code_street, interface_code_plz,
+  interface_code_ort, interface_code_tel, interface_code_fax, interface_code_mail, interface_code_end FROM Theme1";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $output.= $row["interface_code_left"];
+        $output.= $name;
+        $output.= $row["interface_code_name"];
+        $output.= $image;
+        $output.= $row["interface_code_image"];
         $output.= $row["navfunktion"];
         $output.= $row["interface_code_right"];
+        $output.= $header;
+        $output.= $row["interface_code_header"];
+        $output.= $text;
+        $output.= $row["interface_code_text"];
+        $output.= $street;
+        $output.= $row["interface_code_street"];
+        $output.= $plz;
+        $output.= $row["interface_code_plz"];
+        $output.= $ort;
+        $output.= $row["interface_code_tel"];
+        $output.= $number;
+        $output.= $row["interface_code_fax"];
+        $output.= $fax;
+        $output.= $row["interface_code_mail"];
+        $output.= $mail;
+        $output.= $row["interface_code_end"];
     }
   }
   return $output;
@@ -1496,7 +1544,7 @@ function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $p
   $stmt = $conn->prepare("UPDATE Page SET fax=? WHERE page_file_name=?");
   $stmt->bind_param("ss", $fax, $file);
   $stmt->execute();
-  if(isset($image)){
+  if(isset($image) && $image != ""){
     $stmt = $conn->prepare("UPDATE Page SET image=? WHERE page_file_name=?");
     $stmt->bind_param("ss", $image, $file);
     $stmt->execute();

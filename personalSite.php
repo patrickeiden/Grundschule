@@ -698,7 +698,6 @@ include 'functions.php';
 
             //left and right for the Gallery Module (Images)
             if(galleryon == 1){
-              alert('galli');
               <?php
               $temp = 1;
               $temp2 = 1;
@@ -905,7 +904,6 @@ include 'functions.php';
                         var fax = $("#school_fax").val();
                         var mail = $("#school_mail").val();
                         var logo = $("#school_logo").val();
-                        alert(logo);
                         $.ajax({
                           type:"POST",
                           url: "onChangeStart.php",
