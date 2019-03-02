@@ -1467,6 +1467,42 @@ function updateCustome($file, $uid, $newsuse){
   }
 }
 
+function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $plz, $ort, $tel, $fax, $mail){
+  global $conn;
+  $stmt = $conn->prepare("UPDATE Page SET name=? WHERE page_file_name=?");
+  $stmt->bind_param("ss", $name, $file);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE Page SET header=? WHERE page_file_name=?");
+  $stmt->bind_param("ss", $header, $file);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE Page SET text=? WHERE page_file_name=?");
+  $stmt->bind_param("ss", $text, $file);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE Page SET street=? WHERE page_file_name=?");
+  $stmt->bind_param("ss", $street, $file);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE Page SET plz=? WHERE page_file_name=?");
+  $stmt->bind_param("ss", $plz, $file);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE Page SET mail=? WHERE page_file_name=?");
+  $stmt->bind_param("ss", $mail, $file);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE Page SET number=? WHERE page_file_name=?");
+  $stmt->bind_param("ss", $tel, $file);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE Page SET ort=? WHERE page_file_name=?");
+  $stmt->bind_param("ss", $ort, $file);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE Page SET fax=? WHERE page_file_name=?");
+  $stmt->bind_param("ss", $fax, $file);
+  $stmt->execute();
+  if(isset($image)){
+    $stmt = $conn->prepare("UPDATE Page SET image=? WHERE page_file_name=?");
+    $stmt->bind_param("ss", $image, $file);
+    $stmt->execute();
+  }
+}
+
 function updateOneModule($uid, $file, $name, $code){
   if($code == ""){
     $code = "empty";

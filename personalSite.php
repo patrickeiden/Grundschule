@@ -164,6 +164,17 @@ include 'functions.php';
             </div>
           </div>';
         }
+        $name5 = oneColumnFromTable("siteone_name", $_SESSION['u_id'], "registration", "data_id");
+        $Startname = oneColumnFromTable("name", $name5[0], "Page", "page_file_name");
+        $Startheader = oneColumnFromTable("header", $name5[0], "Page", "page_file_name");
+        $Starttext = oneColumnFromTable("text", $name5[0], "Page", "page_file_name");
+        $Startstreet = oneColumnFromTable("street", $name5[0], "Page", "page_file_name");
+        $Startplz = oneColumnFromTable("plz", $name5[0], "Page", "page_file_name");
+        $Startort = oneColumnFromTable("ort", $name5[0], "Page", "page_file_name");
+        $Startnumber = oneColumnFromTable("number", $name5[0], "Page", "page_file_name");
+        $Startfax = oneColumnFromTable("fax", $name5[0], "Page", "page_file_name");
+        $Startmail = oneColumnFromTable("mail", $name5[0], "Page", "page_file_name");
+
         echo '<div class="startModule" onclick="clickedStart()">
                 <p class="text">Konfiguriere die Startseite</p>
                 <div class="s_text">
@@ -171,14 +182,23 @@ include 'functions.php';
                   <form action="update_site.php" method="POST">
                     <div class="form-group">
                       <p>Change the Name of your school:</p>
-                      <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.'$nav1' .'">
+                      <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.$Startname[0] .'">
                       <p>Change the Logo of your school:</p>
-                      <input type="file" name="school_logo" accept="image/*">
+                      <input type="file" id="school_logo" name="school_logo" accept="image/*">
                       <p>Change the header of your school:</p>
-                      <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_description" value="'.'$nav1' .'">
+                      <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_header" value="'.$Startheader[0].'">
                       <p>Change the text of your school:</p>
-                      <textarea name="school_desciption" cols="40" rows="5" class="school_desciption" required>'.'$nav1'.'</textarea>
+                      <textarea name="school_description" cols="40" rows="5" id="school_description" required>'.$Starttext[0].'</textarea>
+                      <p>Verändere die Adresse im Footer:</p>
+                      <input type="text" class="form-control" id="school_street" placeholder="Straße" name="school_street" value="'.$Startstreet[0].'">
+                      <input type="text" class="form-control" id="school_plz" placeholder="PLZ" name="school_plz" value="'.$Startplz[0].'">
+                      <input type="text" class="form-control" id="school_ort" placeholder="Ort" name="school_ort" value="'.$Startort[0].'">
+                      <p>Verändere Kontaktdaten im Footer:</p>
+                      <input type="text" class="form-control" id="school_tel" placeholder="Telefon" name="school_tel" value="'.$Startnumber[0].'">
+                      <input type="text" class="form-control" id="school_fax" placeholder="Fax" name="school_fax" value="'.$Startfax[0].'">
+                      <input type="text" class="form-control" id="school_mail" placeholder="Mail" name="school_mail" value="'.$Startmail[0].'">
                       <button class="go_back5" onclick="StartBack()" name="backbutton">Go Back</button>
+                      <button class="startButton" type="button">Save Changes</button>
                     </div>
                   </form>
                 </div>
@@ -841,9 +861,63 @@ include 'functions.php';
                   ';
                 }
 
+                //show directly changes for the start Module
+              $file5 = oneColumnFromTable("siteone_name", $_SESSION['u_id'], "registration", "reg_id");
+              echo 'var startPagefile ="'.($file5[0]).'";';
+              echo  '$("#school_street").keyup(function (){
+                      document.getElementById("currentPage").getElementsByClassName("street")[0].innerHTML = $(this).val();
+                    });
+                    $("#school_name").keyup(function (){
+                            document.getElementById("currentPage").getElementsByClassName("name")[0].innerHTML = $(this).val();
+                    });
+                    $("#school_header").keyup(function (){
+                            document.getElementById("currentPage").getElementsByClassName("header")[0].innerHTML = $(this).val();
+                    });
+                    $("#school_description").keyup(function (){
+                            document.getElementById("currentPage").getElementsByClassName("description")[0].innerHTML = $(this).val();
+                    });
+                    $("#school_plz").keyup(function (){
+                            document.getElementById("currentPage").getElementsByClassName("plz")[0].innerHTML = $(this).val();
+                    });
+                    $("#school_ort").keyup(function (){
+                            document.getElementById("currentPage").getElementsByClassName("ort")[0].innerHTML = $(this).val();
+                    });
+                    $("#school_tel").keyup(function (){
+                            document.getElementById("currentPage").getElementsByClassName("tel")[0].innerHTML = $(this).val();
+                    });
+                    $("#school_fax").keyup(function (){
+                            document.getElementById("currentPage").getElementsByClassName("fax")[0].innerHTML = $(this).val();
+                    });
+                    $("#school_mail").keyup(function (){
+                            document.getElementById("currentPage").getElementsByClassName("mail")[0].innerHTML = $(this).val();
+                    });
+                    $("#school_logo").keyup(function (){
+                            document.getElementById("currentPage").getElementsByClassName("logo")[0].innerHTML = $(this).val();
+                    });
+                    $(".startButton").click(function (){
+                        var name = $("#school_name").val();
+                        var header = $("#school_header").val();
+                        var description = $("#school_description").val();
+                        var plz = $("#school_plz").val();
+                        var ort = $("#school_ort").val();
+                        var tel = $("#school_tel").val();
+                        var street = $("#school_street").val();
+                        var fax = $("#school_fax").val();
+                        var mail = $("#school_mail").val();
+                        var logo = $("#school_logo").val();
+                        alert(logo);
+                        $.ajax({
+                          type:"POST",
+                          url: "onChangeStart.php",
+                          data: {file:startPagefile, Codename:name, Codeheader:header, Codedescription:description, Codeplz:plz, Codeort:ort, Codetel:tel, Codestreet:street, Codefax:fax, Codemail:mail, Codelogo:logo},
+                          success: function (data) {
+                          }
+                      });
+
+
+                  });
+                ';
               ?>
-
-
           });
 
 
