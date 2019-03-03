@@ -9,33 +9,54 @@
 
   <style>
 
-    .navbar {
-      background-color: red!important;
-    }
+  .navbar {
+    background-color: rgb(101, 161, 223)!important;
+    padding: 10px;
+    margin-bottom: 0px;
+  }
 
-    p {
-      margin-bottom: 0px;
-    }
+  .Title {
+    font-size: 27px;
+    margin-top: 5px;
+  }
 
-    p, a, h1{
-    	font-family: "Open Sans",sans-serif;
-    }
+  p {
+    margin-bottom: 0px;
+  }
 
-    a {
-    	color: white;
-    	font-size: 20px;
-    }
+  .glyphicon {
+    color: white;
+    font-size: 18px;
+  }
 
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 40px;
+  .carousel-inner{
+    height: 600px;
+  }
 
-    }
+  p, a, h1{
+    font-family: "Open Sans",sans-serif;
+  }
 
-    img {
-      height: 100%;
-    }
+  a {
+    color: white;
+    font-size: 20px;
+  }
+
+  footer {
+    background-color: #555;
+    color: white;
+    padding: 40px;
+  }
+
+  ul.nav a:hover {
+    color: white !important;
+    background-color: transparent !important;
+  }
+
+
+  img {
+    height: 100%;
+  }
 
     .card-img-top {
       height: 350px;
@@ -101,12 +122,12 @@
       		  <div class="col-sm-4">
               <p>Adresse:</br>
               Schulstr. 100</br>
-              66133 Saarbrücken</p>  
+              66133 Saarbrücken</p>
             </div>
             <div class="col-sm-4">
               <p>Tel.0681 / 12345</br>
               Fax: 0681 / 12335:</br>
-              E-Mail: schule@gmail.com</p>  
+              E-Mail: schule@gmail.com</p>
             </div>
           </div>
         </div>

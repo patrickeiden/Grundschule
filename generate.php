@@ -64,8 +64,10 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
       <div class="form-group">
         <p>Name der Schule:</p>
         <input type="text" class="form-control" id="nameSchool" placeholder="Name der Schule" name="nameSchool" required>
-        <p>Schullogo</p>
+        <p>Wählen sie ihr Schullogo</p>
         <input type="file" name="logo" accept="image/*" required>
+        <p>Wählen sie ein Bild für den Slider:</p>
+        <input type="file" id="school_slider" name="school_slider" accept="image/*">
         <p>Überschrift des Textes:</p>
         <input type="text" class="form-control" id="header" placeholder="Überschrift" name="header" required>
         <p>Beschreibungstext:</p>

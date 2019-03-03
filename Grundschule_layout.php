@@ -11,10 +11,22 @@
 
     .navbar {
       background-color: rgb(101, 161, 223)!important;
+      padding: 10px;
+      margin-bottom: 0px;
+    }
+
+    .Title {
+      font-size: 27px;
+      margin-top: 5px;
     }
 
     p {
       margin-bottom: 0px;
+    }
+
+    .glyphicon {
+      color: white;
+      font-size: 18px;
     }
 
     .carousel-inner{
@@ -34,8 +46,13 @@
       background-color: #555;
       color: white;
       padding: 40px;
-
     }
+
+    ul.nav a:hover {
+      color: white !important;
+      background-color: transparent !important;
+    }
+
 
     img {
       height: 100%;
@@ -49,11 +66,9 @@
 
 <div class="container-fluid">
 
-  <div class="row">
 
     <?php include('menu.php'); ?>
 
-  </div>
 
   <div class="row">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -112,12 +127,12 @@
       		  <div class="col-sm-4">
               <p>Adresse:</br>
               Schulstr. 100</br>
-              66133 Saarbrücken</p>  
+              66133 Saarbrücken</p>
             </div>
             <div class="col-sm-4">
               <p>Tel.0681 / 12345</br>
               Fax: 0681 / 12335:</br>
-              E-Mail: schule@gmail.com</p>  
+              E-Mail: schule@gmail.com</p>
             </div>
           </div>
         </div>

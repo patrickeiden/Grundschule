@@ -74,11 +74,79 @@ function returnNewsImage(){
 # Ende News Module
 
 #Anfang start-Modul
-function setStart($uid, $file, $name, $logo, $text, $header){
+function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider){
   global $conn;
+  $logo = 'Images/'.$logo;
   $stmt = $conn->prepare("INSERT INTO Page (page_file_name, name, header, text, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
   $stmt->bind_param("sssssi", $file, $name, $header, $text, $logo, $uid);
   $stmt->execute();
+  $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_file_name) VALUES (?, ?, ?)");
+  $stmt->bind_param("sis", $slider, $uid, $file);
+  $stmt->execute();
+
+
+  printStartInFile($uid, $file);
+}
+
+function printStartInFile($uid, $file){
+  global $conn;
+  returnNavbar($uid);
+  $output = '';
+  $output = "";
+  $name= "";
+  $header= "";
+  $text= "";
+  $image= "";
+  $street= "";
+  $plz= "";
+  $ort= "";
+  $number= "";
+  $fax= "";
+  $mail= "";
+  $sql = "SELECT name, header, text, image, street, plz, ort, number, fax, mail FROM Page WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $name.= $row["name"];
+        $header.= $row["header"];
+        $text.= $row["text"];
+        $image.= $row["image"];
+        $street.= $row["street"];
+        $plz.= $row["plz"];
+        $ort.= $row["ort"];
+        $number.= $row["number"];
+        $fax.= $row["fax"];
+        $mail.= $row["mail"];
+    }
+  }
+  $sql = "SELECT include, header, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, regular_code_header, regular_code_text, regular_code_street, regular_code_plz,
+  regular_code_tel, regular_code_fax, regular_code_mail, 	regular_code_end FROM Theme1regular";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["include"].$row["header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"].$row["regular_code_right"].$header.
+        $row["regular_code_header"].$text.$row["regular_code_text"].$street.$row["regular_code_street"].$plz.$row["regular_code_plz"].$ort.$row["regular_code_tel"].$number.$row["regular_code_fax"].
+        $fax.$row["regular_code_mail"].$mail.$row["regular_code_end"];
+    }
+  }
+  $myfile = fopen($file, "w") or die("Unable to open file!");
+  fwrite($myfile, $output);
+  return $output;
+}
+
+function printFormForStart($file){
+  global $conn;
+  $form = '';
+  $a = oneColumnFromTable("image_url", $file, "Image", "image_file_name");
+  $b = oneColumnFromTable("image_id", $file, "Image", "image_file_name");
+  for ($i=0; $i < sizeof($a); $i++) {
+    $form .= '<p>'.$i.'. Slider Bild: '.$a[$i].'</p>';
+    $form .= '<p>lösche Bild '.($i+1).'</p>';
+    $form .= '<input type ="checkbox" name ="delete_slider_'.$b[$i].'" value="'.$b[$i].'"/>';
+  }
+  return $form;
 }
 
 #Anfang Costume Modul
@@ -166,9 +234,6 @@ function deleteCustome($uid, $button){
         echo $_POST['delete_module_'.$row['custome_name']];
     }
   }
-  var_dump($a);
-  var_dump($b);
-  var_dump($c);
   for ($i=0; $i < sizeof($a); $i++){
     $v = $b[$i];
       if($_POST[$v] == $a[$i]){
@@ -960,12 +1025,8 @@ function createImage($uid, $file){
     array_push($postvalues, $_POST[$var]);
     array_push($postname, $_POST[$var2]);
   }
-  var_dump($galleries);
-  var_dump($postvalues);
-  var_dump($postname);
   for ($i=0; $i < sizeof($postvalues); $i++) {
     if(isset($postvalues[$i]) && $postvalues[$i]!= ""){
-      var_dump(isset($postvalues[$i]));
       $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name, gallery_name) VALUES (?, ?, ?, ?, ?)");
       $stmt->bind_param("sisss", $postvalues[$i], $uid, $postname[$i], $file, $galleries[$i]);
       $stmt->execute();
@@ -1072,11 +1133,10 @@ function createFile($id, $name, $folder){
   }else{
     $folder = $site_name;
   }
-
   //$shell_string = "sudo chmod 777 " .$site_name;
   //shell_exec($shell_string);
   $myfile = fopen($folder, "w") or die("Unable to open file!");
-  return $site_name;
+  return $folder;
 }
 
 #takes the database name, the id name, the id, the value name und the file name and updates the database entry
@@ -1438,6 +1498,9 @@ function returnNavbar($uid){
   $stmt = $conn->prepare("UPDATE Theme1 SET navfunktion=?");
   $stmt->bind_param("s", $output);
   $stmt->execute();
+  $stmt = $conn->prepare("UPDATE Theme1regular SET navfunktion=?");
+  $stmt->bind_param("s", $output);
+  $stmt->execute();
   return $output;
 }
 
@@ -1515,7 +1578,7 @@ function updateCustome($file, $uid, $newsuse){
   }
 }
 
-function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $plz, $ort, $tel, $fax, $mail){
+function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $plz, $ort, $tel, $fax, $mail, $slider){
   global $conn;
   $stmt = $conn->prepare("UPDATE Page SET name=? WHERE page_file_name=?");
   $stmt->bind_param("ss", $name, $file);
@@ -1544,6 +1607,12 @@ function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $p
   $stmt = $conn->prepare("UPDATE Page SET fax=? WHERE page_file_name=?");
   $stmt->bind_param("ss", $fax, $file);
   $stmt->execute();
+  if(isset($slider) && $slider != ""){
+    $slider = str_replace("/^.*\\/","",$slider);;
+    $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_file_name) VALUES (?, ?, ?)");
+    $stmt->bind_param("sis",$slider, $uid, $file);
+    $stmt->execute();
+  }
   if(isset($image) && $image != ""){
     $stmt = $conn->prepare("UPDATE Page SET image=? WHERE page_file_name=?");
     $stmt->bind_param("ss", $image, $file);
@@ -1591,10 +1660,6 @@ function updateNews($file, $uid){
         array_push($post_text, $_POST[$var3]);
         array_push($post_image, $_POST[$var4]);
     }
-    var_dump($post_titel);
-    var_dump($post_date);
-    var_dump($post_text);
-    var_dump($post_image);
     for ($i=0; $i < sizeof($a); $i++) {
       $value = $a[$i];
 

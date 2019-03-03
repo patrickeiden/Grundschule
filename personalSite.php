@@ -174,6 +174,7 @@ include 'functions.php';
         $Startnumber = oneColumnFromTable("number", $name5[0], "Page", "page_file_name");
         $Startfax = oneColumnFromTable("fax", $name5[0], "Page", "page_file_name");
         $Startmail = oneColumnFromTable("mail", $name5[0], "Page", "page_file_name");
+        $form5 = printFormForStart($name5[0]);
 
         echo '<div class="startModule" onclick="clickedStart()">
                 <p class="text">Konfiguriere die Startseite</p>
@@ -183,8 +184,10 @@ include 'functions.php';
                     <div class="form-group">
                       <p>Change the Name of your school:</p>
                       <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.$Startname[0] .'">
-                      <p>Change the Logo of your school:</p>
-                      <input type="file" id="school_logo" name="school_logo" accept="image/*">
+                      <p>Setzen sie das Logo ihrer Schule:</p>
+                      <input type="file" id="school_logo" name="school_logo" accept="image/*">'.$form5.'
+                      <p>Fügen sie ein neues Bild zu ihrem Slider hinzu:</p>
+                      <input type="file" id="school_slider" name="school_slider" accept="image/*">
                       <p>Change the header of your school:</p>
                       <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_header" value="'.$Startheader[0].'">
                       <p>Change the text of your school:</p>
@@ -783,6 +786,7 @@ include 'functions.php';
             }
               //show directly changes on the site for custome module
               <?php
+              if(CustomeOn($_SESSION['u_id'])){
                 $numberCustome = oneColumnFromTable("custome_name", $name1, "Module", "custome_file");
                 $num_rowsCustome = sizeof($numberCustome);
                 echo 'var customeRows ='.$num_rowsCustome.';';
@@ -819,9 +823,11 @@ include 'functions.php';
                       http.send();
                     });
                   ';
+                  }
                 }
 
                 //show directly changes on the site for Calendar module
+                if(CalendarOn($_SESSION['u_id'])){
                 $numberCalendar = oneColumnFromTable("custome_name", $name2, "Module", "custome_file");
                 $num_rowsCustome = sizeof($numberCalendar);
                 echo 'var calendarRows ='.$num_rowsCustome.';';
@@ -858,6 +864,7 @@ include 'functions.php';
                       http.send();
                     });
                   ';
+                  }
                 }
 
                 //show directly changes for the start Module
@@ -904,10 +911,11 @@ include 'functions.php';
                         var fax = $("#school_fax").val();
                         var mail = $("#school_mail").val();
                         var logo = $("#school_logo").val();
+                        var slider = $("#school_slider").val();
                         $.ajax({
                           type:"POST",
                           url: "onChangeStart.php",
-                          data: {file:startPagefile, Codename:name, Codeheader:header, Codedescription:description, Codeplz:plz, Codeort:ort, Codetel:tel, Codestreet:street, Codefax:fax, Codemail:mail, Codelogo:logo},
+                          data: {Codeslider:slider, file:startPagefile, Codename:name, Codeheader:header, Codedescription:description, Codeplz:plz, Codeort:ort, Codetel:tel, Codestreet:street, Codefax:fax, Codemail:mail, Codelogo:logo},
                           success: function (data) {
                           }
                       });

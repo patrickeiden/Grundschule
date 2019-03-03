@@ -1,61 +1,4 @@
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <style>
-
-    .navbar {
-      background-color: red;
-      padding: 10px;
-      margin-bottom: 0px;
-    }
-
-    .Title {
-      font-size: 27px;
-      margin-top: 5px;
-    }
-
-    p {
-      margin-bottom: 0px;
-    }
-
-    .glyphicon {
-      color: white;
-      font-size: 18px;
-    }
-
-    p, a, h1{
-    	font-family: "Open Sans",sans-serif;
-    }
-
-    a {
-    	color: white;
-    	font-size: 20px;
-    }
-
-    img {
-    height: 100%;
-    }
-
-    ul.nav a:hover { 
-      color: white !important;
-      background-color: transparent !important;
-
-    }
-
-  </style>
-</head>
-
-
-<body>
-
-<div class="container-fluid">
 
   <div class="row">
 
@@ -84,6 +27,3 @@
   			</nav>
   		</div>
   </div>
-
-  </body>
-</html>
