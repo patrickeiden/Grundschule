@@ -66,7 +66,7 @@
    <div class="col-sm-2"></div>
     <div id="firstheader">
      <div class="Title col-sm-4">
-    	<p class="name">Grundschule Losheim am See</p> 
+    	<p class="name">liliil</p> 
      </div> 
      <div class="col-sm-3 text-left">        
        <img class="logo" src="Images/Logo_grundschule.jpg" alt="Smiley face"  height="170" width="170">       
@@ -108,8 +108,8 @@
           <div class="col-sm-3"></div>   	    
           <div class="col-sm-6 text-center">           
             <hr>   	      
-            <h3 class="header">Neueröffnung </h3>
-            <p class="description">Ich wiederhole mich nur ungerne </p>
+            <h3 class="header">sadsad</h3>
+            <p class="description">sadasd</p>
             <hr>
           </div>
         </div>
@@ -120,10 +120,10 @@
                 <div class="col-sm-3">
                 </div>
                 <div class="col-sm-4"> 
-                  <p>Adresse:</br><span class="street">Theodor-Storm-Straße 30</span></br> <span class="plz">66679</span></br><span class="ort">Losheim</span></p>
+                  <p>Adresse:</br><span class="street">Musterstrasse</span></br> <span class="plz">66666</span></br><span class="ort">Musterort</span></p>
                 </div>
                 <div class="col-sm-4">
-                  <p><span class="tel">Tel:98093824</span></br><span class="fax">Fax:320490342</span></br> <span class="mail">E-Mail:Schule@losheim.de</span></p> 
+                  <p><span class="tel">Tel:00000</span></br><span class="fax">Fax:00001</span></br> <span class="mail">E-Mail:Mustermail@muster.de</span></p> 
                 </div>
               </div> 
             </div> 

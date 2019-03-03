@@ -142,7 +142,7 @@ function printFormForStart($file){
   $a = oneColumnFromTable("image_url", $file, "Image", "image_file_name");
   $b = oneColumnFromTable("image_id", $file, "Image", "image_file_name");
   for ($i=0; $i < sizeof($a); $i++) {
-    $form .= '<p>'.$i.'. Slider Bild: '.$a[$i].'</p>';
+    $form .= '<p>'.($i+1).'. Slider Bild: '.$a[$i].'</p>';
     $form .= '<p>lösche Bild '.($i+1).'</p>';
     $form .= '<input type ="checkbox" name ="delete_slider_'.$b[$i].'" value="'.$b[$i].'"/>';
   }
@@ -1608,7 +1608,8 @@ function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $p
   $stmt->bind_param("ss", $fax, $file);
   $stmt->execute();
   if(isset($slider) && $slider != ""){
-    $slider = str_replace("/^.*\\/","",$slider);;
+    $slider = str_replace("C:\fakepath\ ","",$slider);
+    var_dump($slider);
     $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_file_name) VALUES (?, ?, ?)");
     $stmt->bind_param("sis",$slider, $uid, $file);
     $stmt->execute();

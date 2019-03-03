@@ -150,12 +150,12 @@
       		  <div class="col-sm-4">
               <p>Adresse:</br>
               Schulstr. 100</br>
-              66133 Saarbrücken</p>  
+              66133 Saarbrücken</p>
             </div>
             <div class="col-sm-4">
               <p>Tel.0681 / 12345</br>
               Fax: 0681 / 12335:</br>
-              E-Mail: schule@gmail.com</p>  
+              E-Mail: schule@gmail.com</p>
             </div>
           </div>
         </div>
