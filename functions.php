@@ -862,6 +862,73 @@ function printGalleryInFile($uid, $folder){
 
 }
 
+function printGalleryInInterface($uid, $file){
+  global $conn;
+  $output = "";
+  $output2 = "";
+  $output3 = "";
+  $output4 = "";
+  $output.= returnInterfaceHeader($_SESSION['u_id']);
+  $gallery = oneValueFromTableData($uid, "gallery_file_name");
+  $galleryArray = oneColumnFromTable("gallery_name", $gallery, "Galleries", "gallery_file_name");
+  $output .= '	<div id="fh5co-portfolio" data-section="portfolio">
+			<div class="container">
+				<div class="row">';
+  for ($i=0; $i < sizeof($galleryArray); $i++) {
+    $number = oneColumnFromTable("gallery_name", $galleryArray[$i], "Image", "gallery_name");
+    if(sizeof($number) == 0){
+      array_push($number, "Leere Gallerie");
+    }
+    $sizeNumber = sizeof($number);
+    if(($i%3)==0){
+      if($i<3){
+        $output2 .= '<div class="col-md-2">';
+      }
+      $output2 .= '<div class="col-md-12 col-sm-12 animate-box">
+        <div class="img-grid">
+          <p>'.$number[0].'</p>
+          <img src="Images/Slider/pic_'.(($i+1)%6).'.jpg"'.'alt="Free HTML5 template by FREEHTML5.co" class="img-responsive">
+          <br>
+        </div>
+      </div>';
+    }
+    if(($i%3)==1){
+      if($i<3){
+        $output3 .= '<div class="col-md-2">';
+      }
+      $output3 .= '<div class="col-md-12 col-sm-12 animate-box">
+        <div class="img-grid">
+          <p>'.$number[0].'</p>
+          <img src="Images/Slider/pic_'.(($i+1)%6).'.jpg"'.'alt="Free HTML5 template by FREEHTML5.co" class="img-responsive">
+          <br>
+        </div>
+      </div>';
+    }
+    if(($i%3)==2){
+      if($i<3){
+        $output4 .= '<div class="col-md-2">';
+      }
+      $output4 .= '<div class="col-md-12 col-sm-12 animate-box">
+        <div class="img-grid">
+          <p>'.$number[0].'</p>
+          <img src="Images/Slider/pic_'.((($i+1)%6)+1).'.jpg"'.'alt="Free HTML5 template by FREEHTML5.co" class="img-responsive">
+          <br>
+        </div>
+      </div>';
+    }
+  }
+  $output2 .= '</div>';
+  $output3 .= '</div>';
+  $output4 .= '</div>';
+  $output .= $output2.$output3.$output4;
+  $output .= '				</div>
+  			</div>
+  	</div>';
+
+  $output.= returnInterfaceFooter($_SESSION['u_id']);
+  return $output;
+}
+
 function printFormForGallery($uid, $file){
   global $conn;
   $output = array();
@@ -940,8 +1007,8 @@ function printFormForGallery($uid, $file){
       if((($i+1) % 3 == 0 && $i > 0) || ($i == sizeof($number_galleries)-1)){
         $form .= '</div>';
       }
-      if($iterate > 1 && $iterate < sizeof($number_galleries)-1){
-        $js .= 'document.getElementById("galleries'.($iterate).'").style.display="none";';
+      if($iterate-1 > 1 && $iterate-1 < sizeof($number_galleries)-1){
+        $js .= 'document.getElementById("galleries'.($iterate-1).'").style.display="none";';
 
       }
     }

@@ -66,7 +66,7 @@
    <div class="col-sm-2"></div>
     <div id="firstheader">
      <div class="Title col-sm-4">
-    	<p class="name">iaedoiwajd</p> 
+    	<p class="name">Grundschule Losheim am See</p> 
      </div> 
      <div class="col-sm-3 text-left">        
        <img class="logo" src="Images//Logo_grundschule.jpg" alt="Smiley face"  height="170" width="170">       

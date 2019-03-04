@@ -5,7 +5,7 @@ include 'functions.php';
 
 <!DOCTYPE html>
 <?php header('Access-Control-Allow-Origin: *'); ?>
-<html>
+<html class="no-js">
 <head>
   <title>Gruschool</title>
   <meta charset="utf-8">
@@ -242,8 +242,8 @@ include 'functions.php';
       </div>
       <div class="page_gallery">
         <?php
-          echo returnInterfaceHeader($_SESSION['u_id']);
-          echo returnInterfaceFooter($_SESSION['u_id']);
+        $fileinterface2 = oneValueFromTableData($_SESSION['u_id'], "gallery_file_name");
+        echo printGalleryInInterface($_SESSION['u_id'], $fileinterface2);
         ?>
       </div>
     </div>
@@ -498,7 +498,7 @@ include 'functions.php';
         }else{
           document.getElementById('module_container').getElementsByTagName('div')[10+loop_number].removeAttribute("onclick");
         }
-        document.getElementById('currentPage').style.marginTop="-120px";
+        document.getElementById('currentPage').style.marginTop="-860px";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('g_text')[0].style.display="block";
         document.getElementsByClassName('page-footer')[0].style.top="900px";
