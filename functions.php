@@ -869,6 +869,17 @@ function printGalleryInInterface($uid, $file){
   $output3 = "";
   $output4 = "";
   $output.= returnInterfaceHeader($_SESSION['u_id']);
+
+  $code = "";
+  $sql = "SELECT interface_gallery FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $code .= $row['interface_gallery'];
+    }
+  }
+  $output .= $code;
   $gallery = oneValueFromTableData($uid, "gallery_file_name");
   $galleryArray = oneColumnFromTable("gallery_name", $gallery, "Galleries", "gallery_file_name");
   $output .= '	<div id="fh5co-portfolio" data-section="portfolio">
