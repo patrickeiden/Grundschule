@@ -1728,6 +1728,9 @@ function printjs($a){
 
 function createFolder($uid){
   $name = 'userid'.$uid;
+  if (!file_exists($name)){
+    mkdir($name, 0777, true);
+  }
   $string = 'sudo chmod 777'.$name;
   shell_exec($string);
   return $name;
@@ -1735,6 +1738,9 @@ function createFolder($uid){
 
 function createImageFolder($uid){
   $name = 'Images/';
+  if (!file_exists($name)){
+    mkdir($name, 0777, true);
+  }
   $string = 'sudo chmod 777 '.$name;
   shell_exec($string);
   return $name;
