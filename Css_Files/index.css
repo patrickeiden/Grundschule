@@ -487,14 +487,7 @@ button {
 
 }
 
-#page_news .row{
-  background-color: white;
-  position: relative;
-  width: 30%;
-  left: 440px;
-  top: -230px;
-  height: 200px;
-}
+
 
 #currentPage .currentPage_footer{
   margin-top: -500px!important;

@@ -550,30 +550,7 @@ function printNewsInInterface($uid, $file){
   $endcode = '';
 
   //get Theme1 interface navbar
-  $sql = "SELECT nav_interface_code_left FROM Theme1";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["nav_interface_code_left"];
-    }
-  }
-  $sql = "SELECT custome_name FROM table_data WHERE user_id=$uid";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["custome_name"];
-    }
-  }
-  $sql = "SELECT nav_interface_code_right FROM Theme1";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["nav_interface_code_right"];
-    }
-  }
+  $output .= returnInterfaceHeader($uid);
   //get interface data to print the news in
   $sql = "SELECT news_interface_code_title, news_interface_code_date, news_interface_code_text, news_interface_code_image, news_interface_code_end FROM Theme1";
   $result = $conn->query($sql);
@@ -620,6 +597,7 @@ function printNewsInInterface($uid, $file){
       $output .= '</div>';
     }
   }
+  $output .= returnInterfaceFooter($uid);
   array_push($array, $output);
   array_push($array, $js);
   return $array;
@@ -1750,9 +1728,6 @@ function printjs($a){
 
 function createFolder($uid){
   $name = 'userid'.$uid;
-  if (!file_exists($name)){
-    mkdir($name, 0777, true);
-  }
   $string = 'sudo chmod 777'.$name;
   shell_exec($string);
   return $name;

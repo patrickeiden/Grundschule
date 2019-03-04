@@ -234,13 +234,16 @@ include 'functions.php';
         if(NewsOn($_SESSION['u_id']) == 1){
           $fileinterface = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
           $var = printNewsInInterface($_SESSION['u_id'], $fileinterface);
+          //echo returnInterfaceHeader($_SESSION['u_id']);
           echo $var[0];
+          //echo returnInterfaceFooter($_SESSION['u_id']);
         }
         ?>
       </div>
       <div class="page_gallery">
         <?php
-
+          echo returnInterfaceHeader($_SESSION['u_id']);
+          echo returnInterfaceFooter($_SESSION['u_id']);
         ?>
       </div>
     </div>
