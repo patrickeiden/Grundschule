@@ -269,6 +269,12 @@ include 'functions.php';
     <?php
     if(CustomeOn($_SESSION['u_id']) == 1){
       echo 'var customeon = 1;';
+      $customename = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
+      $calendarname = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
+      $numbercustome = numberCostume($_SESSION['u_id'], $customename);
+      $numbercalendar = numberCostume($_SESSION['u_id'], $calendarname);
+      echo 'var calendarnumber ='.$numbercalendar.';';
+      echo 'var customenumber ='.$numbercustome.';';
     }else{
       echo 'var customeon = 0;';
     }
@@ -294,12 +300,7 @@ include 'functions.php';
       $numberGalleries = array();
     }
     //number of entrys in custome module for different files in order to scale the site
-    $customename = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
-    $calendarname = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
-    $numbercustome = numberCostume($_SESSION['u_id'], $customename);
-    $numbercalendar = numberCostume($_SESSION['u_id'], $calendarname);
-    echo 'var calendarnumber ='.$numbercalendar.';';
-    echo 'var customenumber ='.$numbercustome.';';
+
 
     if(NewsOn($_SESSION['u_id']) == 1){
       echo 'var newson = 1;';

@@ -212,7 +212,9 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   $stmt->bind_param("si", $code, $uid);
   $stmt->execute();
   }
-  printCustomeInFile($uid, $folder);
+  if($number == 1){
+    printCustomeInFile($uid, $folder);
+  }
 }
 
 //this funtion will ne printed in the generated page in order to always print the latest version on the site
@@ -1456,7 +1458,6 @@ function returninterfacecode($uid){
         $output.= $footer;
     }
   }
-
   return $output;
 }
 
