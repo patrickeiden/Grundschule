@@ -91,31 +91,20 @@ function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider){
   printStartInFile($uid, $file);
 }
 
-function printStartInFile($uid, $file){
+function printRegularFooter($uid){
   global $conn;
-  returnNavbar($uid);
-  returnSlider($uid);
-  $output = '';
   $output = "";
-  $name= "";
-  $header= "";
-  $text= "";
-  $image= "";
   $street= "";
   $plz= "";
   $ort= "";
   $number= "";
   $fax= "";
   $mail= "";
-  $sql = "SELECT name, header, text, image, street, plz, ort, number, fax, mail FROM Page WHERE user_id = $uid";
+  $sql = "SELECT street, plz, ort, number, fax, mail FROM Page WHERE user_id = $uid";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $name.= $row["name"];
-        $header.= $row["header"];
-        $text.= $row["text"];
-        $image.= $row["image"];
         $street.= $row["street"];
         $plz.= $row["plz"];
         $ort.= $row["ort"];
@@ -124,15 +113,46 @@ function printStartInFile($uid, $file){
         $mail.= $row["mail"];
     }
   }
-  $sql = "SELECT include, header, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text, regular_code_street, regular_code_plz,
-  regular_code_tel, regular_code_fax, regular_code_mail, 	regular_code_end FROM Theme1regular";
+  $sql = "SELECT regular_code_footer_start, regular_code_street, regular_code_plz, regular_code_tel, regular_code_fax, regular_code_mail, regular_code_end FROM Theme1regular";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["regular_code_footer_start"].$street.$row["regular_code_street"].$plz.$row["regular_code_plz"].$ort.$row["regular_code_tel"].$number.$row["regular_code_fax"].
+        $fax.$row["regular_code_mail"].$mail.$row["regular_code_end"];
+    }
+  }
+  return $output;
+}
+
+function printStartInFile($uid, $file){
+  global $conn;
+  returnNavbar($uid);
+  returnSlider($uid);
+  $footer = printRegularFooter($uid);
+  $output = "";
+  $name= "";
+  $header= "";
+  $text= "";
+  $image= "";
+  $sql = "SELECT name, header, text, image FROM Page WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $name.= $row["name"];
+        $header.= $row["header"];
+        $text.= $row["text"];
+        $image.= $row["image"];
+    }
+  }
+  $sql = "SELECT include, header, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $output.= $row["include"].$row["header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"].$row["regular_code_right"].$row["slider"].$row["regular_code_right2"].$header.
-        $row["regular_code_header"].$text.$row["regular_code_text"].$street.$row["regular_code_street"].$plz.$row["regular_code_plz"].$ort.$row["regular_code_tel"].$number.$row["regular_code_fax"].
-        $fax.$row["regular_code_mail"].$mail.$row["regular_code_end"];
+        $row["regular_code_header"].$text.$row["regular_code_text"].$footer;
     }
   }
   $myfile = fopen($file, "w") or die("Unable to open file!");
@@ -221,7 +241,6 @@ function createCustome($uid, $title, $code, $file){
 }
 
 function deleteCustome($uid, $button){
-  echo $button;
   global $conn;
   $a = array();
   $b = array();
@@ -235,7 +254,6 @@ function deleteCustome($uid, $button){
         array_push($a, $row['custome_name']);
         array_push($b, 'delete_module_'.$row['custome_name']);
         array_push($c, $_POST['delete_module_'.$row['custome_name']]);
-        echo $_POST['delete_module_'.$row['custome_name']];
     }
   }
   for ($i=0; $i < sizeof($a); $i++){
@@ -285,41 +303,10 @@ function printCustomeInFile($uid, $site_name){
 function printCustomeInInterface($uid){
   global $conn;
   $output = "";
-  $sql = "SELECT nav_interface_code_left FROM Theme1";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["nav_interface_code_left"];
-    }
-  }
-  $sql = "SELECT custome_name FROM table_data WHERE user_id=$uid";
-
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["custome_name"];
-    }
-  }
-  $sql = "SELECT nav_interface_code_right FROM Theme1";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["nav_interface_code_right"];
-    }
-  }
-  $file ='';
-  $sql = "SELECT custome_file_name FROM table_data WHERE user_id=$uid";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $file .= $row["custome_file_name"];
-    }
-  }
+  $output .= returnInterfaceHeader($uid);
   $output .= printAllCustomeFromFile($uid);
+  $output .= returnInterfaceFooter($uid);
+
   return $output;
 }
 
@@ -724,30 +711,7 @@ function printCalendarInFile($uid, $site_name){
 function printCalendarInInterface($uid){
   global $conn;
   $output = "";
-  $sql = "SELECT nav_interface_code_left FROM Theme1";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["nav_interface_code_left"];
-    }
-  }
-  $sql = "SELECT custome_name FROM table_data WHERE user_id=$uid";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["custome_name"];
-    }
-  }
-  $sql = "SELECT nav_interface_code_right FROM Theme1";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["nav_interface_code_right"];
-    }
-  }
+  $output .= returnInterfaceHeader($uid);
   $file = 'userid'.$uid.'/calendar_id'.$uid.'.php';
   $sql = "SELECT costume_code, custome_name FROM Module WHERE custome_file='$file' and above_under=0";
   $result = $conn->query($sql);
@@ -779,6 +743,7 @@ function printCalendarInInterface($uid){
         $output.= '</div>';
     }
   }
+  $output .= returnInterfaceFooter($uid);
   return $output;
 }
 
@@ -1381,68 +1346,21 @@ function returnBody(){
   return $output;
 }
 
-function returnfooter(){
+function returnInterfaceHeader($uid){
   global $conn;
-  $output = "";
-  $sql = "SELECT footer FROM Theme1";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["footer"];
-    }
-  }
-  return $output;
-}
-
-
-function printInterfacefooter(){
-  global $conn;
-  $output = "";
-  $sql = "SELECT interface_footer FROM Theme1";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["interface_footer"];
-    }
-  }
-  return $output;
-}
-
-function returninterfacecode($uid){
-  global $conn;
-  returnNavbar($uid);
   $output = "";
   $name= "";
-  $header= "";
-  $text= "";
   $image= "";
-  $street= "";
-  $plz= "";
-  $ort= "";
-  $number= "";
-  $fax= "";
-  $mail= "";
-  $sql = "SELECT name, header, text, image, street, plz, ort, number, fax, mail FROM Page WHERE user_id = $uid";
+  $sql = "SELECT name, image FROM Page WHERE user_id = $uid";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $name.= $row["name"];
-        $header.= $row["header"];
-        $text.= $row["text"];
         $image.= $row["image"];
-        $street.= $row["street"];
-        $plz.= $row["plz"];
-        $ort.= $row["ort"];
-        $number.= $row["number"];
-        $fax.= $row["fax"];
-        $mail.= $row["mail"];
     }
   }
-  $sql = "SELECT interface_code_left, interface_code_name, interface_code_image, navfunktion, interface_code_right, slider, interface_code_right2, interface_code_header, interface_code_text, interface_code_street, interface_code_plz,
-  interface_code_ort, interface_code_tel, interface_code_fax, interface_code_mail, interface_code_end FROM Theme1";
+  $sql = "SELECT interface_code_left, interface_code_name, interface_code_image, navfunktion FROM Theme1";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
@@ -1453,13 +1371,41 @@ function returninterfacecode($uid){
         $output.= $image;
         $output.= $row["interface_code_image"];
         $output.= $row["navfunktion"];
-        $output.= $row["interface_code_right"];
-        $output.= $row["slider"];
-        $output.= $row["interface_code_right2"];
-        $output.= $header;
-        $output.= $row["interface_code_header"];
-        $output.= $text;
-        $output.= $row["interface_code_text"];
+    }
+  }
+
+  return $output;
+}
+
+function returnInterfaceFooter($uid){
+  global $conn;
+  $output = "";
+  $street= "";
+  $plz= "";
+  $ort= "";
+  $number= "";
+  $fax= "";
+  $mail= "";
+  $sql = "SELECT street, plz, ort, number, fax, mail FROM Page WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $street.= $row["street"];
+        $plz.= $row["plz"];
+        $ort.= $row["ort"];
+        $number.= $row["number"];
+        $fax.= $row["fax"];
+        $mail.= $row["mail"];
+    }
+  }
+  $sql = "SELECT interface_code_footer_start, interface_code_street,
+   interface_code_plz, interface_code_ort, interface_code_tel, interface_code_fax, interface_code_mail, interface_code_end FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["interface_code_footer_start"];
         $output.= $street;
         $output.= $row["interface_code_street"];
         $output.= $plz;
@@ -1474,6 +1420,43 @@ function returninterfacecode($uid){
         $output.= $row["interface_code_end"];
     }
   }
+  return $output;
+}
+
+function returninterfacecode($uid){
+  global $conn;
+  returnNavbar($uid);
+  $header = returnInterfaceHeader($uid);
+  $footer = returnInterfaceFooter($uid);
+  $output = "";
+  $desc = "";
+  $text= "";
+  $sql = "SELECT header, text FROM Page WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $desc.= $row["header"];
+        $text.= $row["text"];
+    }
+  }
+  $sql = "SELECT interface_code_right, slider, interface_code_right2, interface_code_header, interface_code_text FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $header;
+        $output.= $row["interface_code_right"];
+        $output.= $row["slider"];
+        $output.= $row["interface_code_right2"];
+        $output.= $desc;
+        $output.= $row["interface_code_header"];
+        $output.= $text;
+        $output.= $row["interface_code_text"];
+        $output.= $footer;
+    }
+  }
+
   return $output;
 }
 
@@ -1514,6 +1497,7 @@ function returnNavbar($uid){
   return $output;
 }
 
+//returns the html code for the Slider of Theme1
 function returnSlider($uid){
   global $conn;
   $output = '';

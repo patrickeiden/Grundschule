@@ -219,7 +219,6 @@ include 'functions.php';
         <?php
         if(CustomeOn($_SESSION['u_id']) == 1){
           echo printCustomeInInterface($_SESSION['u_id']);
-          echo printInterfacefooter();
         }
          ?>
       </div>
@@ -227,7 +226,6 @@ include 'functions.php';
         <?php
         if(CalendarOn($_SESSION['u_id']) == 1){
           echo printCalendarInInterface($_SESSION['u_id']);
-          echo printInterfacefooter();
         }
         ?>
       </div>
@@ -237,13 +235,11 @@ include 'functions.php';
           $fileinterface = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
           $var = printNewsInInterface($_SESSION['u_id'], $fileinterface);
           echo $var[0];
-          echo printInterfacefooter();
         }
         ?>
       </div>
       <div class="page_gallery">
         <?php
-        echo printInterfacefooter();
 
         ?>
       </div>
