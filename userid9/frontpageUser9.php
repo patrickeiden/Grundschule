@@ -66,10 +66,10 @@
    <div class="col-sm-2"></div>
     <div id="firstheader">
      <div class="Title col-sm-4">
-    	<p class="name">liliil</p> 
+    	<p class="name">iaedoiwajd</p> 
      </div> 
      <div class="col-sm-3 text-left">        
-       <img class="logo" src="Images/Logo_grundschule.jpg" alt="Smiley face"  height="170" width="170">       
+       <img class="logo" src="Images//Logo_grundschule.jpg" alt="Smiley face"  height="170" width="170">       
      </div>  
    </div> 
  </div><div class="row text-center">
@@ -87,13 +87,11 @@
               <li data-target="#myCarousel" data-slide-to="1"></li>       
             </ol>       
             <div class="carousel-inner">         
-              <div class="item active">           
-                <img src="Images/klasse.jpg">         
-              </div>         
-              <div class="item">           
-                <img src="Images/grundschule.jpg">         
-              </div>       
-            </div>         
+              <div class="item active">
+                  <img src="Images//klasse.jpg">
+                </div><div class="item">
+                  <img src="Images/grundschule.jpg">
+                </div></div>         
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">           
               <span class="glyphicon glyphicon-chevron-left"></span>           
               <span class="sr-only">Previous</span>         
@@ -108,8 +106,8 @@
           <div class="col-sm-3"></div>   	    
           <div class="col-sm-6 text-center">           
             <hr>   	      
-            <h3 class="header">sadsad</h3>
-            <p class="description">sadasd</p>
+            <h3 class="header">iajwoijawd</h3>
+            <p class="description">kawdoiajwopd</p>
             <hr>
           </div>
         </div>

@@ -76,12 +76,15 @@ function returnNewsImage(){
 #Anfang start-Modul
 function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider){
   global $conn;
-  $logo = 'Images/'.$logo;
+  $val = oneValueFromTableData($uid, 'image_folder');
+  $logo = $val.'/'.$logo;
+  $slider = $val.'/'.$slider;
   $stmt = $conn->prepare("INSERT INTO Page (page_file_name, name, header, text, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
   $stmt->bind_param("sssssi", $file, $name, $header, $text, $logo, $uid);
   $stmt->execute();
-  $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_file_name) VALUES (?, ?, ?)");
-  $stmt->bind_param("sis", $slider, $uid, $file);
+  $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name) VALUES (?, ?, ?, ?)");
+  $name = 'slider'.$uid;
+  $stmt->bind_param("siss", $slider, $uid, $name, $file);
   $stmt->execute();
 
 
@@ -91,6 +94,7 @@ function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider){
 function printStartInFile($uid, $file){
   global $conn;
   returnNavbar($uid);
+  returnSlider($uid);
   $output = '';
   $output = "";
   $name= "";
@@ -120,13 +124,13 @@ function printStartInFile($uid, $file){
         $mail.= $row["mail"];
     }
   }
-  $sql = "SELECT include, header, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, regular_code_header, regular_code_text, regular_code_street, regular_code_plz,
+  $sql = "SELECT include, header, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text, regular_code_street, regular_code_plz,
   regular_code_tel, regular_code_fax, regular_code_mail, 	regular_code_end FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["include"].$row["header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"].$row["regular_code_right"].$header.
+        $output.= $row["include"].$row["header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"].$row["regular_code_right"].$row["slider"].$row["regular_code_right2"].$header.
         $row["regular_code_header"].$text.$row["regular_code_text"].$street.$row["regular_code_street"].$plz.$row["regular_code_plz"].$ort.$row["regular_code_tel"].$number.$row["regular_code_fax"].
         $fax.$row["regular_code_mail"].$mail.$row["regular_code_end"];
     }
@@ -1140,12 +1144,16 @@ function createFile($id, $name, $folder){
 }
 
 #takes the database name, the id name, the id, the value name und the file name and updates the database entry
-function fileInDatabase($dname, $did, $didvalue, $dvalue, $fname, $folder){
+function fileInDatabase($dname, $did, $didvalue, $dvalue, $fname, $folder, $imagefolder){
   global $conn;
   $filename = createFile($didvalue, $fname, $folder);
   $dbase = "UPDATE " .$dname ." SET " .$dvalue ."=? " ."WHERE " .$did ."=?";
   $stmt = $conn->prepare($dbase);
   $stmt->bind_param("si", $filename, $didvalue);
+  $stmt->execute();
+
+  $stmt = $conn->prepare("UPDATE table_data SET image_folder=? WHERE user_id=?");
+  $stmt->bind_param("si", $imagefolder, $didvalue);
   $stmt->execute();
   $stmt->close();
   return $filename;
@@ -1433,7 +1441,7 @@ function returninterfacecode($uid){
         $mail.= $row["mail"];
     }
   }
-  $sql = "SELECT interface_code_left, interface_code_name, interface_code_image, navfunktion, interface_code_right, interface_code_header, interface_code_text, interface_code_street, interface_code_plz,
+  $sql = "SELECT interface_code_left, interface_code_name, interface_code_image, navfunktion, interface_code_right, slider, interface_code_right2, interface_code_header, interface_code_text, interface_code_street, interface_code_plz,
   interface_code_ort, interface_code_tel, interface_code_fax, interface_code_mail, interface_code_end FROM Theme1";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
@@ -1446,6 +1454,8 @@ function returninterfacecode($uid){
         $output.= $row["interface_code_image"];
         $output.= $row["navfunktion"];
         $output.= $row["interface_code_right"];
+        $output.= $row["slider"];
+        $output.= $row["interface_code_right2"];
         $output.= $header;
         $output.= $row["interface_code_header"];
         $output.= $text;
@@ -1499,6 +1509,32 @@ function returnNavbar($uid){
   $stmt->bind_param("s", $output);
   $stmt->execute();
   $stmt = $conn->prepare("UPDATE Theme1regular SET navfunktion=?");
+  $stmt->bind_param("s", $output);
+  $stmt->execute();
+  return $output;
+}
+
+function returnSlider($uid){
+  global $conn;
+  $output = '';
+  $name = 'slider'.$uid;
+  $slider = oneColumnFromTable("image_url", $name, "Image", "image_name");
+  var_dump($slider);
+  for ($i=0; $i < sizeof($slider); $i++) {
+    if($i == 0){
+      $output .= '<div class="item active">
+                  <img src="'.$slider[$i].'">
+                </div>';
+    }else{
+      $output .= '<div class="item">
+                  <img src="'.$slider[$i].'">
+                </div>';
+    }
+  }
+  $stmt = $conn->prepare("UPDATE Theme1 SET slider=?");
+  $stmt->bind_param("s", $output);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE Theme1regular SET slider=?");
   $stmt->bind_param("s", $output);
   $stmt->execute();
   return $output;
@@ -1608,10 +1644,11 @@ function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $p
   $stmt->bind_param("ss", $fax, $file);
   $stmt->execute();
   if(isset($slider) && $slider != ""){
-    $slider = str_replace("C:\fakepath\ ","",$slider);
-    var_dump($slider);
-    $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_file_name) VALUES (?, ?, ?)");
-    $stmt->bind_param("sis",$slider, $uid, $file);
+    $val = oneValueFromTableData($uid, 'image_folder');
+    $slider = str_replace('C:\\fakepath\\',$val,$slider);
+    $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name) VALUES (?, ?, ?, ?)");
+    $name = 'slider'.$uid;
+    $stmt->bind_param("siss",$slider, $uid, $name, $file);
     $stmt->execute();
   }
   if(isset($image) && $image != ""){
@@ -1732,6 +1769,13 @@ function createFolder($uid){
     mkdir($name, 0777, true);
   }
   $string = 'sudo chmod 777'.$name;
+  shell_exec($string);
+  return $name;
+}
+
+function createImageFolder($uid){
+  $name = 'Images/';
+  $string = 'sudo chmod 777 '.$name;
   shell_exec($string);
   return $name;
 }
