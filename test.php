@@ -30,8 +30,8 @@ if(isset($_SESSION['u_id'])){
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
-      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Personal Site</a>
+      <a class="navbar-brand" href="test.php">Gruschool</a>
+      <a class="navbar-brand" href="interface.php">Personal Site</a>
     </div>
     <?php
       if(isset($_SESSION['u_id'])){

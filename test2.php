@@ -121,7 +121,7 @@
   <div class="row">
     <div class="col-sm-2"></div>
         <div class="col-sm-8">
-		      <img src="http://localhost/Grundschule/Images/Ostseekinder_02.jpg" height="800" width="100%">
+		      <img src="Images/Ostseekinder_02.jpg" height="800" width="100%">
         </div>
   </div>
 <div class="row">

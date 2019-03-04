@@ -64,7 +64,7 @@ if(isset($_POST['building_button'])){
   $number = 0;
   setBuilding($number, $_SESSION['u_id'], $folder);
 }
-header('Location: http://localhost/Grundschule/generate.php?success');
+header('Location: ../generate.php?success');
 }
 
 

@@ -47,5 +47,5 @@ if(isset($_POST['delete_galleries_button'])){
 if(isset($_POST['delete_images_button'])){
   deleteImages($_SESSION['u_id'], $_POST['delete_images_button']);
 }
-header('Location: http://localhost/Grundschule/personalSite.php');
+header('Location: ../personalSite.php');
 ?>
