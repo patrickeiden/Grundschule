@@ -6,22 +6,14 @@ if(isset($_POST['test'])){
   #create a folder for the user
   $folder = createFolder($_SESSION['u_id']);
 
-  #creates multiple modules
-  if(isset($_POST['costume_button']) && $_POST['costume_button']==1){
-    setCustome($_POST['title'], 1, $_SESSION['u_id'], $folder);
-  }else{
-    setCustome("", 0, $_SESSION['u_id'], $folder);
-  }
-
-#function for Calendar Modul
-if(isset($_POST['calendar'])){
+#function for Gallery Module
+if(isset($_POST['gallery_button'])){
   $number = 1;
-  setCalendar($number, $_SESSION['u_id'], $folder);
+  setGallery($number, $_SESSION['u_id'], $folder);
 }else{
   $number = 0;
-  setCalendar($number, $_SESSION['u_id'], $folder);
+  setGallery($number, $_SESSION['u_id'], $folder);
 }
-header('Location: http://localhost/Grundschule/generate.php?success');
 }
 
 

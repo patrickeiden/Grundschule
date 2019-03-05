@@ -5,7 +5,7 @@ include 'functions.php';
 
 <!DOCTYPE html>
 <?php header('Access-Control-Allow-Origin: *'); ?>
-<html class="no-js">
+<html>
 <head>
   <title>Gruschool</title>
   <meta charset="utf-8">
