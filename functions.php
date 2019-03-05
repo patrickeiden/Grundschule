@@ -239,7 +239,7 @@ function createCustome($uid, $title, $code, $file){
   $stmt = $conn->prepare("INSERT INTO Module (costume_title, costume_code, user_id, custome_file, custome_name) VALUES (?, ?, ?, ?, ?)");
   $stmt->bind_param("ssiss", $title, $code, $uid, $file, $title);
   $stmt->execute();
-  //header('Location: http://localhost/Grundschule/personalSite.php');
+  //header('Location: ../personalSite.php');
 }
 
 function deleteCustome($uid, $button){
@@ -1211,13 +1211,13 @@ function createAccount($email, $pswd, $pswd_repeat){
     //Error Handler
     //Check for empty fields
     if(empty($mail) || empty($psw) || empty($psw_repeat)){
-      header('Location: http://localhost/Grundschule/SignUp.php?signup=empty');
+      header('Location: ../SignUp.php?signup=empty');
       exit();
     }else if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
-      header('Location: http://localhost/Grundschule/SignUp.php?signup=email');
+      header('Location: ../SignUp.php?signup=email');
       exit();
     }else if(checkDoubleRegistration($mail) == 1){
-    header('Location: http://localhost/Grundschule/SignUp.php?signup=DoubleEmail');
+    header('Location: ../SignUp.php?signup=DoubleEmail');
       exit();
     }else{
       //Hasing the password
@@ -1233,7 +1233,7 @@ function createAccount($email, $pswd, $pswd_repeat){
       $stmt = $conn->prepare("INSERT INTO table_data (user_id) VALUES (?)");
       $stmt->bind_param("i", $lastid);
       $stmt->execute();
-      header('Location: http://localhost/Grundschule/SignUp.php?signup=success');
+      header('Location: ../SignUp.php?signup=success');
       exit();
     }
 }
@@ -1246,28 +1246,28 @@ function logIn($email, $pswd){
     //Error Handlers
     //Check for empty fields
     if(empty($mail) || empty($psw)){
-      header('Location: http://localhost/Grundschule/SignUp.php?login=empty');
+      header('Location: ../SignUp.php?login=empty');
       exit();
     }else{
       $sql = "SELECT reg_id, mail, password FROM registration WHERE mail='$mail'";
       $result = mysqli_query($conn, $sql);
       $resultCheck = mysqli_num_rows($result);
       if($resultCheck < 1){
-        header('Location: http://localhost/Grundschule/startsite.php?login=error1');
+        header('Location: ../startsite.php?login=error1');
         exit();
       }else{
         if($row = mysqli_fetch_assoc($result)){
           //De-hashing the Password
           $hashedPwdCheck = strcmp($psw, $row['password']);
           if($hashedPwdCheck < 0 ||  $hashedPwdCheck > 0){
-            header('Location: http://localhost/Grundschule/startsite.php?login=error2');
+            header('Location: ../startsite.php?login=error2');
             exit();
           }else if($hashedPwdCheck == 0){
             //Log In the user here
             $_SESSION['u_id'] = $row['reg_id'];
             $_SESSION['u_mail'] = $row['mail'];
             $_SESSION['u_pwd'] = $row['password'];
-            header('Location: http://localhost/Grundschule/interface.php?login=success');
+            header('Location: ../interface.php?login=success');
             exit();
           }
         }
@@ -1279,7 +1279,7 @@ function logout(){
   session_start();
   session_unset();
   session_destroy();
-  header("Location: http://localhost/Grundschule/startsite.php?logout=success");
+  header("Location: ../startsite.php?logout=success");
   exit();
 }
 

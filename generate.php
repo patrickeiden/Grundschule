@@ -20,8 +20,8 @@ session_start();
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost/Grundschule/startsite.php">Gruschool</a>
-      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Personal Site</a>
+      <a class="navbar-brand" href="startsite.php">Gruschool</a>
+      <a class="navbar-brand" href="interface.php">Personal Site</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="LogIn.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
