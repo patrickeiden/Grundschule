@@ -288,15 +288,17 @@ function updateAboveUnder($number, $name, $file){
 function printCustomeInFile($uid, $site_name){
   global $conn;
   $output = '';
+  $output .= printRegularHeader($uid, "");
 
-  $sql = "SELECT include, header, navbar_left, navbar_item, navbar_right, allcustome, footer FROM Theme1";
+  $sql = "SELECT allcustome FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["include"].$row["header"].'</header>'.$row["navbar_left"].$row["navbar_item"].$row["navbar_right"].$row["allcustome"].$row["footer"];
+        $output.= $row["allcustome"];
     }
   }
+  $output .= printRegularFooter($uid);
   $myfile = fopen($site_name, "w") or die("Unable to open file!");
   fwrite($myfile, $output);
   return $output;
@@ -675,14 +677,16 @@ function printCalendarInFile($uid, $site_name){
   $output = '';
   $above = '';
   $under = '';
-  $sql = "SELECT include, header, calendar_header, navbar_left, navbar_item, navbar_right, calendar_above, calendar_code, calendar_under, footer FROM Theme1";
+  $output .= printRegularHeader($uid, "calendar");
+  $sql = "SELECT calendar_above, calendar_code, calendar_under FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["include"].$row["header"].$row["calendar_header"].'</header>'.$row["navbar_left"].$row["navbar_item"].$row["navbar_right"].$row["calendar_above"].$row["calendar_code"].$row["calendar_under"].$row["footer"];
+        $output.= $row["calendar_above"].$row["calendar_code"].$row["calendar_under"];
     }
   }
+  $output .= printRegularFooter($uid);
   $myfile = fopen($site_name, "w") or die("Unable to open file!");
   fwrite($myfile, $output);
   return $output;
@@ -1012,8 +1016,8 @@ function printFormForGallery($uid, $file){
       $form .= '<p>Choose an image to add to your gallery</p>';
       $form .='<p>Name </p>'.'<input type="text" class="form-control" class="name" placeholder="Title" name="'.'name_'.$number_galleries[$i].'" >';
       $form .= '<input type="file" name="add_image'.($i+1).'" accept="image/*">';
-      $form .= '<button type="button" class="left'.($i+1).'" value="left'.($i+1).'">Left</button>';
-      $form .= '<button type="button" class="right'.($i+1).'" value="right'.($i+1).'">Right</button>';
+      $form .= '<button type="button" class="left'.($i+1).'" value="left'.($i+1).'"><</button>';
+      $form .= '<button type="button" class="right'.($i+1).'" value="right'.($i+1).'">></button>';
       $form .= '</div>';
       if((($i+1) % 3 == 0 && $i > 0) || ($i == sizeof($number_galleries)-1)){
         $form .= '</div>';
@@ -1024,8 +1028,8 @@ function printFormForGallery($uid, $file){
       }
     }
     $form .= '<p>switch to left or to right in order to see the other galeries</p>';
-    $form .= '<button type="button" class="left_gallery" value="left_gallery">Left</button>';
-    $form .= '<button type="button" class="right_gallery" value="right_gallery">Right</button>';
+    $form .= '<button type="button" class="left_gallery" value="left_gallery"><</button>';
+    $form .= '<button type="button" class="right_gallery" value="right_gallery">></button>';
   }
   array_push($output, $js);
   array_push($output, $form);
@@ -1476,6 +1480,42 @@ function returnInterfaceFooter($uid){
         $output.= $row["interface_code_mail"];
         $output.= $mail;
         $output.= $row["interface_code_end"];
+    }
+  }
+  return $output;
+}
+
+function printRegularHeader($uid, $type){
+  global $conn;
+  returnNavbar($uid);
+  returnSlider($uid);
+  $output = "";
+  $cheader= false;
+  if($type == "calendar"){
+    $cheader = true;
+  }
+  $name = "";
+  $image = "";
+  $sql = "SELECT name, image FROM Page WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $name.= $row["name"];
+        $image.= $row["image"];
+    }
+  }
+  $sql = "SELECT include, header, calendar_header, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text FROM Theme1regular";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      if($cheader){
+        $output.= $row["include"].$row["header"].$row["calendar_header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"];
+      }
+      else if(!$cheader){
+        $output.= $row["include"].$row["header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"];
+      }
     }
   }
   return $output;

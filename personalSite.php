@@ -370,6 +370,7 @@ include 'functions.php';
           if(galleryon == 1){
             document.getElementsByClassName('galleryModule')[0].style.display="none";
           }
+          document.getElementsByClassName('startModule')[0].style.display="none";
           document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
           document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="block";
           document.getElementById('module_container').getElementsByTagName('div')[0].removeAttribute("onclick");
@@ -391,6 +392,7 @@ include 'functions.php';
         if(galleryon == 1){
           document.getElementsByClassName('galleryModule')[0].style.display="block";
         }
+        document.getElementsByClassName('startModule')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="none";
         document.getElementById('module_container').getElementsByTagName('div')[0].setAttribute("onclick", "clickedCustome()");
@@ -413,6 +415,7 @@ include 'functions.php';
         if(galleryon == 1){
           document.getElementsByClassName('galleryModule')[0].style.display="none";
         }
+        document.getElementsByClassName('startModule')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="block";
         var curr = -548 + (-206*calendarnumber);
@@ -430,6 +433,7 @@ include 'functions.php';
         if(galleryon == 1){
           document.getElementsByClassName('galleryModule')[0].style.display="block";
         }
+        document.getElementsByClassName('startModule')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="none";
         document.getElementById('module_container').getElementsByTagName('div')[4].setAttribute("onclick", "clickedCalendar()");
@@ -452,6 +456,7 @@ include 'functions.php';
         if(galleryon == 1){
           document.getElementsByClassName('galleryModule')[0].style.display="none";
         }
+        document.getElementsByClassName('startModule')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="block";
         document.getElementById('module_container').getElementsByTagName('div')[7].removeAttribute("onclick");
@@ -473,6 +478,7 @@ include 'functions.php';
         if(galleryon == 1){
           document.getElementsByClassName('galleryModule')[0].style.display="block";
         }
+        document.getElementsByClassName('startModule')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="none";
         document.getElementById('module_container').getElementsByTagName('div')[7].setAttribute("onclick", "clickedNews()");
@@ -498,6 +504,7 @@ include 'functions.php';
         }else{
           document.getElementById('module_container').getElementsByTagName('div')[10+loop_number].removeAttribute("onclick");
         }
+        document.getElementsByClassName('startModule')[0].style.display="none";
         document.getElementById('currentPage').style.marginTop="-860px";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('g_text')[0].style.display="block";
@@ -521,6 +528,7 @@ include 'functions.php';
         }else{
           document.getElementById('module_container').getElementsByTagName('div')[10+loop_number].setAttribute("onclick", "clickedGallery()");
         }
+        document.getElementsByClassName('startModule')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
         document.getElementsByClassName('page-footer')[0].style.top="200px";
       }
@@ -551,6 +559,9 @@ include 'functions.php';
       }
 
       function StartBack(){
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="block";
+        }
         if(calendaron == 1){
           document.getElementsByClassName('calendarModule')[0].style.display="block";
         }
