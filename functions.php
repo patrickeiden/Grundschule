@@ -1632,22 +1632,27 @@ function returnNavbar($uid){
           <div class="col-sm-3"></div>
   			      <ul class="nav navbar-nav pull-sm-left">
               <li><a href="#"><span class="glyphicon glyphicon-home"></span>Home</a></li>';
-  if(CustomeOn($uid) == 1){
-    $var = printCustomeTitel($uid);
-    $output.= '<li><a href="#"><span class="glyphicon glyphicon-star"></span>'.$var.'</a></li>';
-  }
-  if(CalendarOn($uid) == 1){
-    $output.= '<li><a href="#"><span class="glyphicon glyphicon-calendar"></span>Events</a></li>';
-  }
-  if(NewsOn($uid) == 1){
-    $output.= '<li><a href="#"><span class="glyphicon glyphicon-globe"></span>Neuigkeiten</a></li>';
-  }
-  if(GalleryOn($uid) == 1){
-    $output.= '<li><a href="#"><span class="glyphicon glyphicon-picture"></span>Gallerie</a></li>';
-  }
-  if(BuildingOn($uid) == 1){
-    $output.= '<li><a href="#"><span class="glyphicon glyphicon-th"></span>Lageplan</a></li>';
-  }
+              if(CustomeOn($uid) == 1){
+                $var = printCustomeTitel($uid);
+                $link = oneValueFromTableData($uid, "custome_file_name");
+                $output.= '<li><a href="'.$link.'"><span class="glyphicon glyphicon-star"></span>'.$var.'</a></li>';
+              }
+              if(CalendarOn($uid) == 1){
+                $link2 = oneValueFromTableData($uid, "custome_file");
+                $output.= '<li><a href="'.$link2.'"><span class="glyphicon glyphicon-calendar"></span>Events</a></li>';
+              }
+              if(NewsOn($uid) == 1){
+                $link3 = oneValueFromTableData($uid, "news_file_name");
+                $output.= '<li><a href="'.$link3.'"><span class="glyphicon glyphicon-globe"></span>Neuigkeiten</a></li>';
+              }
+              if(GalleryOn($uid) == 1){
+                $link4 = oneValueFromTableData($uid, "gallery_file_name");
+                $output.= '<li><a href="'.$link4.'"><span class="glyphicon glyphicon-picture"></span>Gallerie</a></li>';
+              }
+              if(BuildingOn($uid) == 1){
+                $link5 = oneValueFromTableData($uid, "building_file_name");
+                $output.= '<li><a href="'.$link5.'"><span class="glyphicon glyphicon-th"></span>Lageplan</a></li>';
+              }
   $output .= '</ul>
             </nav>
           </div>
