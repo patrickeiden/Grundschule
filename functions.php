@@ -854,6 +854,13 @@ function setGallery($number, $uid, $folder){
     $stmt = $conn->prepare("UPDATE table_data SET gallery_file_name=? WHERE user_id=?");
     $stmt->bind_param("si", $folder, $uid);
     $stmt->execute();
+
+    $var = '<?php $file = "userid".$_SESSION["u_id"]."/gallery_id".$_SESSION["u_id"].".php";';
+    $var .=  'allGalleries($_SESSION["u_id"], $file); ?>"';
+    $stmt = $conn->prepare("UPDATE Theme1regular SET gallery_code2=?");
+    $stmt->bind_param("s", $var);
+    $stmt->execute();
+
     printGalleryInFile($uid, $folder);
   }else{
     $stmt = $conn->prepare("UPDATE table_data SET gallery_on=? WHERE user_id=?");
@@ -862,8 +869,60 @@ function setGallery($number, $uid, $folder){
   }
 }
 
-function printGalleryInFile($uid, $folder){
+function allGalleries($uid, $gallery){
+  global $conn;
+  $output = "";
+  $gallery = oneValueFromTableData($uid, "gallery_file_name");
+  //all galleries in this file
+  $galleryArray = oneColumnFromTable("gallery_name", $gallery, "Galleries", "gallery_file_name");
+  $output .= '	<div id="fh5co-portfolio" data-section="portfolio">
+			<div class="container">
+				<div class="row">';
+  // generate the code for all the galleries in this file
+  for ($i=0; $i < sizeof($galleryArray); $i++) {
+    //check the number of images in this gallerie
+    $number = oneColumnFromTable("gallery_name", $galleryArray[$i], "Image", "gallery_name");
+    if(sizeof($number) == 0){
+      array_push($number, "Leere Gallerie");
+    }
+    $output.= '<div class="col-md-4 col-sm-4 col-xs-6 col-xxs-12 animate-box">
+      <div class="img-grid">
+        <img src="../GallerieCSS/images/pic_'.(($i%12)+1).'.jpg" alt="Free HTML5 template by FREEHTML5.co" class="img-responsive">
+        <a href="../GallerieCSS/portfolio-single.html" class="transition">
+          <div>
+            <span class="fh5co-meta">'.sizeof($number).' Bilder</span>
+            <h2 class="fh5co-title">'.$number[0].'</h2>
+          </div>
+        </a>
+      </div>
+    </div>';
+  }
+  $output.= '</div>
+    </div>
+  </div>';
 
+  echo $output;
+}
+
+function printGalleryInFile($uid, $site_name){
+  global $conn;
+  $output = "";
+  $output.= printRegularHeader($uid, "gallery");
+  //important code for the galleries from the database
+  $sql = "SELECT gallery_header2, gallery_code, gallery_code2 FROM Theme1regular";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row['gallery_code'];
+        $output.= $row['gallery_code2'];
+        $output.= $row['gallery_header2'];
+    }
+  }
+  //name of gallery file
+  $output .= printRegularFooter($uid);
+  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  fwrite($myfile, $output);
 }
 
 function printGalleryInInterface($uid, $file){
@@ -1491,8 +1550,12 @@ function printRegularHeader($uid, $type){
   returnSlider($uid);
   $output = "";
   $cheader= false;
+  $gheader = false;
   if($type == "calendar"){
     $cheader = true;
+  }
+  if($type == "gallery"){
+    $gheader = true;
   }
   $name = "";
   $image = "";
@@ -1505,7 +1568,8 @@ function printRegularHeader($uid, $type){
         $image.= $row["image"];
     }
   }
-  $sql = "SELECT include, header, calendar_header, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text FROM Theme1regular";
+  $sql = "SELECT include, header, calendar_header, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text,
+  gallery_header FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
@@ -1513,7 +1577,10 @@ function printRegularHeader($uid, $type){
       if($cheader){
         $output.= $row["include"].$row["header"].$row["calendar_header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"];
       }
-      else if(!$cheader){
+      else if($gheader){
+        $output.= $row["include"].$row["gallery_header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"];
+      }
+      else if(!$cheader && !$gheader){
         $output.= $row["include"].$row["header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"];
       }
     }
@@ -1565,22 +1632,27 @@ function returnNavbar($uid){
           <div class="col-sm-3"></div>
   			      <ul class="nav navbar-nav pull-sm-left">
               <li><a href="#"><span class="glyphicon glyphicon-home"></span>Home</a></li>';
-  if(CustomeOn($uid) == 1){
-    $var = printCustomeTitel($uid);
-    $output.= '<li><a href="#"><span class="glyphicon glyphicon-star"></span>'.$var.'</a></li>';
-  }
-  if(CalendarOn($uid) == 1){
-    $output.= '<li><a href="#"><span class="glyphicon glyphicon-calendar"></span>Events</a></li>';
-  }
-  if(NewsOn($uid) == 1){
-    $output.= '<li><a href="#"><span class="glyphicon glyphicon-globe"></span>Neuigkeiten</a></li>';
-  }
-  if(GalleryOn($uid) == 1){
-    $output.= '<li><a href="#"><span class="glyphicon glyphicon-picture"></span>Gallerie</a></li>';
-  }
-  if(BuildingOn($uid) == 1){
-    $output.= '<li><a href="#"><span class="glyphicon glyphicon-th"></span>Lageplan</a></li>';
-  }
+              if(CustomeOn($uid) == 1){
+                $var = printCustomeTitel($uid);
+                $link = oneValueFromTableData($uid, "custome_file_name");
+                $output.= '<li><a href="'.$link.'"><span class="glyphicon glyphicon-star"></span>'.$var.'</a></li>';
+              }
+              if(CalendarOn($uid) == 1){
+                $link2 = oneValueFromTableData($uid, "custome_file");
+                $output.= '<li><a href="'.$link2.'"><span class="glyphicon glyphicon-calendar"></span>Events</a></li>';
+              }
+              if(NewsOn($uid) == 1){
+                $link3 = oneValueFromTableData($uid, "news_file_name");
+                $output.= '<li><a href="'.$link3.'"><span class="glyphicon glyphicon-globe"></span>Neuigkeiten</a></li>';
+              }
+              if(GalleryOn($uid) == 1){
+                $link4 = oneValueFromTableData($uid, "gallery_file_name");
+                $output.= '<li><a href="'.$link4.'"><span class="glyphicon glyphicon-picture"></span>Gallerie</a></li>';
+              }
+              if(BuildingOn($uid) == 1){
+                $link5 = oneValueFromTableData($uid, "building_file_name");
+                $output.= '<li><a href="'.$link5.'"><span class="glyphicon glyphicon-th"></span>Lageplan</a></li>';
+              }
   $output .= '</ul>
             </nav>
           </div>

@@ -5,18 +5,7 @@
   font-weight: normal;
   font-style: normal;
 }
-html {
-  background: #f7f7f7;
-}
 
-body {
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.5;
-  color: #7a7e89;
-  background: #f7f7f7;
-}
 body.fh5co-overflow {
   overflow-x: auto;
 }
@@ -647,31 +636,6 @@ p {
   background: transparent;
   box-shadow: none;
   border: 2px solid #f9ad81;
-}
-
-#fh5co-footer {
-  background: #ececec;
-  padding: 4em 0;
-  font-size: 16px;
-}
-@media screen and (max-width: 768px) {
-  #fh5co-footer {
-    padding: 3em 0;
-  }
-}
-#fh5co-footer a {
-  color: #f67d38;
-}
-#fh5co-footer a:hover {
-  text-decoration: underline;
-}
-#fh5co-footer p {
-  margin-bottom: 10px;
-}
-#fh5co-footer .fh5co-footer-widget {
-  margin-bottom: 30px;
-  float: left;
-  width: 100%;
 }
 
 .fh5co-social {
