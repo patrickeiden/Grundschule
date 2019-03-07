@@ -77,10 +77,39 @@
   			<nav class="navbar2">
           <div class="col-sm-3"></div>
   			      <ul class="nav navbar-nav pull-sm-left">
-              <li><a href="#"><span class="glyphicon glyphicon-home"></span>Home</a></li><li><a href="../userid13/custome_id13.php"><span class="glyphicon glyphicon-star"></span>uhuu</a></li><li><a href="../userid13/calendar_id13.php"><span class="glyphicon glyphicon-calendar"></span>Events</a></li><li><a href="../userid13/news_id13.php"><span class="glyphicon glyphicon-globe"></span>Neuigkeiten</a></li><li><a href="../userid13/gallery_id13.php"><span class="glyphicon glyphicon-picture"></span>Gallerie</a></li></ul>
+              <li><a href="#"><span class="glyphicon glyphicon-home"></span>Home</a></li><li><a href="userid13/custome_id13.php"><span class="glyphicon glyphicon-star"></span>Hallo</a></li><li><a href=""><span class="glyphicon glyphicon-calendar"></span>Events</a></li><li><a href="userid13/news_id13.php"><span class="glyphicon glyphicon-globe"></span>Neuigkeiten</a></li><li><a href="userid13/gallery_id13.php"><span class="glyphicon glyphicon-picture"></span>Gallerie</a></li></ul>
             </nav>
           </div>
-        </div><?php echo printAllCustomeFromFile($_SESSION["u_id"]);?><div class="row">           <footer class="page-footer">              <div class="container-fluid">               <div class="row">                 <div class="col-sm-3">                 </div>                 <div class="col-sm-4">                    <p>Adresse:</br><span class="street">Musterstrasse</span></br> <span class="plz">66666</span></br><span class="ort">Musterort</span></p>
+        </div><div class="row">
+          <div id="myCarousel" class="carousel slide" data-ride="carousel">       
+            <ol class="carousel-indicators">         
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>         
+              <li data-target="#myCarousel" data-slide-to="1"></li>       
+            </ol>       
+            <div class="carousel-inner">         
+              <div class="item active">
+                  <img src="Images//klasse.jpg">
+                </div></div>         
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">           
+              <span class="glyphicon glyphicon-chevron-left"></span>           
+              <span class="sr-only">Previous</span>         
+            </a>         
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">           
+              <span class="glyphicon glyphicon-chevron-right"></span>           
+              <span class="sr-only">Next</span>         
+            </a>       
+          </div>     
+        </div>     
+        <div class="row">       
+          <div class="col-sm-3"></div>   	    
+          <div class="col-sm-6 text-center">           
+            <hr>   	      
+            <h3 class="header">test</h3>
+            <p class="description">Test</p>
+            <hr>
+          </div>
+        </div>
+<div class="row">           <footer class="page-footer">              <div class="container-fluid">               <div class="row">                 <div class="col-sm-3">                 </div>                 <div class="col-sm-4">                    <p>Adresse:</br><span class="street">Musterstrasse</span></br> <span class="plz">66666</span></br><span class="ort">Musterort</span></p>
                 </div>
                 <div class="col-sm-4">
                   <p><span class="tel">Tel:00000</span></br><span class="fax">Fax:00001</span></br> <span class="mail">E-Mail:Mustermail@muster.de</span></p> 

@@ -31,11 +31,6 @@ a {
   -o-transition: 0.5s;
   transition: 0.5s;
 }
-a:hover, a:focus, a:active {
-  color: #f67d38;
-  outline: none;
-  text-decoration: none;
-}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Roboto Slab", sans-serif;
@@ -258,10 +253,7 @@ p {
   margin-left: 30px;
   border-bottom: 2px solid transparent;
 }
-#fh5co-header #fh5co-main-nav ul li a:hover {
-  text-decoration: none;
-  color: #f9ad81;
-}
+
 #fh5co-header #fh5co-main-nav ul li.active a {
   color: #fff;
   border-bottom: 2px solid #f9ad81;
@@ -291,10 +283,6 @@ p {
   text-decoration: none;
   margin-left: 30px;
   border-bottom: 2px solid transparent;
-}
-#fh5co-header.navbar-fixed-top #fh5co-main-nav ul li a:hover {
-  text-decoration: none;
-  color: #f9ad81;
 }
 #fh5co-header.navbar-fixed-top #fh5co-main-nav ul li.active a {
   color: #f9ad81;
@@ -369,12 +357,7 @@ p {
   -moz-animation: ani-mouse 2.5s linear infinite;
   animation: ani-mouse 2.5s linear infinite;
 }
-#fh5co-home .flexslider .fh5co-text .fh5co-go a:hover {
-  text-decoration: none;
-}
-#fh5co-home .flexslider .fh5co-text .fh5co-go a:hover span {
-  text-decoration: none;
-}
+
 #fh5co-home .flexslider .slides li {
   background-repeat: no-repeat;
   background-size: cover;
@@ -440,9 +423,7 @@ p {
   -o-transition: 0.5s;
   transition: 0.5s;
 }
-#fh5co-offcanvas .fh5co-offcanvas-close:hover:before {
-  color: white;
-}
+
 #fh5co-offcanvas nav ul {
   padding: 0;
   margin: 0;
@@ -457,9 +438,7 @@ p {
   color: rgba(255, 255, 255, 0.5);
   padding: 7px 0;
 }
-#fh5co-offcanvas nav ul li a:hover {
-  color: #f9ad81;
-}
+
 #fh5co-offcanvas nav ul li.active a {
   color: #f9ad81;
 }
@@ -663,12 +642,7 @@ p {
 .fh5co-social li a i {
   font-size: 20px;
 }
-.fh5co-social li a:hover {
-  text-decoration: none !important;
-}
-.fh5co-social li a:hover i {
-  text-decoration: none;
-}
+
 
 .img-grid {
   width: 100%;
@@ -693,7 +667,7 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0;
+  opacity: 0.3;
   z-index: 12;
   background: rgba(68, 72, 83, 0.9);
   text-align: center;
@@ -703,7 +677,7 @@ p {
 }
 .img-grid a > div {
   position: absolute;
-  bottom: -20px;
+  bottom: 20px;
   left: 0;
   text-align: center;
   width: 100%;
@@ -716,7 +690,13 @@ p {
   color: #fff;
   padding: 0;
   position: relative;
+  opacity: 1;
 }
+
+p{
+  pointer-events: none!important;
+}
+
 .img-grid a .fh5co-meta {
   color: rgba(255, 255, 255, 0.4);
   font-size: 10px;
@@ -779,10 +759,7 @@ p {
 .fh5co-nav-toggle.active i::before, .fh5co-nav-toggle.active i::after {
   background: #f9ad81;
 }
-.fh5co-nav-toggle:hover, .fh5co-nav-toggle:focus, .fh5co-nav-toggle:active {
-  outline: none;
-  border-bottom: none !important;
-}
+
 .fh5co-nav-toggle i {
   position: relative;
   display: -moz-inline-stack;
@@ -818,13 +795,6 @@ p {
   bottom: -7px;
 }
 
-.fh5co-nav-toggle:hover i::before {
-  top: -10px;
-}
-
-.fh5co-nav-toggle:hover i::after {
-  bottom: -10px;
-}
 
 .fh5co-nav-toggle.active i {
   background: transparent;

@@ -6,14 +6,12 @@ if(isset($_POST['test'])){
   #create a folder for the user
   $folder = createFolder($_SESSION['u_id']);
 
-#function for Gallery Module
-if(isset($_POST['gallery_button'])){
-  $number = 1;
-  setGallery($number, $_SESSION['u_id'], $folder);
-}else{
-  $number = 0;
-  setGallery($number, $_SESSION['u_id'], $folder);
-}
+  #creates multiple modules
+  if(isset($_POST['costume_button']) && $_POST['costume_button']==1){
+    setCustome($_POST['title'], 1, $_SESSION['u_id'], $folder);
+  }else{
+    setCustome("", 0, $_SESSION['u_id'], $folder);
+  }
 }
 
 

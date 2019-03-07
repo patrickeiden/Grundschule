@@ -234,9 +234,9 @@ include 'functions.php';
         if(NewsOn($_SESSION['u_id']) == 1){
           $fileinterface = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
           $var = printNewsInInterface($_SESSION['u_id'], $fileinterface);
-          //echo returnInterfaceHeader($_SESSION['u_id']);
+          echo returnInterfaceHeader($_SESSION['u_id']);
           echo $var[0];
-          //echo returnInterfaceFooter($_SESSION['u_id']);
+          echo returnInterfaceFooter($_SESSION['u_id']);
         }
         ?>
       </div>
@@ -323,6 +323,7 @@ include 'functions.php';
       echo 'var loop_number ='.ceil($jsnumber/$jstable_data).';';
     }else{
       echo 'var newson = 0;';
+      echo 'var loop_number = 0;';
     }
 
     if(BuildingOn($_SESSION['u_id']) == 1){
@@ -505,7 +506,7 @@ include 'functions.php';
           document.getElementById('module_container').getElementsByTagName('div')[10+loop_number].removeAttribute("onclick");
         }
         document.getElementsByClassName('startModule')[0].style.display="none";
-        document.getElementById('currentPage').style.marginTop="-860px";
+        document.getElementById('currentPage').style.marginTop="-660px";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('g_text')[0].style.display="block";
         document.getElementsByClassName('page-footer')[0].style.top="900px";

@@ -861,6 +861,8 @@ function setGallery($number, $uid, $folder){
     $stmt->bind_param("s", $var);
     $stmt->execute();
 
+    createGallery($uid, $folder, "Mustergallerie");
+
     printGalleryInFile($uid, $folder);
   }else{
     $stmt = $conn->prepare("UPDATE table_data SET gallery_on=? WHERE user_id=?");
@@ -891,7 +893,7 @@ function allGalleries($uid, $gallery){
         <a href="../GallerieCSS/portfolio-single.html" class="transition">
           <div>
             <span class="fh5co-meta">'.sizeof($number).' Bilder</span>
-            <h2 class="fh5co-title">'.$number[0].'</h2>
+            <h2 class="fh5co-title noHover">'.$number[0].'</h2>
           </div>
         </a>
       </div>
@@ -1635,23 +1637,23 @@ function returnNavbar($uid){
               if(CustomeOn($uid) == 1){
                 $var = printCustomeTitel($uid);
                 $link = oneValueFromTableData($uid, "custome_file_name");
-                $output.= '<li><a href="'.$link.'"><span class="glyphicon glyphicon-star"></span>'.$var.'</a></li>';
+                $output.= '<li><a href="'.'../'.$link.'"><span class="glyphicon glyphicon-star"></span>'.$var.'</a></li>';
               }
               if(CalendarOn($uid) == 1){
-                $link2 = oneValueFromTableData($uid, "custome_file");
-                $output.= '<li><a href="'.$link2.'"><span class="glyphicon glyphicon-calendar"></span>Events</a></li>';
+                $link2 = oneValueFromTableData($uid, "calendar_file");
+                $output.= '<li><a href="'.'../'.$link2.'"><span class="glyphicon glyphicon-calendar"></span>Events</a></li>';
               }
               if(NewsOn($uid) == 1){
                 $link3 = oneValueFromTableData($uid, "news_file_name");
-                $output.= '<li><a href="'.$link3.'"><span class="glyphicon glyphicon-globe"></span>Neuigkeiten</a></li>';
+                $output.= '<li><a href="'.'../'.$link3.'"><span class="glyphicon glyphicon-globe"></span>Neuigkeiten</a></li>';
               }
               if(GalleryOn($uid) == 1){
                 $link4 = oneValueFromTableData($uid, "gallery_file_name");
-                $output.= '<li><a href="'.$link4.'"><span class="glyphicon glyphicon-picture"></span>Gallerie</a></li>';
+                $output.= '<li><a href="'.'../'.$link4.'"><span class="glyphicon glyphicon-picture"></span>Gallerie</a></li>';
               }
               if(BuildingOn($uid) == 1){
                 $link5 = oneValueFromTableData($uid, "building_file_name");
-                $output.= '<li><a href="'.$link5.'"><span class="glyphicon glyphicon-th"></span>Lageplan</a></li>';
+                $output.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-th"></span>Lageplan</a></li>';
               }
   $output .= '</ul>
             </nav>
@@ -1672,7 +1674,6 @@ function returnSlider($uid){
   $output = '';
   $name = 'slider'.$uid;
   $slider = oneColumnFromTable("image_url", $name, "Image", "image_name");
-  var_dump($slider);
   for ($i=0; $i < sizeof($slider); $i++) {
     if($i == 0){
       $output .= '<div class="item active">
