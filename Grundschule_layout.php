@@ -6,59 +6,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <style>
-
-    .navbar {
-      background-color: rgb(101, 161, 223)!important;
-      padding: 10px;
-      margin-bottom: 0px;
-    }
-
-    .Title {
-      font-size: 27px;
-      margin-top: 5px;
-    }
-
-    p {
-      margin-bottom: 0px;
-    }
-
-    .glyphicon {
-      color: white;
-      font-size: 18px;
-    }
-
-    .carousel-inner{
-      height: 600px;
-    }
-
-    p, a, h1{
-    	font-family: "Open Sans",sans-serif;
-    }
-
-    a {
-    	color: white;
-    	font-size: 20px;
-    }
-
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 40px;
-    }
-
-    ul.nav a:hover {
-      color: white !important;
-      background-color: transparent !important;
-    }
-
-
-    img {
-      height: 100%;
-    }
-
-  </style>
+  <link rel="stylesheet" type="text/css" href="Css_Files/layout.css" media="screen" />
 </head>
 
 
@@ -101,20 +49,25 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="container">
 
-    <div class="col-sm-3"></div>
-	    <div class="col-sm-6 text-center">
-        <hr>
-	      <h3>Text über Schule</h3>
-	      <p>Die Grundschule Saarbrücken-Dellengarten liegt in der Kernstadt von Saarbrücken im historischen Stadtteil Alt-Saarbrücken. Sie ist seit 1980 im heute fast 100jährigen Gebäude der ehemaligen Hauptschule Dellengarten untergebracht; seit 1990 bewohnt sie dieses herrschaftliche Schulhaus mit großzügigem Raumangebot alleine.
+    <hr>
+      <h1 class="text-center">Unsere Schule</h1>
+    <hr>
 
-        Umgeben ist das Gebäude von einem Außengelände, das seit 2006 kontinuierlich zum attraktiven Schulhof umgestaltet wurde und allen Kindergruppen intensive Spiel- und Bewegungsmöglichkeiten bietet.
+    <div class="row">
 
-        Unsere 3-zügige Schule besuchen ca. 250 Kinder aus 25 verschiedenen Nationen. Dabei werden sie von einem Lehrerteam unterrichtet, das sich aus GrundschullehrerInnen, FörderschullehrerInnen und Lehrerinnen mit Zusatzqualifikationen besteht. Außerdem werden die Schüler im Rahmen der Gebundenen Ganztagsschule von einem Team des Sozialpädagogischen Bereichs begleitet. Darüber hinaus steht den Kindern ein integrierter Hort (bis 18 Uhr) zur Verfügung.</p>
+        <div class="col-sm-2"></div>
+  	    <div class="col-sm-8">
+
+  	      <p class="text-center">Mitten in Saarbücken bietet die Freiwillige Ganztagsgrundschule Saarbrücken Übersdorf ihren rund 180 Schülerinnen und Schülern vielzählige Möglichkeiten, mit Freude zu lernen und Schulleben mitzugestalten.
+          Kinder lernen unterschiedlich schnell und benötigen dafür unterschiedliche Lernwege und Lernstrategien. Wir wollen allen Schülern im Sinne der Inklusion ermöglichen, am Unterricht mit Freude und Erfolg teilzunehmen. Dies geschieht, indem wir die Kinder entsprechend dem Grad ihrer Entwicklung individuell fördern. Durch Differenzierung im Unterricht fördern wir Schwächen und fordern Stärken.
+          </p>
+
 	      <hr>
      </div>
 
+    </div>
   </div>
 
   <div class="row">
@@ -132,7 +85,9 @@
             <div class="col-sm-4">
               <p>Tel.0681 / 12345</br>
               Fax: 0681 / 12335:</br>
-              E-Mail: schule@gmail.com</p>
+              E-Mail: schule@gmail.com</br>
+              <a href="Grundschule_layout_impressum.php" class="impressum">Impressum</a>
+              </p>
             </div>
           </div>
         </div>

@@ -1,0 +1,78 @@
+/*Style für Layout*/
+    .navbar {
+      background-color: rgb(101, 161, 223)!important;
+      padding: 10px;
+      margin-bottom: 0px;
+    }
+
+    .Title {
+      font-size: 27px;
+      margin-top: 5px;
+    }
+
+    p {
+      margin-bottom: 0px;
+    }
+
+    .glyphicon {
+      color: white;
+      font-size: 18px;
+    }
+
+    .carousel-inner{
+      height: 600px;
+    }
+
+    p, a, h1{
+      font-family: "Open Sans",sans-serif;
+    }
+
+    a {
+      color: white;
+      font-size: 20px;
+    }
+
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 40px;
+    }
+
+    ul.nav a:hover {
+      color: white !important;
+      background-color: transparent !important;
+    }
+
+
+    img {
+      height: 100%;
+    }
+
+    .impressum {
+      font-size: 15px;
+    }
+
+    .impressum:hover {
+      color: white!important;
+    }
+
+    .card-img-top {
+      height: 350px;
+    }
+
+    .glyphicon-calendar{
+      color: black!important;
+      font-size: 14px!important;
+    }
+
+    .gross{
+      font-size: 20px;
+    }
+    
+    table, td {
+      border: 0.5px solid white;
+      padding: 5px;
+      background-color: grey;
+    }
+
+/*End*/
