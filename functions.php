@@ -1566,6 +1566,102 @@ function createFile($id, $name, $folder){
   return $folder;
 }
 
+function setClasses(){
+
+}
+
+function setSignup($uid){
+
+}
+
+function setImpressum($uid, $text, $folder){
+  global $conn;
+  $stmt = $conn->prepare("UPDATE Page SET impressum=? WHERE user_id=?");
+  $stmt->bind_param("si", $text, $uid);
+  $stmt->execute();
+  $stmt->close();
+
+  $site_name = "impressum_id" .$uid .".php";
+  if($folder != ""){
+    $folder = $folder."/".$site_name;
+  }else{
+    $folder = $site_name;
+  }
+  //create a File for this module
+  $myfile = fopen($folder, "w") or die("Unable to open file!");
+  printImpressumInFile($uid, $folder);
+}
+
+function printFormforImpressum($uid){
+  global $conn;
+  $output = '<div class="impressumform">';
+  $text = oneColumnFromTable("impressum", $uid, "Page", "user_id");
+  $output.= '<p>Ihr Impressum sieht wie folgt aus:</p>
+            <textarea name="school_impressum" cols="40" rows="5" id="school_impressum">'.$text[0].'</textarea>
+            </div>';
+  return $output;
+}
+
+function printImpressumInFile($uid, $file){
+  global $conn;
+  $output = '';
+  $text = oneColumnFromTable("impressum", $uid, "Page", "user_id");
+  $output.= printRegularHeader($uid, "");
+  $output .='<div class="container">
+
+    <hr>
+      <h1 class="text-center">Impressum</h1>
+    <hr>
+    <div class="row">
+
+      <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+              <div>
+                <p>Bei Anfragen, Beschwerden, Hinweisen und Anregungen wenden Sie sich bitte zunächst an den Verantwortlichen für die Website:<br>';
+  $output.= $text[0];
+  $output.= '              </p>
+            </div>
+          <hr>
+       </div>
+
+    </div>
+  </div>';
+  $output.= printRegularFooter($uid);
+  $myfile = fopen($file, "w") or die("Unable to open file!");
+  fwrite($myfile, $output);
+}
+
+function printImpressumInInterface($uid){
+  global $conn;
+  $text = oneColumnFromTable("impressum", $uid, "Page", "user_id");
+  $output = "";
+  $output .= returnInterfaceHeader($uid);
+  $output .= '<div class="container">
+  <div class="col-sm-6">
+    <hr>
+      <h1 class="text-center">Impressum</h1>
+    <hr>
+    </div>
+    <div class="col-sm-8"></div>
+      <div class="row">
+        <div class="col-sm-6">
+              <div>
+                <p>Bei Anfragen, Beschwerden, Hinweisen und Anregungen wenden Sie sich bitte zunächst an den Verantwortlichen für die Website:</p>';
+  $output.= '<p class="impressum_text">'.$text[0];
+  $output.= '              </p>
+            </div>
+          <hr>
+       </div>
+
+    </div>
+  </div>
+  <style> #currentPage .page_impressum p{
+    text-align: left!important;
+  }</style>';
+  $output .= returnInterfaceFooter($uid);
+  echo $output;
+}
+
 #takes the database name, the id name, the id, the value name und the file name and updates the database entry
 function fileInDatabase($dname, $did, $didvalue, $dvalue, $fname, $folder, $imagefolder){
   global $conn;

@@ -75,7 +75,7 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
   <div id="start-module">
       <div class="form-group">
         <p>Name der Schule:</p>
-        <input type="text" class="form-control" id="nameSchool" placeholder="Name der Schule" name="nameSchool" required>
+        <input type="text" class="form-control" id="nameSchool" placeholder="Name der Schule" name="nameSchool" >
         <p>Wählen sie ihr Schullogo</p>
         <input type="file" name="logo" accept="image/*" required>
         <p>Wählen sie ein Bild für den Slider:</p>
@@ -171,8 +171,7 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
 
   <div id="conf-module10">
     <p>Ihre Seite enthält ein Impressum.</p>
-    <input type="checkbox" name="impressum_button" value="1" />
-    <p class="events">Check this box if you want to include this module</p>
+    <textarea name="impressum" cols="40" rows="5" class="impressum" ></textarea><br><br>
   </div>
 
 

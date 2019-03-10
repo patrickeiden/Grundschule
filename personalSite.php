@@ -246,12 +246,14 @@ include 'functions.php';
                   </div>
                 </div>';
         }
+        $codeImpressum = printFormforImpressum($_SESSION['u_id']);
         echo '<div class="impressum" onclick="clickedImpressum()">
                 <p class="text">Konfiguriere das Impressum </p>
                 <div class="i_text">
                   <p>Dieses Modul existiert um das Impressum zu bearbeiten</p>
                   <form action="update_site.php" method="POST">
-                    <div class="form-group">
+                    <div class="form-group">'.$codeImpressum.'
+                    <button type="button" class="impressum_button" name="impressum_button">Speichere Veränderungen</button>
                       <button class="go_back10" onclick="ImpressumBack()" name="backbutton">Go Back</button>
                     </div>
                   </form>
@@ -350,7 +352,7 @@ include 'functions.php';
       </div>
       <div class="page_impressum">
         <?php
-
+          echo printImpressumInInterface($_SESSION['u_id']);
         ?>
       </div>
     </div>
@@ -1272,10 +1274,6 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('i_text')[0].style.display="block";
         document.getElementById('module_container').getElementsByTagName('div')[iClick].removeAttribute("onclick");
-        var curr = -511 - (402*newsnumber);
-        var foot = 460 + (402*newsnumber);
-        document.getElementById('currentPage').style.marginTop=curr+"px";
-        document.getElementsByClassName('page-footer')[0].style.top=foot+"px";
       }
 
       function ImpressumBack(){
@@ -1751,6 +1749,22 @@ include 'functions.php';
 
                   });
                 ';
+              //show changes directy in the Impressum Modul
+              echo '$("#school_impressum").keyup(function (){
+                      document.getElementById("currentPage").getElementsByClassName("impressum_text")[0].innerHTML = $(this).val();
+                    });
+                    $(".impressum_button").click(function (){
+                        var impressum_text = $("#school_impressum").val();
+                        $.ajax({
+                          type:"POST",
+                          url: "onChangeImpressum.php",
+                          data: {Codeimpressum:impressum_text},
+                          success: function (data) {
+                          }
+                      });
+
+
+                  });';
               ?>
           });
 
