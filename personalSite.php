@@ -53,6 +53,48 @@ include 'functions.php';
     ?>
     <div id="module_container">
       <?php
+      $name5 = oneColumnFromTable("siteone_name", $_SESSION['u_id'], "registration", "data_id");
+      $Startname = oneColumnFromTable("name", $name5[0], "Page", "page_file_name");
+      $Startheader = oneColumnFromTable("header", $name5[0], "Page", "page_file_name");
+      $Starttext = oneColumnFromTable("text", $name5[0], "Page", "page_file_name");
+      $Startstreet = oneColumnFromTable("street", $name5[0], "Page", "page_file_name");
+      $Startplz = oneColumnFromTable("plz", $name5[0], "Page", "page_file_name");
+      $Startort = oneColumnFromTable("ort", $name5[0], "Page", "page_file_name");
+      $Startnumber = oneColumnFromTable("number", $name5[0], "Page", "page_file_name");
+      $Startfax = oneColumnFromTable("fax", $name5[0], "Page", "page_file_name");
+      $Startmail = oneColumnFromTable("mail", $name5[0], "Page", "page_file_name");
+      $form5 = printFormForStart($name5[0]);
+      echo '<div class="startModule" onclick="clickedStart()">
+              <p class="text">Konfiguriere die Startseite</p>
+              <div class="s_text">
+                <p>This module exists in order to change important settings on the Start site</p>
+                <form action="update_site.php" method="POST">
+                  <div class="form-group">
+                    <p>Change the Name of your school:</p>
+                    <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.$Startname[0] .'">
+                    <p>Setzen sie das Logo ihrer Schule:</p>
+                    <input type="file" id="school_logo" name="school_logo" accept="image/*">'.$form5.'
+                    <p>Fügen sie ein neues Bild zu ihrem Slider hinzu:</p>
+                    <input type="file" id="school_slider" name="school_slider" accept="image/*">
+                    <p>Change the header of your school:</p>
+                    <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_header" value="'.$Startheader[0].'">
+                    <p>Change the text of your school:</p>
+                    <textarea name="school_description" cols="40" rows="5" id="school_description" required>'.$Starttext[0].'</textarea>
+                    <p>Verändere die Adresse im Footer:</p>
+                    <input type="text" class="form-control" id="school_street" placeholder="Straße" name="school_street" value="'.$Startstreet[0].'">
+                    <input type="text" class="form-control" id="school_plz" placeholder="PLZ" name="school_plz" value="'.$Startplz[0].'">
+                    <input type="text" class="form-control" id="school_ort" placeholder="Ort" name="school_ort" value="'.$Startort[0].'">
+                    <p>Verändere Kontaktdaten im Footer:</p>
+                    <input type="text" class="form-control" id="school_tel" placeholder="Telefon" name="school_tel" value="'.$Startnumber[0].'">
+                    <input type="text" class="form-control" id="school_fax" placeholder="Fax" name="school_fax" value="'.$Startfax[0].'">
+                    <input type="text" class="form-control" id="school_mail" placeholder="Mail" name="school_mail" value="'.$Startmail[0].'">
+                    <button class="go_back5" onclick="StartBack()" name="backbutton">Go Back</button>
+                    <button class="startButton" type="button">Save Changes</button>
+                  </div>
+                </form>
+              </div>
+            </div>';
+
         if(CustomeOn($_SESSION['u_id']) == 1){
           $nav1 = printCustomeTitel($_SESSION['u_id']);
           $name1 = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
@@ -137,6 +179,84 @@ include 'functions.php';
           </div>
           </div>';
         }
+        if(WorkersOn($_SESSION['u_id']) == 1){
+          $name6 = oneValueFromTableData($_SESSION['u_id'], "workers_file_name");
+          $result6 = printFormforWorkers($_SESSION['u_id'], $name6);
+          echo '<div class="workersModule" onclick="clickedWorkers()">
+                  <p class="text">Übersicht aller Mitarbeiter</p>
+                  <div class="w_text">
+                    <p>Dieses Modul existiert um alle Mitarbeiter zu bearbeiten Modul</p>
+                    <form action="update_site.php" method="POST">
+                      <div class="form-group">'.$result6.'
+                        <p>füge einen Mitarbeiter hinzu</p>
+                        <input type="text" class="form-control" id="worker_adress" placeholder="Anrede" name="workers_adress">
+                        <input type="text" class="form-control" id="worker_vorname" placeholder="Vorname" name="workers_firstname">
+                        <input type="text" class="form-control" id="worker_nachname" placeholder="Nachname" name="workers_lastname">
+                        <input type="text" class="form-control" id="worker_job" placeholder="Job" name="workers_job">
+                        <input type="text" class="form-control" id="worker_tel" placeholder="Telefon" name="workers_tel">
+                        <input type="file" class="form-control" id="worker_img" name="worker_image" accept="image/*">
+                        <p><input type ="radio" name ="workers_type" value="leader"/>Führungsposition</p>
+                        <p><input type ="radio" name ="workers_type" value="secr"/>Sekretariat</p>
+                        <p><input type ="radio" name ="workers_type" value="teacher"/>Lehrer/innen</p>
+                        <p><input type ="radio" name ="workers_type" value="other"/>Andere</p>
+                        <button type="submit" name="add_workers_button" formmethod="POST" value="'.$name6.'">Add</button>
+                        <button type="submit" name="delete_workers_button" formmethod="POST" value="'.$name6.'">Delete</button>
+                        <button class="go_back6" onclick="WorkersBack()" name="backbutton">Go Back</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>';
+        }
+        if(AnfahrtOn($_SESSION['u_id']) == 1){
+          echo '<div class="anfahrtModule" onclick="clickedAnfahrt()">
+                  <p class="text">Konfiguriere die Anfahrt</p>
+                  <div class="a_text">
+                    <p>Dieses Modul existiert um die Anfahrt zu bearbeiten</p>
+                    <form action="update_site.php" method="POST">
+                      <div class="form-group">
+                        <button class="go_back7" onclick="AnfahrtBack()" name="backbutton">Go Back</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>';
+        }
+        if(ClassesOn($_SESSION['u_id']) == 1){
+          echo '<div class="classesModule" onclick="clickedClasses()">
+                  <p class="text">Konfiguriere alle Klassen</p>
+                  <div class="cl_text">
+                    <p>Dieses Modul existiert um alle vorhandenen klassen zu bearbeiten</p>
+                    <form action="update_site.php" method="POST">
+                      <div class="form-group">
+                        <button class="go_back8" onclick="ClassesBack()" name="backbutton">Go Back</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>';
+        }
+        if(SignupOn($_SESSION['u_id']) == 1){
+          echo '<div class="signupModule" onclick="clickedSignup()">
+                  <p class="text">Konfiguriere das Einschreibungssytem</p>
+                  <div class="su_text">
+                    <p>Dieses Modul existiert um das Einschreibungssytem zu bearbeiten</p>
+                    <form action="update_site.php" method="POST">
+                      <div class="form-group">
+                        <button class="go_back9" onclick="SignupBack()" name="backbutton">Go Back</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>';
+        }
+        echo '<div class="impressum" onclick="clickedImpressum()">
+                <p class="text">Konfiguriere das Impressum </p>
+                <div class="i_text">
+                  <p>Dieses Modul existiert um das Impressum zu bearbeiten</p>
+                  <form action="update_site.php" method="POST">
+                    <div class="form-group">
+                      <button class="go_back10" onclick="ImpressumBack()" name="backbutton">Go Back</button>
+                    </div>
+                  </form>
+                </div>
+              </div>';
         if(GalleryOn($_SESSION['u_id']) == 1){
           $name4 = oneValueFromTableData($_SESSION['u_id'], "gallery_file_name");
           $result4 = printFormForGallery($_SESSION['u_id'], $name4);
@@ -157,55 +277,6 @@ include 'functions.php';
           </div>
           </div>';
         }
-        if(BuildingOn($_SESSION['u_id']) == 1){
-          echo '<div class="buildingModule" onclick="clickedGallery()">
-            <p class="text"> the building module is currently intergrated on your website</p>
-            <div class="b_text">
-            </div>
-          </div>';
-        }
-        $name5 = oneColumnFromTable("siteone_name", $_SESSION['u_id'], "registration", "data_id");
-        $Startname = oneColumnFromTable("name", $name5[0], "Page", "page_file_name");
-        $Startheader = oneColumnFromTable("header", $name5[0], "Page", "page_file_name");
-        $Starttext = oneColumnFromTable("text", $name5[0], "Page", "page_file_name");
-        $Startstreet = oneColumnFromTable("street", $name5[0], "Page", "page_file_name");
-        $Startplz = oneColumnFromTable("plz", $name5[0], "Page", "page_file_name");
-        $Startort = oneColumnFromTable("ort", $name5[0], "Page", "page_file_name");
-        $Startnumber = oneColumnFromTable("number", $name5[0], "Page", "page_file_name");
-        $Startfax = oneColumnFromTable("fax", $name5[0], "Page", "page_file_name");
-        $Startmail = oneColumnFromTable("mail", $name5[0], "Page", "page_file_name");
-        $form5 = printFormForStart($name5[0]);
-
-        echo '<div class="startModule" onclick="clickedStart()">
-                <p class="text">Konfiguriere die Startseite</p>
-                <div class="s_text">
-                  <p>This module exists in order to change important settings on the Start site</p>
-                  <form action="update_site.php" method="POST">
-                    <div class="form-group">
-                      <p>Change the Name of your school:</p>
-                      <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.$Startname[0] .'">
-                      <p>Setzen sie das Logo ihrer Schule:</p>
-                      <input type="file" id="school_logo" name="school_logo" accept="image/*">'.$form5.'
-                      <p>Fügen sie ein neues Bild zu ihrem Slider hinzu:</p>
-                      <input type="file" id="school_slider" name="school_slider" accept="image/*">
-                      <p>Change the header of your school:</p>
-                      <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_header" value="'.$Startheader[0].'">
-                      <p>Change the text of your school:</p>
-                      <textarea name="school_description" cols="40" rows="5" id="school_description" required>'.$Starttext[0].'</textarea>
-                      <p>Verändere die Adresse im Footer:</p>
-                      <input type="text" class="form-control" id="school_street" placeholder="Straße" name="school_street" value="'.$Startstreet[0].'">
-                      <input type="text" class="form-control" id="school_plz" placeholder="PLZ" name="school_plz" value="'.$Startplz[0].'">
-                      <input type="text" class="form-control" id="school_ort" placeholder="Ort" name="school_ort" value="'.$Startort[0].'">
-                      <p>Verändere Kontaktdaten im Footer:</p>
-                      <input type="text" class="form-control" id="school_tel" placeholder="Telefon" name="school_tel" value="'.$Startnumber[0].'">
-                      <input type="text" class="form-control" id="school_fax" placeholder="Fax" name="school_fax" value="'.$Startfax[0].'">
-                      <input type="text" class="form-control" id="school_mail" placeholder="Mail" name="school_mail" value="'.$Startmail[0].'">
-                      <button class="go_back5" onclick="StartBack()" name="backbutton">Go Back</button>
-                      <button class="startButton" type="button">Save Changes</button>
-                    </div>
-                  </form>
-                </div>
-              </div>';
       ?>
     </div>
 
@@ -242,8 +313,44 @@ include 'functions.php';
       </div>
       <div class="page_gallery">
         <?php
-        $fileinterface2 = oneValueFromTableData($_SESSION['u_id'], "gallery_file_name");
-        echo printGalleryInInterface($_SESSION['u_id'], $fileinterface2);
+        if(GalleryOn($_SESSION['u_id']) == 1){
+          $fileinterface2 = oneValueFromTableData($_SESSION['u_id'], "gallery_file_name");
+          echo printGalleryInInterface($_SESSION['u_id'], $fileinterface2);
+        }
+        ?>
+      </div>
+      <div class="page_workers">
+        <?php
+        if(WorkersOn($_SESSION['u_id']) == 1){
+          $fileinterface3 = oneValueFromTableData($_SESSION['u_id'], "workers_file_name");
+          echo printWorkersInInterface($_SESSION['u_id'], $fileinterface3);
+        }
+        ?>
+      </div>
+      <div class="page_anfahrt">
+        <?php
+        if(AnfahrtOn($_SESSION['u_id']) == 1){
+
+        }
+        ?>
+      </div>
+      <div class="page_classes">
+        <?php
+        if(ClassesOn($_SESSION['u_id']) == 1){
+
+        }
+        ?>
+      </div>
+      <div class="page_signup">
+        <?php
+        if(SignupOn($_SESSION['u_id']) == 1){
+
+        }
+        ?>
+      </div>
+      <div class="page_impressum">
+        <?php
+
         ?>
       </div>
     </div>
@@ -267,6 +374,12 @@ include 'functions.php';
     var calendar = 0;
     var news = 0;
     var gallery = 0;
+    var workers = 0;
+    var anfahrt = 0;
+    var classes = 0;
+    var signup = 0;
+    var impressum = 0;
+    var impressumon = 1;
     var leftright = 1;
     var leftrightGallery =1;
     <?php
@@ -326,10 +439,28 @@ include 'functions.php';
       echo 'var loop_number = 0;';
     }
 
-    if(BuildingOn($_SESSION['u_id']) == 1){
-      echo 'var buildingon = 1;';
+    if(WorkersOn($_SESSION['u_id']) == 1){
+      echo 'var workerson = 1;';
     }else{
-      echo 'var buildingon = 0;';
+      echo 'var workerson = 0;';
+    }
+
+    if(AnfahrtOn($_SESSION['u_id']) == 1){
+      echo 'var anfahrton = 1;';
+    }else{
+      echo 'var anfahrton = 0;';
+    }
+
+    if(ClassesOn($_SESSION['u_id']) == 1){
+      echo 'var classeson = 1;';
+    }else{
+      echo 'var classeson = 0;';
+    }
+
+    if(SignupOn($_SESSION['u_id']) == 1){
+      echo 'var signupon = 1;';
+    }else{
+      echo 'var signupon = 0;';
     }
     ?>
 
@@ -349,7 +480,7 @@ include 'functions.php';
       }
     }
 
-    var sumup = customeon+calendaron+newson+galleryon+starton;
+    var sumup = customeon+calendaron+newson+galleryon+starton+signupon+classeson+anfahrton+workerson+impressumon;
     var marginTopCurrentPage = 0;
     if(sumup>1){
        marginTopCurrentPage = ((-sumup+1)*140)-120;
@@ -362,6 +493,11 @@ include 'functions.php';
           document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
           document.getElementById('page_news').style.display="none";
           document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
+          document.getElementById('currentPage').getElementsByClassName('page_workers')[0].style.display="none";
+          document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].style.display="none";
+          document.getElementById('currentPage').getElementsByClassName('page_classes')[0].style.display="none";
+          document.getElementById('currentPage').getElementsByClassName('page_signup')[0].style.display="none";
+          document.getElementById('currentPage').getElementsByClassName('page_impressum')[0].style.display="none";
           if(calendaron == 1){
             document.getElementsByClassName('calendarModule')[0].style.display="none";
           }
@@ -371,10 +507,23 @@ include 'functions.php';
           if(galleryon == 1){
             document.getElementsByClassName('galleryModule')[0].style.display="none";
           }
+          if(signupon == 1){
+            document.getElementsByClassName('signupModule')[0].style.display="none";
+          }
+          if(classeson == 1){
+            document.getElementsByClassName('classesModule')[0].style.display="none";
+          }
+          if(anfahrton == 1){
+            document.getElementsByClassName('anfahrtModule')[0].style.display="none";
+          }
+          if(workerson == 1){
+            document.getElementsByClassName('workersModule')[0].style.display="none";
+          }
           document.getElementsByClassName('startModule')[0].style.display="none";
+          document.getElementsByClassName('impressum')[0].style.display="none";
           document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
           document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="block";
-          document.getElementById('module_container').getElementsByTagName('div')[0].removeAttribute("onclick");
+          document.getElementById('module_container').getElementsByTagName('div')[3].removeAttribute("onclick");
           var curr = -554 - (206*customenumber);
           var foot = 500 + (206*customenumber);
           document.getElementById('currentPage').style.marginTop=curr+"px";
@@ -393,10 +542,23 @@ include 'functions.php';
         if(galleryon == 1){
           document.getElementsByClassName('galleryModule')[0].style.display="block";
         }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="block";
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="block";
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="block";
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="block";
+        }
         document.getElementsByClassName('startModule')[0].style.display="block";
+        document.getElementsByClassName('impressum')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="none";
-        document.getElementById('module_container').getElementsByTagName('div')[0].setAttribute("onclick", "clickedCustome()");
+        document.getElementById('module_container').getElementsByTagName('div')[3].setAttribute("onclick", "clickedCustome()");
         document.getElementsByClassName('page-footer')[0].style.top="200px";
         var temp = marginTopCurrentPage;
         document.getElementById('currentPage').style.marginTop=temp+"px";
@@ -407,8 +569,15 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="block";
         document.getElementById('page_news').style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_workers')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_classes')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_signup')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_impressum')[0].style.display="none";
+        var cClick = 3;
         if(customeon == 1){
           document.getElementsByClassName('costumeModule')[0].style.display="none";
+          cClick += 4;
         }
         if(newson == 1){
           document.getElementsByClassName('newsModule')[0].style.display="none";
@@ -416,17 +585,33 @@ include 'functions.php';
         if(galleryon == 1){
           document.getElementsByClassName('galleryModule')[0].style.display="none";
         }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="none";
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="none";
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="none";
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="none";
+        }
         document.getElementsByClassName('startModule')[0].style.display="none";
+        document.getElementsByClassName('impressum')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="block";
+        document.getElementById('module_container').getElementsByTagName('div')[cClick].removeAttribute("onclick");
         var curr = -548 + (-206*calendarnumber);
         document.getElementById('currentPage').style.marginTop=curr+"px";
       }
 
       function CalendarBack(){
+        var cClick = 3;
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
         if(customeon == 1){
           document.getElementsByClassName('costumeModule')[0].style.display="block";
+          cClick += 4;
         }
         if(newson == 1){
           document.getElementsByClassName('newsModule')[0].style.display="block";
@@ -434,10 +619,23 @@ include 'functions.php';
         if(galleryon == 1){
           document.getElementsByClassName('galleryModule')[0].style.display="block";
         }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="block";
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="block";
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="block";
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="block";
+        }
         document.getElementsByClassName('startModule')[0].style.display="block";
+        document.getElementsByClassName('impressum')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('module_container').getElementsByClassName('k_text')[0].style.display="none";
-        document.getElementById('module_container').getElementsByTagName('div')[4].setAttribute("onclick", "clickedCalendar()");
+        document.getElementById('module_container').getElementsByTagName('div')[cClick].setAttribute("onclick", "clickedCalendar()");
         document.getElementById('currentPage').style.marginTop="-420px";
         document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
       }
@@ -448,19 +646,40 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
         document.getElementById('page_news').style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_workers')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_classes')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_signup')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_impressum')[0].style.display="none";
+        var nClick = 3;
         if(customeon == 1){
           document.getElementsByClassName('costumeModule')[0].style.display="none";
+          nClick += 4;
         }
         if(calendaron == 1){
           document.getElementsByClassName('calendarModule')[0].style.display="none";
+          nClick += 3;
         }
         if(galleryon == 1){
           document.getElementsByClassName('galleryModule')[0].style.display="none";
         }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="none";
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="none";
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="none";
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="none";
+        }
         document.getElementsByClassName('startModule')[0].style.display="none";
+        document.getElementsByClassName('impressum')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="block";
-        document.getElementById('module_container').getElementsByTagName('div')[7].removeAttribute("onclick");
+        document.getElementById('module_container').getElementsByTagName('div')[nClick].removeAttribute("onclick");
         var curr = -511 - (402*newsnumber);
         var foot = 460 + (402*newsnumber);
         document.getElementById('currentPage').style.marginTop=curr+"px";
@@ -470,19 +689,35 @@ include 'functions.php';
       function NewsBack(){
         document.getElementsByClassName('page-footer')[0].style.top="200px";
         document.getElementById('page_news').style.display="none";
+        var nClick = 3;
         if(customeon == 1){
           document.getElementsByClassName('costumeModule')[0].style.display="block";
+          nClick += 4;
         }
         if(calendaron == 1){
           document.getElementsByClassName('calendarModule')[0].style.display="block";
+          nClick += 3;
         }
         if(galleryon == 1){
           document.getElementsByClassName('galleryModule')[0].style.display="block";
         }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="block";
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="block";
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="block";
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="block";
+        }
         document.getElementsByClassName('startModule')[0].style.display="block";
+        document.getElementsByClassName('impressum')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="none";
-        document.getElementById('module_container').getElementsByTagName('div')[7].setAttribute("onclick", "clickedNews()");
+        document.getElementById('module_container').getElementsByTagName('div')[nClick].setAttribute("onclick", "clickedNews()");
         document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
       }
 
@@ -491,21 +726,50 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
         document.getElementById('page_news').style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_workers')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_classes')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_signup')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_impressum')[0].style.display="none";
+        var gClick = 3;
         if(customeon == 1){
           document.getElementsByClassName('costumeModule')[0].style.display="none";
+          gClick += 4;
         }
         if(newson == 1){
           document.getElementsByClassName('newsModule')[0].style.display="none";
+          gClick += 3 + loop_number;
         }
         if(calendaron == 1){
           document.getElementsByClassName('calendarModule')[0].style.display="none";
+          gClick += 4;
+        }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="none";
+          gClick += 3;
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="none";
+          gClick += 3;
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="none";
+          gClick += 3;
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="none";
+          gClick += 3;
+        }
+        if(impressumon == 1){
+          gClick += 3;
         }
         if(loop_number == 1){
-          document.getElementById('module_container').getElementsByTagName('div')[11].removeAttribute("onclick");
+          document.getElementById('module_container').getElementsByTagName('div')[gClick].removeAttribute("onclick");
         }else{
-          document.getElementById('module_container').getElementsByTagName('div')[10+loop_number].removeAttribute("onclick");
+          document.getElementById('module_container').getElementsByTagName('div')[gClick+loop_number].removeAttribute("onclick");
         }
         document.getElementsByClassName('startModule')[0].style.display="none";
+        document.getElementsByClassName('impressum')[0].style.display="none";
         document.getElementById('currentPage').style.marginTop="-660px";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('g_text')[0].style.display="block";
@@ -513,23 +777,40 @@ include 'functions.php';
       }
 
       function GalleryBack(){
+        var gClick = 3;
         if(customeon == 1){
           document.getElementsByClassName('costumeModule')[0].style.display="block";
+          gClick += 4;
         }
         if(newson == 1){
           document.getElementsByClassName('newsModule')[0].style.display="block";
+          gClick += 3 + loop_number;
         }
         if(calendaron == 1){
           document.getElementsByClassName('calendarModule')[0].style.display="block";
+          gClick += 4;
+        }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="block";
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="block";
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="block";
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="block";
         }
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('module_container').getElementsByClassName('g_text')[0].style.display="none";
         if(loop_number == 1){
-          document.getElementById('module_container').getElementsByTagName('div')[11].setAttribute("onclick", "clickedGallery()");
+          document.getElementById('module_container').getElementsByTagName('div')[gClick+loop_number].setAttribute("onclick", "clickedGallery()");
         }else{
-          document.getElementById('module_container').getElementsByTagName('div')[10+loop_number].setAttribute("onclick", "clickedGallery()");
+          document.getElementById('module_container').getElementsByTagName('div')[gClick+loop_number].setAttribute("onclick", "clickedGallery()");
         }
         document.getElementsByClassName('startModule')[0].style.display="block";
+        document.getElementsByClassName('impressum')[0].style.display="block";
         document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
         document.getElementsByClassName('page-footer')[0].style.top="200px";
       }
@@ -539,6 +820,11 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
         document.getElementById('page_news').style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_workers')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_classes')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_signup')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_impressum')[0].style.display="none";
         if(customeon == 1){
           document.getElementsByClassName('costumeModule')[0].style.display="none";
         }
@@ -551,12 +837,24 @@ include 'functions.php';
         if(galleryon == 1){
           document.getElementsByClassName('galleryModule')[0].style.display="none";
         }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="none";
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="none";
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="none";
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="none";
+        }
+        document.getElementsByClassName('impressum')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
         document.getElementById('module_container').getElementsByClassName('s_text')[0].style.display="block";
-        document.getElementById('module_container').getElementsByTagName('div')[12].removeAttribute("onclick");
+        document.getElementById('module_container').getElementsByTagName('div')[0].removeAttribute("onclick");
         document.getElementById('currentPage').style.marginTop="-720px";
         document.getElementById('currentPage').getElementsByClassName('page-footer')[0].style.marginTop="-199px";
-
       }
 
       function StartBack(){
@@ -572,11 +870,454 @@ include 'functions.php';
         if(galleryon == 1){
           document.getElementsByClassName('galleryModule')[0].style.display="block";
         }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="block";
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="block";
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="block";
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="block";
+        }
+        document.getElementsByClassName('impressum')[0].style.display="block";
         document.getElementById('module_container').getElementsByClassName('s_text')[0].style.display="none";
-        document.getElementById('module_container').getElementsByTagName('div')[12].setAttribute("onclick", "clickedStart()");
+        document.getElementById('module_container').getElementsByTagName('div')[0].setAttribute("onclick", "clickedStart()");
         document.getElementsByClassName('page-footer')[0].style.top="200px";
         var temp = marginTopCurrentPage;
         document.getElementById('currentPage').style.marginTop="-420px";
+      }
+
+      function clickedWorkers(){
+        document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
+        document.getElementById('page_news').style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_workers')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_classes')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_signup')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_impressum')[0].style.display="none";
+        var wClick = 3;
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="none";
+          wClick += 4;
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="none";
+          wClick += 3;
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="none";
+          wClick += 3 + loop_number;
+        }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="none";
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="none";
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="none";
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="none";
+        }
+        document.getElementsByClassName('startModule')[0].style.display="none";
+        document.getElementsByClassName('impressum')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
+        document.getElementById('module_container').getElementsByClassName('w_text')[0].style.display="block";
+        document.getElementById('module_container').getElementsByTagName('div')[wClick].removeAttribute("onclick");
+      }
+
+      function WorkersBack(){
+        document.getElementsByClassName('page-footer')[0].style.top="200px";
+        document.getElementById('currentPage').getElementsByClassName('page_workers')[0].style.display="none";
+        var wClick = 3;
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="block";
+          wClick += 4;
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="block";
+          wClick += 3;
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="block";
+          wClick += 3 + loop_number;
+        }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="block";
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="block";
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="block";
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="block";
+        }
+        document.getElementsByClassName('startModule')[0].style.display="block";
+        document.getElementsByClassName('impressum')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
+        document.getElementById('module_container').getElementsByClassName('w_text')[0].style.display="none";
+        document.getElementById('module_container').getElementsByTagName('div')[wClick].setAttribute("onclick", "clickedWorkers()");
+        document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
+      }
+
+      function clickedAnfahrt(){
+        document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
+        document.getElementById('page_news').style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_workers')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_classes')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_signup')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_impressum')[0].style.display="none";
+        var aClick = 3;
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="none";
+          aClick += 4;
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="none";
+          aClick += 3;
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="none";
+          aClick += 3 + loop_number;
+        }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="none";
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="none";
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="none";
+          aClick += 3;
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="none";
+        }
+        document.getElementsByClassName('startModule')[0].style.display="none";
+        document.getElementsByClassName('impressum')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
+        document.getElementById('module_container').getElementsByClassName('a_text')[0].style.display="block";
+        document.getElementById('module_container').getElementsByTagName('div')[aClick].removeAttribute("onclick");
+        var curr = -511 - (402*newsnumber);
+        var foot = 460 + (402*newsnumber);
+        document.getElementById('currentPage').style.marginTop=curr+"px";
+        document.getElementsByClassName('page-footer')[0].style.top=foot+"px";
+      }
+
+      function AnfahrtBack(){
+        document.getElementsByClassName('page-footer')[0].style.top="200px";
+        document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].style.display="none";
+        var aClick = 3;
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="block";
+          aClick += 4;
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="block";
+          aClick += 3;
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="block";
+          aClick += 3 + loop_number;
+        }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="block";
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="block";
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="block";
+          aClick += 3;
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="block";
+        }
+        document.getElementsByClassName('startModule')[0].style.display="block";
+        document.getElementsByClassName('impressum')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
+        document.getElementById('module_container').getElementsByClassName('a_text')[0].style.display="none";
+        document.getElementById('module_container').getElementsByTagName('div')[aClick].setAttribute("onclick", "clickedAnfahrt()");
+        document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
+      }
+
+      function clickedClasses(){
+        document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
+        document.getElementById('page_news').style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_workers')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_classes')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_signup')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_impressum')[0].style.display="none";
+        var clClick = 3;
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="none";
+          clClick += 4;
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="none";
+          clClick += 3;
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="none";
+          clClick += 3 + loop_number;
+        }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="none";
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="none";
+          clClick += 3;
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="none";
+          clClick += 3;
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="none";
+        }
+        document.getElementsByClassName('startModule')[0].style.display="none";
+        document.getElementsByClassName('impressum')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
+        document.getElementById('module_container').getElementsByClassName('cl_text')[0].style.display="block";
+        document.getElementById('module_container').getElementsByTagName('div')[clClick].removeAttribute("onclick");
+        var curr = -511 - (402*newsnumber);
+        var foot = 460 + (402*newsnumber);
+        document.getElementById('currentPage').style.marginTop=curr+"px";
+        document.getElementsByClassName('page-footer')[0].style.top=foot+"px";
+      }
+
+      function ClassesBack(){
+        document.getElementsByClassName('page-footer')[0].style.top="200px";
+        document.getElementById('currentPage').getElementsByClassName('page_classes')[0].style.display="none";
+        var clClick = 3;
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="block";
+          clClick += 4;
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="block";
+          clClick += 3;
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="block";
+          clClick += 3 + loop_number;
+        }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="block";
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="block";
+          clClick += 3;
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="block";
+          clClick += 3;
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="block";
+        }
+        document.getElementsByClassName('startModule')[0].style.display="block";
+        document.getElementsByClassName('impressum')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
+        document.getElementById('module_container').getElementsByClassName('cl_text')[0].style.display="none";
+        document.getElementById('module_container').getElementsByTagName('div')[clClick].setAttribute("onclick", "clickedClasses()");
+        document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
+      }
+
+      function clickedSignup(){
+        document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
+        document.getElementById('page_news').style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_workers')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_classes')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_signup')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_impressum')[0].style.display="none";
+        var sClick = 3;
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="none";
+          sClick += 4;
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="none";
+          sClick += 3;
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="none";
+          sClick += 3 + loop_number;
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="none";
+          sClick += 3;
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="none";
+          sClick += 3;
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="none";
+          sClick += 3;
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="none";
+        }
+        document.getElementsByClassName('startModule')[0].style.display="none";
+        document.getElementsByClassName('impressum')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
+        document.getElementById('module_container').getElementsByClassName('su_text')[0].style.display="block";
+        document.getElementById('module_container').getElementsByTagName('div')[sClick].removeAttribute("onclick");
+        var curr = -511 - (402*newsnumber);
+        var foot = 460 + (402*newsnumber);
+        document.getElementById('currentPage').style.marginTop=curr+"px";
+        document.getElementsByClassName('page-footer')[0].style.top=foot+"px";
+      }
+
+      function SignupBack(){
+        document.getElementsByClassName('page-footer')[0].style.top="200px";
+        document.getElementById('currentPage').getElementsByClassName('page_signup')[0].style.display="none";
+        var sClick = 3;
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="block";
+          sClick += 4;
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="block";
+          sClick += 3;
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="block";
+          sClick += 3 + loop_number;
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="block";
+          sClick += 3;
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="block";
+          sClick += 3;
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="block";
+          sClick += 3;
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="block";
+        }
+        document.getElementsByClassName('startModule')[0].style.display="block";
+        document.getElementsByClassName('impressum')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
+        document.getElementById('module_container').getElementsByClassName('su_text')[0].style.display="none";
+        document.getElementById('module_container').getElementsByTagName('div')[sClick].setAttribute("onclick", "clickedSignup()");
+        document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
+      }
+
+      function clickedImpressum(){
+        document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";
+        document.getElementById('page_news').style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_workers')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_classes')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_signup')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_impressum')[0].style.display="block";
+        var iClick = 3;
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="none";
+          iClick += 4;
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="none";
+          iClick += 3;
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="none";
+          iClick += 3 + loop_number;
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="none";
+          iClick += 3;
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="none";
+          iClick += 3;
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="none";
+          iClick += 3;
+        }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="none";
+          iClick += 3;
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="none";
+        }
+        document.getElementsByClassName('startModule')[0].style.display="none";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
+        document.getElementById('module_container').getElementsByClassName('i_text')[0].style.display="block";
+        document.getElementById('module_container').getElementsByTagName('div')[iClick].removeAttribute("onclick");
+        var curr = -511 - (402*newsnumber);
+        var foot = 460 + (402*newsnumber);
+        document.getElementById('currentPage').style.marginTop=curr+"px";
+        document.getElementsByClassName('page-footer')[0].style.top=foot+"px";
+      }
+
+      function ImpressumBack(){
+        document.getElementsByClassName('page-footer')[0].style.top="200px";
+        document.getElementById('currentPage').getElementsByClassName('page_impressum')[0].style.display="none";
+        var iClick = 3;
+        if(customeon == 1){
+          document.getElementsByClassName('costumeModule')[0].style.display="block";
+          iClick += 4;
+        }
+        if(calendaron == 1){
+          document.getElementsByClassName('calendarModule')[0].style.display="block";
+          iClick += 3;
+        }
+        if(newson == 1){
+          document.getElementsByClassName('newsModule')[0].style.display="block";
+          iClick += 3 + loop_number;
+        }
+        if(classeson == 1){
+          document.getElementsByClassName('classesModule')[0].style.display="block";
+          iClick += 3;
+        }
+        if(anfahrton == 1){
+          document.getElementsByClassName('anfahrtModule')[0].style.display="block";
+          iClick += 3;
+        }
+        if(workerson == 1){
+          document.getElementsByClassName('workersModule')[0].style.display="block";
+          iClick += 3;
+        }
+        if(signupon == 1){
+          document.getElementsByClassName('signupModule')[0].style.display="none";
+          iClick += 3;
+        }
+        if(galleryon == 1){
+          document.getElementsByClassName('galleryModule')[0].style.display="block";
+        }
+        document.getElementsByClassName('startModule')[0].style.display="block";
+        document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
+        document.getElementById('module_container').getElementsByClassName('i_text')[0].style.display="none";
+        document.getElementById('module_container').getElementsByTagName('div')[iClick].setAttribute("onclick", "clickedImpressum()");
+        document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
       }
 
 
@@ -636,9 +1377,84 @@ include 'functions.php';
                 $(".galleryModule > .text").hide();
               }
               $(".go_back4").click(function() {
-                news = 0;
+                gallery = 0;
                 $(".galleryModule").animate({height:"120px"},500);
                 $(".galleryModule > .text").show();
+                return false;
+              });
+            });
+
+            $(".workersModule").click(function () {
+
+              if(workers == 0){
+                workers = 1;
+                $(".workersModule").animate({height:"700px"},500);
+                $(".workersModule > .text").hide();
+              }
+              $(".go_back6").click(function() {
+                workers = 0;
+                $(".workersModule").animate({height:"120px"},500);
+                $(".workersModule > .text").show();
+                return false;
+              });
+            });
+
+            $(".anfahrtModule").click(function () {
+
+              if(anfahrt == 0){
+                anfahrt = 1;
+                $(".anfahrtModule").animate({height:"700px"},500);
+                $(".anfahrtModule > .text").hide();
+              }
+              $(".go_back7").click(function() {
+                anfahrt = 0;
+                $(".anfahrtModule").animate({height:"120px"},500);
+                $(".anfahrtModule > .text").show();
+                return false;
+              });
+            });
+
+            $(".classesModule").click(function () {
+
+              if(classes == 0){
+                classes = 1;
+                $(".classesModule").animate({height:"700px"},500);
+                $(".classesModule > .text").hide();
+              }
+              $(".go_back8").click(function() {
+                classes = 0;
+                $(".classesModule").animate({height:"120px"},500);
+                $(".classesModule > .text").show();
+                return false;
+              });
+            });
+
+            $(".signupModule").click(function () {
+
+              if(signup == 0){
+                signup = 1;
+                $(".signupModule").animate({height:"700px"},500);
+                $(".signupModule > .text").hide();
+              }
+              $(".go_back9").click(function() {
+                signup = 0;
+                $(".signupModule").animate({height:"120px"},500);
+                $(".signupModule > .text").show();
+                return false;
+              });
+            });
+
+            $(".impressum").click(function () {
+
+              if(impressum == 0){
+                impressum = 1;
+                $(".impressum").animate({height:"200px"},500);
+                $(".impressum > .text").hide();
+              }
+              $(".go_back10").click(function() {
+                impressum = 0;
+                $(".impressum").animate({height:"120px"},500);
+                $(".impressum > .text").show();
                 return false;
               });
             });

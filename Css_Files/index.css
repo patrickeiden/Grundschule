@@ -140,6 +140,46 @@ h1{
   padding-top: 38px;
   padding-left: 61px;
 }
+
+.module7{
+  background-color: white;
+  height: 100px;
+  width: 400px;
+  margin-top: 40px;
+  margin-left: 41px;
+  padding-top: 38px;
+  padding-left: 61px;
+}
+
+.module8{
+  background-color: white;
+  height: 100px;
+  width: 400px;
+  margin-top: 40px;
+  margin-left: 41px;
+  padding-top: 38px;
+  padding-left: 61px;
+}
+
+.module9{
+  background-color: white;
+  height: 100px;
+  width: 400px;
+  margin-top: 40px;
+  margin-left: 41px;
+  padding-top: 38px;
+  padding-left: 61px;
+}
+
+.module10{
+  background-color: white;
+  height: 100px;
+  width: 400px;
+  margin-top: 40px;
+  margin-left: 41px;
+  padding-top: 38px;
+  padding-left: 61px;
+}
 .show-modules {
   width: 500px;
   padding-left: 43px;
@@ -218,6 +258,42 @@ h1{
   background-color: white;
 }
 #conf-module7{
+  position: relative;
+  left: 700px;
+  top: -744px;
+  display: none;
+  background-color: white;
+  width: 500px;
+  height: 230px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+#conf-module8{
+  position: relative;
+  left: 700px;
+  top: -744px;
+  display: none;
+  background-color: white;
+  width: 500px;
+  height: 230px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+#conf-module9{
+  position: relative;
+  left: 700px;
+  top: -744px;
+  display: none;
+  background-color: white;
+  width: 500px;
+  height: 230px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+#conf-module10{
   position: relative;
   left: 700px;
   top: -744px;
@@ -422,15 +498,62 @@ button {
   margin-bottom: 20px;
 }
 
-#module_container .buildingModule{
+#module_container .g_text{
+  display: none;
+}
+
+#module_container .workersModule{
   background-color: gray;
   width: 34%;
   height: 120px;
   margin-bottom: 20px;
+}
+
+#module_container .w_text{
   display: none;
 }
 
-#module_container .g_text{
+#module_container .anfahrtModule{
+  background-color: gray;
+  width: 34%;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+#module_container .a_text{
+  display: none;
+}
+
+#module_container .classesModule{
+  background-color: gray;
+  width: 34%;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+#module_container .cl_text{
+  display: none;
+}
+
+#module_container .signupModule{
+  background-color: gray;
+  width: 34%;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+#module_container .su_text{
+  display: none;
+}
+
+#module_container .impressum{
+  background-color: gray;
+  width: 34%;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+#module_container .i_text{
   display: none;
 }
 
@@ -463,6 +586,30 @@ button {
 
 #currentPage .page_gallery{
   display: none;
+}
+
+#currentPage .page_workers{
+  display: none;
+}
+
+#currentPage .page_anfahrt{
+  display: none;
+}
+
+#currentPage .page_classes{
+  display: none;
+}
+
+#currentPage .page_signup{
+  display: none;
+}
+
+#currentPage .page_impressum{
+  display: none;
+}
+
+#currentPage .interface_container{
+  width: 100%
 }
 
 #page_news .title{

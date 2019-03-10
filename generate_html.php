@@ -6,12 +6,13 @@ if(isset($_POST['test'])){
   #create a folder for the user
   $folder = createFolder($_SESSION['u_id']);
 
-  #creates multiple modules
-  if(isset($_POST['costume_button']) && $_POST['costume_button']==1){
-    setCustome($_POST['title'], 1, $_SESSION['u_id'], $folder);
-  }else{
-    setCustome("", 0, $_SESSION['u_id'], $folder);
-  }
+if(isset($_POST['worker_button'])){
+  $number = 1;
+  setWorkers($number, $_SESSION['u_id'], $folder);
+}else{
+  $number = 0;
+  setWorkers($number, $_SESSION['u_id'], $folder);
+}
 }
 
 

@@ -1207,6 +1207,341 @@ function setBuilding($number, $uid, $folder){
   }
 }
 
+function setWorkers($number, $uid, $folder){
+  global $conn;
+  $stmt = $conn->prepare("UPDATE table_data SET workers_on=? WHERE user_id=?");
+  $stmt->bind_param("ii", $number, $uid);
+  $stmt->execute();
+  if($number == 1){
+  $site_name = "workers_id" .$uid .".php";
+  if($folder != ""){
+    $folder = $folder."/".$site_name;
+  }else{
+    $folder = $site_name;
+  }
+  //create a File for this module
+  $myfile = fopen($folder, "w") or die("Unable to open file!");
+  //write file in Database
+  $stmt = $conn->prepare("UPDATE table_data SET workers_file_name=? WHERE user_id=?");
+  $stmt->bind_param("si", $folder, $uid);
+  $stmt->execute();
+
+  $var = '<?php $folder = "userid".$_SESSION["u_id"]."/workers_id".$_SESSION["u_id"].".php";';
+  $var .= 'echo allWorkers($_SESSION["u_id"], $folder); ?>';
+  $stmt = $conn->prepare("UPDATE Theme1regular SET workers=?");
+  $stmt->bind_param("s", $var);
+  $stmt->execute();
+  $stmt->close();
+
+  printWorkersInFile($uid, $folder);
+  }
+}
+
+function createWorkers($uid, $adress, $firstname, $lastname, $job, $choice, $file, $tel, $image){
+  global $conn;
+  $stmt = $conn->prepare("INSERT INTO workers (type, job, anrede, vorname, nachname, tel, image, workers_file_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("ssssssss", $choice, $job, $adress, $firstname, $lastname, $tel, $image, $file);
+  $stmt->execute();
+}
+
+function deleteWorkers($uid, $file){
+  global $conn;
+  $a = array();
+  $b = array();
+  $sql = "SELECT workers_id FROM workers WHERE workers_file_name='$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($a, $row['workers_id']);
+        array_push($b, 'delete_worker_'.$row['workers_id']);
+    }
+  }
+  var_dump($a);
+  var_dump($b);
+  for ($i=0; $i < sizeof($a); $i++){
+    $v = $b[$i];
+      if($_POST[$v] == $a[$i]){
+        $stmt = $conn->prepare("DELETE FROM workers WHERE workers_id = ? and workers_file_name = ?");
+        $stmt->bind_param('ss', $a[$i], $file);
+        $stmt->execute();
+      }
+  }
+}
+
+function changeWorkers(){
+//later
+}
+
+function printFormforWorkers($uid, $file){
+  global $conn;
+  $output = '<div class="workersform>"';
+  $sql = "SELECT workers_id, type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='leader'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    $output .= '<div class="leader">';
+    while($row = $result->fetch_assoc()) {
+        $output.= '<p>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].' | '.$row['job'].'</p>';
+        $output.= '<p>Arbeiter entfernen</p> <input type ="checkbox" name ="delete_worker_'.$row['workers_id'].'" value="'.$row['workers_id'].'"/>';
+    }
+    $output.= '</div>';
+  }
+
+  $sql = "SELECT workers_id, type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='secr'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    $output .= '<div class="secr">';
+    while($row = $result->fetch_assoc()) {
+        $output.= '<p>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].' | '.$row['job'].'</p>';
+        $output.= '<p>Arbeiter entfernen</p> <input type ="checkbox" name ="delete_worker_'.$row['workers_id'].'" value="'.$row['workers_id'].'"/>';
+    }
+    $output.= '</div>';
+  }
+
+  $sql = "SELECT workers_id, type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='teacher'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    $output .= '<div class="teacher">';
+    while($row = $result->fetch_assoc()) {
+        $output.= '<p>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].' | '.$row['job'].'</p>';
+        $output.= '<p>Arbeiter entfernen</p> <input type ="checkbox" name ="delete_worker_'.$row['workers_id'].'" value="'.$row['workers_id'].'"/>';
+    }
+    $output.= '</div>';
+  }
+
+  $sql = "SELECT workers_id, type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='other'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    $output .= '<div class="other">';
+    while($row = $result->fetch_assoc()) {
+        $output.= '<p>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].' | '.$row['job'].'</p>';
+        $output.= '<p>Arbeiter entfernen</p> <input type ="checkbox" name ="delete_worker_'.$row['workers_id'].'" value="'.$row['workers_id'].'"/>';
+    }
+    $output.= '</div>';
+  }
+
+  return $output;
+}
+
+function printWorkersInInterface($uid, $file){
+  global $conn;
+  $output = '';
+  $output.= returnInterfaceHeader($uid);
+  $output .= '<div class="interface_container">
+    <hr>
+      <h1 class="text-center">Leiter/innen</h1>
+    <hr>
+    <div class="row">
+    <div class="col-sm-12">';
+
+  $sql = "SELECT type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='leader'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    $i = 1;
+    while($row = $result->fetch_assoc()) {
+        $output.= '<div class="col-sm-3 text-center">
+          <img src="'.$row['image'].'" width="50px;">
+          <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
+          <p>'.$row['job'].'</p>
+          <p>Tel.:  '.$row['tel'].'</p>
+        </div>';
+
+    }
+  }
+  $output .= '</div>
+  </div>';
+
+  $output .= '<hr>
+      <h1 class="text-center">Sekretariat</h1>
+    <hr>
+    <div class="row">
+    <div class="col-sm-12">';
+
+  $sql = "SELECT type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='secr'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= '<div class="col-sm-3 text-center">
+          <img src="'.$row['image'].'" width="50px;">
+          <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
+          <p>'.$row['job'].'</p>
+          <p>Tel.:  '.$row['tel'].'</p>
+        </div>';
+    }
+  }
+  $output .= '</div>
+  </div>';
+
+  $output .= '<hr>
+      <h1 class="text-center">Lehrer</h1>
+    <hr>
+    <div class="row">
+    <div class="col-sm-12">';
+
+  $sql = "SELECT type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='teacher'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= '<div class="col-sm-3 text-center">
+          <img src="'.$row['image'].'" width="50px;">
+          <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
+          <p>'.$row['job'].'</p>
+          <p>Tel.:  '.$row['tel'].'</p>
+        </div>';
+    }
+  }
+  $output .= '</div>
+  </div>';
+
+  $output .= '<hr>
+      <h1 class="text-center">Sonstige</h1>
+    <hr>
+    <div class="row">
+    <div class="col-sm-12">';
+
+  $sql = "SELECT type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='other'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= '<div class="col-sm-3 text-center">
+          <img src="'.$row['image'].'" width="50px;">
+          <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
+          <p>'.$row['job'].'</p>
+          <p>Tel.:  '.$row['tel'].'</p>
+        </div>';
+    }
+  }
+  $output .= '</div>
+  </div>';
+
+  $output .= '<hr>
+</div>';
+  $output.= returnInterfaceFooter($uid);
+  return $output;
+}
+
+function allWorkers($uid, $folder){
+  global $conn;
+  $output = "";
+  $output .= '<div class="container">
+    <hr>
+      <h1 class="text-center">Leiter/innen</h1>
+    <hr>
+    <div class="row">
+    <div class="col-sm-12">';
+  $sql = "SELECT type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$folder' and type ='leader'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    $i = 1;
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        if($i >4){
+          $output .= '<div class="col-sm-3 text-center"></div>';
+          $i = 1;
+        }
+        $output.= '<div class="col-sm-3 text-center">
+          <img src="'.$row['image'].'" width="200px;">
+          <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
+          <p>'.$row['job'].'</p>
+          <p>Tel.:  '.$row['tel'].'</p>
+        </div>';
+        $i ++;
+    }
+  }
+  $output .= '</div>
+  </div>';
+  $output.= '<hr>
+    <h1 class="text-center">Sekretariat</h1>
+  <hr>
+  <div class="row">
+  <div class="col-sm-12">';
+  $sql = "SELECT type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$folder' and type ='secr'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= '<div class="col-sm-3 text-center">
+          <img src="'.$row['image'].'" width="200px;">
+          <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
+          <p>'.$row['job'].'</p>
+          <p>Tel.:  '.$row['tel'].'</p>
+        </div>';
+    }
+  }
+  $output .= '</div>
+  </div>';
+  $output.= '<hr>
+    <h1 class="text-center">Lehrer/innen</h1>
+  <hr>
+  <div class="row">
+  <div class="col-sm-12">';
+  $sql = "SELECT type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$folder' and type ='teacher'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= '<div class="col-sm-3 text-center">
+          <img src="'.$row['image'].'" width="200px;">
+          <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
+          <p>'.$row['job'].'</p>
+          <p>Tel.:  '.$row['tel'].'</p>
+        </div>';
+    }
+  }
+  $output .= '</div>
+  </div>';
+  $output .= '<hr>
+    <h1 class="text-center">Sonstige</h1>
+  <hr>
+  <div class="row">
+  <div class="col-sm-12">';
+  $sql = "SELECT type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$folder' and type ='other'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= '<div class="col-sm-3 text-center">
+          <img src="'.$row['image'].'" width="200px;">
+          <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
+          <p>'.$row['job'].'</p>
+          <p>Tel.:  '.$row['tel'].'</p>
+        </div>';
+    }
+  }
+  $output .= '</div>
+  </div>';
+  $output.= '<hr>
+  </div>';
+
+  return $output;
+}
+
+function printWorkersInFile($uid, $folder){
+  global $conn;
+  $output = "";
+  $output .= printRegularHeader($uid, "");
+  $sql = "SELECT workers FROM Theme1regular";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row['workers'];
+    }
+  }
+
+  $output .= printRegularFooter($uid);
+  $myfile = fopen($folder, "w") or die("Unable to open file!");
+  fwrite($myfile, $output);
+}
+
 #creates a .php file and returns the file name(name + id)
 function createFile($id, $name, $folder){
   global $conn;
@@ -1421,6 +1756,62 @@ function BuildingOn($uid){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $number = $row['building_on'];
+    }
+  }
+  return $number;
+}
+
+function WorkersOn($uid){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT workers_on FROM table_data WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $number = $row['workers_on'];
+    }
+  }
+  return $number;
+}
+
+function AnfahrtOn($uid){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT anfahrt_on FROM table_data WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $number = $row['anfahrt_on'];
+    }
+  }
+  return $number;
+}
+
+function ClassesOn($uid){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT classes_on FROM table_data WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $number = $row['classes_on'];
+    }
+  }
+  return $number;
+}
+
+function SignupOn($uid){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT signup_on FROM table_data WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $number = $row['signup_on'];
     }
   }
   return $number;

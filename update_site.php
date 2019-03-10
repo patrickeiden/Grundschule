@@ -47,5 +47,11 @@ if(isset($_POST['delete_galleries_button'])){
 if(isset($_POST['delete_images_button'])){
   deleteImages($_SESSION['u_id'], $_POST['delete_images_button']);
 }
+if(isset($_POST['add_workers_button'])){
+  createWorkers($_SESSION['u_id'], $_POST['workers_adress'], $_POST['workers_firstname'], $_POST['workers_lastname'], $_POST['workers_job'], $_POST['workers_type'], $_POST['add_workers_button'], $_POST['workers_tel'],$_POST['worker_image']);
+}
+if(isset($_POST['delete_workers_button'])){
+  deleteWorkers($_SESSION['u_id'], $_POST['delete_workers_button']);
+}
 header('Location: http://localhost/Grundschule/personalSite.php');
 ?>

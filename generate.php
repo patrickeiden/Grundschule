@@ -57,6 +57,18 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <div class="module6">
       <a onclick="module6()" role="button">Anfahrt Modul</a>
     </div>
+    <div class="module7">
+      <a onclick="module7()" role="button">Mitarbeiter Modul</a>
+    </div>
+    <div class="module8">
+      <a onclick="module8()" role="button">Klassen Modul</a>
+    </div>
+    <div class="module9">
+      <a onclick="module9()" role="button">Einschreibungs Modul</a>
+    </div>
+    <div class="module10">
+      <a onclick="module10()" role="button">Impressum Modul</a>
+    </div>
   </div>
 
   <form action="generate_html.php" method="POST" autocomplete="off">
@@ -135,7 +147,31 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
 
   <div id="conf-module6">
     <p>Your site will contain a page with the geographic structur of your school.</p>
-    <input type="checkbox" name="building_button" value="1" />
+    <input type="checkbox" name="anfahrt_button" value="1" />
+    <p class="events">Check this box if you want to include this module</p>
+  </div>
+
+  <div id="conf-module7">
+    <p>Ihre Seite enthält eine Auflistung aller Mitarbeiter, die sie eintragen.</p>
+    <input type="checkbox" name="worker_button" value="1" />
+    <p class="events">Check this box if you want to include this module</p>
+  </div>
+
+  <div id="conf-module8">
+    <p>Ihre Seite enthält eine Auflistung aller Klassen, die sie eintragen.</p>
+    <input type="checkbox" name="classes_button" value="1" />
+    <p class="events">Check this box if you want to include this module</p>
+  </div>
+
+  <div id="conf-module9">
+    <p>Ihre Seite enthält ein Einschreibungssytem.</p>
+    <input type="checkbox" name="signup_button" value="1" />
+    <p class="events">Check this box if you want to include this module</p>
+  </div>
+
+  <div id="conf-module10">
+    <p>Ihre Seite enthält ein Impressum.</p>
+    <input type="checkbox" name="impressum_button" value="1" />
     <p class="events">Check this box if you want to include this module</p>
   </div>
 
@@ -218,6 +254,37 @@ function module6() {
   }
 }
 
+function module7() {
+  if(document.getElementById('conf-module7').style.display=="none") {
+    document.getElementById('conf-module7').style.display="block";
+  } else {
+    document.getElementById('conf-module7').style.display="none";
+  }
+}
+
+function module8() {
+  if(document.getElementById('conf-module8').style.display=="none") {
+    document.getElementById('conf-module8').style.display="block";
+  } else {
+    document.getElementById('conf-module8').style.display="none";
+  }
+}
+
+function module9() {
+  if(document.getElementById('conf-module9').style.display=="none") {
+    document.getElementById('conf-module9').style.display="block";
+  } else {
+    document.getElementById('conf-module9').style.display="none";
+  }
+}
+
+function module10() {
+  if(document.getElementById('conf-module10').style.display=="none") {
+    document.getElementById('conf-module10').style.display="block";
+  } else {
+    document.getElementById('conf-module10').style.display="none";
+  }
+}
 function vanish(){
   if(!(document.getElementById('main-container').style.display=="none")){
     document.getElementById('start-module').style.display="none";
@@ -227,6 +294,10 @@ function vanish(){
     document.getElementById('conf-module4').style.display="none";
     document.getElementById('conf-module5').style.display="none";
     document.getElementById('conf-module6').style.display="none";
+    document.getElementById('conf-module7').style.display="none";
+    document.getElementById('conf-module8').style.display="none";
+    document.getElementById('conf-module9').style.display="none";
+    document.getElementById('conf-module10').style.display="none";
     document.getElementsByClassName('show-modules')[0].innerHTML="Show Modules and Choose Some";
     document.getElementsByClassName('show-modules')[0].style.backgroundColor="lightgrey";
   }else{
