@@ -1536,11 +1536,136 @@ function printWorkersInFile($uid, $folder){
         $output.= $row['workers'];
     }
   }
-
-  $output .= printRegularFooter($uid);
-  $myfile = fopen($folder, "w") or die("Unable to open file!");
-  fwrite($myfile, $output);
 }
+
+  function setAnfahrt($number, $uid, $folder, $street, $plz, $ort, $text, $housenumber){
+    global $conn;
+    $stmt = $conn->prepare("UPDATE table_data SET anfahrt_on=? WHERE user_id=?");
+    $stmt->bind_param("ii", $number, $uid);
+    $stmt->execute();
+    if($number == 1){
+    $site_name = "anfahrt_id" .$uid .".php";
+    if($folder != ""){
+      $folder = $folder."/".$site_name;
+    }else{
+      $folder = $site_name;
+    }
+    //create a File for this module
+    $myfile = fopen($folder, "w") or die("Unable to open file!");
+    //write file in Database
+    $stmt = $conn->prepare("UPDATE table_data SET anfahrt_file_name=? WHERE user_id=?");
+    $stmt->bind_param("si", $folder, $uid);
+    $stmt->execute();
+    $maps = 'https://maps.google.de/maps?hl=de&q=%20'.$street.'+'.$housenumber.'%20'.$ort.'&t=&z=10&ie=utf8&iwloc=b&output=embed';
+    $stmt = $conn->prepare("INSERT INTO anfahrt (maps, text, street, plz, ort, user_id, anfahrt_file_name) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $street = $street.' '.$housenumber;
+    $stmt->bind_param("sssssis", $maps, $text, $street, $plz, $ort, $uid, $folder);
+    $stmt->execute();
+
+    $var = '<?php $file = "userid".$_SESSION["u_id"]."/anfahrt_id".$_SESSION["u_id"].".php";';
+    $var .=  'echo allAnfahrtFiles($_SESSION["u_id"], $file); ?>"';
+    $stmt = $conn->prepare("UPDATE Theme1regular SET allAnfahrt=?");
+    $stmt->bind_param("s", $var);
+    $stmt->execute();
+
+    printAnfahrtInFile($uid, $folder);
+    }
+  }
+
+  function printAnfahrtInFile($uid, $folder){
+    global $conn;
+    $output = "";
+    $output .= printRegularHeader($uid, "");
+    $sql = "SELECT allAnfahrt FROM Theme1regular";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+          $output .= $row['allAnfahrt'];
+      }
+    }
+    $output .= printRegularFooter($uid);
+    $myfile = fopen($folder, "w") or die("Unable to open file!");
+    fwrite($myfile, $output);
+  }
+
+  function printAnfahrtInInterface($uid, $folder){
+    global $conn;
+    $output = "";
+    $output .= returnInterfaceHeader($uid);
+    $link = oneColumnFromTable("maps", $uid, "anfahrt", "user_id");
+    $text = oneColumnFromTable("text", $uid, "anfahrt", "user_id");
+    $output .= '<div class="container">
+    <div class="col-sm-6">
+      <hr>
+        <h1 class="text-center">Anfahrt</h1>
+      <hr>
+      </div>
+      <div class="col-sm-7"></div>
+      <div class="col-sm-6"><p>'.$text[0].'</p></div>
+      <div class="col-sm-7"></div>
+      <div class="row">
+          <div class="col-sm-6">
+                <div style="height:300px;width:100%;"><iframe width="" height="300" src="'.$link[0].'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="height:300px;width:100%;"></iframe>
+                	<p style="text-align:right; margin:0px; padding-top:-10px; line-height:10px;font-size:10px;margin-top: -25px;"><a href="http://www.checkpoll.de/google-maps-generator/" style="font-size:10px;" target="_blank">Google Maps Generator</a> von <a href="https://www.on-projects.de/" style="font-size:10px;" title="Webdesign in Stuttgart" target="_blank">on-projects</a>
+                	</p>
+                </div>
+                <h5>Leicht per Bus oder Auto erreichbar.</h5>
+            <hr>
+         </div>
+
+      </div>
+    </div>';
+    $output .= returnInterfaceFooter($uid);
+
+    return $output;
+  }
+
+  function printFormforAnfahrt($uid, $file){
+    global $conn;
+    $output = '<div class="anfahrtform">';
+    $sql = "SELECT text, street, plz, ort, user_id FROM anfahrt WHERE anfahrt_file_name = '$file' and user_id ='$uid'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+          $output.= '<p>Text:</p> <textarea name="anfahrt_text" cols="40" rows="5" class="anfahrt_text" >'.$row['text'].'</textarea>';
+          $output.= '<p>Adresse:</p>';
+          $output.= '<input type="text" class="form-control" id="streetSchool" placeholder="Straße" name="streetSchool" value="'.$row['street'].'">';
+          $output.= '<input type="text" class="form-control" id="plzSchool" placeholder="PLZ" name="plzSchool" value="'.$row['plz'].'">';
+          $output.= '<input type="text" class="form-control" id="ortSchool" placeholder="Ort" name="ortSchool" value="'.$row['ort'].'">';
+      }
+    }
+    $output.= '</div>';
+    return $output;
+  }
+
+  function allAnfahrtFiles($uid, $folder){
+    global $conn;
+    $link = oneColumnFromTable("maps", $uid, "anfahrt", "user_id");
+    $text = oneColumnFromTable("text", $uid, "anfahrt", "user_id");
+    $output = "";
+    $output .= '<div class="container">
+      <hr>
+        <h1 class="text-center">Anfahrt</h1>
+      <hr>
+
+      <p>'.$text[0].'</p>
+      <div class="row">
+          <div class="col-sm-6">
+                <div style="height:300px;width:100%;"><iframe width="" height="300" src="'.$link[0].'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="height:300px;width:100%;"></iframe>
+                	<p style="text-align:right; margin:0px; padding-top:-10px; line-height:10px;font-size:10px;margin-top: -25px;"><a href="http://www.checkpoll.de/google-maps-generator/" style="font-size:10px;" target="_blank">Google Maps Generator</a> von <a href="https://www.on-projects.de/" style="font-size:10px;" title="Webdesign in Stuttgart" target="_blank">on-projects</a>
+                	</p>
+                </div>
+                <h5>Leicht per Bus oder Auto erreichbar.</h5>
+            <hr>
+         </div>
+
+      </div>
+    </div>';
+
+    return $output;
+  }
 
 #creates a .php file and returns the file name(name + id)
 function createFile($id, $name, $folder){

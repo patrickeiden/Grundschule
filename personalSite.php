@@ -208,12 +208,15 @@ include 'functions.php';
                 </div>';
         }
         if(AnfahrtOn($_SESSION['u_id']) == 1){
+
+          $codeAnfahrt = oneValueFromTableData($_SESSION['u_id'], "anfahrt_file_name");
+          $codeAnfahrt2 = printFormforAnfahrt($_SESSION['u_id'], $codeAnfahrt);
           echo '<div class="anfahrtModule" onclick="clickedAnfahrt()">
                   <p class="text">Konfiguriere die Anfahrt</p>
                   <div class="a_text">
                     <p>Dieses Modul existiert um die Anfahrt zu bearbeiten</p>
                     <form action="update_site.php" method="POST">
-                      <div class="form-group">
+                      <div class="form-group">'.$codeAnfahrt2.'
                         <button class="go_back7" onclick="AnfahrtBack()" name="backbutton">Go Back</button>
                       </div>
                     </form>
@@ -332,7 +335,8 @@ include 'functions.php';
       <div class="page_anfahrt">
         <?php
         if(AnfahrtOn($_SESSION['u_id']) == 1){
-
+          $fileinterface4 = oneValueFromTableData($_SESSION['u_id'], "anfahrt_file_name");
+          echo printAnfahrtInInterface($_SESSION['u_id'], $fileinterface4);
         }
         ?>
       </div>
@@ -526,10 +530,6 @@ include 'functions.php';
           document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
           document.getElementById('module_container').getElementsByClassName('c_text')[0].style.display="block";
           document.getElementById('module_container').getElementsByTagName('div')[3].removeAttribute("onclick");
-          var curr = -554 - (206*customenumber);
-          var foot = 500 + (206*customenumber);
-          document.getElementById('currentPage').style.marginTop=curr+"px";
-          document.getElementsByClassName('page-footer')[0].style.top=foot+"px";
 
       }
 
@@ -682,10 +682,6 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="block";
         document.getElementById('module_container').getElementsByTagName('div')[nClick].removeAttribute("onclick");
-        var curr = -511 - (402*newsnumber);
-        var foot = 460 + (402*newsnumber);
-        document.getElementById('currentPage').style.marginTop=curr+"px";
-        document.getElementsByClassName('page-footer')[0].style.top=foot+"px";
       }
 
       function NewsBack(){
@@ -1011,10 +1007,6 @@ include 'functions.php';
         document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
         document.getElementById('module_container').getElementsByClassName('a_text')[0].style.display="block";
         document.getElementById('module_container').getElementsByTagName('div')[aClick].removeAttribute("onclick");
-        var curr = -511 - (402*newsnumber);
-        var foot = 460 + (402*newsnumber);
-        document.getElementById('currentPage').style.marginTop=curr+"px";
-        document.getElementsByClassName('page-footer')[0].style.top=foot+"px";
       }
 
       function AnfahrtBack(){

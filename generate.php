@@ -146,7 +146,15 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
   </div>
 
   <div id="conf-module6">
-    <p>Your site will contain a page with the geographic structur of your school.</p>
+  <div class="form-group">
+    <p>Beschreibung:</p>
+    <textarea name="desciption_anfahrt" cols="40" rows="5" class="desciption_anfahrt"></textarea>
+    <p>Adresse:</p>
+    <input type="text" class="form-control" id="street_school" placeholder="Straße" name="street_school" >
+    <input type="text" class="form-control" id="number_school" placeholder="Straßen Nummer" name="number_school" >
+    <input type="text" class="form-control" id="plz_school" placeholder="PLZ" name="plz_school" >
+    <input type="text" class="form-control" id="ort_school" placeholder="Ort" name="ort_school" >
+  </div>
     <input type="checkbox" name="anfahrt_button" value="1" />
     <p class="events">Check this box if you want to include this module</p>
   </div>
