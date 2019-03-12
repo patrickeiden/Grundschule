@@ -87,6 +87,11 @@ function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider){
   $stmt->bind_param("siss", $slider, $uid, $name, $file);
   $stmt->execute();
 
+  $var = '<?php $file = "userid".$_SESSION["u_id"]."/gallery_id".$_SESSION["u_id"].".php";';
+  $var .=  'echo printStartInFileTable($_SESSION["u_id"], $file); ?>"';
+  $stmt = $conn->prepare("UPDATE Theme1regular SET start=?");
+  $stmt->bind_param("s", $var);
+  $stmt->execute();
 
   printStartInFile($uid, $file);
 }
@@ -127,6 +132,22 @@ function printRegularFooter($uid){
 
 function printStartInFile($uid, $file){
   global $conn;
+  $output = "";
+  $include = "";
+  $sql = "SELECT start, include FROM Theme1regular";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["include"].$row["start"];
+    }
+  }
+  $myfile = fopen($file, "w") or die("Unable to open file!");
+  fwrite($myfile, $output);
+}
+
+function printStartInFileTable($uid, $file){
+  global $conn;
   returnNavbar($uid);
   returnSlider($uid);
   $footer = printRegularFooter($uid);
@@ -146,17 +167,17 @@ function printStartInFile($uid, $file){
         $image.= $row["image"];
     }
   }
-  $sql = "SELECT include, header, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text FROM Theme1regular";
+  $sql = "SELECT header, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["include"].$row["header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"].$row["regular_code_right"].$row["slider"].$row["regular_code_right2"].$header.
+        $output.= $row["header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"].$row["regular_code_right"].$row["slider"].$row["regular_code_right2"].$header.
         $row["regular_code_header"].$text.$row["regular_code_text"].$footer;
     }
   }
-  $myfile = fopen($file, "w") or die("Unable to open file!");
-  fwrite($myfile, $output);
+  //$myfile = fopen($file, "w") or die("Unable to open file!");
+  //fwrite($myfile, $output);
   return $output;
 }
 

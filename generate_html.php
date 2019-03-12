@@ -5,14 +5,12 @@ include 'functions.php';
 if(isset($_POST['test'])){
   #create a folder for the user
   $folder = createFolder($_SESSION['u_id']);
-
-if(isset($_POST['anfahrt_button'])){
-  $number = 1;
-  setAnfahrt($number, $_SESSION['u_id'], $folder, $_POST['street_school'], $_POST['plz_school'], $_POST['ort_school'], $_POST['desciption_anfahrt'], $_POST['number_school']);
-}else{
-  $number = 0;
-  setAnfahrt($number, $_SESSION['u_id'], $folder, $_POST['street_school'], $_POST['plz_school'], $_POST['ort_school'], $_POST['desciption_anfahrt'], $_POST['number_school']);
-}
-}
+  $Imagefolder = createImageFolder($_SESSION['u_id']);
+  #create a .php file for the site and puts it into the database
+  $filename = fileInDatabase("registration", "reg_id", $_SESSION['u_id'], "siteone_name", "frontpageUser", $folder, $Imagefolder);
+  //ThemeOne($filename);
+  #creates a start site
+  setStart($_SESSION['u_id'], $filename, $_POST['nameSchool'], $_POST['logo'], $_POST['desciption'], $_POST['header'], $folder, $_POST['school_slider']);
+  }
 
 ?>

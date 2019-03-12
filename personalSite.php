@@ -1754,9 +1754,8 @@ include 'functions.php';
                           success: function (data) {
                           }
                       });
-
-
                   });';
+                  
               ?>
           });
 
