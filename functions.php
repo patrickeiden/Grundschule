@@ -781,12 +781,12 @@ function printCalendarInInterface($uid){
 function getRelevantCalendarID($uid) {
   global $conn;
   $relevantID = 1;
-  $sql = "SELECT MAX(calender_id) FROM Calender WHERE user_id = $uid";
+  $sql = "SELECT user_id FROM table_data WHERE user_id = $uid";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $relevantID = $row["MAX(calender_id)"];
+        $relevantID = $row["user_id"];
     }
   }
   return $relevantID;
@@ -795,7 +795,7 @@ function getRelevantCalendarID($uid) {
 function printCalendar(){
   global $conn;
   $output = "";
-  $sql = "SELECT calender_code FROM calender";
+  $sql = "SELECT calender_code FROM table_data";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
@@ -859,12 +859,11 @@ function createEventsCode($uid) {
       if($i == $result->num_rows){
         $output.= $row["event_code"];
       }else{
-        $output.= $row["event_code"]."; ";
-      }
-      $i ++;
+        $output.= $row["event_code"].",";
     }
   }
   return $output;
+}
 }
 
 function setJob($number, $numberjobs, $uid, $folder){
