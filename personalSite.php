@@ -294,7 +294,8 @@ include 'functions.php';
       <div class="page_custome">
         <?php
         if(CustomeOn($_SESSION['u_id']) == 1){
-          echo printCustomeInInterface($_SESSION['u_id']);
+          $fileinterface7 = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
+          echo printCustomeInInterface($_SESSION['u_id'], $fileinterface7);
         }
          ?>
       </div>
@@ -1755,7 +1756,7 @@ include 'functions.php';
                           }
                       });
                   });';
-                  
+
               ?>
           });
 

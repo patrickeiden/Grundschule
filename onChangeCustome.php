@@ -18,6 +18,7 @@ if(isset($_POST['ajaxCode']) && $_POST['ajaxCode'] != "" && $checkValue){
   $val = oneColumnFromTable("costume_code", $_SESSION[$arg], "Module", "custome_name");
   echo $val[0];
 }
+$file = "userid".$_SESSION["u_id"]."/calendar_id".$_SESSION["u_id"].".php";
 printCalendarInInterface($_SESSION['u_id']);
 
 ?>

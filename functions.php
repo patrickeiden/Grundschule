@@ -221,12 +221,10 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   $item = '<?php echo printNavItemFunction($_SESSION["u_id"]);?>';
   $stmt->bind_param("s", $item);
   $stmt->execute();
-
-  $stmt = $conn->prepare("UPDATE Theme1 SET allcustome=?");
-  $item = '<?php echo printAllCustomeFromFile($_SESSION["u_id"]';
-  $item .= ');?>';
-  $stmt->bind_param("s", $item);
-  $stmt->execute();
+  //standart value for custome Module
+  createCustome($_SESSION['u_id'], "Muster", "<p>Das ist ein Mustermodul</p>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>", "Beispiel");
+  printAllCustomeFromFile($_SESSION["u_id"]);
 
   $code = $name;
   $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
@@ -234,7 +232,7 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   $stmt->execute();
   }
   if($number == 1){
-    printCustomeInFile($uid, $folder);
+    printCustomeInFileTable($uid, $folder);
   }
 }
 
@@ -306,6 +304,23 @@ function updateAboveUnder($number, $name, $file){
   $stmt->execute();
 }
 
+function printCustomeInFileTable($uid, $site_name){
+  global $conn;
+  $output = "";
+  $output .= printRegularHeader($uid, "");
+  $sql = "SELECT include, allcustome FROM Theme1regular";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["allcustome"];
+    }
+  }
+  $output .= printRegularFooter($uid);
+  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  fwrite($myfile, $output);
+}
+
 function printCustomeInFile($uid, $site_name){
   global $conn;
   $output = '';
@@ -320,16 +335,23 @@ function printCustomeInFile($uid, $site_name){
     }
   }
   $output .= printRegularFooter($uid);
-  $myfile = fopen($site_name, "w") or die("Unable to open file!");
-  fwrite($myfile, $output);
   return $output;
 }
 
-function printCustomeInInterface($uid){
+function printCustomeInInterface($uid, $file){
   global $conn;
   $output = "";
   $output .= returnInterfaceHeader($uid);
-  $output .= printAllCustomeFromFile($uid);
+  $sql = "SELECT costume_code, custome_name FROM Module WHERE custome_file='$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= '<div class="custome_'.$row["custome_name"].'">';
+        $output.= $row["costume_code"];
+        $output.= '</div>';
+    }
+  }
   $output .= returnInterfaceFooter($uid);
 
   return $output;
@@ -364,7 +386,9 @@ function printAllCustomeFromFile($uid){
         $output.= '</div>';
     }
   }
-  return $output;
+  $stmt = $conn->prepare("UPDATE Theme1regular SET allcustome=?");
+  $stmt->bind_param("s", $output);
+  $stmt->execute();
 }
 
 //printet dynamisch alle Module die in einer File benutzt werden und gibt die Möglicheit den Code innerhalb der Module zu verändern

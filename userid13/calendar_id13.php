@@ -83,7 +83,7 @@
    <div class="col-sm-2"></div>
     <div id="firstheader">
      <div class="Title col-sm-4">
-    	<p class="name">lalala</p> 
+    	<p class="name">Grundschule Losheim am See</p> 
      </div> 
      <div class="col-sm-3 text-left">        
        <img class="logo" src="Images//Logo_grundschule.jpg" alt="Smiley face"  height="170" width="170">       
@@ -94,7 +94,7 @@
   			<nav class="navbar2">
           <div class="col-sm-3"></div>
   			      <ul class="nav navbar-nav pull-sm-left">
-              <li><a href="#"><span class="glyphicon glyphicon-home"></span>Home</a></li><li><a href="userid13/custome_id13.php"><span class="glyphicon glyphicon-star"></span>navii</a></li><li><a href=""><span class="glyphicon glyphicon-calendar"></span>Events</a></li><li><a href="userid13/news_id13.php"><span class="glyphicon glyphicon-globe"></span>Neuigkeiten</a></li><li><a href="userid13/gallery_id13.php"><span class="glyphicon glyphicon-picture"></span>Gallerie</a></li></ul>
+              <li><a href="#"><span class="glyphicon glyphicon-home"></span>Home</a></li><li><a href="../userid13/custome_id13.php"><span class="glyphicon glyphicon-star"></span>Handy</a></li><li><a href="../userid13/calendar_id13.php"><span class="glyphicon glyphicon-calendar"></span>Events</a></li></ul>
             </nav>
           </div>
         </div><?php echo printCalendarAbove($_SESSION["u_id"]);?><div id="calendar"></div><?php echo printCalendarUnder($_SESSION["u_id"]);?><div class="row">           <footer class="page-footer">              <div class="container-fluid">               <div class="row">                 <div class="col-sm-3">                 </div>                 <div class="col-sm-4">                    <p>Adresse:</br><span class="street">Musterstrasse</span></br> <span class="plz">66666</span></br><span class="ort">Musterort</span></p>

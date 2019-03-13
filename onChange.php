@@ -18,6 +18,9 @@ if(isset($_POST['ajaxCode']) && $_POST['ajaxCode'] != "" && $checkValue){
   $val = oneColumnFromTable("costume_code", $_SESSION[$arg], "Module", "custome_name");
   echo $val[0];
 }
-printCustomeInInterface($_SESSION['u_id']);
+$file = "userid".$_SESSION["u_id"]."/custome_id".$_SESSION["u_id"].".php";
+printAllCustomeFromFile($_SESSION['u_id']);
+printCustomeInInterface($_SESSION['u_id'], $file);
+printCustomeInFileTable($_SESSION['u_id'], $file);
 
 ?>
