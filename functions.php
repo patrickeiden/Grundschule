@@ -682,6 +682,8 @@ function setCalendar($number, $uid, $folder){
   $item .= ');?>';
   $stmt->bind_param("s", $item);
   $stmt->execute();
+
+  returnEvents($uid);
   //no extra nav item in code
   printCalendarInFile($uid, $folder);
   }
@@ -776,6 +778,20 @@ function printCalendarInInterface($uid){
   return $output;
 }
 
+function getRelevantCalendarID($uid) {
+  global $conn;
+  $relevantID = 1;
+  $sql = "SELECT MAX(calender_id) FROM Calender WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $relevantID = $row["MAX(calender_id)"];
+    }
+  }
+  return $relevantID;
+}
+
 function printCalendar(){
   global $conn;
   $output = "";
@@ -785,6 +801,67 @@ function printCalendar(){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $output.= $row["calender_code"];
+    }
+  }
+  return $output;
+}
+
+function newEvent($title, $date, $site_name){
+  global $conn;
+  $uid = $_SESSION['u_id'];
+  $code = "{title: '$title', start: '$date'}";
+  $stmt = $conn->prepare("INSERT INTO events (user_id, site_name, event_title, event_date, event_code) VALUES (?, ?, ?, ?, ?)");
+  $stmt->bind_param("issss", $uid, $site_name, $title, $date, $code);
+  $stmt->execute();
+  printCalendarInFile($uid, $site_name);
+}
+
+function getEventTitle($event_id){
+  #return $result;
+  global $conn;
+  $sql = "SELECT event_title FROM events WHERE event_id = $event_id";
+  $result = $conn->query($sql);
+
+  return $result;
+}
+
+function setEventTitle($event_id, $new_title){
+  global $conn;
+  $stmt = $conn->prepare("UPDATE events SET event_title = ? WHERE event_id = ?");
+  $stmt->bind_param("si", $new_title, $event_id);
+  $stmt->execute();
+}
+
+function getEventDate($event_id){
+  global $conn;
+  $sql = "SELECT event_date FROM events WHERE event_id = $event_id";
+  $result = $conn->query($sql);
+
+  return $result;
+}
+
+function setEventDate($event_id, $new_date) {
+  global $conn;
+  $stmt = $conn->prepare("UPDATE events SET event_date = ? WHERE event_id = ?");
+  $stmt->bind_param("si", $new_date, $event_id);
+  $stmt->execute();
+}
+
+function createEventsCode($uid) {
+  global $conn;
+  $output = "";
+  $sql = "SELECT event_code FROM events WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    $i = 1;
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      if($i == $result->num_rows){
+        $output.= $row["event_code"];
+      }else{
+        $output.= $row["event_code"]."; ";
+      }
+      $i ++;
     }
   }
   return $output;
@@ -901,7 +978,7 @@ function setGallery($number, $uid, $folder){
     $stmt->execute();
 
     $var = '<?php $file = "userid".$_SESSION["u_id"]."/gallery_id".$_SESSION["u_id"].".php";';
-    $var .=  'allGalleries($_SESSION["u_id"], $file); ?>"';
+    $var .=  'allGalleries($_SESSION["u_id"], $file); ?>';
     $stmt = $conn->prepare("UPDATE Theme1regular SET gallery_code2=?");
     $stmt->bind_param("s", $var);
     $stmt->execute();
@@ -1303,8 +1380,6 @@ function deleteWorkers($uid, $file){
         array_push($b, 'delete_worker_'.$row['workers_id']);
     }
   }
-  var_dump($a);
-  var_dump($b);
   for ($i=0; $i < sizeof($a); $i++){
     $v = $b[$i];
       if($_POST[$v] == $a[$i]){
@@ -2230,6 +2305,7 @@ function printRegularHeader($uid, $type){
   global $conn;
   returnNavbar($uid);
   returnSlider($uid);
+  returnEvents($uid);
   $output = "";
   $cheader= false;
   $gheader = false;
@@ -2250,14 +2326,14 @@ function printRegularHeader($uid, $type){
         $image.= $row["image"];
     }
   }
-  $sql = "SELECT include, header, calendar_header, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text,
+  $sql = "SELECT include, header, calendar_header, events, calendar_header2, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text,
   gallery_header FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
       if($cheader){
-        $output.= $row["include"].$row["header"].$row["calendar_header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"];
+        $output.= $row["include"].$row["header"].$row["calendar_header"].$row["events"].$row["calendar_header2"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"];
       }
       else if($gheader){
         $output.= $row["include"].$row["gallery_header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"];
@@ -2354,7 +2430,13 @@ function returnSlider($uid){
   $output = '';
   $name = 'slider'.$uid;
   $slider = oneColumnFromTable("image_url", $name, "Image", "image_name");
-  for ($i=0; $i < sizeof($slider); $i++) {
+  $size = 0;
+  if(sizeof($slider) > 2){
+    $size = 2;
+  }else{
+    $size = sizeof($slider);
+  }
+  for ($i=0; $i < $size; $i++) {
     if($i == 0){
       $output .= '<div class="item active">
                   <img src="'.$slider[$i].'">
@@ -2372,6 +2454,16 @@ function returnSlider($uid){
   $stmt->bind_param("s", $output);
   $stmt->execute();
   return $output;
+}
+
+function returnEvents($uid){
+  global $conn;
+  $events = createEventsCode($uid);
+  $stmt = $conn->prepare("UPDATE Theme1regular SET events=?");
+  $item = 'events: ['.$events.']';
+  $stmt->bind_param("s", $item);
+  $stmt->execute();
+  return $item;
 }
 
 function oneValueFromTableData($uid, $column){

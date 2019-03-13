@@ -26,7 +26,10 @@ include 'functions.php';
 
  <script>
    $(document).ready(function() {
-       $('#calendar').fullCalendar();
+       $('#calendar').fullCalendar({
+         weekends: true,
+         <?php echo returnEvents($_SESSION['u_id'])?>
+       });
      });
    </script>
 
@@ -132,11 +135,15 @@ include 'functions.php';
                     <p>This module exists in order to change important settings on the calendar module</p>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$result2.'
+                      <p>Add an event: (Date ex.: 2018-03-27)</p>
+                        <input type="text" class="form-control" id="event_title" placeholder="Title" name="event_title">
+                        <input type="text" class="form-control" id="event_date" placeholder="Date" name="event_date"><br>
                         <p>add a Module</p>
                         <p>Title:</p>
                         <input type="text" class="form-control" id="title" placeholder="Title" name="calendar_title">
                         <p>Code</p>
                         <textarea name="calendar_code" cols="40" rows="5" class="code"></textarea>
+                        <button type="submit" name="newEvent" formmethod="POST" value="'.$name2.'">add a new event</button>
                         <button type="submit" name="newModuleabove" formmethod="POST" value="'.$name2.'">add a new Module above the calendar</button>
                         <button type="submit" name="newModuleunder" formmethod="POST" value="'.$name2.'">add a new Module under the calendar</button>
                         <button type="submit" name="delete2" formmethod="POST" value="'.$name2.'">delete Modules</button>
@@ -394,16 +401,19 @@ include 'functions.php';
     if(CustomeOn($_SESSION['u_id']) == 1){
       echo 'var customeon = 1;';
       $customename = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
-      $calendarname = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
+      //$calendarname = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
       $numbercustome = numberCostume($_SESSION['u_id'], $customename);
-      $numbercalendar = numberCostume($_SESSION['u_id'], $calendarname);
-      echo 'var calendarnumber ='.$numbercalendar.';';
+      //$numbercalendar = numberCostume($_SESSION['u_id'], $calendarname);
+      //echo 'var calendarnumber ='.$numbercalendar.';';
       echo 'var customenumber ='.$numbercustome.';';
     }else{
       echo 'var customeon = 0;';
     }
 
     if(CalendarOn($_SESSION['u_id']) == 1){
+      $calendarname = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
+      $numbercalendar = numberCostume($_SESSION['u_id'], $calendarname);
+      echo 'var calendarnumber ='.$numbercalendar.';';
       echo 'var calendaron = 1;';
     }else{
       echo 'var calendaron = 0;';

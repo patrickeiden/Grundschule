@@ -20,6 +20,9 @@ if(isset($_POST['newModuleunder'])){
   createCustome($_SESSION['u_id'], $_POST['calendar_title'], $_POST['calendar_code'], $_POST['newModuleunder']);
   updateAboveUnder(1, $_POST['calendar_title'], $_POST['newModuleunder']);
 }
+if(isset($_POST['newEvent'])){
+  newEvent($_POST['event_title'], $_POST['event_date'], $_POST['newEvent']);
+}
 if(isset($_POST['delete2'])){
   deleteCustome($_SESSION['u_id'], $_POST['delete2']);
 }
