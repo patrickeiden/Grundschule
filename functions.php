@@ -954,20 +954,21 @@ function allGalleries($uid, $gallery){
 function printGalleryInFile($uid, $site_name){
   global $conn;
   $output = "";
-  $output.= printRegularHeader($uid, "gallery");
+  $header =  '<?php echo printRegularHeader($_SESSION["u_id"], "gallery"); ?>';
   //important code for the galleries from the database
-  $sql = "SELECT gallery_header2, gallery_code, gallery_code2 FROM Theme1regular";
+  $sql = "SELECT include, gallery_header2, gallery_code, gallery_code2 FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
+        $output.= $row['include'].$header;
         $output.= $row['gallery_code'];
         $output.= $row['gallery_code2'];
         $output.= $row['gallery_header2'];
     }
   }
   //name of gallery file
-  $output .= printRegularFooter($uid);
+  $output .=  '<?php echo printRegularFooter($_SESSION["u_id"]); ?>';
   $myfile = fopen($site_name, "w") or die("Unable to open file!");
   fwrite($myfile, $output);
 }
@@ -1572,15 +1573,18 @@ function allWorkers($uid, $folder){
 function printWorkersInFile($uid, $folder){
   global $conn;
   $output = "";
-  $output .= printRegularHeader($uid, "");
-  $sql = "SELECT workers FROM Theme1regular";
+  $header =  '<?php echo printRegularHeader($_SESSION["u_id"], ""); ?>';
+  $sql = "SELECT include, workers FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row['workers'];
+        $output.= $row['include'].$header.$row['workers'];
     }
   }
+  $output .=  '<?php echo printRegularFooter($_SESSION["u_id"]); ?>';
+  $myfile = fopen($folder, "w") or die("Unable to open file!");
+  fwrite($myfile, $output);
 }
 
   function setAnfahrt($number, $uid, $folder, $street, $plz, $ort, $text, $housenumber){
@@ -1608,7 +1612,7 @@ function printWorkersInFile($uid, $folder){
     $stmt->execute();
 
     $var = '<?php $file = "userid".$_SESSION["u_id"]."/anfahrt_id".$_SESSION["u_id"].".php";';
-    $var .=  'echo allAnfahrtFiles($_SESSION["u_id"], $file); ?>"';
+    $var .=  'echo allAnfahrtFiles($_SESSION["u_id"], $file); ?>';
     $stmt = $conn->prepare("UPDATE Theme1regular SET allAnfahrt=?");
     $stmt->bind_param("s", $var);
     $stmt->execute();
@@ -1620,16 +1624,16 @@ function printWorkersInFile($uid, $folder){
   function printAnfahrtInFile($uid, $folder){
     global $conn;
     $output = "";
-    $output .= printRegularHeader($uid, "");
-    $sql = "SELECT allAnfahrt FROM Theme1regular";
+    $header =  '<?php echo printRegularHeader($_SESSION["u_id"], ""); ?>';
+    $sql = "SELECT include, allAnfahrt FROM Theme1regular";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-          $output .= $row['allAnfahrt'];
+          $output .= $row['include'].$header.$row['allAnfahrt'];
       }
     }
-    $output .= printRegularFooter($uid);
+    $output .=  '<?php echo printRegularFooter($_SESSION["u_id"]); ?>';
     $myfile = fopen($folder, "w") or die("Unable to open file!");
     fwrite($myfile, $output);
   }
@@ -1647,7 +1651,7 @@ function printWorkersInFile($uid, $folder){
       <hr>
       </div>
       <div class="col-sm-7"></div>
-      <div class="col-sm-6"><p>'.$text[0].'</p></div>
+      <div class="col-sm-6"><p class="anfahrt_text">'.$text[0].'</p></div>
       <div class="col-sm-7"></div>
       <div class="row">
           <div class="col-sm-6">
@@ -1674,7 +1678,7 @@ function printWorkersInFile($uid, $folder){
     if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-          $output.= '<p>Text:</p> <textarea name="anfahrt_text" cols="40" rows="5" class="anfahrt_text" >'.$row['text'].'</textarea>';
+          $output.= '<p>Text:</p> <textarea name="anfahrt_text" cols="40" rows="5" id="anfahrt_text" >'.$row['text'].'</textarea>';
           $output.= '<p>Adresse:</p>';
           $output.= '<input type="text" class="form-control" id="streetSchool" placeholder="Straße" name="streetSchool" value="'.$row['street'].'">';
           $output.= '<input type="text" class="form-control" id="plzSchool" placeholder="PLZ" name="plzSchool" value="'.$row['plz'].'">';
@@ -1695,7 +1699,7 @@ function printWorkersInFile($uid, $folder){
         <h1 class="text-center">Anfahrt</h1>
       <hr>
 
-      <p>'.$text[0].'</p>
+      <p class="anfahrt_text">'.$text[0].'</p>
       <div class="row">
           <div class="col-sm-6">
                 <div style="height:300px;width:100%;"><iframe width="" height="300" src="'.$link[0].'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="height:300px;width:100%;"></iframe>
@@ -1759,7 +1763,7 @@ function setImpressum($uid, $text, $folder){
   }
   //create a File for this module
   $myfile = fopen($folder, "w") or die("Unable to open file!");
-  printImpressumInFile($uid, $folder);
+  printImpressumInFileTable($uid, $folder);
 }
 
 function printFormforImpressum($uid){
@@ -1772,11 +1776,30 @@ function printFormforImpressum($uid){
   return $output;
 }
 
+function printImpressumInFileTable($uid, $file){
+  global $conn;
+  $output = '';
+  $sql = "SELECT include FROM Theme1regular";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output .= $row['include'];
+    }
+  }
+  $output .=  '<?php echo printRegularHeader($_SESSION["u_id"], ""); ?>';
+  $output .=  '<?php $file = "userid".$_SESSION["u_id"]."/impressum_id".$_SESSION["u_id"].".php"; echo printImpressumInFile($_SESSION["u_id"], $file); ?>';
+  $output .=  '<?php echo printRegularFooter($_SESSION["u_id"]); ?>';
+
+  $myfile = fopen($file, "w") or die("Unable to open file!");
+  fwrite($myfile, $output);
+}
+
 function printImpressumInFile($uid, $file){
   global $conn;
   $output = '';
   $text = oneColumnFromTable("impressum", $uid, "Page", "user_id");
-  $output.= printRegularHeader($uid, "");
+
   $output .='<div class="container">
 
     <hr>
@@ -1796,9 +1819,9 @@ function printImpressumInFile($uid, $file){
 
     </div>
   </div>';
-  $output.= printRegularFooter($uid);
-  $myfile = fopen($file, "w") or die("Unable to open file!");
-  fwrite($myfile, $output);
+  //$myfile = fopen($file, "w") or die("Unable to open file!");
+  //fwrite($myfile, $output);
+  return $output;
 }
 
 function printImpressumInInterface($uid){

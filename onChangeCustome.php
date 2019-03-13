@@ -20,6 +20,6 @@ if(isset($_POST['ajaxCode']) && $_POST['ajaxCode'] != "" && $checkValue){
 }
 $file = "userid".$_SESSION["u_id"]."/calendar_id".$_SESSION["u_id"].".php";
 printCalendarInInterface($_SESSION['u_id']);
-//printCalendarInFile($uid, $file);
+
 
 ?>

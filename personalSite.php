@@ -217,6 +217,7 @@ include 'functions.php';
                     <p>Dieses Modul existiert um die Anfahrt zu bearbeiten</p>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$codeAnfahrt2.'
+                        <button type="button" class="save_changes_anfahrt" name="anfahrt_button">Speichere Veränderungen</button>
                         <button class="go_back7" onclick="AnfahrtBack()" name="backbutton">Go Back</button>
                       </div>
                     </form>
@@ -1746,6 +1747,9 @@ include 'functions.php';
               echo '$("#school_impressum").keyup(function (){
                       document.getElementById("currentPage").getElementsByClassName("impressum_text")[0].innerHTML = $(this).val();
                     });
+                    $("#anfahrt_text").keyup(function (){
+                      document.getElementById("currentPage").getElementsByClassName("anfahrt_text")[0].innerHTML = $(this).val();
+                    });
                     $(".impressum_button").click(function (){
                         var impressum_text = $("#school_impressum").val();
                         $.ajax({
@@ -1755,7 +1759,17 @@ include 'functions.php';
                           success: function (data) {
                           }
                       });
-                  });';
+                  });
+                  $(".save_changes_anfahrt").click(function (){
+                      var anfahrt_text = $("#anfahrt_text").val();
+                      $.ajax({
+                        type:"POST",
+                        url: "onChangeImpressum.php",
+                        data: {Codeanfahrt:anfahrt_text},
+                        success: function (data) {
+                        }
+                    });
+                });';
 
               ?>
           });
