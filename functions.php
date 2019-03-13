@@ -722,16 +722,16 @@ function printCalendarInFile($uid, $site_name){
   $output = '';
   $above = '';
   $under = '';
-  $output .= printRegularHeader($uid, "calendar");
-  $sql = "SELECT calendar_above, calendar_code, calendar_under FROM Theme1regular";
+  $header =  '<?php echo printRegularHeader($_SESSION["u_id"], "calendar"); ?>';
+  $sql = "SELECT include, calendar_above, calendar_code, calendar_under FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["calendar_above"].$row["calendar_code"].$row["calendar_under"];
+        $output.= $row["include"].$header.$row["calendar_above"].$row["calendar_code"].$row["calendar_under"];
     }
   }
-  $output .= printRegularFooter($uid);
+  $output .=  '<?php echo printRegularFooter($_SESSION["u_id"]); ?>';
   $myfile = fopen($site_name, "w") or die("Unable to open file!");
   fwrite($myfile, $output);
   return $output;
