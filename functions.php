@@ -1001,9 +1001,9 @@ function allGalleries($uid, $gallery){
   $output .= '	<div id="fh5co-portfolio" data-section="portfolio">
 			<div class="container">
 				<div class="row">';
-  $hrefGallery = oneColumnFromTable("image_site", $galleryArray[$i], "Galleries", "gallery_name");
   // generate the code for all the galleries in this file
   for ($i=0; $i < sizeof($galleryArray); $i++) {
+    $hrefGallery = oneColumnFromTable("image_site", $galleryArray[$i], "Galleries", "gallery_name");
     //check the number of images in this gallerie
     $number = oneColumnFromTable("gallery_name", $galleryArray[$i], "Image", "gallery_name");
     if(sizeof($number) == 0){
@@ -1011,8 +1011,8 @@ function allGalleries($uid, $gallery){
     }
     $output.= '<div class="col-md-4 col-sm-4 col-xs-6 col-xxs-12 animate-box">
       <div class="img-grid">
-        <img src="../GallerieCSS/images/pic_'.(($i%12)+1).'.jpg" alt="Free HTML5 template by FREEHTML5.co" class="img-responsive">
-        <a href="../'.$hrefGallery[$i].'" class="transition">
+        <img src="../GallerieCSS/images/pic_'.(($i%12)+1).'.jpg" href="../'.$hrefGallery[0].'" alt="Free HTML5 template by FREEHTML5.co" class="img-responsive">
+        <a class="transition">
           <div>
             <span class="fh5co-meta">'.sizeof($number).' Bilder</span>
             <h2 class="fh5co-title noHover">'.$number[0].'</h2>
@@ -1116,9 +1116,17 @@ function printGalleryInInterface($uid, $file){
       </div>';
     }
   }
-  $output2 .= '</div>';
-  $output3 .= '</div>';
-  $output4 .= '</div>';
+  if(sizeof($galleryArray) > 0){
+    $output2 .= '</div>';
+  }
+  if(sizeof($galleryArray) > 1){
+    $output3 .= '</div>';
+  }
+  if(sizeof($galleryArray) > 2){
+    $output4 .= '</div>';
+  }
+
+
   $output .= $output2.$output3.$output4;
   $output .= '				</div>
   			</div>
@@ -1589,7 +1597,7 @@ function allWorkers($uid, $folder){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         if($i >4){
-          $output .= '<div class="col-sm-3 text-center"></div>';
+          //$output .= '<div class="col-sm-3 text-center"></div>';
           $i = 1;
         }
         $output.= '<div class="col-sm-3 text-center">
