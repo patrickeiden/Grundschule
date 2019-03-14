@@ -88,7 +88,7 @@ function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider){
   $stmt->execute();
 
   $var = '<?php $file = "userid".$_SESSION["u_id"]."/gallery_id".$_SESSION["u_id"].".php";';
-  $var .=  'echo printStartInFileTable($_SESSION["u_id"], $file); ?>"';
+  $var .=  'echo printStartInFileTable($_SESSION["u_id"], $file); ?>';
   $stmt = $conn->prepare("UPDATE Theme1regular SET start=?");
   $stmt->bind_param("s", $var);
   $stmt->execute();
@@ -1001,6 +1001,7 @@ function allGalleries($uid, $gallery){
   $output .= '	<div id="fh5co-portfolio" data-section="portfolio">
 			<div class="container">
 				<div class="row">';
+  $hrefGallery = oneColumnFromTable("image_site", $galleryArray[$i], "Galleries", "gallery_name");
   // generate the code for all the galleries in this file
   for ($i=0; $i < sizeof($galleryArray); $i++) {
     //check the number of images in this gallerie
@@ -1011,7 +1012,7 @@ function allGalleries($uid, $gallery){
     $output.= '<div class="col-md-4 col-sm-4 col-xs-6 col-xxs-12 animate-box">
       <div class="img-grid">
         <img src="../GallerieCSS/images/pic_'.(($i%12)+1).'.jpg" alt="Free HTML5 template by FREEHTML5.co" class="img-responsive">
-        <a href="../GallerieCSS/portfolio-single.html" class="transition">
+        <a href="../'.$hrefGallery[$i].'" class="transition">
           <div>
             <span class="fh5co-meta">'.sizeof($number).' Bilder</span>
             <h2 class="fh5co-title noHover">'.$number[0].'</h2>
@@ -1248,11 +1249,35 @@ function createImage($uid, $file){
   }
 }
 
-function createGallery($uid, $file, $name){
+function printImagesonSite($uid, $file, $gallery){
   global $conn;
-  $stmt = $conn->prepare("INSERT INTO Galleries (gallery_name, user_id, gallery_file_name) VALUES (?, ?, ?)");
-  $stmt->bind_param("sis", $file, $uid, $name);
+  $output = printRegularHeader($uid, "gallery");
+  $sql = "SELECT image_url, image_name FROM Image WHERE gallery_name = '$gallery' and image_file_name = '$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+          $output .= $row['image_url'];
+    }
+  }
+  $output.= printRegularFooter($uid);
+  return $output;
+}
+
+function createGallery($uid, $name, $file){
+  echo $file;
+  echo $name;
+  global $conn;
+  $image_site = 'userid'.$uid.'/imagesite_'.$name;
+  $code = printImagesonSite($uid, $file, $name);
+  $myfile = fopen($image_site, "w") or die("Unable to open file!");
+  fwrite($myfile, $code);
+
+  $stmt = $conn->prepare("INSERT INTO Galleries (gallery_name, user_id, gallery_file_name, image_site) VALUES (?, ?, ?, ?)");
+  $stmt->bind_param("siss", $name, $uid, $file, $image_site);
   $stmt->execute();
+
+
 }
 
 function deleteGalleries($uid, $file){
@@ -2383,12 +2408,13 @@ function returninterfacecode($uid){
 
 function returnNavbar($uid){
   global $conn;
+  $home = '../'.'userid'.$uid.'/frontpageUser'.$uid.'.php';
   $output = '<div class="row text-center">
   		<div class="col">
   			<nav class="navbar2">
           <div class="col-sm-3"></div>
   			      <ul class="nav navbar-nav pull-sm-left">
-              <li><a href="#"><span class="glyphicon glyphicon-home"></span>Home</a></li>';
+              <li><a href="'.$home.'"><span class="glyphicon glyphicon-home"></span>Home</a></li>';
               if(CustomeOn($uid) == 1){
                 $var = printCustomeTitel($uid);
                 $link = oneValueFromTableData($uid, "custome_file_name");
@@ -2406,10 +2432,24 @@ function returnNavbar($uid){
                 $link4 = oneValueFromTableData($uid, "gallery_file_name");
                 $output.= '<li><a href="'.'../'.$link4.'"><span class="glyphicon glyphicon-picture"></span>Gallerie</a></li>';
               }
-              if(BuildingOn($uid) == 1){
-                $link5 = oneValueFromTableData($uid, "building_file_name");
-                $output.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-th"></span>Lageplan</a></li>';
+              $output.= '<li class="dropdown">
+                        <a href="javascript:void(0)"><span class="glyphicon glyphicon-picture"></span> Organisation</a>
+                        <div class="dropdown-content">';
+              if(WorkersOn($uid) == 1){
+              $link7 = oneValueFromTableData($uid, "workers_file_name");
+              $output.= '<a href="'.'../'.$link7.'"><span class="glyphicon glyphicon-th"></span> Mitarbeiter</a>';
               }
+              if(AnfahrtOn($uid) == 1){
+              $link8 = oneValueFromTableData($uid, "anfahrt_file_name");
+              $output.= '<a href="'.'../'.$link8.'"><span class="glyphicon glyphicon-map-marker"></span> Anfahrt</a>';
+              }
+              if(SignupOn($uid) == 1){
+              $link9 = oneValueFromTableData($uid, "signup_file_name");
+              $output.= '<a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span> Einschreibung</a>';
+              }
+              $link10 = 'userid'.$uid.'/impressum_id'.$uid.'.php';
+              $output.= '<a href="'.'../'.$link10.'"><span class="glyphicon glyphicon-road"></span> Impressum</a>';
+              $output.=  '</div></li>';
   $output .= '</ul>
             </nav>
           </div>
