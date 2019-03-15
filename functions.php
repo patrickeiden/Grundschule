@@ -982,7 +982,7 @@ function setGallery($number, $uid, $folder){
     $stmt->bind_param("s", $var);
     $stmt->execute();
 
-    createGallery($uid, $folder, "Mustergallerie");
+    createGallery($uid, "Mustergallerie", $folder);
 
     printGalleryInFile($uid, $folder);
   }else{
@@ -1276,10 +1276,10 @@ function createGallery($uid, $name, $file){
   echo $file;
   echo $name;
   global $conn;
-  $image_site = 'userid'.$uid.'/imagesite_'.$name;
-  $code = printImagesonSite($uid, $file, $name);
-  $myfile = fopen($image_site, "w") or die("Unable to open file!");
-  fwrite($myfile, $code);
+  //$image_site = 'userid'.$uid.'/imagesite_'.$name;
+  //$code = printImagesonSite($uid, $file, $name);
+  //$myfile = fopen($image_site, "w") or die("Unable to open file!");
+  //fwrite($myfile, $code);
 
   $stmt = $conn->prepare("INSERT INTO Galleries (gallery_name, user_id, gallery_file_name, image_site) VALUES (?, ?, ?, ?)");
   $stmt->bind_param("siss", $name, $uid, $file, $image_site);
@@ -1387,6 +1387,7 @@ function setWorkers($number, $uid, $folder){
   $stmt->bind_param("s", $var);
   $stmt->execute();
   $stmt->close();
+  createWorkers($uid, "Herr", "Max", "Mustermann", "Musterjob", "leader", $folder, "00000", "Images/grundschule.jpg");
 
   printWorkersInFile($uid, $folder);
   }
@@ -1608,6 +1609,7 @@ function allWorkers($uid, $folder){
         </div>';
         $i ++;
     }
+
   }
   $output .= '</div>
   </div>';
@@ -2741,13 +2743,13 @@ function createFolder($uid){
   if (!file_exists($name)){
     mkdir($name, 0777, true);
   }
-  $string = 'sudo chmod 777'.$name;
+  $string = 'sudo chmod 777 '.$name;
   shell_exec($string);
   return $name;
 }
 
-function createImageFolder($uid){
-  $name = 'Images/';
+function createImageFolder($uid, $folder){
+  $name = $folder.'/Images';
   if (!file_exists($name)){
     mkdir($name, 0777, true);
   }
@@ -2755,6 +2757,8 @@ function createImageFolder($uid){
   shell_exec($string);
   return $name;
 }
+
+
 
 //fuer jedes modul muss eine file erstellt werden und dann in die database eingetragen werden
 //database abfragen aendern fuer on
