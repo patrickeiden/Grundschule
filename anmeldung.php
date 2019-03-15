@@ -43,6 +43,14 @@ session_start();
       bottom: 10px;
       left: 47%;
     }
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 85%;
+      margin-top: 10px;
+    }
+
   </style>
 </head>
 <body>
@@ -54,13 +62,22 @@ session_start();
         <h2 class="Title">PAL School</h2>
 <?php
   if(isset($_SESSION['u_id'])){
-    echo '<form action="fun_exe/LogOut_function.php" method="POST">
-            <p class="loggedIn"> Logged in with:';
-    echo $_SESSION['u_mail'];
-    echo    '<button type="submit" name="logout" formmethod="POST" class="logout">Logout</button>
+    echo '
+          <ul class="navbar_list">
+            <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
+            <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
+            <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
+            <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+            <li><a href="interface.php" style="text-decoration: none">Interface</a></li>
+          </ul>
+          </nav>
+          <form action="fun_exe/LogOut_function.php" method="POST">
+                  <p class="loggedIn text-right"> Logged in with:';
+          echo $_SESSION['u_mail'];
+          // echo "<br>";
+          echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Logout</button>
 
-  </form>
-</nav>';
+          </form>';
 }else{
 echo '
         <ul class="navbar_list">
@@ -87,7 +104,9 @@ echo '
           <form action="fun_exe/LogIn_function.php" method="POST" autocomplete="off">
             <input type="text" id="login" class="fadeIn second" name="email" placeholder="E-Mail" required>
             <input type="text" id="password" class="fadeIn third" name="psw" placeholder="Passwort" required>
-            <input type="submit" class="fadeIn fourth" value="Anmelden" name="login" formmethod="POST">
+            <!-- <input type="submit" class="fadeIn fourth center" value="Anmelden" name="login" formmethod="POST"> -->
+            <br>
+            <button type="submit" value="Anmelden" name="login" class="btn btn-primary btn-lg btn-block center" formmethod="POST">Anmelden</button>
           </form>
           <div id="formFooter">
             <a class="underlineHover" href="#">Passwort vergessen?</a>

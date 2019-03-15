@@ -1,4 +1,7 @@
+<?php
 
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,6 +83,13 @@
       background-color: white;
     }
 
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 90%;
+    }
+
   </style>
 
   <?php
@@ -115,19 +125,39 @@ $conn->close();
 <body>
 
 <div class="container">
-
   <div class="row">
-    <div class="col-sm-12 text-center">
+    <div class="col-sm-12">
       <nav class="navbar">
         <h2 class="Title">PAL School</h2>
+<?php
+  if(isset($_SESSION['u_id'])){
+    echo '
           <ul class="navbar_list">
             <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
             <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
             <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
             <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+            <li><a href="interface.php" style="text-decoration: none">Interface</a></li>
           </ul>
-        </nav>
-    </div>
+          </nav>
+          <form action="fun_exe/LogOut_function.php" method="POST">
+                  <p class="loggedIn text-right"> Logged in with:';
+          echo $_SESSION['u_mail'];
+          // echo "<br>";
+          echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Logout</button>
+
+          </form>';
+}else{
+echo '
+        <ul class="navbar_list">
+          <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
+          <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
+          <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
+          <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+        </ul>
+      </nav>';
+}
+?>
   </div>
 </div>
 
@@ -206,7 +236,7 @@ $conn->close();
         </div>
 
         <div class="col-sm-12">
-          <button type="submit" value="Submit" name="submit" class="btn btn-danger btn-lg btn-block">Submit</button>
+          <button type="submit" value="Submit" name="submit" class="btn btn-danger btn-lg btn-block center">Submit</button>
         </div>
       </div>
 

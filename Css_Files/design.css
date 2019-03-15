@@ -299,3 +299,7 @@ li{
   color: white;
   font-weight: bold;
 }
+
+button.logout {
+  background-color: transparent;
+}
