@@ -80,6 +80,10 @@ function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider, $
   $logo = $val.$logo;
   $slider = $val.$slider;
   $slider2 = $val.$slider2;
+  $stmt = $conn->prepare("UPDATE table_data SET start_on=? WHERE user_id=?");
+  $number = 1;
+  $stmt->bind_param("ii", $number, $uid);
+  $stmt->execute();
   $stmt = $conn->prepare("INSERT INTO Page (page_file_name, name, header, text, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
   $stmt->bind_param("sssssi", $file, $name, $header, $text, $logo, $uid);
   $stmt->execute();
@@ -1394,7 +1398,7 @@ function setWorkers($number, $uid, $folder){
   $stmt->bind_param("s", $var);
   $stmt->execute();
   $stmt->close();
-  createWorkers($uid, "Herr", "Max", "Mustermann", "Musterjob", "leader", $folder, "00000", "Images/grundschule.jpg");
+  createWorkers($uid, "Herr", "Max", "Mustermann", "Musterjob", "leader", $folder, "00000", "grundschule.jpg");
 
   printWorkersInFile($uid, $folder);
   }
@@ -1529,7 +1533,7 @@ function printWorkersInInterface($uid, $file){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $output.= '<div class="col-sm-3 text-center">
-          <img src="'.$row['image'].'" width="50px;">
+          <img src="Images//'.$row['image'].'" width="50px;">
           <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
           <p>'.$row['job'].'</p>
           <p>Tel.:  '.$row['tel'].'</p>
@@ -1551,7 +1555,7 @@ function printWorkersInInterface($uid, $file){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $output.= '<div class="col-sm-3 text-center">
-          <img src="'.$row['image'].'" width="50px;">
+          <img src="Images//'.$row['image'].'" width="50px;">
           <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
           <p>'.$row['job'].'</p>
           <p>Tel.:  '.$row['tel'].'</p>
@@ -1573,7 +1577,7 @@ function printWorkersInInterface($uid, $file){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $output.= '<div class="col-sm-3 text-center">
-          <img src="'.$row['image'].'" width="50px;">
+          <img src="Images//'.$row['image'].'" width="50px;">
           <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
           <p>'.$row['job'].'</p>
           <p>Tel.:  '.$row['tel'].'</p>
@@ -1631,7 +1635,7 @@ function allWorkers($uid, $folder){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $output.= '<div class="col-sm-3 text-center">
-          <img src="'.$row['image'].'" width="200px;">
+          <img src="../Images/'.$row['image'].'" width="200px;">
           <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
           <p>'.$row['job'].'</p>
           <p>Tel.:  '.$row['tel'].'</p>
@@ -1651,7 +1655,7 @@ function allWorkers($uid, $folder){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $output.= '<div class="col-sm-3 text-center">
-          <img src="'.$row['image'].'" width="200px;">
+          <img src="../Images/'.$row['image'].'" width="200px;">
           <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
           <p>'.$row['job'].'</p>
           <p>Tel.:  '.$row['tel'].'</p>
@@ -1671,7 +1675,7 @@ function allWorkers($uid, $folder){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $output.= '<div class="col-sm-3 text-center">
-          <img src="'.$row['image'].'" width="200px;">
+          <img src="../Images/'.$row['image'].'" width="200px;">
           <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
           <p>'.$row['job'].'</p>
           <p>Tel.:  '.$row['tel'].'</p>
@@ -1886,9 +1890,16 @@ function printFormforImpressum($uid){
   global $conn;
   $output = '<div class="impressumform">';
   $text = oneColumnFromTable("impressum", $uid, "Page", "user_id");
-  $output.= '<p>Ihr Impressum sieht wie folgt aus:</p>
-            <textarea name="school_impressum" cols="40" rows="5" id="school_impressum">'.$text[0].'</textarea>
-            </div>';
+  if(sizeof($text) > 0){
+    $output.= '<p>Ihr Impressum sieht wie folgt aus:</p>
+              <textarea name="school_impressum" cols="40" rows="5" id="school_impressum">'.$text[0].'</textarea>
+              </div>';
+  }else{
+    $output.= '<p>Ihr Impressum sieht wie folgt aus:</p>
+              <textarea name="school_impressum" cols="40" rows="5" id="school_impressum">Hier kann Inhalt hinzugefügt werden.</textarea>
+              </div>';
+  }
+
   return $output;
 }
 
@@ -2004,21 +2015,22 @@ function checkDoubleRegistration($mail){
 
 }
 
-function createAccount($email, $pswd, $pswd_repeat){
+function createAccount($email, $pswd, $pswd_repeat, $firstname, $lastname, $gender, $birth, $Adress, $plz, $payment, $note){
     global $conn;
+    echo $email;
     $mail = mysqli_real_escape_string($conn, $email);
     $psw = mysqli_real_escape_string($conn, $pswd);
     $psw_repeat = mysqli_real_escape_string($conn, $pswd_repeat);
     //Error Handler
     //Check for empty fields
     if(empty($mail) || empty($psw) || empty($psw_repeat)){
-      header('Location: http://localhost/Grundschule/SignUp.php?signup=empty');
+      header('Location: http://localhost/Grundschule/create_account.php?signup=empty');
       exit();
     }else if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
-      header('Location: http://localhost/Grundschule/SignUp.php?signup=email');
+      header('Location: http://localhost/Grundschule/create_account.php?signup=email');
       exit();
     }else if(checkDoubleRegistration($mail) == 1){
-    header('Location: http://localhost/Grundschule/SignUp.php?signup=DoubleEmail');
+    header('Location: http://localhost/Grundschule/create_account.php?signup=DoubleEmail');
       exit();
     }else{
       //Hasing the password
@@ -2034,7 +2046,10 @@ function createAccount($email, $pswd, $pswd_repeat){
       $stmt = $conn->prepare("INSERT INTO table_data (user_id) VALUES (?)");
       $stmt->bind_param("i", $lastid);
       $stmt->execute();
-      header('Location: http://localhost/Grundschule/SignUp.php?signup=success');
+      $stmt = $conn->prepare("INSERT INTO Person(Email, Password, Firstname, Lastname, Gender, Birthdate, Adress, PLZ, Payment, Note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      $stmt->bind_param("sssssssiss", $mail, $psw, $firstname, $lastname, $gender, $birth, $Adress, $plz, $payment, $note);
+      $stmt->execute();
+      header('Location: http://localhost/Grundschule/create_account.php?signup=success');
       exit();
     }
 }
@@ -2093,6 +2108,16 @@ function CustomeOn($uid){
   $row = $result->fetch_assoc();
   $number = $row['custome_on'];
 
+  return $number;
+}
+
+function StartOn($uid){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT start_on FROM table_data WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  $row = $result->fetch_assoc();
+  $number = $row['start_on'];
   return $number;
 }
 

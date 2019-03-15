@@ -1,6 +1,6 @@
 <?php
-
 session_start();
+include 'functions.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,7 +47,7 @@ session_start();
       margin-right: 0px!important;
       display: inline;
       font-size: 16px;
-    }  
+    }
     html, body{
       height: 100%;
     }
@@ -91,35 +91,6 @@ session_start();
     }
 
   </style>
-
-  <?php
-if(isset($_POST["submit"])){
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
-
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, "news");
-
-  // Check connection
-  if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-  }
-
-$sql = "INSERT INTO Person(Email, Password, Firstname, Lastname, Gender, Birthdate, Adress, PLZ, Payment, Note)
-VALUES ('".$_POST["Email"]."','".$_POST["Password"]."','".$_POST["Firstname"]."','".$_POST["Lastname"]."','".$_POST["Gender"]."','".$_POST["Birthdate"]."','".$_POST["Adress"]."','".$_POST["PLZ"]."','".$_POST["Payment"]."','".$_POST["Note"]."')";
-
-// $result = mysqli_query($conn,$sql);
-
-if ($conn->query($sql) === TRUE) {
-echo "<script type= 'text/javascript'>alert('New record created successfully');</script>";
-} else {
-echo "<script type= 'text/javascript'>alert('Error: " . $sql . "<br>" . $conn->error."');</script>";
-}
-
-$conn->close();
-}
-?>
 
 </head>
 <body>
@@ -173,70 +144,70 @@ echo '
     </div>
 
     <br>
-      <form action=" " method="post">
+      <form action="fun_exe/SignUp_function.php" method="POST">
 
         <div class="col-sm-6 text-center">
           <!-- <div> -->
-            <input type="email" class="form-control email text-center" placeholder="E-Mail" name="Email">
+            <input type="email" class="form-control email text-center" placeholder="E-Mail" name="Email" required>
           <!-- </div> -->
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="password" class="form-control email text-center" placeholder="Passwort" name="Password">
+            <input type="password" class="form-control email text-center" placeholder="Passwort" name="Password" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Vorname" name="Firstname">
+            <input type="text" class="form-control" placeholder="Vorname" name="Firstname" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Nachname" name="Lastname">            
+            <input type="text" class="form-control" placeholder="Nachname" name="Lastname" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Geschlecht" name="Gender">
-          </div>
-        </div>
-        
-        <div class="col-sm-6 text-center">
-          <div>
-            <input type="text" class="form-control" placeholder="Geburtsdatum" name="Birthdate">
-          </div>
-        </div>    
-
-        <div class="col-sm-6 text-center">
-          <div>
-            <input type="text" class="form-control" placeholder="Adresse" name="Adress">
+            <input type="text" class="form-control" placeholder="Geschlecht" name="Gender" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="PLZ" name="PLZ">
-          </div>
-        </div>
-      
-        <div class="col-sm-6 text-center">
-          <div>
-            <input type="text" class="form-control" rows="3" placeholder="Bezahlungsart" name="Payment">
+            <input type="text" class="form-control" placeholder="Geburtsdatum" name="Birthdate" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Notiz" name="Note">
+            <input type="text" class="form-control" placeholder="Adresse" name="Adress" required>
+          </div>
+        </div>
+
+        <div class="col-sm-6 text-center">
+          <div>
+            <input type="text" class="form-control" placeholder="PLZ" name="PLZ" required>
+          </div>
+        </div>
+
+        <div class="col-sm-6 text-center">
+          <div>
+            <input type="text" class="form-control" rows="3" placeholder="Bezahlungsart" name="Payment" required>
+          </div>
+        </div>
+
+        <div class="col-sm-6 text-center">
+          <div>
+            <input type="text" class="form-control" placeholder="Notiz" name="Note" required>
           </div>
         </div>
 
         <div class="col-sm-12">
-          <button type="submit" value="Submit" name="submit" class="btn btn-danger btn-lg btn-block center">Submit</button>
+          <button type="submit" name="submit" class="btn btn-danger btn-lg btn-block center" formmethod="POST">Submit</button>
         </div>
       </div>
 

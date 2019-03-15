@@ -58,46 +58,47 @@ include 'functions.php';
     ?>
     <div id="module_container">
       <?php
-      $name5 = oneColumnFromTable("siteone_name", $_SESSION['u_id'], "registration", "data_id");
-      $Startname = oneColumnFromTable("name", $name5[0], "Page", "page_file_name");
-      $Startheader = oneColumnFromTable("header", $name5[0], "Page", "page_file_name");
-      $Starttext = oneColumnFromTable("text", $name5[0], "Page", "page_file_name");
-      $Startstreet = oneColumnFromTable("street", $name5[0], "Page", "page_file_name");
-      $Startplz = oneColumnFromTable("plz", $name5[0], "Page", "page_file_name");
-      $Startort = oneColumnFromTable("ort", $name5[0], "Page", "page_file_name");
-      $Startnumber = oneColumnFromTable("number", $name5[0], "Page", "page_file_name");
-      $Startfax = oneColumnFromTable("fax", $name5[0], "Page", "page_file_name");
-      $Startmail = oneColumnFromTable("mail", $name5[0], "Page", "page_file_name");
-      $form5 = printFormForStart($name5[0]);
-      echo '<div class="startModule" onclick="clickedStart()">
-              <p class="text">Konfiguriere die Startseite</p>
-              <div class="s_text">
-                <p>This module exists in order to change important settings on the Start site</p>
-                <form action="update_site.php" method="POST">
-                  <div class="form-group">
-                    <p>Change the Name of your school:</p>
-                    <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.$Startname[0] .'">
-                    <p>Setzen sie das Logo ihrer Schule:</p>
-                    <input type="file" id="school_logo" name="school_logo" accept="image/*">'.$form5.'
-                    <p>Change the header of your school:</p>
-                    <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_header" value="'.$Startheader[0].'">
-                    <p>Change the text of your school:</p>
-                    <textarea name="school_description" cols="40" rows="5" id="school_description" required>'.$Starttext[0].'</textarea>
-                    <p>Verändere die Adresse im Footer:</p>
-                    <input type="text" class="form-control" id="school_street" placeholder="Straße" name="school_street" value="'.$Startstreet[0].'">
-                    <input type="text" class="form-control" id="school_plz" placeholder="PLZ" name="school_plz" value="'.$Startplz[0].'">
-                    <input type="text" class="form-control" id="school_ort" placeholder="Ort" name="school_ort" value="'.$Startort[0].'">
-                    <p>Verändere Kontaktdaten im Footer:</p>
-                    <input type="text" class="form-control" id="school_tel" placeholder="Telefon" name="school_tel" value="'.$Startnumber[0].'">
-                    <input type="text" class="form-control" id="school_fax" placeholder="Fax" name="school_fax" value="'.$Startfax[0].'">
-                    <input type="text" class="form-control" id="school_mail" placeholder="Mail" name="school_mail" value="'.$Startmail[0].'">
-                    <button class="go_back5" onclick="StartBack()" name="backbutton">Go Back</button>
-                    <button class="startButton" type="button">Save Changes</button>
-                  </div>
-                </form>
-              </div>
-            </div>';
-
+      if(StartOn($_SESSION['u_id']) == 1){
+        $name5 = oneColumnFromTable("siteone_name", $_SESSION['u_id'], "registration", "data_id");
+        $Startname = oneColumnFromTable("name", $name5[0], "Page", "page_file_name");
+        $Startheader = oneColumnFromTable("header", $name5[0], "Page", "page_file_name");
+        $Starttext = oneColumnFromTable("text", $name5[0], "Page", "page_file_name");
+        $Startstreet = oneColumnFromTable("street", $name5[0], "Page", "page_file_name");
+        $Startplz = oneColumnFromTable("plz", $name5[0], "Page", "page_file_name");
+        $Startort = oneColumnFromTable("ort", $name5[0], "Page", "page_file_name");
+        $Startnumber = oneColumnFromTable("number", $name5[0], "Page", "page_file_name");
+        $Startfax = oneColumnFromTable("fax", $name5[0], "Page", "page_file_name");
+        $Startmail = oneColumnFromTable("mail", $name5[0], "Page", "page_file_name");
+        $form5 = printFormForStart($name5[0]);
+        echo '<div class="startModule" onclick="clickedStart()">
+                <p class="text">Konfiguriere die Startseite</p>
+                <div class="s_text">
+                  <p>This module exists in order to change important settings on the Start site</p>
+                  <form action="update_site.php" method="POST">
+                    <div class="form-group">
+                      <p>Change the Name of your school:</p>
+                      <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.$Startname[0] .'">
+                      <p>Setzen sie das Logo ihrer Schule:</p>
+                      <input type="file" id="school_logo" name="school_logo" accept="image/*">'.$form5.'
+                      <p>Change the header of your school:</p>
+                      <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_header" value="'.$Startheader[0].'">
+                      <p>Change the text of your school:</p>
+                      <textarea name="school_description" cols="40" rows="5" id="school_description" required>'.$Starttext[0].'</textarea>
+                      <p>Verändere die Adresse im Footer:</p>
+                      <input type="text" class="form-control" id="school_street" placeholder="Straße" name="school_street" value="'.$Startstreet[0].'">
+                      <input type="text" class="form-control" id="school_plz" placeholder="PLZ" name="school_plz" value="'.$Startplz[0].'">
+                      <input type="text" class="form-control" id="school_ort" placeholder="Ort" name="school_ort" value="'.$Startort[0].'">
+                      <p>Verändere Kontaktdaten im Footer:</p>
+                      <input type="text" class="form-control" id="school_tel" placeholder="Telefon" name="school_tel" value="'.$Startnumber[0].'">
+                      <input type="text" class="form-control" id="school_fax" placeholder="Fax" name="school_fax" value="'.$Startfax[0].'">
+                      <input type="text" class="form-control" id="school_mail" placeholder="Mail" name="school_mail" value="'.$Startmail[0].'">
+                      <button class="go_back5" onclick="StartBack()" name="backbutton">Go Back</button>
+                      <button class="startButton" type="button">Save Changes</button>
+                    </div>
+                  </form>
+                </div>
+              </div>';
+        }
         if(CustomeOn($_SESSION['u_id']) == 1){
           $nav1 = printCustomeTitel($_SESSION['u_id']);
           $name1 = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
