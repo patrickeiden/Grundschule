@@ -77,8 +77,8 @@ function returnNewsImage(){
 function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider){
   global $conn;
   $val = oneValueFromTableData($uid, 'image_folder');
-  $logo = $val.'/'.$logo;
-  $slider = $val.'/'.$slider;
+  $logo = $val.$logo;
+  $slider = $val.$slider;
   $stmt = $conn->prepare("INSERT INTO Page (page_file_name, name, header, text, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
   $stmt->bind_param("sssssi", $file, $name, $header, $text, $logo, $uid);
   $stmt->execute();
@@ -164,7 +164,7 @@ function printStartInFileTable($uid, $file){
         $name.= $row["name"];
         $header.= $row["header"];
         $text.= $row["text"];
-        $image.= $row["image"];
+        $image.= '../'.$row["image"];
     }
   }
   $sql = "SELECT header, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text FROM Theme1regular";
@@ -1499,7 +1499,7 @@ function printWorkersInInterface($uid, $file){
     $i = 1;
     while($row = $result->fetch_assoc()) {
         $output.= '<div class="col-sm-3 text-center">
-          <img src="'.$row['image'].'" width="50px;">
+          <img src="Images//'.$row['image'].'" width="50px;">
           <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
           <p>'.$row['job'].'</p>
           <p>Tel.:  '.$row['tel'].'</p>
@@ -1602,7 +1602,7 @@ function allWorkers($uid, $folder){
           $i = 1;
         }
         $output.= '<div class="col-sm-3 text-center">
-          <img src="'.$row['image'].'" width="200px;">
+          <img src="../Images/'.$row['image'].'" width="200px;">
           <h4>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].'</h4>
           <p>'.$row['job'].'</p>
           <p>Tel.:  '.$row['tel'].'</p>
@@ -2477,6 +2477,7 @@ function returnNavbar($uid){
 function returnSlider($uid){
   global $conn;
   $output = '';
+  $output2 = '';
   $name = 'slider'.$uid;
   $slider = oneColumnFromTable("image_url", $name, "Image", "image_name");
   $size = 0;
@@ -2495,12 +2496,22 @@ function returnSlider($uid){
                   <img src="'.$slider[$i].'">
                 </div>';
     }
+
+    if($i == 0){
+      $output2 .= '<div class="item active">
+                  <img src="../'.$slider[$i].'">
+                </div>';
+    }else{
+      $output2 .= '<div class="item">
+                  <img src="../'.$slider[$i].'">
+                </div>';
+    }
   }
   $stmt = $conn->prepare("UPDATE Theme1 SET slider=?");
   $stmt->bind_param("s", $output);
   $stmt->execute();
   $stmt = $conn->prepare("UPDATE Theme1regular SET slider=?");
-  $stmt->bind_param("s", $output);
+  $stmt->bind_param("s", $output2);
   $stmt->execute();
   return $output;
 }
