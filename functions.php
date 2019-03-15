@@ -74,17 +74,24 @@ function returnNewsImage(){
 # Ende News Module
 
 #Anfang start-Modul
-function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider){
+function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider, $slider2){
   global $conn;
   $val = oneValueFromTableData($uid, 'image_folder');
   $logo = $val.$logo;
   $slider = $val.$slider;
+  $slider2 = $val.$slider2;
   $stmt = $conn->prepare("INSERT INTO Page (page_file_name, name, header, text, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
   $stmt->bind_param("sssssi", $file, $name, $header, $text, $logo, $uid);
   $stmt->execute();
-  $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name) VALUES (?, ?, ?, ?)");
+  $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name, gallery_name) VALUES (?, ?, ?, ?, ?)");
   $name = 'slider'.$uid;
-  $stmt->bind_param("siss", $slider, $uid, $name, $file);
+  $img1 = "sliderImage1";
+  $stmt->bind_param("sisss", $slider, $uid, $name, $file, $img1);
+  $stmt->execute();
+  $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name, gallery_name) VALUES (?, ?, ?, ?, ?)");
+  $name = 'slider'.$uid;
+  $img2 = "sliderImage2";
+  $stmt->bind_param("sisss", $slider2, $uid, $name, $file, $img2);
   $stmt->execute();
 
   $var = '<?php $file = "userid".$_SESSION["u_id"]."/gallery_id".$_SESSION["u_id"].".php";';
@@ -188,8 +195,8 @@ function printFormForStart($file){
   $b = oneColumnFromTable("image_id", $file, "Image", "image_file_name");
   for ($i=0; $i < sizeof($a); $i++) {
     $form .= '<p>'.($i+1).'. Slider Bild: '.$a[$i].'</p>';
-    $form .= '<p>lösche Bild '.($i+1).'</p>';
-    $form .= '<input type ="checkbox" name ="delete_slider_'.$b[$i].'" value="'.$b[$i].'"/>';
+    $form .= '<p>Wechsel das Bild: '.($i+1).'</p>';
+    $form .= '<input type="file" id="school_slider'.($i+1).'" name="school_slider'.($i+1).'" accept="image/*">';
   }
   return $form;
 }
@@ -2600,7 +2607,9 @@ function updateCustome($file, $uid, $newsuse){
   }
 }
 
-function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $plz, $ort, $tel, $fax, $mail, $slider){
+function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $plz, $ort, $tel, $fax, $mail, $slider1, $slider2){
+  echo $slider1;
+  echo $slider1;
   global $conn;
   $stmt = $conn->prepare("UPDATE Page SET name=? WHERE page_file_name=?");
   $stmt->bind_param("ss", $name, $file);
@@ -2629,12 +2638,21 @@ function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $p
   $stmt = $conn->prepare("UPDATE Page SET fax=? WHERE page_file_name=?");
   $stmt->bind_param("ss", $fax, $file);
   $stmt->execute();
-  if(isset($slider) && $slider != ""){
+  if(isset($slider1) && $slider1 != ""){
     $val = oneValueFromTableData($uid, 'image_folder');
-    $slider = str_replace('C:\\fakepath\\',$val,$slider);
-    $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name) VALUES (?, ?, ?, ?)");
-    $name = 'slider'.$uid;
-    $stmt->bind_param("siss",$slider, $uid, $name, $file);
+    $slider1 = str_replace('C:\\fakepath\\',$val,$slider1);
+    $stmt = $conn->prepare("UPDATE Image SET image_url=? WHERE gallery_name=? and image_file_name=?");
+    $sl1 = "sliderImage1";
+    $stmt->bind_param("sss", $slider1, $sl1, $file);
+    $stmt->execute();
+    var_dump($stmt);
+  }
+  if(isset($slider2) && $slider2 != ""){
+    $val = oneValueFromTableData($uid, 'image_folder');
+    $slider2 = str_replace('C:\\fakepath\\',$val,$slider2);
+    $stmt = $conn->prepare("UPDATE Image SET image_url=? WHERE gallery_name=? and image_file_name=?");
+    $sl2 = "sliderImage2";
+    $stmt->bind_param("sss", $slider2, $sl2, $file);
     $stmt->execute();
   }
   if(isset($image) && $image != ""){

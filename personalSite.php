@@ -45,11 +45,13 @@ include 'functions.php';
 
     </div>
     <?php
+    $link = oneColumnFromTable("siteone_name", $_SESSION['u_id'], "registration", "data_id");
 
         echo '<form action="fun_exe/LogOut_function.php" method="POST">
           <p class="loggedIn"> Logged in with:';
         echo $_SESSION['u_mail'];
         echo '<button type="submit" name="logout" formmethod="POST" class="logout">Logout</button></li>
+        <a href="'.$link[0].'" target="_blank" style="color:white;">Generierte Seite</a>
       </form> </div>
     </nav>';
 
@@ -77,8 +79,6 @@ include 'functions.php';
                     <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.$Startname[0] .'">
                     <p>Setzen sie das Logo ihrer Schule:</p>
                     <input type="file" id="school_logo" name="school_logo" accept="image/*">'.$form5.'
-                    <p>Fügen sie ein neues Bild zu ihrem Slider hinzu:</p>
-                    <input type="file" id="school_slider" name="school_slider" accept="image/*">
                     <p>Change the header of your school:</p>
                     <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_header" value="'.$Startheader[0].'">
                     <p>Change the text of your school:</p>
@@ -1741,11 +1741,12 @@ include 'functions.php';
                         var fax = $("#school_fax").val();
                         var mail = $("#school_mail").val();
                         var logo = $("#school_logo").val();
-                        var slider = $("#school_slider").val();
+                        var slider = $("#school_slider1").val();
+                        var slider2 = $("#school_slider2").val();
                         $.ajax({
                           type:"POST",
                           url: "onChangeStart.php",
-                          data: {Codeslider:slider, file:startPagefile, Codename:name, Codeheader:header, Codedescription:description, Codeplz:plz, Codeort:ort, Codetel:tel, Codestreet:street, Codefax:fax, Codemail:mail, Codelogo:logo},
+                          data: {Codeslider:slider, Codeslider2:slider2, file:startPagefile, Codename:name, Codeheader:header, Codedescription:description, Codeplz:plz, Codeort:ort, Codetel:tel, Codestreet:street, Codefax:fax, Codemail:mail, Codelogo:logo},
                           success: function (data) {
                           }
                       });
