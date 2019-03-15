@@ -1,6 +1,6 @@
 /*Style für Layout*/
     .navbar {
-      background-color: rgb(101, 161, 223)!important;
+      background-color: rgb(101, 161, 223);
       padding: 10px;
       margin-bottom: 0px;
     }
@@ -73,6 +73,10 @@
       border: 0.5px solid white;
       padding: 5px;
       background-color: grey;
+    }
+
+    .dropdown-menu {
+      background-color: rgb(101, 161, 223);
     }
 
 /*End*/

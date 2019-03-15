@@ -38,16 +38,10 @@ session_start();
       background-repeat: no-repeat;
       background-position: left top;
     }
-
-    h3 {
-      color: white;
-    }
-
     footer {
       position: absolute;
       bottom: 10px;
       left: 47%;
-      top: 95%;
     }
   </style>
 </head>
@@ -81,30 +75,30 @@ echo '
 
     </div>
   </div>
-</div>
-
-  <div class="container">
     <div class="row">
-
       <div class="col-sm-12">
         <p id="pal">PAL</p>
       </div>
     </div>
-
     <div class="row">
       <div class="col-sm-12">
         <div class="wrapper fadeInDown">
         <div id="formContent">
-          <h3> TEXT </h3>
+          <form action="fun_exe/LogIn_function.php" method="POST" autocomplete="off">
+            <input type="text" id="login" class="fadeIn second" name="email" placeholder="E-Mail" required>
+            <input type="text" id="password" class="fadeIn third" name="psw" placeholder="Passwort" required>
+            <input type="submit" class="fadeIn fourth" value="Anmelden" name="login" formmethod="POST">
+          </form>
+          <div id="formFooter">
+            <a class="underlineHover" href="#">Passwort vergessen?</a>
+          </div>
         </div>
         </div>
       </div>
     </div>
-
   </div>
-</div>
 
-    <footer>
+  <footer class="text-center">
 
       <!-- Copyright -->
       <div class="footer">
@@ -113,5 +107,6 @@ echo '
       <!-- Copyright -->
 
   </footer>
+
 </body>
 </html>

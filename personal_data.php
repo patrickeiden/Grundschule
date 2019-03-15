@@ -17,8 +17,20 @@ session_start();
   <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">
   <link rel="stylesheet" type="text/css" href="Css_Files/index.css">
 
+  <style>
 
-<title>Page Title</title>
+    input.form-control {
+      width: 80%;
+      margin-bottom:20px;
+      padding: 20px;
+    }
+
+    input.form-control.email {
+      display: inline;
+    }
+
+  </style>
+
 </head>
 <body>
   <nav class="navbar navbar-inverse">
@@ -37,60 +49,116 @@ session_start();
 
     ?>
 
+<?php
 
 
+$servername = "localhost";
+$username = "root";
+$password = "";
 
-<div class="container">
-  <div class="row">
+// Create connection
+$conn = new mysqli($servername, $username, $password, "news");
 
-    <h3 class="text-center">Add your personal Data</h3>
-    </br>
-    <form action=" " method="post">
-      <div class="form-row">
-        <!-- <div class="col-sm-3"></div> -->
-        <div class="text-center">
-          <input type="text" class="form-control" placeholder="First name" name="Firstname">
-          <input type="text" class="form-control" placeholder="Last name" name="Lastname">
-        </div>
-      </div>
-    </br>
-    <div class="form-row">
-        <!-- <div class="col-sm-3"></div> -->
-        <div class="text-center">
-          <input type="text" class="form-control" placeholder="Gender" name="Gender">
-          <input type="text" class="form-control" placeholder="Date of birth" name="Birthdate">
-        </div>
-      </div>
-    </br>
-      <div class="form-row">
-        <!-- <div class="col-sm-3"></div> -->
-        <div class="text-center">
-          <input type="text" class="form-control" placeholder="Adress" name="Adress">
-          <input type="text" class="form-control" placeholder="PLZ" name="PLZ">
-        </div>
-      </div>
-    </br>
-      <div class="form-row">
-        <!-- <div class="col-sm-3"></div> -->
-        <div class="text-center">
-          <input type="text" class="form-control" rows="3" placeholder="Payment" name="Payment">
-          <input type="text" class="form-control" placeholder="Note" name="Note">
-        </div>
-      </div>
-    </br>
-    <div class="form-row">
-      <!-- <div class="col-sm-3"></div> -->
-      <div>
-      <button type="submit" value="Submit" name="submit" class="center-block btn btn-primary">Submit</button>
-      </div>
-      <div class="col-sm-3"></div>
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$email = $_SESSION['u_mail'];
+
+if(isset($_POST['update']))
+{
+
+  $Email = $_POST['Email'];
+  $Password = $_POST['Password'];
+  $Firstname = $_POST['Firstname'];
+  $Lastname = $_POST['Lastname'];
+  $Gender = $_POST['Gender'];
+  $Birthdate = $_POST['Birthdate'];
+  $Adress = $_POST['Adress'];
+  $PLZ = $_POST['PLZ'];
+  $Note = $_POST['Note'];
+
+
+  $update = "UPDATE Person SET Email = '$Email', Password = '$Password', Firstname = '$Firstname', Lastname = '$Lastname', Gender = '$Gender', Birthdate = '$Birthdate', Adress = '$Adress', PLZ = '$PLZ', Note = '$Note' WHERE Email = '$email'";
+
+  $retval = mysqli_query(  $conn ,$update);
+  if(! $retval )
+  {
+    die('Could not update data: ' . mysqli_error());
+  }
+  echo "<script type= 'text/javascript'>alert('Updated data successfully');</script>";
+
+}
+
+$sql = "SELECT Person_id, Email, Password, Firstname, Lastname, Gender, Birthdate, Adress, PLZ, Payment, Note FROM Person WHERE Email = '$email'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+
+      $Email = $row["Email"];
+      $Password = $row["Password"];
+      $Firstname = $row["Firstname"];
+      $Lastname = $row["Lastname"];
+      $Gender = $row["Gender"];
+      $Birthdate = $row["Birthdate"];
+      $Adress = $row["Adress"];
+      $PLZ = $row["PLZ"];
+      $Payment = $row["Payment"];
+      $Note = $row["Note"];
+
+    }
+} else {
+    echo "0 results";
+}
+
+?>
+
+  <div class="container">
+    <div class="row">
+      <hr>
+        <h3 class="text-center">Your Personal Data</h3>
+      <hr>
+      <br>
+          <form method="post" action="<?php $_PHP_SELF ?>">
+            <div class="col-sm-12 text-center">
+              <input type="email" class="form-control email" name="Email" value="<?php echo $Email;?>" placeholder="Email" readonly/>
+            </div>
+            <div class="col-sm-12 text-center">
+              <input type="password" class="form-control" name="Password" value="<?php echo $Password;?>" placeholder="Password"/>
+            </div>
+            <div class="col-sm-12 text-center">
+              <input type="text" class="form-control" name="Firstname" value="<?php echo $Firstname;?>" placeholder="Firstname"/>
+            </div>
+            <div class="col-sm-12 text-center">
+              <input type="text" class="form-control" name="Lastname" value="<?php echo $Lastname;?>" placeholder="Lastname"/>
+            </div>
+            <div class="col-sm-12 text-center">
+              <input type="text" class="form-control" name="Gender" value="<?php echo $Gender;?>" placeholder="Gender"/>
+            </div>
+            <div class="col-sm-12 text-center">
+              <input type="text" class="form-control" name="Birthdate" value="<?php echo $Birthdate;?>" placeholder="Birthdate"/>
+            </div>
+            <div class="col-sm-12 text-center">
+              <input type="text" class="form-control" name="Adress" value="<?php echo $Adress;?>" placeholder="Adress"/>
+            </div>
+            <div class="col-sm-12 text-center">
+              <input type="text" class="form-control" name="PLZ" value="<?php echo $PLZ;?>" placeholder="PLZ"/>
+            </div>
+            <div class="col-sm-12 text-center">
+              <input type="text" class="form-control" name="Note" value="<?php echo $Note;?>" placeholder="Note"/>
+            </div>
+            <div class="col-sm-12 text-center">
+              <button type="submit" value="Submit" name="update" class="btn btn-primary btn-lg btn-block" value="Update">Save Changes</button>
+            </div>
+          </form>
     </div>
-    </form>
   </div>
-</div>
 
 
-
+  <div class="col-sm-12">
     <footer class="page-footer font-small blue">
 
       <!-- Copyright -->
@@ -100,36 +168,8 @@ session_start();
       <!-- Copyright -->
 
     </footer>
-<!-- </div>
- -->
+</div>
 
-<?php
-if(isset($_POST["submit"])){
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
 
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, "news");
-
-  // Check connection
-  if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-  }
-
-$sql = "INSERT INTO Person(Firstname, Lastname, Gender, Birthdate, Adress, PLZ, Payment, Note)
-VALUES ('".$_POST["Firstname"]."','".$_POST["Lastname"]."','".$_POST["Gender"]."','".$_POST["Birthdate"]."','".$_POST["Adress"]."','".$_POST["PLZ"]."','".$_POST["Payment"]."','".$_POST["Note"]."')";
-
-$result = mysqli_query($conn,$sql);
-
-if ($conn->query($sql) === TRUE) {
-echo "<script type= 'text/javascript'>alert('New record created successfully');</script>";
-} else {
-echo "<script type= 'text/javascript'>alert('Error: " . $sql . "<br>" . $conn->error."');</script>";
-}
-
-$conn->close();
-}
-?>
-    </body>
-    </html>
+</body>
+</html>

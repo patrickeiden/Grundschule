@@ -6,12 +6,31 @@
   <meta charset="utf-8">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="Css_Files/design.css">
 
-  <link rel="stylesheet" type="text/css" href="Css_Files/index_Logout.css">
+  <!-- <link rel="stylesheet" type="text/css" href="Css_Files/index_Logout.css">
   <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">
-  <link rel="stylesheet" type="text/css" href="Css_Files/index.css">
+  <link rel="stylesheet" type="text/css" href="Css_Files/index.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="Css_Files/design.css"> -->
+
+
+<!--   <?php
+  if(isset($_SESSION['u_id'])){
+    echo '
+    <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">';
+  }else{
+    echo '<link rel="stylesheet" type="text/css" href="Css_Files/index.css">
+    <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">';
+  }
+
+  ?> -->
 
   <style>
 
@@ -22,8 +41,43 @@
     }
 
     input.form-control.email {
-      margin: 0px!important;
+      margin-right: 0px!important;
       display: inline;
+      font-size: 16px;
+    }  
+    html, body{
+      height: 100%;
+    }
+
+    body{
+      background-color: black;
+      background-image: url("Images/elementary-school-788902_1920.jpg");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: left top;
+    }
+
+    .title {
+      color: white;
+      left: 50%;
+      font-size: 25px;
+    }
+
+    footer {
+      position: absolute;
+      /*top: 50px;*/
+      top: 95%;
+      left: 47%;
+      font-size: 1rem;
+    }
+
+    .abstand {
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    hr {
+      background-color: white;
     }
 
   </style>
@@ -59,62 +113,77 @@ $conn->close();
 
 </head>
 <body>
-  <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost/Grundschule/startsite.php">Gruschool</a>
-      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Personal Site</a>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <nav class="navbar">
+        <h2 class="Title">PAL School</h2>
+          <ul class="navbar_list">
+            <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
+            <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
+            <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
+            <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+          </ul>
+        </nav>
     </div>
   </div>
-  </nav>
+</div>
+
 
 <div class="container">
   <div class="row">
-    <hr>
-      <h3 class="text-center">Create your account</h3>
-    <hr>
+    <div class="col-sm-12">
+
+    <div class="abstand">
+    <hr/>
+      <p class="title">Ihr Konto erstellen</p>
+    <hr/>
+    </div>
+
     <br>
       <form action=" " method="post">
 
         <div class="col-sm-6 text-center">
           <!-- <div> -->
-            <input type="email" class="form-control email" placeholder="E-Mail" name="Email">
+            <input type="email" class="form-control email text-center" placeholder="E-Mail" name="Email">
           <!-- </div> -->
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="password" class="form-control" placeholder="Password" name="Password">
+            <input type="password" class="form-control email text-center" placeholder="Passwort" name="Password">
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Lastname" name="Lastname">            
+            <input type="text" class="form-control" placeholder="Vorname" name="Firstname">
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Firstname" name="Firstname">
+            <input type="text" class="form-control" placeholder="Nachname" name="Lastname">            
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Gender" name="Gender">
+            <input type="text" class="form-control" placeholder="Geschlecht" name="Gender">
           </div>
         </div>
         
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Date of birth" name="Birthdate">
+            <input type="text" class="form-control" placeholder="Geburtsdatum" name="Birthdate">
           </div>
         </div>    
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Adress" name="Adress">
+            <input type="text" class="form-control" placeholder="Adresse" name="Adress">
           </div>
         </div>
 
@@ -126,37 +195,37 @@ $conn->close();
       
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" rows="3" placeholder="Payment" name="Payment">
+            <input type="text" class="form-control" rows="3" placeholder="Bezahlungsart" name="Payment">
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Note" name="Note">
+            <input type="text" class="form-control" placeholder="Notiz" name="Note">
           </div>
         </div>
 
         <div class="col-sm-12">
-          <button type="submit" value="Submit" name="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+          <button type="submit" value="Submit" name="submit" class="btn btn-danger btn-lg btn-block">Submit</button>
         </div>
       </div>
 
     </form>
   </div>
+  </div>
 </div>
 
 
-    <footer class="page-footer font-small blue">
+    <footer>
 
       <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">© 2018 Copyright:
-        <a href="https://mdbootstrap.com/education/bootstrap/"> Patrick Eiden und die annere banause</a>
+      <div class="footer text-center">
+        <p>© 2018 Copyright</p>
       </div>
       <!-- Copyright -->
 
     </footer>
-<!-- </div>
- -->
+
 
 
     </body>

@@ -15,7 +15,7 @@
 
   <div class="row">
 
-  	<?php include('menu.php'); ?>
+    <?php include('menu.php'); ?>
 
   </div>
 
@@ -27,7 +27,7 @@
   <div class="row">
 
     <div class="col-sm-2"></div>
-	    <div class="col-sm-8">
+      <div class="col-sm-8">
             <div>
               <h3>1. Klasse</h3>
               <ul>
@@ -50,20 +50,69 @@
                 <li>Klasse 1.2: Herr Stamm</li>
               </ul>
           </div>
-	      <hr>
+        <hr>
      </div>
 
   </div>
 </div>
 
+<div class="container">
+
+    <hr>
+      <h1 class="text-center">Unterrichstzeiten</h1>
+    <hr>
+
+    <div class="row">
+
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+
+          <table style="width:100%">
+            <tr>
+              <td>7:45</td>
+              <td>Frühaufsicht</td> 
+            </tr>
+            <tr>
+              <td>8:00</td>
+              <td>Unterrichtsbeginn</td> 
+            </tr>
+            <tr>
+              <td>8:00-10:25</td>
+              <td>1. Unterrichtsblock (inkl. 10 Minuten Frühstückspause)</td> 
+            </tr>
+            <tr>
+              <td>10:25-11:05</td>
+              <td>Pause</td> 
+            </tr>
+            <tr>
+              <td>11:05-12:35</td>
+              <td>2. Unterrichtsblock</td> 
+            </tr>
+            <tr>
+              <td>12:35-14:00</td>
+              <td>Mittagspause</td> 
+            </tr>
+            <tr>
+              <td>14:00-14:45</td>
+              <td>Unterricht</td> 
+            </tr>
+          </table>
+
+        <hr>
+     </div>
+
+    </div>
+  </div>
+
+
   <div class="row">
 
-  		<footer class="page-footer">
+      <footer class="page-footer">
 
          <div class="container-fluid">
           <div class="row">
             <div class="col-sm-3"></div>
-      		  <div class="col-sm-4">
+            <div class="col-sm-4">
               <p>Adresse:</br>
               Schulstr. 100</br>
               66133 Saarbrücken</p>
@@ -77,7 +126,7 @@
             </div>
           </div>
         </div>
-  		</footer>
+      </footer>
 
   </div>
 
