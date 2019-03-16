@@ -1022,8 +1022,8 @@ function allGalleries($uid, $gallery){
     }
     $output.= '<div class="col-md-4 col-sm-4 col-xs-6 col-xxs-12 animate-box">
       <div class="img-grid">
-        <img src="../GallerieCSS/images/pic_'.(($i%12)+1).'.jpg" href="../'.$hrefGallery[0].'" alt="Free HTML5 template by FREEHTML5.co" class="img-responsive">
-        <a class="transition">
+        <img src="../GallerieCSS/images/pic_'.(($i%12)+1).'.jpg" class="img-responsive">
+        <a class="transition" href="'.$hrefGallery[0].'" target="_blank">
           <div>
             <span class="fh5co-meta">'.sizeof($number).' Bilder</span>
             <h2 class="fh5co-title noHover">'.$number[0].'</h2>
@@ -1270,30 +1270,55 @@ function createImage($uid, $file){
 
 function printImagesonSite($uid, $file, $gallery){
   global $conn;
+  $output = '';
   $output = printRegularHeader($uid, "gallery");
   $sql = "SELECT image_url, image_name FROM Image WHERE gallery_name = '$gallery' and image_file_name = '$file'";
   $result = $conn->query($sql);
+  $output .= '<hr>
+    <h1 class="text-center">'.$gallery.'</h1>
+  <hr>
+  <div class="row">';
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-          $output .= $row['image_url'];
+      $output .= '<div class="col-md-3"></div>
+        <div class="col-md-6">
+        <div class="thumbnail">
+          <div class="caption">
+              <p>'.$row['image_name'].'</p>
+            </div>
+          <a href="../Images/'.$row['image_url'].'" target="_blank" data-size="1600x1067">
+            <img src="../Images/'.$row['image_url'].'" style="width:100%">
+          </a>
+        </div>
+      </div>
+      <div class="col-md-12"></div>';
     }
   }
+  $output .= '</div>';
   $output.= printRegularFooter($uid);
   return $output;
 }
 
 function createGallery($uid, $name, $file){
-  echo $file;
-  echo $name;
   global $conn;
-  //$image_site = 'userid'.$uid.'/imagesite_'.$name;
-  //$code = printImagesonSite($uid, $file, $name);
-  //$myfile = fopen($image_site, "w") or die("Unable to open file!");
-  //fwrite($myfile, $code);
+  $code = '';
+  $sql = "SELECT include FROM Theme1regular";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $code.= $row['include'];
+    }
+  }
+  $image_site_table = 'imagesite_'.$name.'.php';
+  $image_site = 'userid'.$uid.'/imagesite_'.$name.'.php';
+  $code .= '<?php echo printImagesonSite('.$uid.', "'.$file.'", "'.$name.'"); ?>';
+  $myfile = fopen($image_site, "w") or die("Unable to open file!");
+  fwrite($myfile, $code);
 
   $stmt = $conn->prepare("INSERT INTO Galleries (gallery_name, user_id, gallery_file_name, image_site) VALUES (?, ?, ?, ?)");
-  $stmt->bind_param("siss", $name, $uid, $file, $image_site);
+  $stmt->bind_param("siss", $name, $uid, $file, $image_site_table);
   $stmt->execute();
 
 
@@ -2389,7 +2414,7 @@ function printRegularHeader($uid, $type){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $name.= $row["name"];
-        $image.= $row["image"];
+        $image.= '../'.$row["image"];
     }
   }
   $sql = "SELECT include, header, calendar_header, events, calendar_header2, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text,
