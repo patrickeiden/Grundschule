@@ -2658,8 +2658,6 @@ function updateCustome($file, $uid, $newsuse){
 }
 
 function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $plz, $ort, $tel, $fax, $mail, $slider1, $slider2){
-  echo $slider1;
-  echo $slider1;
   global $conn;
   $stmt = $conn->prepare("UPDATE Page SET name=? WHERE page_file_name=?");
   $stmt->bind_param("ss", $name, $file);
@@ -2706,6 +2704,7 @@ function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $p
     $stmt->execute();
   }
   if(isset($image) && $image != ""){
+    $image= str_replace('C:\\fakepath\\',"Images/",$image);
     $stmt = $conn->prepare("UPDATE Page SET image=? WHERE page_file_name=?");
     $stmt->bind_param("ss", $image, $file);
     $stmt->execute();
