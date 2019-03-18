@@ -1303,6 +1303,7 @@ function printImagesonSite($uid, $file, $gallery){
 function createGallery($uid, $name, $file){
   global $conn;
   $code = '';
+  
   $sql = "SELECT include FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
@@ -2440,6 +2441,7 @@ function printRegularHeader($uid, $type){
 function returninterfacecode($uid){
   global $conn;
   returnNavbar($uid);
+  returnSlider($uid);
   $header = returnInterfaceHeader($uid);
   $footer = returnInterfaceFooter($uid);
   $output = "";
