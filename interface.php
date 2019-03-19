@@ -6,65 +6,135 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gruschool</title>
-  <meta charset="utf-8">
+<?php
+  if(isset($_SESSION['u_id'])){
+    echo '
+    <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">';
+  }else{
+    echo '<link rel="stylesheet" type="text/css" href="Css_Files/index.css">
+    <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">';
+  }
 
+  ?>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <link rel="stylesheet" type="text/css" href="Css_Files/index_Logout.css">
-  <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">
-  <link rel="stylesheet" type="text/css" href="Css_Files/index.css">
-
-
-<title>Page Title</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="Css_Files/design.css">
 <style>
   .page-footer{
     top: 307px;
     width: 100%;
   }
+  body {
+    background-color: black;
+  }
+  h3 {
+    color: white;
+  }
+  .bottom {
+    margin-bottom: 100px;
+  }
+  footer {
+      position: absolute;
+      bottom: 10px;
+      left: 47%;
+      color: white;
+  }
+  .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 85%;
+      margin-top: 10px;
+    }
+    hr {
+      background-color: white;
+    }
 </style>
 </head>
 <body>
-  <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost/Grundschule/startsite.php">Gruschool</a>
+<div class="container">
+  <div class="row bottom">
+    <div class="col-sm-12">
+      <nav class="navbar">
+        <h2 class="Title">PAL School</h2>
+        <?php
+          if(isset($_SESSION['u_id'])){
+            echo '
+                  <ul class="navbar_list">
+                    <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
+                    <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+                    <li><a href="interface.php" style="text-decoration: none">Interface</a></li>
+                  </ul>
+                  </nav>
+                  <hr>
+                  <form action="fun_exe/LogOut_function.php" method="POST">
+                          <p class="loggedIn text-right"> Logged in with: ';
+                  echo $_SESSION['u_mail'];
+                  // echo "<br>";
+                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Logout</button>
+
+                  </form>';
+        }else{
+        echo '
+                <ul class="navbar_list">
+                  <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
+                  <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
+                  <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
+                  <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+                </ul>
+              </nav>';
+        }
+        ?>
     </div>
-    <?php
-        echo '<form action="fun_exe/LogOut_function.php" method="POST">
-          <p class="loggedIn"> Logged in with:';
-        echo $_SESSION['u_mail'];
-        echo '<button type="submit" name="logout" formmethod="POST" class="logout">Logout</button></li>
-      </form> </div>
-    </nav>';
+  </div>
 
-    ?>
-<div id="interface_generate_button">
-  <h1 class="text">Generate your Website</h1>
-  <a class="btn btn-warning" href="generate.php" role="button">Generate</a>
-</div>
-
-<div id="interface_personal_button">
-  <h1 class="text">Change your personal data</h1>
-  <a class="btn btn-warning" href="personal_data.php" role="button">Data</a>
-</div>
-
-<div id="interface_manage_button">
-  <h1 class="text">Change settings on your generated site</h1>
-  <a class="btn btn-warning" href="personalSite.php" role="button">Personal Site</a>
-</div>
-
-    <footer class="page-footer font-small blue">
-
-      <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">© 2018 Copyright:
-        <a href="https://mdbootstrap.com/education/bootstrap/"> Patrick Eiden und die annere banause</a>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="col-sm-4 text-center">
+      <div id="interface_generate_button">
+        <h3 class="text">Generate your Website</h3>
+        <a class="btn btn-success btn-lg" href="generate.php" role="button">Generate</a>
+        <br>
+        <br>
+        <p> Text </p>
       </div>
-      <!-- Copyright -->
+    </div>
+    <div class="col-sm-4 text-center">
+      <div id="interface_personal_button">
+        <h3 class="text">Change your personal data</h3>
+        <a class="btn btn-success btn-lg" href="personal_data.php" role="button">Data</a>
+        <br>
+        <br>
+        <p> Text </p>
+      </div>
+    </div>
+    <div class="col-sm-4 text-center">
+      <div id="interface_manage_button">
+        <h3 class="text">Change settings on your generated site</h3>
+        <a class="btn btn-success btn-lg" href="personalSite.php" role="button">Personal Site</a>
+        <br>
+        <br>
+        <p> Text </p>
+      </div>
+  </div>
+</div>
 
-    </footer>
+<footer class="text-center">
 
-    </body>
-    </html>
+  <!-- Copyright -->
+  <div class="footer">© 2018 Copyright</div>
+  <!-- Copyright -->
+
+</footer>
+</div>
+
+
+</body>
+</html>

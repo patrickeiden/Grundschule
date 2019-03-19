@@ -5,26 +5,8 @@ include 'functions.php';
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gruschool</title>
-  <meta charset="utf-8">
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="Css_Files/design.css">
-
-  <!-- <link rel="stylesheet" type="text/css" href="Css_Files/index_Logout.css">
-  <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">
-  <link rel="stylesheet" type="text/css" href="Css_Files/index.css"> -->
-  <!-- <link rel="stylesheet" type="text/css" href="Css_Files/design.css"> -->
-
-
-<!--   <?php
+  <title>PAL School</title>
+  <?php
   if(isset($_SESSION['u_id'])){
     echo '
     <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">';
@@ -33,8 +15,17 @@ include 'functions.php';
     <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">';
   }
 
-  ?> -->
-
+  ?>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="Css_Files/design.css">
   <style>
 
     input.form-control {
@@ -47,6 +38,7 @@ include 'functions.php';
       margin-right: 0px!important;
       display: inline;
       font-size: 16px;
+      margin-bottom: 0px;
     }
     html, body{
       height: 100%;
@@ -75,7 +67,7 @@ include 'functions.php';
     }
 
     .abstand {
-      margin-top: 50px;
+      /*margin-top: 50px;*/
       text-align: center;
     }
 
@@ -100,38 +92,38 @@ include 'functions.php';
     <div class="col-sm-12">
       <nav class="navbar">
         <h2 class="Title">PAL School</h2>
-<?php
-  if(isset($_SESSION['u_id'])){
-    echo '
-          <ul class="navbar_list">
-            <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
-            <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
-            <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
-            <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
-            <li><a href="interface.php" style="text-decoration: none">Interface</a></li>
-          </ul>
-          </nav>
-          <form action="fun_exe/LogOut_function.php" method="POST">
-                  <p class="loggedIn text-right"> Logged in with:';
-          echo $_SESSION['u_mail'];
-          // echo "<br>";
-          echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Logout</button>
+        <?php
+          if(isset($_SESSION['u_id'])){
+            echo '
+                  <ul class="navbar_list">
+                    <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
+                    <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
+                    <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
+                    <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+                    <li><a href="interface.php" style="text-decoration: none">Interface</a></li>
+                  </ul>
+                  </nav>
+                  <form action="fun_exe/LogOut_function.php" method="POST">
+                          <p class="loggedIn text-right"> Logged in with: ';
+                  echo $_SESSION['u_mail'];
+                  // echo "<br>";
+                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Logout</button>
 
-          </form>';
-}else{
-echo '
-        <ul class="navbar_list">
-          <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
-          <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
-          <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
-          <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
-        </ul>
-      </nav>';
-}
-?>
+                  </form>';
+        }else{
+        echo '
+                <ul class="navbar_list">
+                  <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
+                  <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
+                  <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
+                  <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+                </ul>
+              </nav>';
+        }
+        ?>
+    </div>
   </div>
 </div>
-
 
 <div class="container">
   <div class="row">
@@ -142,8 +134,13 @@ echo '
       <p class="title">Ihr Konto erstellen</p>
     <hr/>
     </div>
+  </div>
+  </div>
 
-    <br>
+  <div class="row">
+    <div class="col-sm-12">
+
+    <div class="wrapper fadeInDown">
       <form action="fun_exe/SignUp_function.php" method="POST">
 
         <div class="col-sm-6 text-center">
@@ -154,7 +151,7 @@ echo '
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="password" class="form-control email text-center" placeholder="Passwort" name="Password" required>
+            <input type="password" class="form-control text-center" placeholder="Passwort" name="Password" required>
           </div>
         </div>
 
@@ -213,6 +210,8 @@ echo '
 
     </form>
   </div>
+    </div>
+    </div>
   </div>
 </div>
 
@@ -226,7 +225,6 @@ echo '
       <!-- Copyright -->
 
     </footer>
-
 
 
     </body>

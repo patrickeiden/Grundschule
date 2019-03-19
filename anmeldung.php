@@ -72,7 +72,7 @@ session_start();
           </ul>
           </nav>
           <form action="fun_exe/LogOut_function.php" method="POST">
-                  <p class="loggedIn text-right"> Logged in with:';
+                  <p class="loggedIn text-right"> Logged in with: ';
           echo $_SESSION['u_mail'];
           // echo "<br>";
           echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Logout</button>
@@ -92,6 +92,7 @@ echo '
 
     </div>
   </div>
+
     <div class="row">
       <div class="col-sm-12">
         <p id="pal">PAL</p>
