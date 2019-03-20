@@ -32,7 +32,7 @@ session_start();
     width: 100%;
   }
   body {
-    background-color: black;
+    background-color: mediumslateblue; //darkmagenta
   }
   h3 {
     color: white;
