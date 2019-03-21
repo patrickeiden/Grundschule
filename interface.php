@@ -32,7 +32,7 @@ session_start();
     width: 100%;
   }
   body {
-    background-color: mediumslateblue; //darkmagenta
+    background-color: darkmagenta; mediumslateblue darkmagenta
   }
   h3 {
     color: white;
