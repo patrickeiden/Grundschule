@@ -153,7 +153,7 @@ function printStartInFile($uid, $file){
         $output.= $row["include"].$row["start"];
     }
   }
-  $myfile = fopen($file, "w") or die("Unable to open file!");
+  $myfile = fopen($file, "w") or die("Datei konnte nicht geöffnet werden!");
   fwrite($myfile, $output);
 }
 
@@ -199,7 +199,7 @@ function printFormForStart($file){
   $b = oneColumnFromTable("image_id", $file, "Image", "image_file_name");
   for ($i=0; $i < sizeof($a); $i++) {
     $form .= '<p>'.($i+1).'. Slider Bild: '.$a[$i].'</p>';
-    $form .= '<p>Wechsel das Bild: '.($i+1).'</p>';
+    $form .= '<p>Bild ändern: '.($i+1).'</p>';
     $form .= '<input type="file" id="school_slider'.($i+1).'" name="school_slider'.($i+1).'" accept="image/*">';
   }
   return $form;
@@ -222,7 +222,7 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
     $folder = $site_name;
   }
   //create a File for this module
-  $myfile = fopen($folder, "w") or die("Unable to open file!");
+  $myfile = fopen($folder, "w") or die("Datei konnte nicht geöffnet werden!");
   //write file in Database
   $stmt = $conn->prepare("UPDATE table_data SET custome_file_name=? WHERE user_id=?");
   $stmt->bind_param("si", $folder, $uid);
@@ -233,7 +233,7 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   $stmt->bind_param("s", $item);
   $stmt->execute();
   //standart value for custome Module
-  createCustome($_SESSION['u_id'], "Muster", "<p>Das ist ein Mustermodul</p>
+  createCustome($_SESSION['u_id'], "Muster", "<p>Dies ist ein Mustermodul.</p>
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>", "Beispiel");
   printAllCustomeFromFile($_SESSION["u_id"]);
 
@@ -328,7 +328,7 @@ function printCustomeInFileTable($uid, $site_name){
     }
   }
   $output .= printRegularFooter($uid);
-  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  $myfile = fopen($site_name, "w") or die("Datei konnte nicht geöffnet werden!");
   fwrite($myfile, $output);
 }
 
@@ -420,7 +420,7 @@ function printFormforCustome($file, $checkValue){
         }
         $form .='<p>'.'Code Module '.$i.'</p> '.'<textarea name="'.$row["custome_name"].'" cols="40" rows="5" id="'.$id.'">'.$row["costume_code"].'</textarea>';
         //$form .= '<button type="submit" name="delete_module'.$i.'" formmethod="POST" value"'.$a[$i-1].'">Delete Module</button>';
-        $form .= '<p>Check this Box if you want to delete this Module</p>';
+        $form .= '<p>Diese Box auswählen, um Modul zu entfernen</p>';
         $form .= '<input type ="checkbox" name ="delete_module_'.$a[$i-1].'" value="'.$a[$i-1].'"/>';
         $i++;
     }
@@ -444,7 +444,7 @@ function setNews($number, $news_number, $uid, $folder){
       $folder = $site_name;
     }
       //create a File for this module
-    $myfile = fopen($folder, "w") or die("Unable to open file!");
+    $myfile = fopen($folder, "w") or die("Datei konnte nicht geöffnet werden!");
     //write file in Database
     $stmt = $conn->prepare("UPDATE table_data SET news_file_name=? WHERE user_id=?");
     $stmt->bind_param("si", $folder, $uid);
@@ -564,12 +564,12 @@ function printFormforNews($uid, $file){
       for ($j=0; $j < $loopvar2; $j++) {
         $h = $n +1;
         $form .='<p>'.'News Number '.$h.'</p>';
-        $form .='<p>Titel </p>'.'<input type="text" class="form-control" class="news_title" placeholder="Title" name="'.'title_'.$title_array[$n].'" value="'.$title_array[$n].'">';
-        $form .='<p>Date </p>'.'<input type="text" class="form-control" class="news_date" placeholder="Date" name="'.'date_'.$title_array[$n].'" value="'.$date_array[$n].'">';
+        $form .='<p>Titel </p>'.'<input type="text" class="form-control" class="news_title" placeholder="Titel" name="'.'title_'.$title_array[$n].'" value="'.$title_array[$n].'">';
+        $form .='<p>Date </p>'.'<input type="text" class="form-control" class="news_date" placeholder="Datum" name="'.'date_'.$title_array[$n].'" value="'.$date_array[$n].'">';
         $form .='<p>Text</p> '.'<textarea name="'.'text_'.$title_array[$n].'" cols="40" rows="5" class="news_text">'.$text_array[$n].'</textarea>';
-        $form .='<p>Image Link </p>'.'<input type="text" class="form-control" class="news_image" placeholder="Image" name="'.'image_'.$title_array[$n].'" value="'.$image_array[$n].'">';
+        $form .='<p>Image Link </p>'.'<input type="text" class="form-control" class="news_image" placeholder="Bild" name="'.'image_'.$title_array[$n].'" value="'.$image_array[$n].'">';
         //$form .= '<button type="submit" name="delete_module'.$i.'" formmethod="POST" value"'.$a[$i-1].'">Delete Module</button>';
-        $form .= '<p>Check this Box if you want to delete this News</p>';
+        $form .= '<p>Diese Box auswählen, um die News zu entfernen</p>';
         $form .= '<input type ="checkbox" name ="delete_news_'.$a[$n].'" value="'.$a[$n].'"/>';
         $n++;
       }
@@ -993,7 +993,7 @@ function setGallery($number, $uid, $folder){
     $stmt->bind_param("s", $var);
     $stmt->execute();
 
-    createGallery($uid, "Mustergallerie", $folder);
+    createGallery($uid, "Mustergalerie", $folder);
 
     printGalleryInFile($uid, $folder);
   }else{
@@ -1018,7 +1018,7 @@ function allGalleries($uid, $gallery){
     //check the number of images in this gallerie
     $number = oneColumnFromTable("gallery_name", $galleryArray[$i], "Image", "gallery_name");
     if(sizeof($number) == 0){
-      array_push($number, "Leere Gallerie");
+      array_push($number, "Leere Galerie");
     }
     $output.= '<div class="col-md-4 col-sm-4 col-xs-6 col-xxs-12 animate-box">
       <div class="img-grid">
@@ -1087,7 +1087,7 @@ function printGalleryInInterface($uid, $file){
   for ($i=0; $i < sizeof($galleryArray); $i++) {
     $number = oneColumnFromTable("gallery_name", $galleryArray[$i], "Image", "gallery_name");
     if(sizeof($number) == 0){
-      array_push($number, "Leere Gallerie");
+      array_push($number, "Leere Galerie");
     }
     $sizeNumber = sizeof($number);
     if(($i%3)==0){
@@ -1211,12 +1211,12 @@ function printFormForGallery($uid, $file){
           $c ++;
           $form .= '</div>';
       }
-      $form .= '<p>Check this Box if you want to delete this Gallery</p>';
+      $form .= '<p>Diese Box auswählen, um die Galerie zu entfernen</p>';
       $form .= '<input type ="checkbox" name ="delete_Gallerie_'.$number_galleries[$i].'" value="'.$number_galleries[$i].'"/>';
 
 
       //now we create a Left and a Right button
-      $form .= '<p>Choose an image to add to your gallery</p>';
+      $form .= '<p>Bild zur Galerie hinzufügen</p>';
       $form .='<p>Name </p>'.'<input type="text" class="form-control" class="name" placeholder="Title" name="'.'name_'.$number_galleries[$i].'" >';
       $form .= '<input type="file" name="add_image'.($i+1).'" accept="image/*">';
       $form .= '<button type="button" class="left'.($i+1).'" value="left'.($i+1).'"><</button>';
@@ -1230,7 +1230,7 @@ function printFormForGallery($uid, $file){
 
       }
     }
-    $form .= '<p>switch to left or to right in order to see the other galeries</p>';
+    $form .= '<p>Nach links und rechts bewegen, um Bilder in anderen Galerien zu sehen</p>';
     $form .= '<button type="button" class="left_gallery" value="left_gallery"><</button>';
     $form .= '<button type="button" class="right_gallery" value="right_gallery">></button>';
   }
@@ -1391,7 +1391,7 @@ function setBuilding($number, $uid, $folder){
     $folder = $site_name;
   }
   //create a File for this module
-  $myfile = fopen($folder, "w") or die("Unable to open file!");
+  $myfile = fopen($folder, "w") or die("Datei konnte nicht geöffnet werden!");
   //write file in Database
   $stmt = $conn->prepare("UPDATE table_data SET building_file_name=? WHERE user_id=?");
   $stmt->bind_param("si", $folder, $uid);
@@ -1412,7 +1412,7 @@ function setWorkers($number, $uid, $folder){
     $folder = $site_name;
   }
   //create a File for this module
-  $myfile = fopen($folder, "w") or die("Unable to open file!");
+  $myfile = fopen($folder, "w") or die("Datei konnte nicht geöffnet werden!");
   //write file in Database
   $stmt = $conn->prepare("UPDATE table_data SET workers_file_name=? WHERE user_id=?");
   $stmt->bind_param("si", $folder, $uid);
@@ -1729,7 +1729,7 @@ function printWorkersInFile($uid, $folder){
     }
   }
   $output .=  '<?php echo printRegularFooter($_SESSION["u_id"]); ?>';
-  $myfile = fopen($folder, "w") or die("Unable to open file!");
+  $myfile = fopen($folder, "w") or die("Datei konnte nicht geöffnet werden!");
   fwrite($myfile, $output);
 }
 
@@ -1780,7 +1780,7 @@ function printWorkersInFile($uid, $folder){
       }
     }
     $output .=  '<?php echo printRegularFooter($_SESSION["u_id"]); ?>';
-    $myfile = fopen($folder, "w") or die("Unable to open file!");
+    $myfile = fopen($folder, "w") or die("Datei konnte nicht geöffnet werden!");
     fwrite($myfile, $output);
   }
 
@@ -1882,7 +1882,7 @@ function createFile($id, $name, $folder){
   }
   //$shell_string = "sudo chmod 777 " .$site_name;
   //shell_exec($shell_string);
-  $myfile = fopen($folder, "w") or die("Unable to open file!");
+  $myfile = fopen($folder, "w") or die("Datei konnte nicht geöffnet werden!");
   return $folder;
 }
 
@@ -1908,7 +1908,7 @@ function setImpressum($uid, $text, $folder){
     $folder = $site_name;
   }
   //create a File for this module
-  $myfile = fopen($folder, "w") or die("Unable to open file!");
+  $myfile = fopen($folder, "w") or die("Datei konnte nicht geöffnet werden!");
   printImpressumInFileTable($uid, $folder);
 }
 
@@ -2499,25 +2499,25 @@ function returnNavbar($uid){
               }
               if(GalleryOn($uid) == 1){
                 $link4 = oneValueFromTableData($uid, "gallery_file_name");
-                $output.= '<li><a href="'.'../'.$link4.'"><span class="glyphicon glyphicon-picture"></span>Gallerie</a></li>';
+                $output.= '<li><a href="'.'../'.$link4.'"><span class="glyphicon glyphicon-picture"></span>Galerie</a></li>';
               }
               $output.= '<li class="dropdown">
-                        <a href="javascript:void(0)"><span class="glyphicon glyphicon-picture"></span> Organisation</a>
+                        <a href="javascript:void(0)"><span class="glyphicon glyphicon-picture"></span>Organisation</a>
                         <div class="dropdown-content">';
               if(WorkersOn($uid) == 1){
               $link7 = oneValueFromTableData($uid, "workers_file_name");
-              $output.= '<a href="'.'../'.$link7.'"><span class="glyphicon glyphicon-th"></span> Mitarbeiter</a>';
+              $output.= '<a href="'.'../'.$link7.'"><span class="glyphicon glyphicon-th"></span>Mitarbeiter</a>';
               }
               if(AnfahrtOn($uid) == 1){
               $link8 = oneValueFromTableData($uid, "anfahrt_file_name");
-              $output.= '<a href="'.'../'.$link8.'"><span class="glyphicon glyphicon-map-marker"></span> Anfahrt</a>';
+              $output.= '<a href="'.'../'.$link8.'"><span class="glyphicon glyphicon-map-marker"></span>Anfahrt</a>';
               }
               if(SignupOn($uid) == 1){
               $link9 = oneValueFromTableData($uid, "signup_file_name");
-              $output.= '<a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span> Einschreibung</a>';
+              $output.= '<a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span>Einschreibung</a>';
               }
               $link10 = 'userid'.$uid.'/impressum_id'.$uid.'.php';
-              $output.= '<a href="'.'../'.$link10.'"><span class="glyphicon glyphicon-road"></span> Impressum</a>';
+              $output.= '<a href="'.'../'.$link10.'"><span class="glyphicon glyphicon-road"></span>Impressum</a>';
               $output.=  '</div></li>';
   $output .= '</ul>
             </nav>
@@ -2617,7 +2617,7 @@ function oneColumnFromTable($column, $file, $table, $columnfile){
 
 //Generierung des ersten Themes
 function ThemeOne($site_name){
-  $myfile = fopen($site_name, "w") or die("Unable to open file!");
+  $myfile = fopen($site_name, "w") or die("Datei konnte nicht geöffnet werden!");
   $txt = returnphpinclude();
   fwrite($myfile, $txt);
   $txt = returnheader();

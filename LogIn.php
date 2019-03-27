@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gruschool</title>
+  <title>PAL School</title>
   <meta charset="utf-8">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -16,11 +16,11 @@
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/test.php">PAL School</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="LogIn.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span>Registrieren</a></li>
+      <li><a href="LogIn.php"><span class="glyphicon glyphicon-log-in"></span>Einloggen</a></li>
     </ul>
   </div>
   </nav>
@@ -39,23 +39,23 @@
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="psw" required>
 
-      <button type="submit" name="login" formmethod="POST">Login</button>
+      <button type="submit" name="login" formmethod="POST">Einloggen</button>
       <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
+        <input type="checkbox" checked="checked" name="remember">Eingeloggt bleiben
       </label>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
+      <button type="button" class="cancelbtn">Abbrechen</button>
+      <span class="psw"><a href="#">Passwort</a> vergessen?</span>
     </div>
   </form>
 
 <footer class="page-footer font-small blue">
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2018 Copyright:
-    <a href="https://mdbootstrap.com/education/bootstrap/"> Patrick Eiden und die annere banause</a>
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <a href="https://mdbootstrap.com/education/bootstrap/">PAL (Patrick Eiden, Amin Harig, Laura Both)</a>
   </div>
   <!-- Copyright -->
 

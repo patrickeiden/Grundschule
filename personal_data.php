@@ -6,7 +6,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gruschool</title>
+  <title>PAL School</title>
   <meta charset="utf-8">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -36,8 +36,8 @@ session_start();
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost/Grundschule/startsite.php">Gruschool</a>
-      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Personal Site</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/startsite.php">PAL School</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Persönliche Seite</a>
     </div>
     <?php
         echo '<form action="fun_exe/LogOut_function.php" method="POST">
@@ -124,34 +124,34 @@ if ($result->num_rows > 0) {
       <br>
           <form method="post" action="<?php $_PHP_SELF ?>">
             <div class="col-sm-12 text-center">
-              <input type="email" class="form-control email" name="Email" value="<?php echo $Email;?>" placeholder="Email" readonly/>
+              <input type="email" class="form-control email" name="Email" value="<?php echo $Email;?>" placeholder="E-Mail" readonly/>
             </div>
             <div class="col-sm-12 text-center">
-              <input type="password" class="form-control" name="Password" value="<?php echo $Password;?>" placeholder="Password"/>
+              <input type="password" class="form-control" name="Password" value="<?php echo $Password;?>" placeholder="Passwort"/>
             </div>
             <div class="col-sm-12 text-center">
-              <input type="text" class="form-control" name="Firstname" value="<?php echo $Firstname;?>" placeholder="Firstname"/>
+              <input type="text" class="form-control" name="Firstname" value="<?php echo $Firstname;?>" placeholder="Vorname"/>
             </div>
             <div class="col-sm-12 text-center">
-              <input type="text" class="form-control" name="Lastname" value="<?php echo $Lastname;?>" placeholder="Lastname"/>
+              <input type="text" class="form-control" name="Lastname" value="<?php echo $Lastname;?>" placeholder="Nachname"/>
             </div>
             <div class="col-sm-12 text-center">
-              <input type="text" class="form-control" name="Gender" value="<?php echo $Gender;?>" placeholder="Gender"/>
+              <input type="text" class="form-control" name="Gender" value="<?php echo $Gender;?>" placeholder="Geschlecht"/>
             </div>
             <div class="col-sm-12 text-center">
-              <input type="text" class="form-control" name="Birthdate" value="<?php echo $Birthdate;?>" placeholder="Birthdate"/>
+              <input type="text" class="form-control" name="Birthdate" value="<?php echo $Birthdate;?>" placeholder="Geburtsdatum"/>
             </div>
             <div class="col-sm-12 text-center">
-              <input type="text" class="form-control" name="Adress" value="<?php echo $Adress;?>" placeholder="Adress"/>
+              <input type="text" class="form-control" name="Adress" value="<?php echo $Adress;?>" placeholder="Adresse"/>
             </div>
             <div class="col-sm-12 text-center">
               <input type="text" class="form-control" name="PLZ" value="<?php echo $PLZ;?>" placeholder="PLZ"/>
             </div>
             <div class="col-sm-12 text-center">
-              <input type="text" class="form-control" name="Note" value="<?php echo $Note;?>" placeholder="Note"/>
+              <input type="text" class="form-control" name="Note" value="<?php echo $Note;?>" placeholder="Notiz"/>
             </div>
             <div class="col-sm-12 text-center">
-              <button type="submit" value="Submit" name="update" class="btn btn-primary btn-lg btn-block" value="Update">Save Changes</button>
+              <button type="submit" value="Submit" name="update" class="btn btn-primary btn-lg btn-block" value="Update">Speichern</button>
             </div>
           </form>
     </div>
@@ -162,8 +162,8 @@ if ($result->num_rows > 0) {
     <footer class="page-footer font-small blue">
 
       <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">© 2018 Copyright:
-        <a href="https://mdbootstrap.com/education/bootstrap/"> Patrick Eiden und die annere banause</a>
+      <div class="footer-copyright text-center py-3">© 2019 Copyright:
+        <a href="https://mdbootstrap.com/education/bootstrap/">PAL (Patrick Eiden, Amin Harig, Laura Both)</a>
       </div>
       <!-- Copyright -->
 
