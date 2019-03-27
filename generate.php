@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gruschool</title>
+  <title>PAL School</title>
   <meta charset="utf-8">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -20,12 +20,12 @@ session_start();
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost/Grundschule/startsite.php">Gruschool</a>
-      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Personal Site</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/startsite.php">PAL School</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Persönliche Seite</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="LogIn.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="LogIn.php"><span class="glyphicon glyphicon-log-in"></span>Einloggen</a></li>
+      <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span>Registrieren</a></li>
     </ul>
   </div>
 </nav>
@@ -37,37 +37,37 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
 
   <div id="main-container">
   <div class="moduleStart">
-    <a onclick="Startmodul()" role="button">Start Modul</a>
+    <a onclick="Startmodul()" role="button">Startseitenmodul</a>
   </div>
     <div class="module1">
-      <a onclick="module1()" role="button">Costume Modul</a>
+      <a onclick="module1()" role="button">Custom-Modul</a>
     </div>
     <div class="module2">
-      <a onclick="module2()" role="button">Kalender Modul</a>
+      <a onclick="module2()" role="button">Kalendermodul</a>
     </div>
     <div class="module3">
-      <a onclick="module3()" role="button">News Modul</a>
+      <a onclick="module3()" role="button">Newsmodul</a>
     </div>
     <div class="module4">
-      <a onclick="module4()" role="button">Galerie Modul</a>
+      <a onclick="module4()" role="button">Galeriemodul</a>
     </div>
     <div class="module5">
-      <a onclick="module5()" role="button">Job Modul</a>
+      <a onclick="module5()" role="button">Jobmodul</a>
     </div>
     <div class="module6">
-      <a onclick="module6()" role="button">Anfahrt Modul</a>
+      <a onclick="module6()" role="button">Anfahrtsmodul</a>
     </div>
     <div class="module7">
-      <a onclick="module7()" role="button">Mitarbeiter Modul</a>
+      <a onclick="module7()" role="button">Mitarbeitermodul</a>
     </div>
     <div class="module8">
-      <a onclick="module8()" role="button">Klassen Modul</a>
+      <a onclick="module8()" role="button">Klassenmodul</a>
     </div>
     <div class="module9">
-      <a onclick="module9()" role="button">Einschreibungs Modul</a>
+      <a onclick="module9()" role="button">Einschreibungsmodul</a>
     </div>
     <div class="module10">
-      <a onclick="module10()" role="button">Impressum Modul</a>
+      <a onclick="module10()" role="button">Impressumsmodul</a>
     </div>
   </div>
 
@@ -76,13 +76,13 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
       <div class="form-group">
         <p>Name der Schule:</p>
         <input type="text" class="form-control" id="nameSchool" placeholder="Name der Schule" name="nameSchool" >
-        <p>Wählen sie ihr Schullogo</p>
+        <p>Logo der Schule auswählen:</p>
         <input type="file" name="logo" accept="image/*" required>
-        <p>Wählen sie zwei Bilder für den Slider:</p>
+        <p>Zwei Bilder für Slider wählen:</p>
         <input type="file" id="school_slider2" name="school_slider2" accept="image/*">
         <p>Überschrift des Textes:</p>
         <input type="text" class="form-control" id="header" placeholder="Überschrift" name="header" required>
-        <p>Beschreibungstext:</p>
+        <p>Kurzbeschreibung:</p>
         <textarea name="desciption" cols="40" rows="5" class="desciption" required></textarea>
       </div>
   </div>
@@ -91,22 +91,22 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
         <p>Title:</p>
           <input type="text" class="form-control" id="title" placeholder="Title" name="title">
           <input type ="checkbox" name ="costume_button" value="1"/>
-          <p class="events">Check this Box if you want to include this Module</p>
+          <p class="events">Diese Box auswählen, um Startseitenmodul abzuschließen</p>
       </div>
   </div>
 
    <div id="calendar_module">
-    <p><b>Calendar module</b></p>
-    <p>Your site will contain an editable calendar showing events and important dates.</p>
+    <p><b>Kalendermodul</b></p>
+    <p>Fügt Ihrer Homepage einen Kalender hinzu, in den Ereignisse und wichtige Daten eingetragen werden können.</p>
     <div class="form-group">
     <input type="checkbox" name="calendar" value="1"/>
-    <p class="events">Check this box if you want to include this calendar module</p>
+    <p class="events">Diese Box auswählen, um Kalendermodul zu integrieren</p>
     </div>
   </div>
 
   <div id="conf-module3">
-    <p>If you want to include news on your website select your prefered settings</p>
-    <p> choose a number between 3-5 to select the number of news your site will show on the front page</p>
+    <p>Wählen Sie die Einstellungen für das Newsmodul.</p>
+    <p>Wählen Sie, wieviele News pro Seite angezeigt werden sollen (3 bis 5)</p>
     <div class="form-group">
     <h5 class="events_h">Number of News</h5>
     <input type ="radio" name ="news_number" value="3"/>
@@ -117,21 +117,21 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <p class="events">5</p>
     </div>
     <input type ="checkbox" name ="news_button" value="1"/>
-    <p class="events">Check this Box if you want to include this module</p>
+    <p class="events">Diese Box auswählen, um Newsmodul zu integrieren</p>
   </div>
 
   <div id="conf-module4">
-    <p>Your site will contain a page with a Galerie containing pictures.<br>
+    <p>Fügt Ihrer Homepage eine Galerie hinzu, in der Bilder präsentiert werden können.<br>
        You can add a new entry for every case e.g. pictures from a specific day. </p>
     <input type ="checkbox" name ="gallery_button" value="1"/>
-    <p class="events">Check this Box if you want to include this module</p>
+    <p class="events">Diese Box auswählen, um Galeriemodul zu integrieren</p>
   </div>
 
   <div id="conf-module5">
-    <p>Your site will contain a page with jobs offered by your school.</p>
+    <p>Fügt Ihrer Website einen Bereich für offene Stellen und Bewerbungen hinzu.</p>
     <input type="checkbox" name="jobs_form" value="Form" />
     <p>Integrated application form</p>
-    <p> choose a number between 3-5 to select the number of news your site will show on the front page</p>
+    <p>Wählen Sie, wieviele Stellenangebote pro Seite angezeigt werden sollen (3 bis 5)</p>
     <div class="form-group">
     <h5 class="events_h">Number of News</h5>
     <input type ="radio" name ="job_number" value="3"/>
@@ -142,7 +142,7 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <p class="events">5</p>
     </div>
     <input type="checkbox" name="job_button" value="1" />
-    <p class="events">Check this box if you want to include this module</p>
+    <p class="events">Diese Box auswählen, um Jobmodul zu integrieren</p>
   </div>
 
   <div id="conf-module6">
@@ -151,34 +151,34 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
     <textarea name="desciption_anfahrt" cols="40" rows="5" class="desciption_anfahrt"></textarea>
     <p>Adresse:</p>
     <input type="text" class="form-control" id="street_school" placeholder="Straße" name="street_school" >
-    <input type="text" class="form-control" id="number_school" placeholder="Straßen Nummer" name="number_school" >
+    <input type="text" class="form-control" id="number_school" placeholder="Nummer" name="number_school" >
     <input type="text" class="form-control" id="plz_school" placeholder="PLZ" name="plz_school" >
     <input type="text" class="form-control" id="ort_school" placeholder="Ort" name="ort_school" >
   </div>
     <input type="checkbox" name="anfahrt_button" value="1" />
-    <p class="events">Check this box if you want to include this module</p>
+    <p class="events">Diese Box auswählen, um Anfahrtsmodul zu integrieren</p>
   </div>
 
   <div id="conf-module7">
-    <p>Ihre Seite enthält eine Auflistung aller Mitarbeiter, die sie eintragen.</p>
+    <p>Fügt Ihrer Homepage eine Auflistung der Mitarbeiter hinzu, die Sie eintragen.</p>
     <input type="checkbox" name="worker_button" value="1" />
-    <p class="events">Check this box if you want to include this module</p>
+    <p class="events">Diese Box auswählen, um Mitarbeitermodul zu integrieren</p>
   </div>
 
   <div id="conf-module8">
-    <p>Ihre Seite enthält eine Auflistung aller Klassen, die sie eintragen.</p>
+    <p>Fügt Ihrer Homepage eine Auflistung aller Klassen hinzu, die Sie eintragen.</p>
     <input type="checkbox" name="classes_button" value="1" />
-    <p class="events">Check this box if you want to include this module</p>
+    <p class="events">Diese Box auswählen, um Klassenmodul zu integrieren</p>
   </div>
 
   <div id="conf-module9">
-    <p>Ihre Seite enthält ein Einschreibungssytem.</p>
+    <p>Fügt Ihrer Homepage ein Einschreibungssytem hinzu.</p>
     <input type="checkbox" name="signup_button" value="1" />
-    <p class="events">Check this box if you want to include this module</p>
+    <p class="events">Diese Box auswählen, um Einschreibungsmodul zu integrieren</p>
   </div>
 
   <div id="conf-module10">
-    <p>Ihre Seite enthält ein Impressum.</p>
+    <p>Ihre Homepage enthält ein Impressum.</p>
     <textarea name="impressum" cols="40" rows="5" class="impressum" ></textarea><br><br>
   </div>
 
@@ -186,7 +186,7 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
    <button type="submit" name="test" formmethod="POST">Generate</button>
   </form>';
 }else{
-  echo  'pls login';
+  echo  'Bitte loggen Sie sich zuerst ein.';
 }
 
 ?>
@@ -195,8 +195,8 @@ echo  '<p href="#" class="show-modules" onclick="vanish()" >Show Modules and Cho
 <footer class="page-footer font-small blue">
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2018 Copyright:
-    <a href="https://mdbootstrap.com/education/bootstrap/"> Patrick Eiden und die annere banause</a>
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <a href="https://mdbootstrap.com/education/bootstrap/">PAL (Patrick Eiden, Amin Harig, Laura Both)</a>
   </div>
   <!-- Copyright -->
 
@@ -305,10 +305,10 @@ function vanish(){
     document.getElementById('conf-module8').style.display="none";
     document.getElementById('conf-module9').style.display="none";
     document.getElementById('conf-module10').style.display="none";
-    document.getElementsByClassName('show-modules')[0].innerHTML="Show Modules and Choose Some";
+    document.getElementsByClassName('show-modules')[0].innerHTML="Module anzeigen und wählen";
     document.getElementsByClassName('show-modules')[0].style.backgroundColor="lightgrey";
   }else{
-    document.getElementsByClassName('show-modules')[0].innerHTML="Click to close";
+    document.getElementsByClassName('show-modules')[0].innerHTML="Schließen (per Klick)";
     document.getElementsByClassName('show-modules')[0].style.backgroundColor="wheat";
 
   }

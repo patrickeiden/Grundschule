@@ -28,7 +28,7 @@
             <li><a href="#" style="text-decoration: none">Startseite </a></li>
             <li><a href="#" style="text-decoration: none">Information</a></li>
             <li><a href="#" style="text-decoration: none">Login</a></li>
-            <li><a href="#" style="text-decoration: none">Submit</a></li>
+            <li><a href="#" style="text-decoration: none">Senden</a></li>
           </ul>
     </nav>
   </div>

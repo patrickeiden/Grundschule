@@ -99,15 +99,15 @@ include 'functions.php';
                     <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
                     <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
                     <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
-                    <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+                    <li><a href="ueberuns.php" style="text-decoration: none">Über uns</a></li>
                     <li><a href="interface.php" style="text-decoration: none">Interface</a></li>
                   </ul>
                   </nav>
                   <form action="fun_exe/LogOut_function.php" method="POST">
-                          <p class="loggedIn text-right"> Logged in with: ';
+                          <p class="loggedIn text-right">Eingeloggt als: ';
                   echo $_SESSION['u_mail'];
                   // echo "<br>";
-                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Logout</button>
+                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Ausloggen</button>
 
                   </form>';
         }else{
@@ -116,7 +116,7 @@ include 'functions.php';
                   <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
                   <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
                   <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
-                  <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+                  <li><a href="ueberuns.php" style="text-decoration: none">Über uns</a></li>
                 </ul>
               </nav>';
         }
@@ -145,43 +145,43 @@ include 'functions.php';
 
         <div class="col-sm-6 text-center">
           <!-- <div> -->
-            <input type="email" class="form-control email text-center" placeholder="E-Mail" name="Email" required>
+            <input type="email" class="form-control email text-center" placeholder="E-Mail" name="E-Mail" required>
           <!-- </div> -->
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="password" class="form-control text-center" placeholder="Passwort" name="Password" required>
+            <input type="password" class="form-control text-center" placeholder="Passwort" name="Passwort" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Vorname" name="Firstname" required>
+            <input type="text" class="form-control" placeholder="Vorname" name="Vorname" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Nachname" name="Lastname" required>
+            <input type="text" class="form-control" placeholder="Nachname" name="Nachname" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Geschlecht" name="Gender" required>
+            <input type="text" class="form-control" placeholder="Geschlecht" name="Geschlecht" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Geburtsdatum" name="Birthdate" required>
+            <input type="text" class="form-control" placeholder="Geburtsdatum" name="Geburtsdatum" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Adresse" name="Adress" required>
+            <input type="text" class="form-control" placeholder="Adresse" name="Adresse" required>
           </div>
         </div>
 
@@ -193,18 +193,18 @@ include 'functions.php';
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" rows="3" placeholder="Bezahlungsart" name="Payment" required>
+            <input type="text" class="form-control" rows="3" placeholder="Bezahlungsart" name="Zahlungsart" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Notiz" name="Note" required>
+            <input type="text" class="form-control" placeholder="Notiz" name="Notiz" required>
           </div>
         </div>
 
         <div class="col-sm-12">
-          <button type="submit" name="submit" class="btn btn-danger btn-lg btn-block center" formmethod="POST">Submit</button>
+          <button type="submit" name="submit" class="btn btn-danger btn-lg btn-block center" formmethod="POST">Absenden</button>
         </div>
       </div>
 
@@ -220,7 +220,7 @@ include 'functions.php';
 
       <!-- Copyright -->
       <div class="footer text-center">
-        <p>© 2018 Copyright</p>
+        <p>© 2019 Copyright</p>
       </div>
       <!-- Copyright -->
 

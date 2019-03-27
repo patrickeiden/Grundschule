@@ -69,16 +69,16 @@ session_start();
             echo '
                   <ul class="navbar_list">
                     <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
-                    <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+                    <li><a href="ueberuns.php" style="text-decoration: none">Über uns</a></li>
                     <li><a href="interface.php" style="text-decoration: none">Interface</a></li>
                   </ul>
                   </nav>
                   <hr>
                   <form action="fun_exe/LogOut_function.php" method="POST">
-                          <p class="loggedIn text-right"> Logged in with: ';
+                          <p class="loggedIn text-right">Eingeloggt als: ';
                   echo $_SESSION['u_mail'];
                   // echo "<br>";
-                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Logout</button>
+                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Ausloggen</button>
 
                   </form>';
         }else{
@@ -87,7 +87,7 @@ session_start();
                   <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
                   <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
                   <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
-                  <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+                  <li><a href="ueberuns.php" style="text-decoration: none">Über uns</a></li>
                 </ul>
               </nav>';
         }
@@ -100,7 +100,7 @@ session_start();
     <div class="col-sm-4 text-center">
       <div id="interface_generate_button">
         <h3 class="text">Generate your Website</h3>
-        <a class="btn btn-success btn-lg" href="generate.php" role="button">Generate</a>
+        <a class="btn btn-success btn-lg" href="generate.php" role="button">Generieren</a>
         <br>
         <br>
         <p> Text </p>
@@ -109,7 +109,7 @@ session_start();
     <div class="col-sm-4 text-center">
       <div id="interface_personal_button">
         <h3 class="text">Change your personal data</h3>
-        <a class="btn btn-success btn-lg" href="personal_data.php" role="button">Data</a>
+        <a class="btn btn-success btn-lg" href="personal_data.php" role="button">Daten</a>
         <br>
         <br>
         <p> Text </p>
@@ -118,7 +118,7 @@ session_start();
     <div class="col-sm-4 text-center">
       <div id="interface_manage_button">
         <h3 class="text">Change settings on your generated site</h3>
-        <a class="btn btn-success btn-lg" href="personalSite.php" role="button">Personal Site</a>
+        <a class="btn btn-success btn-lg" href="personalSite.php" role="button">Persönliche Seite</a>
         <br>
         <br>
         <p> Text </p>
@@ -129,7 +129,7 @@ session_start();
 <footer class="text-center">
 
   <!-- Copyright -->
-  <div class="footer">© 2018 Copyright</div>
+  <div class="footer">© 2019 Copyright</div>
   <!-- Copyright -->
 
 </footer>

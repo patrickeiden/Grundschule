@@ -6,7 +6,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gruschool</title>
+  <title>PAL School</title>
   <meta charset="utf-8">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -31,31 +31,31 @@ if(isset($_SESSION['u_id'])){
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="http://localhost/Grundschule/test.php">Gruschool</a>
-      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Personal Site</a>
+      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Persönliche Seite</a>
     </div>
     <?php
       if(isset($_SESSION['u_id'])){
         echo '<form action="fun_exe/LogOut_function.php" method="POST">
-          <p class="loggedIn"> Logged in with:';
+          <p class="loggedIn">Eingeloggt als: ';
         echo $_SESSION['u_mail'];
-        echo '<button type="submit" name="logout" formmethod="POST" class="logout">Logout</button></li>
+        echo '<button type="submit" name="logout" formmethod="POST" class="logout">Ausloggen</button></li>
       </form> </div>
     </nav>';
   }else{
     echo '  <form action="fun_exe/LogIn_function.php" method="POST">
       <div class="container">
-        <label for="uname"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
+        <label for="uname"><b>E-Mail</b></label>
+        <input type="text" placeholder="E-Mail eingeben" name="email" required>
 
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
+        <label for="psw"><b>Passwort</b></label>
+        <input type="password" placeholder="Passwort eingeben" name="psw" required>
         <label>
-          <input type="checkbox" checked="checked" name="remember"> Remember me
+          <input type="checkbox" checked="checked" name="remember">Eingeloggt bleiben
         </label>
       </div>
       <ul class="nav navbar-nav navbar-right">
-        <li><button type="submit" name="login" formmethod="POST"><span class="glyphicon glyphicon-log-in"></span> Login</button></li>
-        <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><button type="submit" name="login" formmethod="POST"><span class="glyphicon glyphicon-log-in"></span>Einloggen</button></li>
+        <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span>Registrieren</a></li>
       </ul>
     </div>
     </form>
@@ -72,8 +72,8 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
 </div>
 
 <div id="generate_button">
-  <h1>GENERATE YOUR WEBSITE NOW!</h1>
-  <a class="btn btn-warning" href="generate.php" role="button">GENERATE</a>
+  <h1>JETZT EIGENE HOMEPAGE GENERIEREN!</h1>
+  <a class="btn btn-warning" href="generate.php" role="button">GENERIEREN</a>
 </div>
 
 <div id="right_container">
@@ -88,8 +88,8 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
 <footer class="page-footer font-small blue">
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2018 Copyright:
-    <a href="https://mdbootstrap.com/education/bootstrap/"> Patrick Eiden und die annere banause</a>
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <a href="https://mdbootstrap.com/education/bootstrap/">PAL (Patrick Eiden, Amin Harig, Laura Both)</a>
   </div>
   <!-- Copyright -->
 

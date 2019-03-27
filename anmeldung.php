@@ -67,15 +67,15 @@ session_start();
             <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
             <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
             <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
-            <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+            <li><a href="ueberuns.php" style="text-decoration: none">Über uns</a></li>
             <li><a href="interface.php" style="text-decoration: none">Interface</a></li>
           </ul>
           </nav>
           <form action="fun_exe/LogOut_function.php" method="POST">
-                  <p class="loggedIn text-right"> Logged in with: ';
+                  <p class="loggedIn text-right">Eingeloggt als: ';
           echo $_SESSION['u_mail'];
           // echo "<br>";
-          echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Logout</button>
+          echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Ausloggen</button>
 
           </form>';
 }else{
@@ -84,7 +84,7 @@ echo '
           <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
           <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
           <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
-          <li><a href="ueberuns.php" style="text-decoration: none">Über Uns</a></li>
+          <li><a href="ueberuns.php" style="text-decoration: none">Über uns</a></li>
         </ul>
       </nav>';
 }
@@ -122,7 +122,7 @@ echo '
 
       <!-- Copyright -->
       <div class="footer">
-        <p>© 2018 Copyright</p>
+        <p>© 2019 Copyright</p>
       </div>
       <!-- Copyright -->
 
