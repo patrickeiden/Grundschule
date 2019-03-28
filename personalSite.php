@@ -38,6 +38,7 @@ include 'functions.php';
        });
      });
    </script>
+<?php echo returnInterfaceStyle($_SESSION['u_id'])?>
 
 
 <title>Page Title</title>
@@ -67,7 +68,7 @@ include 'functions.php';
     ?>
 
     <!-- Beschreibung des Modul-Containers, in dem die integrierten Module sowie deren Inhalte bearbeitet
-      werden können. Dabei werden alle bereits vorhandenen Daten aus der Datenbank gelesen sowie bei 
+      werden können. Dabei werden alle bereits vorhandenen Daten aus der Datenbank gelesen sowie bei
       Bearbeitung auch wieder in ihr gespeichert. -->
 
     <div id="module_container">
@@ -1297,7 +1298,7 @@ include 'functions.php';
       }
 
       // Aufbau des Bearbeitungskastens für das Impressumsmodul
-      
+
       function clickedImpressum(){
         document.getElementById('currentPage').getElementsByClassName('page_custome')[0].style.display="none";
         document.getElementById('currentPage').getElementsByClassName('page_calendar')[0].style.display="none";

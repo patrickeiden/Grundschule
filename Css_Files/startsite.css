@@ -1,0 +1,52 @@
+html, body{
+  height: 100%;
+}
+
+body{
+  background-color: black;
+  background-image: url("Images/elementary-school-788902_1920.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: left top;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+h3 {
+  color: white;
+}
+
+footer {
+  position: absolute;
+  bottom: 10px;
+  left: 47%;
+  top: 95%;
+}
+
+
+button {
+  background-color: white;
+  color: #9d9d9d;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  z-index: 0;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.container {
+  padding: 16px;
+}
+
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  position: relative;
+}

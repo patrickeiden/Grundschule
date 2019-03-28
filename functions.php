@@ -1303,7 +1303,7 @@ function printImagesonSite($uid, $file, $gallery){
 function createGallery($uid, $name, $file){
   global $conn;
   $code = '';
-  
+
   $sql = "SELECT include FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
@@ -2347,6 +2347,20 @@ function returnInterfaceHeader($uid){
   return $output;
 }
 
+function returnInterfaceStyle($uid){
+  global $conn;
+  $output = "";
+  $sql = "SELECT interface_code_style FROM Theme1";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["interface_code_style"];
+    }
+  }
+  return $output;
+}
+
 function returnInterfaceFooter($uid){
   global $conn;
   $output = "";
@@ -2481,7 +2495,6 @@ function returnNavbar($uid){
   $output = '<div class="row text-center">
   		<div class="col">
   			<nav class="navbar2">
-          <div class="col-sm-3"></div>
   			      <ul class="nav navbar-nav pull-sm-left">
               <li><a href="'.$home.'"><span class="glyphicon glyphicon-home"></span>Home</a></li>';
               if(CustomeOn($uid) == 1){

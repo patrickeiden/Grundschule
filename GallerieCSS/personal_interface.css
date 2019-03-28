@@ -1,0 +1,35 @@
+.page-footer{
+  top: 307px;
+  width: 100%;
+}
+
+body {
+  background-color: #BAB2B5;
+}
+
+h3 {
+  color: white;
+}
+.bottom {
+  margin-bottom: 100px;
+}
+footer {
+    position: absolute;
+    bottom: 10px;
+    left: 47%;
+    color: white;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+    margin-top: 10px;
+  }
+  hr {
+    background-color: white;
+  }
+
+  .container {
+    padding: 16px;
+  }
