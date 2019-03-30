@@ -34,7 +34,6 @@ include 'functions.php';
     html, body{
       height: 100%;
     }
-
     body{
       background-color: black;
       background-image: url("Images/elementary-school-788902_1920.jpg");
@@ -42,13 +41,11 @@ include 'functions.php';
       background-repeat: no-repeat;
       background-position: left top;
     }
-
     .title {
       color: white;
       left: 50%;
       font-size: 25px;
     }
-
     footer {
       position: absolute;
       /*top: 50px;*/
@@ -56,12 +53,10 @@ include 'functions.php';
       left: 47%;
       font-size: 1rem;
     }
-
     .abstand {
       /*margin-top: 50px;*/
       text-align: center;
     }
-
     hr {
       background-color: white;
     }

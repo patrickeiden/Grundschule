@@ -7,50 +7,85 @@ session_start();
 <html>
 <head>
   <title>PAL School</title>
-  <meta charset="utf-8">
+  <?php
+  if(isset($_SESSION['u_id'])){
+    echo '
+    <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">';
+  }else{
+    echo '<link rel="stylesheet" type="text/css" href="Css_Files/index.css">
+    <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">';
+  }
 
+  ?>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <link rel="stylesheet" type="text/css" href="Css_Files/index_Logout.css">
-  <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">
-  <link rel="stylesheet" type="text/css" href="Css_Files/index.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="Css_Files/design.css">
 
   <style>
 
-    input.form-control {
-      width: 80%;
-      margin-bottom:20px;
-      padding: 20px;
-    }
+  input.form-control {
+    width: 80%;
+    margin-bottom:20px;
+    padding: 20px;
+  }
 
-    input.form-control.email {
-      display: inline;
-    }
+  input.form-control.email {
+    display: inline;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  body {
+    background-color: darkmagenta;
+  }
+  h3 {
+    color: white;
+  }
+  .bottom {
+    margin-bottom: 50px;
+  }
+
+  .btn:hover {
+   padding-top: 15px;
+   padding-left: 20px;
+   padding-right: 20px;
+ }
+ 
+/*  footer {
+      position: absolute;
+      bottom: 10px;
+      left: 47%;
+      color: white;
+  }*/
+
+  hr {
+      background-color: white;
+  }
+  .title {
+      color: white;
+      left: 50%;
+      font-size: 25px;
+      text-align: center;
+  }
+  .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 80%;
+  }
 
   </style>
 
 </head>
-<body>
-  <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost/Grundschule/startsite.php">PAL School</a>
-      <a class="navbar-brand" href="http://localhost/Grundschule/interface.php">Persönliche Seite</a>
-    </div>
-    <?php
-        echo '<form action="fun_exe/LogOut_function.php" method="POST">
-          <p class="loggedIn"> Logged in with:';
-        echo $_SESSION['u_mail'];
-        echo '<button type="submit" name="logout" formmethod="POST" class="logout">Logout</button></li>
-      </form> </div>
-    </nav>';
 
-    ?>
-
-<?php
-
+ <?php
 
 $servername = "localhost";
 $username = "root";
@@ -114,20 +149,62 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 
-?>
+?> 
 
+<body>
   <div class="container">
+  <div class="row bottom">
+    <div class="col-sm-12">
+      <nav class="navbar">
+        <h2 class="Title">PAL School</h2>
+        <?php
+          if(isset($_SESSION['u_id'])){
+            echo '
+                  <ul class="navbar_list">
+                    <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
+                    <li><a href="ueberuns.php" style="text-decoration: none">Über uns</a></li>
+                    <li><a href="interface.php" style="text-decoration: none">Interface</a></li>
+                  </ul>
+                  </nav>
+                  <hr>
+                  <form action="fun_exe/LogOut_function.php" method="POST">
+                          <p class="loggedIn text-right">Eingeloggt als: ';
+                  echo $_SESSION['u_mail'];
+                  // echo "<br>";
+                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Ausloggen</button>
+
+                  </form>';
+        }else{
+        echo '
+                <ul class="navbar_list">
+                  <li><a href="startsite.php" style="text-decoration: none">Startseite </a></li>
+                  <li><a href="create_account.php" style="text-decoration: none">Registrieren</a></li>
+                  <li><a  href="anmeldung.php" style="text-decoration: none">Anmelden</a></li>
+                  <li><a href="ueberuns.php" style="text-decoration: none">Über uns</a></li>
+                </ul>
+              </nav>';
+        }
+        ?>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <hr/>
+        <p class="title">Ihre persönliche Daten editieren</p>
+      <hr/>
+    </div>
+  </div>
     <div class="row">
-      <hr>
-        <h3 class="text-center">Your Personal Data</h3>
-      <hr>
+      <div class="col-sm-12">
+
       <br>
           <form method="post" action="<?php $_PHP_SELF ?>">
             <div class="col-sm-12 text-center">
               <input type="email" class="form-control email" name="Email" value="<?php echo $Email;?>" placeholder="E-Mail" readonly/>
             </div>
             <div class="col-sm-12 text-center">
-              <input type="password" class="form-control" name="Password" value="<?php echo $Password;?>" placeholder="Passwort"/>
+              <input type="password" class="form-control email" name="Password" value="<?php echo $Password;?>" placeholder="Passwort"/>
             </div>
             <div class="col-sm-12 text-center">
               <input type="text" class="form-control" name="Firstname" value="<?php echo $Firstname;?>" placeholder="Vorname"/>
@@ -151,19 +228,19 @@ if ($result->num_rows > 0) {
               <input type="text" class="form-control" name="Note" value="<?php echo $Note;?>" placeholder="Notiz"/>
             </div>
             <div class="col-sm-12 text-center">
-              <button type="submit" value="Submit" name="update" class="btn btn-primary btn-lg btn-block" value="Update">Speichern</button>
+              <button type="submit" value="Submit" name="update" class="btn btn-primary btn-lg btn-block center" value="Update">Speichern</button>
             </div>
           </form>
+        </div>
+      </div>
     </div>
   </div>
 
-
-  <div class="col-sm-12">
-    <footer class="page-footer font-small blue">
+    <footer>
 
       <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">© 2019 Copyright:
-        <a href="https://mdbootstrap.com/education/bootstrap/">PAL (Patrick Eiden, Amin Harig, Laura Both)</a>
+      <div class="footer text-center">
+        <p>© 2019 Copyright</p>
       </div>
       <!-- Copyright -->
 
