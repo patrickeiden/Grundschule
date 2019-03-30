@@ -432,7 +432,7 @@ include 'functions.php';
 <footer class="text-center">
 
   <!-- Copyright -->
-  <div class="footer">© 2019 Copyright</div>
+  <div class="footerMain">© 2019 Copyright</div>
   <!-- Copyright -->
 
 </footer>
@@ -934,7 +934,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
     document.getElementById('module_container').getElementsByTagName('div')[0].removeAttribute("onclick");
     document.getElementById('currentPage').style.marginTop="-720px";
     document.getElementById('currentPage').getElementsByClassName('page-footer')[0].style.marginTop="-199px";
-    document.getElementsByClassName('footer')[0].style.bottom="100px";
+    document.getElementsByClassName('footerMain')[0].style.marginTop="200px";
   }
 
   function StartBack(){
@@ -965,7 +965,6 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
     document.getElementsByClassName('impressum')[0].style.display="block";
     document.getElementById('module_container').getElementsByClassName('s_text')[0].style.display="none";
     document.getElementById('module_container').getElementsByTagName('div')[0].setAttribute("onclick", "clickedStart()");
-    document.getElementsByClassName('page-footer')[0].style.top="200px";
     var temp = marginTopCurrentPage;
     document.getElementById('currentPage').style.marginTop="-420px";
   }

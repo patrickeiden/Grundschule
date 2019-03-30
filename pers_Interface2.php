@@ -445,7 +445,8 @@ session_start();
   <footer class="text-center">
 
     <!-- Copyright -->
-    <div class="footer">© 2018 Copyright</div>
+    <div class="footerMain">© 2018 Copyright</div>
+    <p>hallo</p>
     <!-- Copyright -->
 
   </footer>
