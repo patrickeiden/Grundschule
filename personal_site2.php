@@ -170,19 +170,27 @@ include 'functions.php';
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$result2.'
                       <p>Add an event: (Date ex.: 2018-03-27)</p>
+                      <div class="event">
                         <input type="text" class="form-control" id="event_title" placeholder="Titel" name="event_title">
-                        <input type="text" class="form-control" id="event_date" placeholder="Datum" name="event_date"><br>
+                        <input type="text" class="form-control" id="event_date" placeholder="Datum" name="event_date">
+                      </div>
                         <p>Modul hinzufügen:</p>
                         <p>Titel:</p>
                         <input type="text" class="form-control" id="title" placeholder="Title" name="calendar_title">
                         <p>Code:</p>
                         <textarea name="calendar_code" cols="40" rows="5" class="code"></textarea>
-                        <button type="submit" name="newEvent" formmethod="POST" value="'.$name2.'">Ereignis hinzufügen:</button>
-                        <button type="submit" name="newModuleabove" formmethod="POST" value="'.$name2.'">Neues Modul über Kalender hinzuf.</button>
-                        <button type="submit" name="newModuleunder" formmethod="POST" value="'.$name2.'">Neues Modul unter Kalender hinzuf.</button>
-                        <button type="submit" name="delete2" formmethod="POST" value="'.$name2.'">Module entfernen</button>
-                        <button type="submit" name="changes_calendar" formmethod="POST" value="'.$name2.'">Speicherns</button>
-                        <button class="go_back2" onclick="CalendarBack()" name="backbutton">Zurück</button>
+                        <div class="updownmodule">
+                          <button type="submit" name="newModuleabove" formmethod="POST" value="'.$name2.'">Neues Modul über Kalender hinzuf.</button>
+                          <button type="submit" name="newModuleunder" formmethod="POST" value="'.$name2.'">Neues Modul unter Kalender hinzuf.</button>
+                        </div>
+                        <div class="updownmodule">
+                          <button type="submit" name="newEvent" formmethod="POST" value="'.$name2.'">Ereignis hinzufügen:</button>
+                          <button type="submit" name="delete2" formmethod="POST" value="'.$name2.'">Module entfernen</button>
+                        </div>
+                        <div class="updownmodule">
+                          <button type="submit" name="changes_calendar" formmethod="POST" value="'.$name2.'">Speicherns</button>
+                          <button class="go_back2" onclick="CalendarBack()" name="backbutton">Zurück</button>
+                        </div>
                       </div>
                     </form>
                   </div>
@@ -236,22 +244,29 @@ include 'functions.php';
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$result6.'
                         <p>füge einen Mitarbeiter hinzu</p>
-                        <input type="text" class="form-control" id="worker_adress" placeholder="Anrede" name="workers_adress">
-                        <input type="text" class="form-control" id="worker_vorname" placeholder="Vorname" name="workers_firstname">
-                        <input type="text" class="form-control" id="worker_nachname" placeholder="Nachname" name="workers_lastname">
-                        <input type="text" class="form-control" id="worker_job" placeholder="Job" name="workers_job">
-                        <input type="text" class="form-control" id="worker_tel" placeholder="Telefon" name="workers_tel">
+                        <div class="person">
+                          <input type="text" class="form-control" id="worker_adress" placeholder="Anrede" name="workers_adress">
+                          <input type="text" class="form-control" id="worker_vorname" placeholder="Vorname" name="workers_firstname">
+                          <input type="text" class="form-control" id="worker_nachname" placeholder="Nachname" name="workers_lastname">
+                        </div>
+                        <div class="workersinfo">
+                          <input type="text" class="form-control" id="worker_job" placeholder="Job" name="workers_job">
+                          <input type="text" class="form-control" id="worker_tel" placeholder="Telefon" name="workers_tel">
+                        </div>
                         <input type="file" class="form-control" id="worker_img" name="worker_image" accept="image/*">
-                        <p><input type ="radio" name ="workers_type" value="leader"/>Führungsposition</p>
-                        <p><input type ="radio" name ="workers_type" value="secr"/>Sekretariat</p>
-                        <p><input type ="radio" name ="workers_type" value="teacher"/>Lehrer/innen</p>
-                        <p><input type ="radio" name ="workers_type" value="other"/>Andere</p>
+                        <div class="types">
+                          <p><input type ="radio" name ="workers_type" value="leader"/>Führungsposition</p>
+                          <p><input type ="radio" name ="workers_type" value="secr"/>Sekretariat</p>
+                          <p><input type ="radio" name ="workers_type" value="teacher"/>Lehrer/innen</p>
+                          <p><input type ="radio" name ="workers_type" value="other"/>Andere</p>
+                        </div>
                         <button type="submit" name="add_workers_button" formmethod="POST" value="'.$name6.'">Hinzuf.</button>
                         <button type="submit" name="delete_workers_button" formmethod="POST" value="'.$name6.'">Entfernen</button>
                         <button class="go_back6" onclick="WorkersBack()" name="backbutton">Zurück</button>
                       </div>
                     </form>
                   </div>
+                 </div>
                 </div>';
         }
 
@@ -517,6 +532,7 @@ if(NewsOn($_SESSION['u_id']) == 1){
 
 if(WorkersOn($_SESSION['u_id']) == 1){
   echo 'var workerson = 1;';
+  //$workersNumber = oneValueFromTableData(workers_id)
 }else{
   echo 'var workerson = 0;';
 }
@@ -934,7 +950,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
     document.getElementById('module_container').getElementsByTagName('div')[0].removeAttribute("onclick");
     document.getElementById('currentPage').style.marginTop="-720px";
     document.getElementById('currentPage').getElementsByClassName('page-footer')[0].style.marginTop="-199px";
-    document.getElementsByClassName('footerMain')[0].style.marginTop="200px";
+    document.getElementsByClassName('footerMain')[0].style.marginTop="132px";
   }
 
   function StartBack(){
@@ -1422,7 +1438,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
         if(calendar == 0){
           calendar = 1;
-          var temp = 528 + (calendarnumber*208);
+          var temp = 381 + (calendarnumber*170);
           $(".calendarModule").animate({height:temp+"px"},500);
           $(".calendarModule > .text").hide();
         }
@@ -1469,7 +1485,8 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(workers == 0){
             workers = 1;
-            $(".workersModule").animate({height:"700px"},500);
+            var temp = 236 + (newsnumber*402);
+            $(".workersModule").animate({height:"236px"},500);
             $(".workersModule > .text").hide();
           }
           $(".go_back6").click(function() {

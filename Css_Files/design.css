@@ -260,7 +260,7 @@ a:hover{
   font-size: 15px;
 }
 
-p, a, h1, ul{
+a, h1, ul{
   font-family: 'Open Sans', sans-serif;
   color: white!important;
   text-decoration: none
