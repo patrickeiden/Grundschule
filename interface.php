@@ -40,6 +40,13 @@ session_start();
   .bottom {
     margin-bottom: 100px;
   }
+
+  .btn:hover {
+   padding-top: 15px;
+   padding-left: 20px;
+   padding-right: 20px;
+ }
+ 
   footer {
       position: absolute;
       bottom: 10px;

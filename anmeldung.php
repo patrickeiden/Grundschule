@@ -25,6 +25,9 @@ session_start();
       height: 100%;
     }
 
+    #pal {
+      margin-top: 32px;
+    }
     body{
       background-color: black;
       background-image: url("Images/elementary-school-788902_1920.jpg");
