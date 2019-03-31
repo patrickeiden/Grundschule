@@ -32,8 +32,9 @@ session_start();
     width: 100%;
   }
   body {
-    background-color: darkmagenta; mediumslateblue darkmagenta
+    background-color: #BAB2B5; mediumslateblue darkmagenta
   }
+
   h3 {
     color: white;
   }
@@ -46,7 +47,7 @@ session_start();
    padding-left: 20px;
    padding-right: 20px;
  }
- 
+
   footer {
       position: absolute;
       bottom: 10px;

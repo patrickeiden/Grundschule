@@ -437,7 +437,7 @@ include 'functions.php';
       </div>
       <div class="page_impressum">
         <?php
-          //echo printImpressumInInterface($_SESSION['u_id']);
+          echo printImpressumInInterface($_SESSION['u_id']);
         ?>
       </div>
     </div>
@@ -496,10 +496,12 @@ if(GalleryOn($_SESSION['u_id']) == 1){
   $filenameGallery = oneValueFromTableData($_SESSION['u_id'], "gallery_file_name");
   $resultGallery = printFormForGallery($_SESSION['u_id'], $filenameGallery);
   $numberGalleries = oneColumnFromTable("gallery_name", $filenameGallery, "Galleries", "gallery_file_name");
+  $numberImages = allImages($_SESSION['u_id'], $numberGalleries);
   for ($i=0; $i < sizeof($numberGalleries); $i++) {
     echo 'var leftright'.($i+1).'= 1;';
   }
   echo 'var numbergalleries = '.sizeof($numberGalleries).';';
+  echo 'var numberimages = '.$numberImages.';';
   echo $resultGallery[sizeof($resultGallery)-2];
   echo 'var galleryon = 1;';
 }else{
@@ -532,7 +534,11 @@ if(NewsOn($_SESSION['u_id']) == 1){
 
 if(WorkersOn($_SESSION['u_id']) == 1){
   echo 'var workerson = 1;';
-  //$workersNumber = oneValueFromTableData(workers_id)
+  $fileName = 'userid'.$_SESSION['u_id'].'/workers_id'.$_SESSION['u_id'].'.php';
+  $sql = "SELECT workers_id FROM workers WHERE workers_file_name='$fileName'";
+  $result = $conn->query($sql);
+  $workersnumber = $result->num_rows;
+  echo 'var workersnumber=  '.$workersnumber.';';
 }else{
   echo 'var workerson = 0;';
 }
@@ -905,7 +911,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
     document.getElementsByClassName('startModule')[0].style.display="block";
     document.getElementsByClassName('impressum')[0].style.display="block";
     document.getElementById('currentPage').getElementsByClassName('page_gallery')[0].style.display="none";
-    document.getElementsByClassName('page-footer')[0].style.top="200px";
+    document.getElementById('currentPage').getElementsByClassName('page-footer')[0].style.top="-10px";
   }
 
   // Aufbau des Bearbeitungskastens für das Startseitenmodul
@@ -1062,7 +1068,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
     document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="block";
     document.getElementById('module_container').getElementsByClassName('w_text')[0].style.display="none";
     document.getElementById('module_container').getElementsByTagName('div')[wClick].setAttribute("onclick", "clickedWorkers()");
-    document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
+    document.getElementById('currentPage').getElementsByClassName('page-footer')[0].style.top="-10px";
   }
 
   // Aufbau des Bearbeitungskastens für das Anfahrtsmodul
@@ -1145,6 +1151,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
     document.getElementById('module_container').getElementsByClassName('a_text')[0].style.display="none";
     document.getElementById('module_container').getElementsByTagName('div')[aClick].setAttribute("onclick", "clickedAnfahrt()");
     document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
+    document.getElementById('currentPage').getElementsByClassName('page-footer')[0].style.top="-10px";
   }
 
   // Aufbau des Bearbeitungskastens für das Klassenmodul
@@ -1194,7 +1201,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
     var curr = -511 - (402*newsnumber);
     var foot = 460 + (402*newsnumber);
     document.getElementById('currentPage').style.marginTop=curr+"px";
-    document.getElementsByClassName('page-footer')[0].style.top=foot+"px";
+    document.getElementById('currentPage').getElementsByClassName('page-footer')[0].style.top="-10px";
   }
 
   function ClassesBack(){
@@ -1415,6 +1422,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
     document.getElementById('module_container').getElementsByClassName('i_text')[0].style.display="none";
     document.getElementById('module_container').getElementsByTagName('div')[iClick].setAttribute("onclick", "clickedImpressum()");
     document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
+    document.getElementById('currentPage').getElementsByClassName('page-footer')[0].style.top="-10px";
   }
 
 
@@ -1422,7 +1430,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
       $(".costumeModule").click(function () {
         if(custome == 0){
           custome = 1;
-          var temp = 554+(customenumber*206);
+          var temp = 388+(customenumber*130);
           $(".costumeModule").animate({height:temp+"px"},500);
           $(".costumeModule > .text").hide();
         }
@@ -1470,7 +1478,13 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(gallery == 0){
             gallery = 1;
-            $(".galleryModule").animate({height:"700px"},500);
+            var temp = 110;
+            if(numbergalleries >3){
+             temp += 3*50;
+           }else{
+             temp += (numbergalleries*230)+(numberimages*40);
+           }
+            $(".galleryModule").animate({height:temp+"px"},500);
             $(".galleryModule > .text").hide();
           }
           $(".go_back4").click(function() {
@@ -1485,8 +1499,8 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(workers == 0){
             workers = 1;
-            var temp = 236 + (newsnumber*402);
-            $(".workersModule").animate({height:"236px"},500);
+            var temp = 236 + (workersnumber*64);
+            $(".workersModule").animate({height:temp+"px"},500);
             $(".workersModule > .text").hide();
           }
           $(".go_back6").click(function() {
@@ -1501,7 +1515,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(anfahrt == 0){
             anfahrt = 1;
-            $(".anfahrtModule").animate({height:"700px"},500);
+            $(".anfahrtModule").animate({height:"333px"},500);
             $(".anfahrtModule > .text").hide();
           }
           $(".go_back7").click(function() {
@@ -1546,7 +1560,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(impressum == 0){
             impressum = 1;
-            $(".impressum").animate({height:"200px"},500);
+            $(".impressum").animate({height:"180px"},500);
             $(".impressum > .text").hide();
           }
           $(".go_back10").click(function() {

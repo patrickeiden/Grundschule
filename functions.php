@@ -1002,6 +1002,18 @@ function setGallery($number, $uid, $folder){
     $stmt->execute();
   }
 }
+//returns the number of all images in all Galleries for one user
+function allImages($uid, $galleries){
+  global $conn;
+  $images = 0;
+  for ($i=0; $i < sizeof($galleries); $i++) {
+    $gallerie = $galleries[$i];
+    $sql = "SELECT image_id FROM Image WHERE gallery_name='$gallerie'";
+    $result = $conn->query($sql);
+    $images += $result->num_rows;
+  }
+  return $images;
+}
 
 function allGalleries($uid, $gallery){
   global $conn;
@@ -1092,7 +1104,7 @@ function printGalleryInInterface($uid, $file){
     $sizeNumber = sizeof($number);
     if(($i%3)==0){
       if($i<3){
-        $output2 .= '<div class="col-md-2">';
+        $output2 .= '<div class="col-md-4">';
       }
       $output2 .= '<div class="col-md-12 col-sm-12 animate-box">
         <div class="img-grid">
@@ -1104,7 +1116,7 @@ function printGalleryInInterface($uid, $file){
     }
     if(($i%3)==1){
       if($i<3){
-        $output3 .= '<div class="col-md-2">';
+        $output3 .= '<div class="col-md-4">';
       }
       $output3 .= '<div class="col-md-12 col-sm-12 animate-box">
         <div class="img-grid">
@@ -1116,7 +1128,7 @@ function printGalleryInInterface($uid, $file){
     }
     if(($i%3)==2){
       if($i<3){
-        $output4 .= '<div class="col-md-2">';
+        $output4 .= '<div class="col-md-4">';
       }
       $output4 .= '<div class="col-md-12 col-sm-12 animate-box">
         <div class="img-grid">
@@ -1791,25 +1803,33 @@ function printWorkersInFile($uid, $folder){
     $link = oneColumnFromTable("maps", $uid, "anfahrt", "user_id");
     $text = oneColumnFromTable("text", $uid, "anfahrt", "user_id");
     $output .= '<div class="container">
-    <div class="col-sm-6">
-      <hr>
-        <h1 class="text-center">Anfahrt</h1>
-      <hr>
+    <div class="row">
+      <div class="col-sm-12">
+        <hr>
+          <h1 class="text-center">Anfahrt</h1>
+        <hr>
       </div>
-      <div class="col-sm-7"></div>
-      <div class="col-sm-6"><p class="anfahrt_text">'.$text[0].'</p></div>
-      <div class="col-sm-7"></div>
-      <div class="row">
+    </div>
+    <div class="row">
+      <div class="col-sm-12"><p class="anfahrt_text">'.$text[0].'</p></div>
+    </div>
+    <div class="row">
+
           <div class="col-sm-6">
                 <div style="height:300px;width:100%;"><iframe width="" height="300" src="'.$link[0].'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="height:300px;width:100%;"></iframe>
                 	<p style="text-align:right; margin:0px; padding-top:-10px; line-height:10px;font-size:10px;margin-top: -25px;"><a href="http://www.checkpoll.de/google-maps-generator/" style="font-size:10px;" target="_blank">Google Maps Generator</a> von <a href="https://www.on-projects.de/" style="font-size:10px;" title="Webdesign in Stuttgart" target="_blank">on-projects</a>
                 	</p>
                 </div>
                 <h5>Leicht per Bus oder Auto erreichbar.</h5>
-            <hr>
          </div>
-
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <hr>
       </div>
+    </div>
+
+
     </div>';
     $output .= returnInterfaceFooter($uid);
 
@@ -1983,14 +2003,15 @@ function printImpressumInInterface($uid){
   $output = "";
   $output .= returnInterfaceHeader($uid);
   $output .= '<div class="container">
-  <div class="col-sm-6">
-    <hr>
-      <h1 class="text-center">Impressum</h1>
-    <hr>
+  <div class="row">
+    <div class="col-sm-12">
+      <hr>
+        <h1 class="text-center">Impressum</h1>
+      <hr>
     </div>
-    <div class="col-sm-8"></div>
+  </div>
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
               <div>
                 <p>Bei Anfragen, Beschwerden, Hinweisen und Anregungen wenden Sie sich bitte zunächst an den Verantwortlichen für die Website:</p>';
   $output.= '<p class="impressum_text">'.$text[0];

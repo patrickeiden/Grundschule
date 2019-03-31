@@ -145,6 +145,29 @@ body {
   margin-left: 25px;
 }
 
+#module_container .anfahrtModule button {
+    width: 38%;
+    font-size: 14px;
+}
+
+#module_container .impressum button {
+    width: 38%;
+    font-size: 14px;
+}
+
+#module_container .galleryModule {
+  text-align: left;
+}
+
+#module_container .galleryModule button {
+    width: 19%;
+}
+
+#module_container .costumeModule button {
+    width: 42%;
+    font-size: 14px;
+}
+
 .logo{
  width: 100%;
  height: 100%;
