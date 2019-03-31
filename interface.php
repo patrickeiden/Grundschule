@@ -126,7 +126,7 @@ session_start();
     <div class="col-sm-4 text-center">
       <div id="interface_manage_button">
         <h3 class="text">Change settings on your generated site</h3>
-        <a class="btn btn-success btn-lg" href="personalSite.php" role="button">Persönliche Seite</a>
+        <a class="btn btn-success btn-lg" href="personal_site2.php" role="button">Persönliche Seite</a>
         <br>
         <br>
         <p> Text </p>

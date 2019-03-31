@@ -56,5 +56,5 @@ if(isset($_POST['add_workers_button'])){
 if(isset($_POST['delete_workers_button'])){
   deleteWorkers($_SESSION['u_id'], $_POST['delete_workers_button']);
 }
-header('Location: http://localhost/Grundschule/personalSite.php');
+header('Location: http://localhost/Grundschule/personal_site2.php');
 ?>
