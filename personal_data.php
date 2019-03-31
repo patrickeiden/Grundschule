@@ -43,7 +43,7 @@ session_start();
   }
 
   body {
-    background-color: darkmagenta;
+    background-color: #BAB2B5;
   }
   h3 {
     color: white;
@@ -57,7 +57,7 @@ session_start();
    padding-left: 20px;
    padding-right: 20px;
  }
- 
+
 /*  footer {
       position: absolute;
       bottom: 10px;
@@ -97,7 +97,7 @@ $conn = new mysqli($servername, $username, $password, "news");
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+}
 
 $email = $_SESSION['u_mail'];
 
@@ -149,7 +149,7 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 
-?> 
+?>
 
 <body>
   <div class="container">
