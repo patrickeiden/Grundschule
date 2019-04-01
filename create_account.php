@@ -137,7 +137,7 @@ include 'functions.php';
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Passwort" name="Passwort" required>
+            <input type="password" class="form-control" placeholder="Passwort" name="Passwort" required>
           </div>
         </div>
 

@@ -19,7 +19,6 @@ session_start();
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="Css_Files/design.css">
   <!-- Einige Einstellungen für das Erscheinungsbild der Seite -->
   <style>
     html, body{
@@ -35,6 +34,10 @@ session_start();
     }
 
     h3 {
+      color: white;
+    }
+
+    h4 {
       color: white;
     }
 
@@ -102,7 +105,11 @@ session_start();
       <div class="col-sm-12">
         <div class="wrapper fadeInDown">
         <div id="formContent">
-          <h3> TEXT </h3>
+          <h3>Willkommen bei PAL School!</h3>
+          <br>
+          <h4>Um zu beginnen, loggen Sie sich bitte ein.
+            <br>(im Menü oben rechts)
+          </h4>
         </div>
         </div>
       </div>

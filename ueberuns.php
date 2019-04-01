@@ -35,6 +35,11 @@ session_start();
       color: white;
     }
 
+    p {
+      color: white;
+      font-size: 12px;
+    }
+
     footer {
       position: absolute;
       bottom: 10px;
@@ -96,7 +101,12 @@ echo '
       <div class="col-sm-12">
         <div class="wrapper fadeInDown">
         <div id="formContent">
-          <h3> TEXT </h3>
+          <h3> Über uns </h3>
+          <br>
+          <p>
+            PAL School ist ein gemeinsames Projekt von uns, PAL: Unser Kürzel für Patrick Eiden, Amin Harig und Laura Both.
+          Unser Ziel ist es, eine leistungsfähige Plattform zur Erstellung und Verwaltung einer eigenen Homepage bereitzustellen, und dies unter dem Zeichen größtmöglicher Benutzerfreundlichkeit und Einfachheit. PAL School ist dabei an Grundschulen gerichtet und für ihre Bedürfnisse spezialisiert.
+          </p>
         </div>
         </div>
       </div>
