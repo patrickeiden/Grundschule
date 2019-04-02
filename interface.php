@@ -32,7 +32,7 @@ session_start();
     width: 100%;
   }
   body {
-    background-color: #BAB2B5; mediumslateblue darkmagenta
+    background-color: #BAB2B5;
   }
 
   h3 {
@@ -69,9 +69,14 @@ session_start();
       font-weight: bold;
       color: white;
       margin-top: 30px;
+      position: relative;
+      right: 7%;
     }
     .text-right{
       color: white;
+    }
+    .navbar {
+      margin-top: 8px;
     }
 </style>
 </head>
