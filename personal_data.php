@@ -57,6 +57,16 @@ session_start();
    padding-left: 20px;
    padding-right: 20px;
  }
+ .Title {
+   font-size: 32px;
+   font-weight: bold;
+   color: white;
+   margin-top: 30px;
+ }
+ .text-right{
+   color: white;
+ }
+ 
 
 /*  footer {
       position: absolute;

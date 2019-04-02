@@ -101,7 +101,7 @@ echo '
         <div id="formContent">
           <form action="fun_exe/LogIn_function.php" method="POST" autocomplete="off">
             <input type="text" id="login" class="fadeIn second" name="email" placeholder="E-Mail" required>
-            <input type="text" id="password" class="fadeIn third" name="psw" placeholder="Passwort" required>
+            <input type="password" id="password" class="fadeIn third" name="psw" placeholder="Passwort" required>
             <!-- <input type="submit" class="fadeIn fourth center" value="Anmelden" name="login" formmethod="POST"> -->
             <br>
             <button type="submit" value="Anmelden" name="login" class="btn btn-primary btn-lg btn-block center" formmethod="POST">Anmelden</button>

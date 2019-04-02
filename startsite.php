@@ -38,6 +38,10 @@ session_start();
       color: white;
     }
 
+    h4 {
+      color: white;
+    }
+
     footer {
       position: absolute;
       bottom: 10px;
@@ -102,7 +106,11 @@ session_start();
       <div class="col-sm-12">
         <div class="wrapper fadeInDown">
         <div id="formContent">
-          <h3> TEXT </h3>
+          <h3>Willkommen bei PAL School!</h3>
+         <br>
+         <h4>Um zu beginnen, loggen Sie sich bitte ein.
+           <br>(im Menü oben rechts)
+         </h4>
         </div>
         </div>
       </div>

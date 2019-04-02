@@ -64,6 +64,15 @@ session_start();
     hr {
       background-color: white;
     }
+    .Title {
+      font-size: 32px;
+      font-weight: bold;
+      color: white;
+      margin-top: 30px;
+    }
+    .text-right{
+      color: white;
+    }
 </style>
 </head>
 <body>
@@ -117,7 +126,7 @@ session_start();
     <div class="col-sm-4 text-center">
       <div id="interface_personal_button">
         <h3 class="text">Change your personal data</h3>
-        <a class="btn btn-danger btn-lg" href="personal_data.php" role="button">Daten</a>
+        <a class="btn btn-primary btn-lg" href="personal_data.php" role="button">Daten</a>
         <br>
         <br>
         <p> Text </p>
@@ -126,7 +135,7 @@ session_start();
     <div class="col-sm-4 text-center">
       <div id="interface_manage_button">
         <h3 class="text">Change settings on your generated site</h3>
-        <a class="btn btn-dark btn-lg" href="personal_site2.php" role="button">Persönliche Seite</a>
+        <a class="btn btn-primary btn-lg" href="personal_site2.php" role="button">Persönliche Seite</a>
         <br>
         <br>
         <p> Text </p>

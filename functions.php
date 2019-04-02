@@ -2516,7 +2516,7 @@ function returnNavbar($uid){
   $output = '<div class="row text-center">
   		<div class="col">
   			<nav class="navbar2">
-  			      <ul class="nav navbar-nav pull-sm-left">
+  			      <ul>
               <li><a href="'.$home.'"><span class="glyphicon glyphicon-home"></span> Home</a></li>';
               if(CustomeOn($uid) == 1){
                 $var = printCustomeTitel($uid);
