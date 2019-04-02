@@ -2509,7 +2509,7 @@ function returninterfacecode($uid){
   }
   return $output;
 }
-
+//class="nav navbar-nav pull-sm-left
 function returnNavbar($uid){
   global $conn;
   $home = '../'.'userid'.$uid.'/frontpageUser'.$uid.'.php';
