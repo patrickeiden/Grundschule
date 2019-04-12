@@ -36,9 +36,14 @@ include 'functions.php';
 <body>
 <div class="container">
   <div class="row bottom">
-    <div class="col-sm-12">
+    <div class="col-sm-1">
+    </div>
+    <div class="col-sm-3">
+      <h2 class="Title">PAL School</h2>
+    </div>
+
+    <div class="col-sm-8">
       <nav class="navbar">
-        <h2 class="Title">PAL School</h2>
         <?php
           if(isset($_SESSION['u_id'])){
           $link = oneColumnFromTable("siteone_name", $_SESSION['u_id'], "registration", "data_id");
@@ -50,7 +55,6 @@ include 'functions.php';
                     <li><a href="'.$link[0].'" target="_blank" style="text-decoration: none">Generierte Seite</a></li>
                   </ul>
                   </nav>
-                  <hr>
                   <form action="fun_exe/LogOut_function.php" method="POST">
                           <p class="loggedIn text-right">Eingeloggt als: ';
                   echo $_SESSION['u_mail'];
@@ -69,6 +73,11 @@ include 'functions.php';
               </nav>';
         }
         ?>
+    </div>
+  </div>
+  <div class="row line">
+    <div class="col-sm-12">
+      <hr>
     </div>
   </div>
   <!-- Beschreibung des Modul-Containers, in dem die integrierten Module sowie deren Inhalte bearbeitet

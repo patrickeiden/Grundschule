@@ -1,10 +1,20 @@
 
 body {
-  background-color: #BAB2B5!important; mediumslateblue darkmagenta
+  background-color: #BAB2B5;
+  margin-top: 14px;
 }
 
 #currentPage h1{
   color: black!important;
+}
+
+.text-center{
+  max-width: 115%;
+}
+
+.red{
+  max-width: 115%;
+  background-color: #AC3B61;
 }
 
 #firstheader {
@@ -17,6 +27,7 @@ body {
   font-weight: bold;
   color: white;
   margin-top: 30px;
+  margin-left: 26px;
 }
 .text-right{
   color: white;
@@ -46,6 +57,7 @@ li a {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  padding-bottom: 24px;
 }
 
 #currentPage li {
@@ -390,6 +402,16 @@ footer {
 
   #module_container .n_text{
     display: none;
+  }
+
+  .line{
+    position: relative;
+    top: -144px;
+  }
+
+  .loggedIn{
+    position: relative;
+    top: 18px;
   }
 
   #currentPage{

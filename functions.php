@@ -2513,7 +2513,7 @@ function returninterfacecode($uid){
 function returnNavbar($uid){
   global $conn;
   $home = '../'.'userid'.$uid.'/frontpageUser'.$uid.'.php';
-  $output = '<div class="row text-center">
+  $output = '<div class="row text-center red">
   		<div class="col">
   			<nav class="navbar2">
   			      <ul>

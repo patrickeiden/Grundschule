@@ -70,7 +70,7 @@ session_start();
       color: white;
       margin-top: 30px;
       position: relative;
-      right: 7%;
+      right: 16%;
     }
     .text-right{
       color: white;

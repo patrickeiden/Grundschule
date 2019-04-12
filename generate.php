@@ -11,7 +11,7 @@ session_start();
   }else{
     echo '<link rel="stylesheet" type="text/css" href="Css_Files/index.css">
     <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">';
-  } 
+  }
 
   ?>
   <meta charset="utf-8">
@@ -126,40 +126,41 @@ session_start();
     <?php
     //Step 1-3. this container contains all modules available on the site
     if(isset($_SESSION['u_id'])){
-    echo  '<p href="#" class="show-modules btn btn-primary" onclick="vanish()">Module anzeigen lassen und aussuchen</p>
+    echo  '
+      <p href="#" class="show-modules btn btn-primary" onclick="vanish()">Module anzeigen lassen und aussuchen</p>
 
       <div id="main-container">
-      <div class="moduleStart">
+      <div class="moduleStart boxdesign">
         <a onclick="Startmodul()" role="button">Startseitenmodul</a>
       </div>
-        <div class="module1">
+        <div class="module1 boxdesign">
           <a onclick="module1()" role="button">Custom-Modul</a>
         </div>
-        <div class="module2">
+        <div class="module2 boxdesign">
           <a onclick="module2()" role="button">Kalendermodul</a>
         </div>
-        <div class="module3">
+        <div class="module3 boxdesign">
           <a onclick="module3()" role="button">Newsmodul</a>
         </div>
-        <div class="module4">
+        <div class="module4 boxdesign">
           <a onclick="module4()" role="button">Galeriemodul</a>
         </div>
-        <div class="module5">
+        <div class="module5 boxdesign">
           <a onclick="module5()" role="button">Jobmodul</a>
         </div>
-        <div class="module6">
+        <div class="module6 boxdesign">
           <a onclick="module6()" role="button">Anfahrtsmodul</a>
         </div>
-        <div class="module7">
+        <div class="module7 boxdesign">
           <a onclick="module7()" role="button">Mitarbeitermodul</a>
         </div>
-        <div class="module8">
+        <div class="module8 boxdesign">
           <a onclick="module8()" role="button">Klassenmodul</a>
         </div>
-        <div class="module9">
+        <div class="module9 boxdesign">
           <a onclick="module9()" role="button">Einschreibungsmodul</a>
         </div>
-        <div class="module10">
+        <div class="module10 boxdesign">
           <a onclick="module10()" role="button">Impressumsmodul</a>
         </div>
       </div>
@@ -288,11 +289,11 @@ session_start();
 </div>
 </div>
 
-<!-- <footer class="text-center">
+<footer class="text-center">
 
   <div class="footer">© 2019 Copyright</div>
 
-</footer> -->
+</footer>
 </div>
 
 </body>
@@ -406,12 +407,15 @@ function vanish(){
     document.getElementById('conf-module8').style.display="none";
     document.getElementById('conf-module9').style.display="none";
     document.getElementById('conf-module10').style.display="none";
+    document.getElementById('generate_button').style.display="none";
     // document.getElementById('generate_button').style.display="none";
     document.getElementsByClassName('show-modules')[0].innerHTML="Module anzeigen und wählen";
   }else{
     document.getElementsByClassName('show-modules')[0].innerHTML="Schließen (per Klick)";
+    document.getElementById('generate_button').style.display="block";
 
-  }  
+
+  }
 }
 
 $(document).ready(function () {

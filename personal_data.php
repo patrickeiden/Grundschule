@@ -44,6 +44,7 @@ session_start();
 
   body {
     background-color: #BAB2B5;
+    margin-top: 8px;
   }
   h3 {
     color: white;
@@ -66,7 +67,7 @@ session_start();
  .text-right{
    color: white;
  }
- 
+
 
 /*  footer {
       position: absolute;
@@ -89,6 +90,15 @@ session_start();
       margin-left: auto;
       margin-right: auto;
       width: 80%;
+  }
+
+  .Title {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    margin-top: 30px;
+    position: relative;
+    right: 16%;
   }
 
   </style>

@@ -75,6 +75,7 @@ textarea {
   margin-right: 640px;
   position: relative;
   top: 50px;
+  display: none;
 }
 
 .page-footer{
@@ -213,12 +214,23 @@ textarea {
   border-radius: .25rem;
 }
 .show-modules {
-  width: 300px;
+  width: 500px;
   /*padding-left: 43px;*/
   /*margin-top: -20px;*/
   /*font-weight: bold;*/
   /*text-align: center;*/
   margin-bottom: 15px;
+}
+
+.hide-modules {
+  width: 500px;
+  /*padding-left: 43px;*/
+  /*margin-top: -20px;*/
+  /*font-weight: bold;*/
+  /*text-align: center;*/
+  margin-bottom: 15px;
+  display: none;
+
 }
 
 #conf-module1{
@@ -403,6 +415,10 @@ img{
   position: relative;
   margin-top: -20px;
   top: -20px;
+}
+
+.boxdesign{
+  background-color: #123C69;
 }
 
 .navbar{
