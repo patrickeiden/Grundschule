@@ -93,11 +93,11 @@
        <img class="logo" src="../Images/Logo_grundschule.jpg" alt="Smiley face"  height="170" width="170">       
      </div>  
    </div> 
- </div><div class="row text-center">
+ </div><div class="row text-center red">
   		<div class="col">
   			<nav class="navbar2">
-  			      <ul class="nav navbar-nav pull-sm-left">
-              <li><a href="../userid19/frontpageUser19.php"><span class="glyphicon glyphicon-home"></span> Home</a></li><li><a href="../"><span class="glyphicon glyphicon-star"></span>Not Empty</a></li><li><a href="../userid19/calendar_id19.php"><span class="glyphicon glyphicon-calendar"></span> Events</a></li><li><a href="../userid19/gallery_id19.php"><span class="glyphicon glyphicon-picture"></span> Galerie</a></li><li class="dropdown">
+  			      <ul>
+              <li><a href="../userid19/frontpageUser19.php"><span class="glyphicon glyphicon-home"></span> Home</a></li><li><a  class="custome" href="../"><span class="glyphicon glyphicon-star"></span>Not</a></li><li><a href="../userid19/calendar_id19.php"><span class="glyphicon glyphicon-calendar"></span> Events</a></li><li><a href="../userid19/gallery_id19.php"><span class="glyphicon glyphicon-picture"></span> Galerie</a></li><li class="dropdown">
                         <a href="javascript:void(0)"><span class="glyphicon glyphicon-picture"></span> Organisation</a>
                         <div class="dropdown-content"><a href="../userid19/workers_id19.php"><span class="glyphicon glyphicon-th"></span> Mitarbeiter</a><a href="../userid19/anfahrt_id19.php"><span class="glyphicon glyphicon-map-marker"></span> Anfahrt</a><a href="../userid19/impressum_id19.php"><span class="glyphicon glyphicon-road"></span> Impressum</a></div></li></ul>
             </nav>

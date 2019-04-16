@@ -1434,6 +1434,23 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
     document.getElementById('currentPage').getElementsByClassName('page-footer')[0].style.top="-10px";
   }
 
+  function image1(){
+      var image = document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].getElementsByClassName('image1')[0].src;
+      document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].getElementsByClassName('bigimage')[0].src=image;
+  }
+  function image2(){
+      var image = document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].getElementsByClassName('image2')[0].src;
+      document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].getElementsByClassName('bigimage')[0].src=image;
+  }
+  function image3(){
+      var image = document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].getElementsByClassName('image3')[0].src;
+      document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].getElementsByClassName('bigimage')[0].src=image;
+  }
+  function image4(){
+      var image = document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].getElementsByClassName('image4')[0].src;
+      document.getElementById('currentPage').getElementsByClassName('page_anfahrt')[0].getElementsByClassName('bigimage')[0].src=image;
+  }
+
 
     $(document).ready(function () {
       $(".costumeModule").click(function () {
@@ -1739,6 +1756,10 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
             $numberCustome = oneColumnFromTable("custome_name", $name1, "Module", "custome_file");
             $num_rowsCustome = sizeof($numberCustome);
             echo 'var customeRows ='.$num_rowsCustome.';';
+            //for the navbar
+            echo '$("#nav_title").keyup(function(){
+              document.getElementById("currentPage").getElementsByClassName("navbar2")[0].getElementsByClassName("custome")[0].textContent = $(this).val();;
+            });';
             for ($i=0; $i < $num_rowsCustome; $i++) {
               echo 'var numberLoop'.($i+1).' ='.($i+1).';';
               $name = 'customeName_'.($i+1);
@@ -1823,7 +1844,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                   document.getElementById("currentPage").getElementsByClassName("street")[0].innerHTML = $(this).val();
                 });
                 $("#school_name").keyup(function (){
-                        document.getElementById("currentPage").getElementsByClassName("name")[0].innerHTML = $(this).val();
+                        document.getElementById("currentPage").getElementsByClassName("Title")[0].innerHTML = $(this).val();
                 });
                 $("#school_header").keyup(function (){
                         document.getElementById("currentPage").getElementsByClassName("header")[0].innerHTML = $(this).val();

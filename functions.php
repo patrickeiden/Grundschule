@@ -1538,8 +1538,7 @@ function printWorkersInInterface($uid, $file){
     <hr>
       <h1 class="text-center">Leiter/innen</h1>
     <hr>
-    <div class="row">
-    <div class="col-sm-12">';
+    <div class="row">';
 
   $sql = "SELECT type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='leader'";
   $result = $conn->query($sql);
@@ -1556,14 +1555,13 @@ function printWorkersInInterface($uid, $file){
 
     }
   }
-  $output .= '</div>
+  $output .= '
   </div>';
 
   $output .= '<hr>
       <h1 class="text-center">Sekretariat</h1>
     <hr>
-    <div class="row">
-    <div class="col-sm-12">';
+    <div class="row">';
 
   $sql = "SELECT type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='secr'";
   $result = $conn->query($sql);
@@ -1578,14 +1576,13 @@ function printWorkersInInterface($uid, $file){
         </div>';
     }
   }
-  $output .= '</div>
+  $output .= '
   </div>';
 
   $output .= '<hr>
       <h1 class="text-center">Lehrer</h1>
     <hr>
-    <div class="row">
-    <div class="col-sm-12">';
+    <div class="row">';
 
   $sql = "SELECT type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='teacher'";
   $result = $conn->query($sql);
@@ -1600,14 +1597,13 @@ function printWorkersInInterface($uid, $file){
         </div>';
     }
   }
-  $output .= '</div>
+  $output .= '
   </div>';
 
   $output .= '<hr>
       <h1 class="text-center">Sonstige</h1>
     <hr>
-    <div class="row">
-    <div class="col-sm-12">';
+    <div class="row">';
 
   $sql = "SELECT type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='other'";
   $result = $conn->query($sql);
@@ -1622,7 +1618,7 @@ function printWorkersInInterface($uid, $file){
         </div>';
     }
   }
-  $output .= '</div>
+  $output .= '
   </div>';
 
   $output .= '<hr>
@@ -1802,6 +1798,31 @@ function printWorkersInFile($uid, $folder){
     $output .= returnInterfaceHeader($uid);
     $link = oneColumnFromTable("maps", $uid, "anfahrt", "user_id");
     $text = oneColumnFromTable("text", $uid, "anfahrt", "user_id");
+    $image1 = oneColumnFromTable("Image_building1", $uid, "anfahrt", "anfahrt_id");
+    var_dump($image1);
+    if($image1[0] == '#'){
+      $image1 = '';
+    }else{
+      $image1 = $image1[0];
+    }
+    $image2 = oneColumnFromTable("Image_building2", $uid, "anfahrt", "anfahrt_id");
+    if($image2[0] == '#'){
+      $image2 = '';
+    }else{
+      $image2 = $image2[0];
+    }
+    $image3 = oneColumnFromTable("Image_building3", $uid, "anfahrt", "anfahrt_id");
+    if($image3[0] == '#'){
+      $image3 = '';
+    }else{
+      $image3 = $image3[0];
+    }
+    $image4 = oneColumnFromTable("Image_building4", $uid, "anfahrt", "anfahrt_id");
+    if($image4[0] == '#'){
+      $image4 = '';
+    }else{
+      $image4 = $image4[0];
+    }
     $output .= '<div class="container">
     <div class="row">
       <div class="col-sm-12">
@@ -1811,7 +1832,9 @@ function printWorkersInFile($uid, $folder){
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12"><p class="anfahrt_text">'.$text[0].'</p></div>
+      <div class="col-sm-6"><p class="anfahrt_text">'.$text[0].'</p></div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-5"><p class="anfahrt_building">hier sehen sie einen Lageplan</p></div>
     </div>
     <div class="row">
 
@@ -1820,8 +1843,23 @@ function printWorkersInFile($uid, $folder){
                 	<p style="text-align:right; margin:0px; padding-top:-10px; line-height:10px;font-size:10px;margin-top: -25px;"><a href="http://www.checkpoll.de/google-maps-generator/" style="font-size:10px;" target="_blank">Google Maps Generator</a> von <a href="https://www.on-projects.de/" style="font-size:10px;" title="Webdesign in Stuttgart" target="_blank">on-projects</a>
                 	</p>
                 </div>
-                <h5>Leicht per Bus oder Auto erreichbar.</h5>
          </div>
+         <div class="col-sm-1"></div>
+         <div class="col-sm-5">
+          <img class="bigimage" src="'.$image1.'">
+         </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-7"></div>
+      <div class="col-sm-5">
+        <div class="row">
+        <div class="col-sm-3"><img onclick="image1()" class="image1" src="'.$image1.'"></div>
+        <div class="col-sm-3"><img onclick="image2()" class="image2" src="'.$image2.'"></div>
+        <div class="col-sm-3"><img onclick="image3()" class="image3" src="'.$image3.'"></div>
+        <div class="col-sm-3"><img onclick="image4()" class="image4" src="'.$image4.'"></div>
+        </div>
+      </div>
+
     </div>
     <div class="row">
       <div class="col-sm-12">
@@ -2521,7 +2559,7 @@ function returnNavbar($uid){
               if(CustomeOn($uid) == 1){
                 $var = printCustomeTitel($uid);
                 $link = oneValueFromTableData($uid, "custome_file_name");
-                $output.= '<li><a href="'.'../'.$link.'"><span class="glyphicon glyphicon-star"></span>'.$var.'</a></li>';
+                $output.= '<li><a  class="custome" href="'.'../'.$link.'"><span class="glyphicon glyphicon-star"></span>'.$var.'</a></li>';
               }
               if(CalendarOn($uid) == 1){
                 $link2 = oneValueFromTableData($uid, "calendar_file");
