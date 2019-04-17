@@ -1778,7 +1778,7 @@ function printWorkersInFile($uid, $folder){
   function printAnfahrtInFile($uid, $folder){
     global $conn;
     $output = "";
-    $header =  '<?php echo printRegularHeader($_SESSION["u_id"], ""); ?>';
+    $header =  '<?php echo printRegularHeader($_SESSION["u_id"], "anfahrt"); ?>';
     $sql = "SELECT include, allAnfahrt FROM Theme1regular";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -1799,7 +1799,6 @@ function printWorkersInFile($uid, $folder){
     $link = oneColumnFromTable("maps", $uid, "anfahrt", "user_id");
     $text = oneColumnFromTable("text", $uid, "anfahrt", "user_id");
     $image1 = oneColumnFromTable("Image_building1", $uid, "anfahrt", "anfahrt_id");
-    var_dump($image1);
     if($image1[0] == '#'){
       $image1 = '';
     }else{
@@ -1838,7 +1837,7 @@ function printWorkersInFile($uid, $folder){
     </div>
     <div class="row">
 
-          <div class="col-sm-6">
+        <div class="col-sm-6">
                 <div style="height:300px;width:100%;"><iframe width="" height="300" src="'.$link[0].'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="height:300px;width:100%;"></iframe>
                 	<p style="text-align:right; margin:0px; padding-top:-10px; line-height:10px;font-size:10px;margin-top: -25px;"><a href="http://www.checkpoll.de/google-maps-generator/" style="font-size:10px;" target="_blank">Google Maps Generator</a> von <a href="https://www.on-projects.de/" style="font-size:10px;" title="Webdesign in Stuttgart" target="_blank">on-projects</a>
                 	</p>
@@ -1897,22 +1896,66 @@ function printWorkersInFile($uid, $folder){
     global $conn;
     $link = oneColumnFromTable("maps", $uid, "anfahrt", "user_id");
     $text = oneColumnFromTable("text", $uid, "anfahrt", "user_id");
+    $image1 = oneColumnFromTable("Image_building1", $uid, "anfahrt", "anfahrt_id");
+    if($image1[0] == '#'){
+      $image1 = '';
+    }else{
+      $image1 = '../'.$image1[0];
+    }
+    $image2 = oneColumnFromTable("Image_building2", $uid, "anfahrt", "anfahrt_id");
+    if($image2[0] == '#'){
+      $image2 = '';
+    }else{
+      $image2 = '../'.$image2[0];
+    }
+    $image3 = oneColumnFromTable("Image_building3", $uid, "anfahrt", "anfahrt_id");
+    if($image3[0] == '#'){
+      $image3 = '';
+    }else{
+      $image3 = '../'.$image3[0];
+    }
+    $image4 = oneColumnFromTable("Image_building4", $uid, "anfahrt", "anfahrt_id");
+    if($image4[0] == '#'){
+      $image4 = '';
+    }else{
+      $image4 = '../'.$image4[0];
+    }
     $output = "";
     $output .= '<div class="container">
       <hr>
         <h1 class="text-center">Anfahrt</h1>
       <hr>
 
-      <p class="anfahrt_text">'.$text[0].'</p>
+      <div class="row">
+        <div class="col-sm-6">
+          <p class="anfahrt_text">'.$text[0].'</p>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5"><p class="anfahrt_building">hier sehen sie einen Lageplan</p></div>
+      </div>
       <div class="row">
           <div class="col-sm-6">
                 <div style="height:300px;width:100%;"><iframe width="" height="300" src="'.$link[0].'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="height:300px;width:100%;"></iframe>
                 	<p style="text-align:right; margin:0px; padding-top:-10px; line-height:10px;font-size:10px;margin-top: -25px;"><a href="http://www.checkpoll.de/google-maps-generator/" style="font-size:10px;" target="_blank">Google Maps Generator</a> von <a href="https://www.on-projects.de/" style="font-size:10px;" title="Webdesign in Stuttgart" target="_blank">on-projects</a>
                 	</p>
                 </div>
-                <h5>Leicht per Bus oder Auto erreichbar.</h5>
             <hr>
          </div>
+         <div class="col-sm-1"></div>
+         <div class="col-sm-5">
+          <img class="bigimage" src="'.$image1.'">
+         </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-7"></div>
+      <div class="col-sm-5">
+        <div class="row">
+        <div class="col-sm-3"><img onclick="image1()" class="image1" src="'.$image1.'"></div>
+        <div class="col-sm-3"><img onclick="image2()" class="image2" src="'.$image2.'"></div>
+        <div class="col-sm-3"><img onclick="image3()" class="image3" src="'.$image3.'"></div>
+        <div class="col-sm-3"><img onclick="image4()" class="image4" src="'.$image4.'"></div>
+        </div>
+      </div>
 
       </div>
     </div>';
@@ -2474,14 +2517,26 @@ function printRegularHeader($uid, $type){
   $output = "";
   $cheader= false;
   $gheader = false;
+  $aheader = false;
   if($type == "calendar"){
     $cheader = true;
   }
   if($type == "gallery"){
     $gheader = true;
   }
+  if($type == "anfahrt"){
+    $aheader = true;
+  }
   $name = "";
   $image = "";
+
+  $anfahrt_header2 = "";
+  $sql = "SELECT anfahrt_header2 FROM Theme1regular2";
+  $result = $conn->query($sql);
+  while($row = $result->fetch_assoc()) {
+      $anfahrt_header2.= $row["anfahrt_header2"];
+  }
+
   $sql = "SELECT name, image FROM Page WHERE user_id = $uid";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
@@ -2491,7 +2546,7 @@ function printRegularHeader($uid, $type){
         $image.= '../'.$row["image"];
     }
   }
-  $sql = "SELECT include, header, calendar_header, events, calendar_header2, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text,
+  $sql = "SELECT include, header, calendar_header, events, anfahrt_header, calendar_header2, regular_code_left, regular_code_name, regular_code_image, navfunktion, 	regular_code_right, slider, regular_code_right2, regular_code_header, regular_code_text,
   gallery_header FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
@@ -2503,7 +2558,10 @@ function printRegularHeader($uid, $type){
       else if($gheader){
         $output.= $row["include"].$row["gallery_header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"];
       }
-      else if(!$cheader && !$gheader){
+      else if($aheader){
+        $output.= $row["include"].$row["header"].$row["anfahrt_header"]." ".$anfahrt_header2." ".$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"];
+      }
+      else if(!$cheader && !$gheader && !$aheader){
         $output.= $row["include"].$row["header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"];
       }
     }
