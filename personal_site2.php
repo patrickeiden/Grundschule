@@ -1541,7 +1541,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(anfahrt == 0){
             anfahrt = 1;
-            $(".anfahrtModule").animate({height:"333px"},500);
+            $(".anfahrtModule").animate({height:"450px"},500);
             $(".anfahrtModule > .text").hide();
           }
           $(".go_back7").click(function() {
@@ -1901,6 +1901,9 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 $("#anfahrt_text").keyup(function (){
                   document.getElementById("currentPage").getElementsByClassName("anfahrt_text")[0].innerHTML = $(this).val();
                 });
+                $("#anfahrt_text2").keyup(function (){
+                  document.getElementById("currentPage").getElementsByClassName("anfahrt_building")[0].innerHTML = $(this).val();
+                });
                 $(".impressum_button").click(function (){
                     var impressum_text = $("#school_impressum").val();
                     $.ajax({
@@ -1913,10 +1916,15 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
               });
               $(".save_changes_anfahrt").click(function (){
                   var anfahrt_text = $("#anfahrt_text").val();
+                  var anfahrt_text2 = $("#anfahrt_text2").val();
+                  var streetSchool = $("#streetSchool").val();
+                  var housenumberSchool = $("#housenumberSchool").val();
+                  var plzSchool = $("#plzSchool").val();
+                  var ortSchool = $("#ortSchool").val();
                   $.ajax({
                     type:"POST",
                     url: "onChangeImpressum.php",
-                    data: {Codeanfahrt:anfahrt_text},
+                    data: {Codeanfahrt:anfahrt_text, Codebuilding:anfahrt_text2, Codestreet:streetSchool, CodeHouse:housenumberSchool, Codeplz:plzSchool, Codeort:ortSchool},
                     success: function (data) {
                     }
                 });

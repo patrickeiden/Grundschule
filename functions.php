@@ -1741,8 +1741,14 @@ function printWorkersInFile($uid, $folder){
   fwrite($myfile, $output);
 }
 
-  function setAnfahrt($number, $uid, $folder, $street, $plz, $ort, $text, $housenumber){
+  function setAnfahrt($number, $uid, $folder, $street, $plz, $ort, $text, $text2, $housenumber){
     global $conn;
+    if($text==""){
+      $text = "Mustertext";
+    }
+    if($text2==""){
+      $text2 = "Mustertext";
+    }
     $stmt = $conn->prepare("UPDATE table_data SET anfahrt_on=? WHERE user_id=?");
     $stmt->bind_param("ii", $number, $uid);
     $stmt->execute();
@@ -1760,9 +1766,8 @@ function printWorkersInFile($uid, $folder){
     $stmt->bind_param("si", $folder, $uid);
     $stmt->execute();
     $maps = 'https://maps.google.de/maps?hl=de&q=%20'.$street.'+'.$housenumber.'%20'.$ort.'&t=&z=10&ie=utf8&iwloc=b&output=embed';
-    $stmt = $conn->prepare("INSERT INTO anfahrt (maps, text, street, plz, ort, user_id, anfahrt_file_name) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $street = $street.' '.$housenumber;
-    $stmt->bind_param("sssssis", $maps, $text, $street, $plz, $ort, $uid, $folder);
+    $stmt = $conn->prepare("INSERT INTO anfahrt (maps, text, text2 street, streetNumber, plz, ort, user_id, anfahrt_file_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssissis", $maps, $text, $text2, $street, $housenumber, $plz, $ort, $uid, $folder);
     $stmt->execute();
 
     $var = '<?php $file = "userid".$_SESSION["u_id"]."/anfahrt_id".$_SESSION["u_id"].".php";';
@@ -1798,6 +1803,7 @@ function printWorkersInFile($uid, $folder){
     $output .= returnInterfaceHeader($uid);
     $link = oneColumnFromTable("maps", $uid, "anfahrt", "user_id");
     $text = oneColumnFromTable("text", $uid, "anfahrt", "user_id");
+    $text2 = oneColumnFromTable("text2", $uid, "anfahrt", "user_id");
     $image1 = oneColumnFromTable("Image_building1", $uid, "anfahrt", "anfahrt_id");
     if($image1[0] == '#'){
       $image1 = '';
@@ -1833,7 +1839,7 @@ function printWorkersInFile($uid, $folder){
     <div class="row">
       <div class="col-sm-6"><p class="anfahrt_text">'.$text[0].'</p></div>
       <div class="col-sm-1"></div>
-      <div class="col-sm-5"><p class="anfahrt_building">hier sehen sie einen Lageplan</p></div>
+      <div class="col-sm-5"><p class="anfahrt_building">'.$text2[0].'</p></div>
     </div>
     <div class="row">
 
@@ -1876,14 +1882,16 @@ function printWorkersInFile($uid, $folder){
   function printFormforAnfahrt($uid, $file){
     global $conn;
     $output = '<div class="anfahrtform">';
-    $sql = "SELECT text, street, plz, ort, user_id FROM anfahrt WHERE anfahrt_file_name = '$file' and user_id ='$uid'";
+    $sql = "SELECT text, text2, street, streetNumber, plz, ort, user_id FROM anfahrt WHERE anfahrt_file_name = '$file' and user_id ='$uid'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-          $output.= '<p>Text:</p> <textarea name="anfahrt_text" cols="40" rows="5" id="anfahrt_text" >'.$row['text'].'</textarea>';
+          $output.= '<p>Text:</p> <textarea name="anfahrt_text" cols="40" rows="5" id="anfahrt_text" >'.$row['text'].'</textarea>
+          <textarea name="anfahrt_text2" cols="40" rows="5" id="anfahrt_text2" >'.$row['text2'].'</textarea>';
           $output.= '<p>Adresse:</p>';
           $output.= '<input type="text" class="form-control" id="streetSchool" placeholder="Straße" name="streetSchool" value="'.$row['street'].'">';
+          $output.= '<input type="text" class="form-control" id="housenumberSchool" placeholder="Nummer" name="housenumberSchool" value="'.$row['streetNumber'].'">';
           $output.= '<input type="text" class="form-control" id="plzSchool" placeholder="PLZ" name="plzSchool" value="'.$row['plz'].'">';
           $output.= '<input type="text" class="form-control" id="ortSchool" placeholder="Ort" name="ortSchool" value="'.$row['ort'].'">';
       }

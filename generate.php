@@ -242,8 +242,10 @@ session_start();
       <div id="conf-module6">
       <div class="form-group">
       <h5> Fügt Ihrer Wesbite ein Anfahrtsmodul hinzu.</h5>
-        <p>Beschreibung:</p>
+        <p>Beschreibung Anfahrt:</p>
         <textarea name="desciption_anfahrt" cols="40" rows="5" class="desciption_anfahrt"></textarea>
+        <p>Beschreibung Gebäude:</p>
+        <textarea name="desciption_building" cols="40" rows="5" class="desciption_building"></textarea>
         <p>Adresse:</p>
         <input type="text" class="form-control" id="street_school" placeholder="Straße" name="street_school" >
         <input type="text" class="form-control" id="number_school" placeholder="Nummer" name="number_school" >
