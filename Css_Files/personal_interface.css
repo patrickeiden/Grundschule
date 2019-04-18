@@ -531,6 +531,31 @@ footer {
   .dropdown:hover .dropdown-content {
     display: block;
   }
+
+  .codeModuleSave{
+    width: 66%;
+    margin-left: 0%;
+    margin-top: 0px!important;
+  }
+
+  .saveButton{
+    width: 16%!important;
+    height: 81px;
+    margin-top: -75px;
+    margin-left: -1px;
+    border-radius: 0px 5px 5px 0px;
+  }
+
+  .deleteButton{
+    width: 16%!important;
+    height: 81px;
+    margin-top: -76px;
+    margin-left: -1px;
+    border-radius: 5px 0px 0px 5px;
+    margin-top: -76px;
+    margin-left: 1px;
+  }
+
   #currentPage img {
       width: 100%;
   }
@@ -550,8 +575,8 @@ textarea {
     overflow: auto;
     resize: vertical;
     text-align: center;
-    border-radius: 5px 5px 5px 5px;
     width: 98%;
+    border-radius: 0px 0px 0px 0px;
 }
 
 input[type=text] {

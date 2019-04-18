@@ -272,6 +272,7 @@ function createCustome($uid, $title, $code, $file){
   //header('Location: http://localhost/Grundschule/personalSite.php');
 }
 
+//checkbox System
 function deleteCustome($uid, $button){
   global $conn;
   $a = array();
@@ -296,6 +297,13 @@ function deleteCustome($uid, $button){
         $stmt->execute();
       }
   }
+}
+
+function deleteCustomeButton($name, $file){
+  global $conn;
+  $stmt = $conn->prepare("DELETE FROM Module WHERE custome_name = ? and custome_file = ?");
+  $stmt->bind_param('ss', $name, $file);
+  $stmt->execute();
 }
 
 function numberCostume($uid, $name){
@@ -418,10 +426,13 @@ function printFormforCustome($file, $checkValue){
         }else{
           $id = 'code'.$i;
         }
-        $form .='<p>'.'Code Module '.$i.'</p> '.'<textarea name="'.$row["custome_name"].'" cols="40" rows="5" id="'.$id.'">'.$row["costume_code"].'</textarea>';
+        $form .= '<button type="button" class="btn btn-danger deleteButton" name="delete" value="'.$a[$i-1].'" formmethod="POST">Löschen</button>';
+        $form .= '<textarea name="'.$row["custome_name"].'" class="codeModuleSave" cols="40" rows="5" id="'.$id.'">'.$row["costume_code"].'</textarea>';
+        $form .= '<button type="button" class="btn btn-info saveButton changes'.$i.'" name="changes'.$i.'" value="'.$a[$i-1].'" formmethod="POST">Speichern</button>';
+        $name = 'changes'.$i;
+        $_SESSION[$name] = $a[$i-1];
         //$form .= '<button type="submit" name="delete_module'.$i.'" formmethod="POST" value"'.$a[$i-1].'">Delete Module</button>';
-        $form .= '<p>Diese Box auswählen, um Modul zu entfernen</p>';
-        $form .= '<input type ="checkbox" name ="delete_module_'.$a[$i-1].'" value="'.$a[$i-1].'"/>';
+        //$form .= '<input type ="checkbox" name ="delete_module_'.$a[$i-1].'" value="'.$a[$i-1].'"/>';
         $i++;
     }
   }

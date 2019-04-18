@@ -142,6 +142,7 @@ include 'functions.php';
           $nav1 = printCustomeTitel($_SESSION['u_id']);
           $name1 = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
           $result1 = printFormforCustome($name1, false);
+          $_SESSION['CustomeFileName'] = $name1;
           echo '<div class="costumeModule" onclick="clickedCustome()">
                   <p class="text">Das Custom-Modul ist in Ihre Homepage integriert.</p>
                   <div class="c_text">
@@ -149,7 +150,7 @@ include 'functions.php';
                     <form action="update_site.php" method="POST">
                     <div class="form-group">
                       <p>Titel der Navigationsbar für Custom-Modul:</p>
-                        <input type="text" class="form-control" id="nav_title" placeholder="Titel" name="nav_title" value="'.$nav1 .'">
+                        <input type="text" class="form-control" id="nav_title" placeholder="Titel" maxlength="12" name="nav_title" value="'.$nav1 .'">
                     </div>
                     <div class="form-group">'.$result1.'
                       <p>Modul hinzufügen</p>
@@ -1929,6 +1930,19 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                     }
                 });
             });';
+
+            for ($i=0; $i < $numbercustome; $i++) {
+              echo '$(".changes'.($i+1).'").click(function (){
+                var name = $(this).attr("value");
+                $.ajax({
+                  type: "POST",
+                  url: "onChange2.php",
+                  data: {
+                      Module: name
+                  }
+                });
+              });';
+            }
 
           ?>
       });

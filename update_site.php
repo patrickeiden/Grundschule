@@ -3,14 +3,15 @@
 session_start();
 include 'functions.php';
 
-if(isset($_POST['changes'])){
-  updateCustome($_POST['changes'], $_SESSION['u_id'], false);
+if(isset($_SESSION['changes'])){
+  updateCustome($_SESSION['changes'], $_SESSION['u_id'], false);
 }
 if(isset($_POST['newModule'])){
   createCustome($_SESSION['u_id'], $_POST['custome_title'], $_POST['custome_code'], $_POST['newModule']);
 }
 if(isset($_POST['delete'])){
-  deleteCustome($_SESSION['u_id'], $_POST['delete']);
+  //deleteCustome($_SESSION['u_id'], $_POST['delete']); this is for the checkbox variant
+  deleteCustome($_POST['delete'], $_SESSION['CustomeFileName']);
 }
 if(isset($_POST['newModuleabove'])){
   createCustome($_SESSION['u_id'], $_POST['calendar_title'], $_POST['calendar_code'], $_POST['newModuleabove']);
