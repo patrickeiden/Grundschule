@@ -1613,6 +1613,20 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
           });
         });
 
+        $(".deleteButton").click(function () {
+          var name = $(this).attr("value");
+          $(this).hide();
+          $("textarea[name='"+name+"']").hide();
+          $("button[value='"+name+"']").hide();
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                Delete: name
+            }
+          });
+        });
+
 //left and right show the next page of the news
         $(".left").click(function () {
           if(leftright > 1){

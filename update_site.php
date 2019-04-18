@@ -11,6 +11,7 @@ if(isset($_POST['newModule'])){
 }
 if(isset($_POST['delete'])){
   //deleteCustome($_SESSION['u_id'], $_POST['delete']); this is for the checkbox variant
+  var_dump($_POST['delete']);
   deleteCustome($_POST['delete'], $_SESSION['CustomeFileName']);
 }
 if(isset($_POST['newModuleabove'])){

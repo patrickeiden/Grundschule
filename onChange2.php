@@ -1,6 +1,11 @@
 <?php
 session_start();
-$_SESSION['changes'] = $_POST['Module'];
-var_dump($_SESSION['changes']);
+include 'functions.php';
+if(isset($_POST['Module'])){
+  $_SESSION['changes'] = $_POST['Module'];
+}
+if(isset($_POST['Delete'])){
+  deleteCustomeButton($_POST['Delete'], $_SESSION['CustomeFileName']);
+}
 
 ?>
