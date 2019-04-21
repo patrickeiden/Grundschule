@@ -538,6 +538,13 @@ footer {
     margin-top: 0px!important;
   }
 
+  .AnfahrtSave{
+    width: 82%;
+    margin-left: 0%;
+    margin-top: 0px!important;
+    border-radius: 5px 0px 0px 5px;
+  }
+
   .saveButton{
     width: 16%!important;
     height: 81px;

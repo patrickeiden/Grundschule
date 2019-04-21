@@ -159,7 +159,6 @@ include 'functions.php';
                       <p>Code:</p>
                       <textarea name="custome_code" cols="40" rows="5" class="code"></textarea>
                       <button type="submit" name="newModule" formmethod="POST" value="'.$name1.'">Modul hinzufügen</button>
-                      <button type="submit" name="delete" formmethod="POST" value="'.$name1.'">Modul löschen</button>
                       <button type="submit" name="changes" formmethod="POST" value="'.$name1.'">Speichern</button>
                       <button class="go_back "onclick="CustomeBack()" name="backbutton">Zurück</button>
                     </div>
@@ -1929,7 +1928,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                       }
                   });
               });
-              $(".save_changes_anfahrt").click(function (){
+              $(".button1").click(function (){
                   var anfahrt_text = $("#anfahrt_text").val();
                   var anfahrt_text2 = $("#anfahrt_text2").val();
                   var streetSchool = $("#streetSchool").val();
@@ -1943,7 +1942,22 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                     success: function (data) {
                     }
                 });
-            });';
+            });
+            $(".button2").click(function (){
+                var anfahrt_text = $("#anfahrt_text").val();
+                var anfahrt_text2 = $("#anfahrt_text2").val();
+                var streetSchool = $("#streetSchool").val();
+                var housenumberSchool = $("#housenumberSchool").val();
+                var plzSchool = $("#plzSchool").val();
+                var ortSchool = $("#ortSchool").val();
+                $.ajax({
+                  type:"POST",
+                  url: "onChangeImpressum.php",
+                  data: {Codeanfahrt:anfahrt_text, Codebuilding:anfahrt_text2, Codestreet:streetSchool, CodeHouse:housenumberSchool, Codeplz:plzSchool, Codeort:ortSchool},
+                  success: function (data) {
+                  }
+              });
+          });';
 
             for ($i=0; $i < $numbercustome; $i++) {
               echo '$(".changes'.($i+1).'").click(function (){

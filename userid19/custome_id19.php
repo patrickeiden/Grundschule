@@ -98,12 +98,13 @@
   		<div class="col">
   			<nav class="navbar2">
   			      <ul>
-              <li><a href="../userid19/frontpageUser19.php"><span class="glyphicon glyphicon-home"></span> Home</a></li><li><a  class="custome" href="../"><span class="glyphicon glyphicon-star"></span>Not</a></li><li><a href="../userid19/calendar_id19.php"><span class="glyphicon glyphicon-calendar"></span> Events</a></li><li><a href="../userid19/gallery_id19.php"><span class="glyphicon glyphicon-picture"></span> Galerie</a></li><li class="dropdown">
+              <li><a href="../userid19/frontpageUser19.php"><span class="glyphicon glyphicon-home"></span> Home</a></li><li><a  class="custome" href="../userid19/custome_id19.php"><span class="glyphicon glyphicon-star"></span>Not</a></li><li><a href="../userid19/calendar_id19.php"><span class="glyphicon glyphicon-calendar"></span> Events</a></li><li><a href="../userid19/gallery_id19.php"><span class="glyphicon glyphicon-picture"></span> Galerie</a></li><li class="dropdown">
                         <a href="javascript:void(0)"><span class="glyphicon glyphicon-picture"></span> Organisation</a>
                         <div class="dropdown-content"><a href="../userid19/workers_id19.php"><span class="glyphicon glyphicon-th"></span> Mitarbeiter</a><a href="../userid19/anfahrt_id19.php"><span class="glyphicon glyphicon-map-marker"></span> Anfahrt</a><a href="../userid19/impressum_id19.php"><span class="glyphicon glyphicon-road"></span> Impressum</a></div></li></ul>
             </nav>
           </div>
-        </div><div class="row">           <footer class="page-footer">              <div class="container-fluid">               <div class="row">                 <div class="col-sm-3">                 </div>                 <div class="col-sm-4">                    <p>Adresse:</br><span class="street">Pal-Straße</span></br> <span class="plz">66123</span></br><span class="ort">Palstadt</span></p>
+        </div><div class="custome_Christus"><h1>Christus jhhhhmm</h1>
+</div><div class="custome_Jesus">Jesusmmm</div><div class="row">           <footer class="page-footer">              <div class="container-fluid">               <div class="row">                 <div class="col-sm-3">                 </div>                 <div class="col-sm-4">                    <p>Adresse:</br><span class="street">Pal-Straße</span></br> <span class="plz">66123</span></br><span class="ort">Palstadt</span></p>
                 </div>
                 <div class="col-sm-4">
                   <p><span class="tel">Tel:00000</span></br><span class="fax">Fax:00001</span></br> <span class="mail">E-Mail:Mustermail@muster.de</span></p> 

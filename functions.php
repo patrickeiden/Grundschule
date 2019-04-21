@@ -427,7 +427,7 @@ function printFormforCustome($file, $checkValue){
           $id = 'code'.$i;
         }
         $form .= '<button type="button" class="btn btn-danger deleteButton" name="delete" value="'.$a[$i-1].'" formmethod="POST">Löschen</button>';
-        $form .= '<textarea name="'.$row["custome_name"].'" class="codeModuleSave" cols="40" rows="5" id="'.$id.'">'.$row["costume_code"].'</textarea>';
+        $form .= '<textarea style="resize: none;" name="'.$row["custome_name"].'" class="codeModuleSave" cols="40" rows="5" id="'.$id.'">'.$row["costume_code"].'</textarea>';
         $form .= '<button type="button" class="btn btn-info saveButton changes'.$i.'" name="changes'.$i.'" value="'.$a[$i-1].'" formmethod="POST">Speichern</button>';
         $name = 'changes'.$i;
         $_SESSION[$name] = $a[$i-1];
@@ -1898,8 +1898,11 @@ function printWorkersInFile($uid, $folder){
     if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-          $output.= '<p>Text:</p> <textarea name="anfahrt_text" cols="40" rows="5" id="anfahrt_text" >'.$row['text'].'</textarea>
-          <textarea name="anfahrt_text2" cols="40" rows="5" id="anfahrt_text2" >'.$row['text2'].'</textarea>';
+
+          $output.= '<p>Text:</p> <textarea style="resize: none;" name="anfahrt_text" class="AnfahrtSave" cols="40" rows="5" id="anfahrt_text" >'.$row['text'].'</textarea>';
+          $output.= '<button type="button" class="btn btn-info saveButton button1" name="anfahrt_text_button" formmethod="POST">Speichern</button>';
+          $output.= '<textarea style="resize: none;" name="anfahrt_text2" class="AnfahrtSave" cols="40" rows="5" id="anfahrt_text2" >'.$row['text2'].'</textarea>';
+          $output.= '<button type="button" class="btn btn-info saveButton button2" name="building_text_button" formmethod="POST">Speichern</button>';
           $output.= '<p>Adresse:</p>';
           $output.= '<input type="text" class="form-control" id="streetSchool" placeholder="Straße" name="streetSchool" value="'.$row['street'].'">';
           $output.= '<input type="text" class="form-control" id="housenumberSchool" placeholder="Nummer" name="housenumberSchool" value="'.$row['streetNumber'].'">';
@@ -1977,6 +1980,9 @@ function printWorkersInFile($uid, $folder){
       </div>
 
       </div>
+    </div>
+    <div class="row fill">
+      <div class="col-sm-12"></div>
     </div>';
 
     return $output;
@@ -2038,7 +2044,7 @@ function printFormforImpressum($uid){
   $text = oneColumnFromTable("impressum", $uid, "Page", "user_id");
   if(sizeof($text) > 0){
     $output.= '<p>Ihr Impressum sieht wie folgt aus:</p>
-              <textarea name="school_impressum" cols="40" rows="5" id="school_impressum">'.$text[0].'</textarea>
+              <textarea style="resize: none; border-radius: 5px 5px 5px 5px;" name="school_impressum" cols="40" rows="5" id="school_impressum">'.$text[0].'</textarea>
               </div>';
   }else{
     $output.= '<p>Ihr Impressum sieht wie folgt aus:</p>
@@ -2624,14 +2630,14 @@ function returninterfacecode($uid){
   }
   return $output;
 }
-//class="nav navbar-nav pull-sm-left
+//class="nav navbar-nav pull-sm-left | navbar2 nav pull-sm-left
 function returnNavbar($uid){
   global $conn;
   $home = '../'.'userid'.$uid.'/frontpageUser'.$uid.'.php';
   $output = '<div class="row text-center red">
   		<div class="col">
   			<nav class="navbar2">
-  			      <ul>
+  			      <ul style="list-style-type: none;">
               <li><a href="'.$home.'"><span class="glyphicon glyphicon-home"></span> Home</a></li>';
               if(CustomeOn($uid) == 1){
                 $var = printCustomeTitel($uid);
