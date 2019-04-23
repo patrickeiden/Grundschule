@@ -547,8 +547,8 @@ footer {
 
   .saveButton{
     width: 16%!important;
-    height: 81px;
-    margin-top: -75px;
+    height: 79px;
+    margin-top: -76px;
     margin-left: -1px;
     border-radius: 0px 5px 5px 0px;
   }
@@ -561,6 +561,55 @@ footer {
     border-radius: 5px 0px 0px 5px;
     margin-top: -76px;
     margin-left: 1px;
+  }
+
+  .news_title input[type=text]{
+    border-radius: 5px 0px 0px 0px!important;
+    margin-right: 40%;
+    margin-top: 0px;
+    position: relative;
+    top: 39px;
+  }
+
+  .news_date input[type=text]{
+    border-radius: 0px 5px 0px 0px!important;
+    margin-top: 0px;
+    margin-left: 40%;
+  }
+
+  .deleteNews{
+    width: 46%!important;
+    height: 27px;
+    border-radius: 0px 0px 0px 5px;
+  }
+
+  .saveNews{
+    width: 45%!important;
+    height: 27px;
+    border-radius: 0px 0px 5px 0px;
+  }
+
+  .addNews{
+    width: 91%;
+    height: 27px;
+    border-radius: 0px 0px 5px 5px;
+  }
+
+  .inputNews{
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+
+  .inputNews2{
+    
+  }
+
+  .News{
+
+  }
+
+  .newsContainer{
+    width: 100%;
   }
 
   #currentPage img {
@@ -580,10 +629,17 @@ footer {
 
 textarea {
     overflow: auto;
-    resize: vertical;
     text-align: center;
-    width: 98%;
+    width: 91%;
     border-radius: 0px 0px 0px 0px;
+    border-top-color: transparent;
+    background-color: #f6f6f6!important;
+    margin-top: -5px;
+    resize: none;
+    margin-left: 0px;
+    margin-bottom: -1%;
+    border-left: white;
+    border-right: white;
 }
 
 input[type=text] {
@@ -595,8 +651,9 @@ input[type=text] {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 5px;
-    width: 98%;
+    width: 51%;
+    margin-left: 0px;
+    margin-right: 0px;
     border: 2px solid #f6f6f6;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;

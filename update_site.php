@@ -32,7 +32,7 @@ if(isset($_POST['changes_calendar'])){
   updateCustome($_POST['changes_calendar'], $_SESSION['u_id'], true);
 }
 if(isset($_POST['newNews'])){
-  createNews($_SESSION['u_id'], $_POST['news_title'], $_POST['news_date'], $_POST['news_text'], $_POST['news_image'], $_POST['newNews']);
+  createNews($_SESSION['u_id'], $_POST['news_title'], $_POST['news_date'], $_POST['news_text'], $_POST['newNews']);
 }
 if(isset($_POST['changes_news'])){
   updateNews($_POST['changes_news'], $_SESSION['u_id']);

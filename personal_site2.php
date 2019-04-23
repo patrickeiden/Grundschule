@@ -222,14 +222,17 @@ include 'functions.php';
           <p class="text">Das News-Modul ist in Ihre Homepage integriert.</p>
           <div class="n_text">
             <p>Nehmen Sie hier Änderungen am Newsmodul vor.</p>
-            <form action="update_site.php" method="POST">
+            <form class="md-form" action="update_site.php" method="POST">
               <div class="form-group">'.$string.'
-                <p>With this form you are able to add news</p>
-                <input type="text" class="form-control" id="news_title" placeholder="Titel" name="news_title">
-                <input type="text" class="form-control" id="news_date" placeholder="Datum" name="news_date">
+                <div class="news_title">
+                  <input type="text" class="form-control" placeholder="Titel" name="news_title">
+                </div>
+                <div class="news_date">
+                  <input type="text" class="form-control" id="news_date" placeholder="Datum" name="news_date">
+                </div>
                 <textarea name="news_text" cols="40" rows="5" id="news_text"></textarea>
-                <input type="file" class="form-control" id="news_img" name="news_image" accept="image/*">
-                <button type="submit" name="newNews" formmethod="POST" value="'.$name3.'">News hinzufügen</button>
+
+                <button type="submit" class="btn btn-info addNews" name="newNews" value="'.$name3.'" formmethod="POST">News hinzufügen</button>
                 <button type="submit" name="changes_news" formmethod="POST" value="'.$name3.'">Speichern</button>
                 <button type="submit" name="delete_news_button" formmethod="POST" value="'.$name3.'">Entfernen</button>
                 <button class="go_back3" onclick="NewsBack()" name="backbutton">Zurück</button>
@@ -399,9 +402,9 @@ include 'functions.php';
         <?php
         if(NewsOn($_SESSION['u_id']) == 1){
           $fileinterface = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
-          $var = printNewsInInterface($_SESSION['u_id'], $fileinterface);
+          //$var = printNewsInInterface($_SESSION['u_id'], $fileinterface);
           echo returnInterfaceHeader($_SESSION['u_id']);
-          echo $var[0];
+        //  echo $var[0];
           echo returnInterfaceFooter($_SESSION['u_id']);
         }
         ?>
@@ -528,7 +531,7 @@ if(NewsOn($_SESSION['u_id']) == 1){
   $jsnumber = numberofNews("title", $jsname, "new_news", "news_file");
   $jstable_data = oneValueFromTableData($_SESSION['u_id'], "news_number");
   $jsinterface = printNewsInInterface($_SESSION['u_id'], $jsname);
-  echo $jsinterface[1];
+  //echo $jsinterface[1];
   //$jsnewsright = right($leftright, $jsnumber, $jstable_data);
   //$jsnewsleft = left($leftright, $jsnumber, $jstable_data);
   echo 'var newsnumber = 0;';
@@ -790,6 +793,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
     document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
     document.getElementById('module_container').getElementsByClassName('n_text')[0].style.display="block";
     document.getElementById('module_container').getElementsByTagName('div')[nClick].removeAttribute("onclick");
+    document.getElementsByClassName('page-footer')[0].style.top="0px";
   }
 
   function NewsBack(){
