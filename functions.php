@@ -490,7 +490,7 @@ function createNews($uid, $title, $date, $text, $file){
   $stmt->execute();
 }
 
-function deleteNews($uid, $button){
+function deleteNews($uid, $button){ //function for chechbox system
   global $conn;
   $a = array();
   $b = array();
@@ -514,6 +514,14 @@ function deleteNews($uid, $button){
         $stmt->execute();
       }
   }
+}
+
+function deleteNews2($uid, $modul, $file){ //function for latest system
+  global $conn;
+  $stmt = $conn->prepare("DELETE FROM new_news WHERE title = ? and news_file = ?");
+  $stmt->bind_param('ss', $modul, $file);
+  $stmt->execute();
+  $stmt->close();
 }
 
 function printAllNewsFromFile($uid){
@@ -579,8 +587,8 @@ function printFormforNews($uid, $file){
         $form .='<div class="news_title"><input type="text" class="form-control" placeholder="Titel" name="'.'title_'.$title_array[$n].'" value="'.$title_array[$n].'"></div>';
         $form .='<div class="news_date"><input type="text" class="form-control" placeholder="Datum" name="'.'date_'.$title_array[$n].'" value="'.$date_array[$n].'"></div>';
         $form .='<textarea name="'.'text_'.$title_array[$n].'" cols="40" rows="5" class="news_text">'.$text_array[$n].'</textarea>';
-        $form .= '<button type="button" class="btn btn-danger deleteNews" name="delete" value="'.$title_array[$j].'" formmethod="POST">Löschen</button>';
-        $form .= '<button type="button" class="btn btn-info saveNews changes'.$j.'" name="changes'.$j.'" value="'.$title_array[$j].'" formmethod="POST">Speichern</button>';
+        $form .= '<button type="button" class="btn btn-danger deleteNews" name="deleteNews" value="'.$title_array[$j].'" formmethod="POST">Löschen</button>';
+        $form .= '<button type="button" class="btn btn-info safeNews" name="safeNews" value="'.$title_array[$j].'" formmethod="POST">Speichern</button>';
         $form .= '</div>';
       //  $form .= '<button type="button" class="btn btn-danger deleteButton deleteNews" name="delete" value="'.$title_array[$j].'" formmethod="POST">Löschen</button>';
         //$form .='<div class="news_title"><input type="text" class="form-control" placeholder="Titel" name="'.'title_'.$title_array[$n].'" value="'.$title_array[$n].'"></div>';
@@ -2906,13 +2914,13 @@ function updateNews($file, $uid){
         $var1 = 'title_'.$row['title'];
         $var2 = 'date_'.$row['title'];
         $var3 = 'text_'.$row['title'];
-        $var4 = 'image_'.$row['title'];
+        //$var4 = 'image_'.$row['title'];
         array_push($a, $row['title']);
 
         array_push($post_titel, $_POST[$var1]);
         array_push($post_date, $_POST[$var2]);
         array_push($post_text, $_POST[$var3]);
-        array_push($post_image, $_POST[$var4]);
+        //array_push($post_image, $_POST[$var4]);
     }
     for ($i=0; $i < sizeof($a); $i++) {
       $value = $a[$i];
@@ -2920,22 +2928,41 @@ function updateNews($file, $uid){
       $p_titel = $post_titel[$i];
       $p_date = $post_date[$i];
       $p_text = $post_text[$i];
-      $p_image = $post_image[$i];
+      //$p_image = $post_image[$i];
       $stmt = $conn->prepare("UPDATE new_news SET date=? WHERE title=?");
       $stmt->bind_param("ss", $p_date, $value);
       $stmt->execute();
       $stmt = $conn->prepare("UPDATE new_news SET text=? WHERE title=?");
       $stmt->bind_param("ss", $p_text, $value);
       $stmt->execute();
-      $stmt = $conn->prepare("UPDATE new_news SET image=? WHERE title=?");
-      $stmt->bind_param("ss", $p_image, $value);
-      $stmt->execute();
+      //$stmt = $conn->prepare("UPDATE new_news SET image=? WHERE title=?");
+      //$stmt->bind_param("ss", $p_image, $value);
+      //$stmt->execute();
       $stmt = $conn->prepare("UPDATE new_news SET title=? WHERE title=?");
       $stmt->bind_param("ss", $p_titel, $value);
       $stmt->execute();
     }
   }
 }
+
+function updateNews2($file, $whichone, $title, $date, $text){
+  var_dump($file);
+  var_dump($whichone);
+  var_dump($title);
+  var_dump($date);
+  var_dump($text);
+  global $conn;
+  $stmt = $conn->prepare("UPDATE new_news SET date=? WHERE title=? and news_file=?");
+  $stmt->bind_param("sss", $date, $whichone, $file);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE new_news SET text=? WHERE title=? and news_file=?");
+  $stmt->bind_param("sss", $text, $whichone, $file);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE new_news SET title=? WHERE title=? and news_file=?");
+  $stmt->bind_param("sss", $title, $whichone, $file);
+  $stmt->execute();
+}
+
 //we dont use them atm
 function left($array_for_js, $leftright, $jsnumber, $jstable_data){
   $loop_number = $jsnumber/$jstable_data;

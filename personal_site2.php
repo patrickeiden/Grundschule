@@ -211,6 +211,7 @@ include 'functions.php';
         if(NewsOn($_SESSION['u_id']) == 1){
           $name3 = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
           $result3 = printFormforNews($_SESSION['u_id'], $name3);
+          $_SESSION['NewsFileName'] = $name3;
           if(sizeof($result3) == 0){
             array_push($result3, "");
           }
@@ -1492,7 +1493,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(news == 0){
             news = 1;
-            var temp = 511 + (newsnumber*402);
+            var temp = 311 + (newsnumber*202);
             $(".newsModule").animate({height:temp+"px"},500);
             $(".newsModule > .text").hide();
           }
@@ -1625,7 +1626,41 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
             type: "POST",
             url: "onChange2.php",
             data: {
-                Delete: name
+                DeleteCustome: name
+            }
+          });
+        });
+
+        $(".deleteNews").click(function () {
+          var name = $(this).attr("value");
+          $(this).hide();
+          $("input[name=title_"+name+"]").hide();
+          $("input[name=date_"+name+"]").hide();
+          $("textarea[name=text_"+name+"]").hide();
+          $("button[value="+name+"]").hide();
+          $("button[value=safe_"+name+"]").hide();
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                DeleteNews: name
+            }
+          });
+        });
+        $(".safeNews").click(function () {
+          var name = $(this).attr("value");
+          var title = document.getElementsByClassName('news_title')[0].getElementsByTagName('input')[0].value;
+          var date = document.getElementsByClassName('news_date')[0].getElementsByTagName('input')[0].value;
+          var text = document.getElementsByClassName('news_text')[0].value;
+          var whichone = document.getElementsByClassName('safeNews')[0].value;
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                NewsTitle: title,
+                NewsDate: date,
+                NewsText: text,
+                WhichOne: whichone
             }
           });
         });

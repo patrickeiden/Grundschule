@@ -37,8 +37,9 @@ if(isset($_POST['newNews'])){
 if(isset($_POST['changes_news'])){
   updateNews($_POST['changes_news'], $_SESSION['u_id']);
 }
-if(isset($_POST['delete_news_button'])){
-  deleteNews($_SESSION['u_id'], $_POST['delete_news_button']);
+if(isset($_POST['deleteNews'])){
+  //deleteNews($_SESSION['u_id'], $_POST['deleteNews']);  checkbox function
+  deleteNews2($_SESSION['u_id'], $_POST['deleteNews'], $_SESSION['NewsFileName']);
 }
 if(isset($_POST['newImages'])){
   createImage($_SESSION['u_id'], $_POST['newImages']);
