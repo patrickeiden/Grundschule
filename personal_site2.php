@@ -234,8 +234,6 @@ include 'functions.php';
                 <textarea name="news_text" cols="40" rows="5" id="news_text"></textarea>
 
                 <button type="submit" class="btn btn-info addNews" name="newNews" value="'.$name3.'" formmethod="POST">News hinzufügen</button>
-                <button type="submit" name="changes_news" formmethod="POST" value="'.$name3.'">Speichern</button>
-                <button type="submit" name="delete_news_button" formmethod="POST" value="'.$name3.'">Entfernen</button>
                 <button class="go_back3" onclick="NewsBack()" name="backbutton">Zurück</button>
               </div>
             </form>
@@ -403,10 +401,8 @@ include 'functions.php';
         <?php
         if(NewsOn($_SESSION['u_id']) == 1){
           $fileinterface = oneValueFromTableData($_SESSION['u_id'], "news_file_name");
-          //$var = printNewsInInterface($_SESSION['u_id'], $fileinterface);
-          echo returnInterfaceHeader($_SESSION['u_id']);
-        //  echo $var[0];
-          echo returnInterfaceFooter($_SESSION['u_id']);
+          $var = printNewsInInterface($_SESSION['u_id'], $fileinterface);
+          echo $var[0];
         }
         ?>
       </div>
@@ -531,15 +527,18 @@ if(NewsOn($_SESSION['u_id']) == 1){
   $jsresult = printFormforNews($_SESSION['u_id'], $jsname);
   $jsnumber = numberofNews("title", $jsname, "new_news", "news_file");
   $jstable_data = oneValueFromTableData($_SESSION['u_id'], "news_number");
-  $jsinterface = printNewsInInterface($_SESSION['u_id'], $jsname);
+  //$jsinterface = printNewsInInterface($_SESSION['u_id'], $jsname);
   //echo $jsinterface[1];
   //$jsnewsright = right($leftright, $jsnumber, $jstable_data);
   //$jsnewsleft = left($leftright, $jsnumber, $jstable_data);
   echo 'var newsnumber = 0;';
+  //print the javascript code for news module
   echo $jsresult[sizeof($jsresult)-1];
   echo 'var number ='.$jsnumber.';';
   echo 'var news_number ='.$jstable_data.';';
   echo 'var loop_number ='.ceil($jsnumber/$jstable_data).';';
+  echo $var[1];
+  echo 'var currentPageLeftRight = 1;';
 }else{
   echo 'var newson = 0;';
   echo 'var loop_number = 0;';
@@ -1663,6 +1662,32 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 WhichOne: whichone
             }
           });
+        });
+        //left and right for currentPage news
+        $(".LeftNews").click(function (){
+          if(currentPageLeftRight > 1){
+            currentPageLeftRight --;
+            for (var i = 0; i < loop_number; i++) {
+              if((i+1) == currentPageLeftRight){
+                $(".News"+(i+1)).show()
+              }else{
+                $(".News"+(i+1)).hide()
+              }
+            }
+          }
+        });
+
+        $(".RightNews").click(function (){
+          if(currentPageLeftRight < loop_number){
+            currentPageLeftRight ++;
+            for (var i = 0; i < loop_number; i++) {
+              if((i+1) == currentPageLeftRight){
+                $(".News"+(i+1)).show()
+              }else{
+                $(".News"+(i+1)).hide()
+              }
+            }
+          }
         });
 
 //left and right show the next page of the news

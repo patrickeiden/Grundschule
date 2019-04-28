@@ -12,6 +12,6 @@ if(isset($_POST['DeleteNews'])){
   deleteNews2($_SESSION['u_id'], $_POST['DeleteNews'], $_SESSION['NewsFileName']);
 }
 if(isset($_POST['NewsTitle']) && isset($_POST['NewsDate']) && isset($_POST['NewsText'])){
-updateNews2($_SESSION['NewsFileName'], $_POST['WhichOne'], $_POST['NewsTitle'], $_POST['NewsDate'], $_POST['NewsText']);
+  updateNews2($_SESSION['NewsFileName'], $_POST['WhichOne'], $_POST['NewsTitle'], $_POST['NewsDate'], $_POST['NewsText']);
 }
 ?>

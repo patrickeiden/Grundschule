@@ -616,74 +616,102 @@ function printFormforNews($uid, $file){
   return $newsString;
 }
 
+function allNews($uid, $file){
+    global $conn;
+    $array = array();
+    $output = '';
+    $js = '';
+    //Anzahl aller News
+    $number_news = numberofNews("title", $file, "new_news", "news_file");
+    //Anzahl der News die auf der Seite angezeigt werden sollen
+    $newsperpage = oneValueFromTableData($_SESSION['u_id'], "news_number");
+    $title_array = array();
+    $date_array = array();
+    $text_array = array();
+    //$image_array = array();
+    $newsString = array();
+    //get interface data to print the news in
+    $sql = "SELECT title, date, text FROM new_news WHERE news_file='$file'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+          array_push($title_array, $row['title']);
+          array_push($date_array, $row['date']);
+          array_push($text_array, $row['text']);
+      }
+    }
+    //check number of news
+    $loopvar = 0;
+    if($number_news <= $newsperpage){
+      $loopvar = $number_news;
+    }else{
+      $loopvar = $newsperpage;
+    }
+    //build all news
+    $output .= '<div class="container">';
+    $output .= '<hr><h1 class="text-center">Ereignisse</h1><hr>';
+    $k = 0;
+    $js_Number = 1;
+    while($k < $number_news){
+      //var_dump($k);
+      //Container for one site with all News for one site
+      $output .= '<div class="News'.$js_Number.'">';
+      for ($i=0; $i < $loopvar; $i++) {
+        //if all news are throw the loop, exit the loop
+        if($number_news == $k){
+          break;
+        }else{
+          $output .= '<div class="row newsInterface'.($k+1).'">';
+          $output .=  '<div class="col-sm-2"></div>';
+          $output .=  '<div class="col-sm-8 innerNews">
+                          <div class="row">
+                          <div class="col-sm-2"></div>
+                            <div class="col-sm-7 text-black text-center"><h5>'.$title_array[$k].'</h5></div>
+                            <div class="col-sm-3 text-black text-right"><h6>'.$date_array[$k].'</h6></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12 text-center text-center"><p>'.$text_array[$k].'</p></div>
+                          </div>
+                        </div>';
+          $output .=  '<div class="col-sm-2"></div>';
+          $output .= '</div>';
+          if($number_news > $k){
+            $output .= '<div class="row"><div class="col-sm-12"><br></div></div>';
+          }
+        }
+        $k ++;
+      }
+      // close the News div
+      $output .= '</div>';
+      if($k > $newsperpage){
+        $js .= 'document.getElementById("page_news").getElementsByClassName("News'.$js_Number.'")[0].style.display="none";';
+      }
+      $js_Number ++;
+    }
+    //buttons for left and right
+    $output .= '<div class="col-sm-2"></div><div class="col-sm-8">';
+    $output .= '<button type="button" class="btn btn-info NewsButton LeftNews">Links</button>';
+    $output .= '<button type="button" class="btn btn-info NewsButton RightNews">Rechts</button>';
+    $output .= '</div><div class="col-sm-2"></div>';
+    //end of the container
+    $output .= '</div>';
+    array_push($newsString, $output);
+    array_push($newsString, $js);
+    return $newsString;
+}
+
 function printNewsInInterface($uid, $file){
   global $conn;
-  $array = array();
+  $Newsarray = array();
   $output = '';
-  $js = '';
-  $number_news = numberofNews("title", $file, "new_news", "news_file");
-  $newsperpage = oneValueFromTableData($_SESSION['u_id'], "news_number");
-  $title_array = array();
-  $date_array = array();
-  $text_array = array();
-  $image_array = array();
-  $newsString = array();
-  $titlecode = '';
-  $datecode = '';
-  $textcode = '';
-  $imagecode = '';
-
-  //get Theme1 interface navbar
   $output .= returnInterfaceHeader($uid);
-  //get interface data to print the news in
-  $sql = "SELECT title, date, text, image FROM new_news";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $titlecode = $row['title'];
-        $datecode = $row['date'];
-        $textcode = $row['text'];
-        $imagecode = $row['image'];
-    }
-  }
-  $sql = "SELECT title, date, text, image FROM new_news WHERE news_file='$file'";
-  $result = $conn->query($sql);
-  $i = $newsperpage;
-  $j = 1;
-  $k = true;
-  $nppbool = false;
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-      if($i == $newsperpage){
-        if($k){
-          $output .= '<div class="newsInterface';
-          $output .= $j.'">';
-          $k = false;
-        }else{
-          $output .= '</div> <div class="newsInterface';
-          $output .= $j.'">';
-          $nppbool = true;
-        }
-        $i = 0;
-        $j++;
-      }
-      $output .= '<div class="news">'.$titlecode.$row['title'].$datecode.$row['date'].$textcode.$row['text'].$imagecode.$row['image'].'</div>';
-      if($j > 1 && $nppbool){
-        $js .= 'document.getElementById("page_news").getElementsByClassName("newsInterface'.($j-1).'")[0].style.display="none";';
-        $nppbool = false;
-      }
-      $i++;
-    }
-    if(($number_news % $newsperpage) != 0){
-      $output .= '</div>';
-    }
-  }
+  $allnews = allNews($uid, $file);
+  $output .= $allnews[0];
   $output .= returnInterfaceFooter($uid);
-  array_push($array, $output);
-  array_push($array, $js);
-  return $array;
+  array_push($Newsarray, $output);
+  array_push($Newsarray, $allnews[1]);
+  return $Newsarray;
 }
 
 function setCalendar($number, $uid, $folder){

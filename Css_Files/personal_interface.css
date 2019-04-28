@@ -502,7 +502,21 @@ footer {
     position: relative;
     top: -30px;
     height: 200px;
+  }
 
+  .innerNews{
+    background-color: mintcream;
+    border-radius: 5px 5px 5px 5px;
+  }
+
+  .text-black{
+    color: black;
+  }
+
+  .NewsButton{
+    width: 50%;
+    background-color: #AC3B61!important;
+    border-color: #AC3B61;
   }
 
   #currentPage .currentPage_footer{
