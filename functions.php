@@ -169,6 +169,14 @@ function printStartInFileTable($uid, $file){
   $image= "";
   $sql = "SELECT name, header, text, image FROM Page WHERE user_id = $uid";
   $result = $conn->query($sql);
+  $NewsFile = 'userid'.$uid.'/news_id'.$uid.'.php';
+  $NewsCode = '';
+  if(NewsOn($uid)==1){
+    $allnews = allNewsForFile($uid, $NewsFile);
+    $NewsCode .= $allnews[0];
+    $NewsCode .= $allnews[1];
+  }
+  $allnews = allNewsForFile($uid, $NewsFile);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
@@ -184,7 +192,7 @@ function printStartInFileTable($uid, $file){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $output.= $row["header"].$row["regular_code_left"].$name.$row["regular_code_name"].$image.$row["regular_code_image"].$row["navfunktion"].$row["regular_code_right"].$row["slider"].$row["regular_code_right2"].$header.
-        $row["regular_code_header"].$text.$row["regular_code_text"].$footer;
+        $row["regular_code_header"].$text.$row["regular_code_text"].$NewsCode.$footer;
     }
   }
   //$myfile = fopen($file, "w") or die("Unable to open file!");
@@ -612,6 +620,123 @@ function printFormforNews($uid, $file){
       }
     }
   }
+  array_push($newsString, $js);
+  return $newsString;
+}
+function allNewsForFile($uid, $file){
+  global $conn;
+  $array = array();
+  $output = '';
+  $js = '<script>';
+  //Anzahl aller News
+  $number_news = numberofNews("title", $file, "new_news", "news_file");
+  //Anzahl der News die auf der Seite angezeigt werden sollen
+  $newsperpage = oneValueFromTableData($_SESSION['u_id'], "news_number");
+  $title_array = array();
+  $date_array = array();
+  $text_array = array();
+  //$image_array = array();
+  $newsString = array();
+  //get interface data to print the news in
+  $sql = "SELECT title, date, text FROM new_news WHERE news_file='$file'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($title_array, $row['title']);
+        array_push($date_array, $row['date']);
+        array_push($text_array, $row['text']);
+    }
+  }
+  //check number of news
+  $loopvar = 0;
+  if($number_news <= $newsperpage){
+    $loopvar = $number_news;
+  }else{
+    $loopvar = $newsperpage;
+  }
+  $output .= '<div class="row">';
+  $output .= '<div class="col-sm-3"></div>';
+  $output .= '<div class="col-sm-6"><h1 class="text-center">Neuigkeiten</h1><hr></div>';
+  $output .= '<div class="col-sm-3"></div>';
+  $output .= '</div>';
+
+  $k = 0;
+  $js_Number = 1;
+  while($k < $number_news){
+    //var_dump($k);
+    //Container for one site with all News for one site
+    $output .= '<div class="row News'.$js_Number.'">';
+    for ($i=0; $i < $loopvar; $i++) {
+      //if all news are throw the loop, exit the loop
+      if($number_news == $k){
+        break;
+      }else{
+        $output .= '<div class="newsInterface'.($k+1).'">';
+        $output .=  '<div class="col-sm-3"></div>';
+        $output .=  '<div class="col-sm-6 innerNews">
+                        <div class="row">
+                        <div class="col-sm-2"></div>
+                          <div class="col-sm-7 text-black text-center"><h4>'.$title_array[$k].'</h4></div>
+                          <div class="col-sm-3 text-black text-right"><h5>'.$date_array[$k].'</h5></div>
+                        </div>
+                        <br><br>
+                        <div class="row">
+                          <div class="col-sm-12"><p>'.$text_array[$k].'</p></div>
+                        </div>
+                      </div>';
+        $output .=  '<div class="col-sm-3"></div>';
+        $output .= '</div>';
+        if($number_news > $k){
+          $output .= '<div class="row"><div class="col-sm-12"><br></div></div>';
+        }
+      }
+      $k ++;
+    }
+    // close the News div
+    $output .= '</div>';
+    if($k > $newsperpage){
+      $js .= 'document.getElementsByClassName("News'.$js_Number.'")[0].style.display="none";';
+    }
+    $js_Number ++;
+  }
+  //buttons for left and right
+  $output .= '<div class="row"><div class="col-sm-3"></div><div class="col-sm-6">';
+  $output .= '<button type="button" class="btn btn-info NewsButton LeftNews">Links</button>';
+  $output .= '<button type="button" class="btn btn-info NewsButton RightNews">Rechts</button>';
+  $output .= '</div><div class="col-sm-3"></div></div><br><br>';
+  //end of the container
+  $js .= 'var loop_number ='.ceil($number_news/$newsperpage).';
+  var currentPageLeftRight = 1;
+  $(document).ready(function () {
+  $(".LeftNews").click(function (){
+    if(currentPageLeftRight > 1){
+      currentPageLeftRight --;
+      for (var i = 0; i < loop_number; i++) {
+        if((i+1) == currentPageLeftRight){
+          $(".News"+(i+1)).show()
+        }else{
+          $(".News"+(i+1)).hide()
+        }
+      }
+    }
+  });
+
+  $(".RightNews").click(function (){
+    if(currentPageLeftRight < loop_number){
+      currentPageLeftRight ++;
+      for (var i = 0; i < loop_number; i++) {
+        if((i+1) == currentPageLeftRight){
+          $(".News"+(i+1)).show()
+        }else{
+          $(".News"+(i+1)).hide()
+        }
+      }
+    }
+  });
+});
+  </script>';
+  array_push($newsString, $output);
   array_push($newsString, $js);
   return $newsString;
 }

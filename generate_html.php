@@ -70,6 +70,13 @@ if(isset($_POST['anfahrt_button'])){
   $number = 0;
   setAnfahrt($number, $_SESSION['u_id'], $folder, $_POST['street_school'], $_POST['plz_school'], $_POST['ort_school'], $_POST['desciption_anfahrt'], $_POST['number_school']);
 }
+if(isset($_POST['signup_button'])){
+  $number = 1;
+  setSignup($_SESSION['u_id'], $number);
+}else{
+  $number = 0;
+  setSignup();
+}
 
 header('Location: http://localhost/Grundschule/generate.php?success');
 }
