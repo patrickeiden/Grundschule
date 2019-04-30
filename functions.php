@@ -2199,14 +2199,15 @@ function setSignup($uid, $number, $text, $file, $folder){
     }else{
       $folder = $site_name;
     }
+    var_dump($folder);
 
     $var = '<?php $file = "userid".$_SESSION["u_id"]."/signup_id".$_SESSION["u_id"].".php";';
     $var .=  'echo printSignupInFileTable($_SESSION["u_id"], $file); ?>';
-    $stmt = $conn->prepare("UPDATE Theme2regular SET signup_code=?");
+    $stmt = $conn->prepare("UPDATE Theme1regular2 SET signup_code=?");
     $stmt->bind_param("s", $var);
     $stmt->execute();
 
-    printSignupInFile($uid, $file);
+    printSignupInFile($uid, $folder);
   }
 }
 
@@ -2247,6 +2248,7 @@ function printSignUpInInterface($uid){
 }
 
 function printSignupInFile($uid, $file){
+  var_dump($file);
   global $conn;
   global $conn;
   $output = "";
@@ -2259,7 +2261,7 @@ function printSignupInFile($uid, $file){
         $include .= $row["include"];
     }
   }
-  $sql = "SELECT signup_code FROM Theme2regular";
+  $sql = "SELECT signup_code FROM Theme1regular2";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
@@ -2280,7 +2282,7 @@ function printSignupInFileTable($uid, $file){
   returnSlider($uid);
   $header = printRegularHeader($uid, "");
   $footer = printRegularFooter($uid);
-  $sql = "SELECT text, file FROM signup WHERE signup_id = '$uid'";
+  $sql = "SELECT text, file FROM signup WHERE user_id = '$uid'";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
@@ -2290,13 +2292,26 @@ function printSignupInFileTable($uid, $file){
     }
   }
   $output .= $header;
+  $pdf = '<a style="text-decoration: none; color: black!important;" href="'.$pdf.'" download><p>Einschreibungsdatei</p></a>';
   $output .= '<div class="container">
                 <hr><h1 class="text-center">Einschreibung</h1><hr>
                 <div class="row">
                   <div class="col-sm-2"></div>
-                  <div class="col-sm-8"><p>'.$text.'</p></div>
+                  <div class="col-sm-8 text-center"><p>'.$text.'</p></div>
                   <div class="col-sm-2"></div>
-                </div>';
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-8 text-center"><p>Sie können das unten gelistete Dokument downloaden um sich einzuschreiben</p></div>
+                  <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-8 text-center">'.$pdf.'</div>
+                  <div class="col-sm-2"></div>
+                </div>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+              </div>';
   $output .= $footer;
   return $output;
 }
