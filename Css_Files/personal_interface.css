@@ -600,7 +600,29 @@ footer {
   .safeNews{
     width: 45%!important;
     height: 27px;
-    border-radius: 0px 0px 5px 0px;
+    border-radius: 0px 0px 5px 0px
+  }
+
+  .safeSignUp{
+    width: 91%!important;
+    height: 27px;
+    border-radius: 0px 0px 5px 5px;
+  }
+
+  .safeSignUpPDF{
+    width: 91%!important;
+    height: 27px;
+    border-radius: 0px 0px 5px 5px;
+  }
+
+  #SignUp_text{
+    border-radius: 5px 5px 0px 0px;
+  }
+
+  #signup_pdf{
+    width: 91%;
+    border-radius: 5px 5px 0px 0px;
+    margin-bottom: 0px;
   }
 
   .addNews{

@@ -2183,8 +2183,162 @@ function setClasses(){
 
 }
 
-function setSignup($uid){
+function setSignup($uid, $number, $text, $file, $folder){
+  global $conn;
+  if($number == 1){
+    $stmt = $conn->prepare("UPDATE table_data SET signup_on=? WHERE user_id=?");
+    $stmt->bind_param("ii", $number, $uid);
+    $stmt->execute();
+    $stmt = $conn->prepare("INSERT INTO signup (text, file, user_id) VALUES (?, ?, ?)");
+    $stmt->bind_param("ssi", $text, $file, $uid);
+    $stmt->execute();
 
+    $site_name = "signup_id" .$uid .".php";
+    if($folder != ""){
+      $folder = $folder."/".$site_name;
+    }else{
+      $folder = $site_name;
+    }
+
+    $var = '<?php $file = "userid".$_SESSION["u_id"]."/signup_id".$_SESSION["u_id"].".php";';
+    $var .=  'echo printSignupInFileTable($_SESSION["u_id"], $file); ?>';
+    $stmt = $conn->prepare("UPDATE Theme2regular SET signup_code=?");
+    $stmt->bind_param("s", $var);
+    $stmt->execute();
+
+    printSignupInFile($uid, $file);
+  }
+}
+
+function printSignUpInInterface($uid){
+  global $conn;
+  $output = returnInterfaceHeader($uid);
+  $text = '';
+  $pdf = '';
+  $sql = "SELECT text, file FROM signup";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $text .= $row["text"];
+        $pdf .= $row["file"];
+    }
+  }
+  $pdf = '<a style="text-decoration: none; color: black!important;" href="'.$pdf.'" download><p>Einschreibungsdatei</p></a>';
+  $output .= '<hr><h1 class="text-center">Einschreibung</h1><hr>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8 text-center"><p class="signuptext">'.$text.'</p></div>
+                <div class="col-sm-2"></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8 text-center"><p>Sie können das unten gelistete Dokument downloaden um sich einzuschreiben</p></div>
+                <div class="col-sm-2"></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8 text-center"><p>'.$pdf.'</p></div>
+                <div class="col-sm-2"></div>
+              </div>';
+  $output .= returnInterfaceFooter($uid);
+
+  return $output;
+}
+
+function printSignupInFile($uid, $file){
+  global $conn;
+  global $conn;
+  $output = "";
+  $include = "";
+  $sql = "SELECT include FROM Theme1regular";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $include .= $row["include"];
+    }
+  }
+  $sql = "SELECT signup_code FROM Theme2regular";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output .= $include.$row["signup_code"];
+    }
+  }
+  $myfile = fopen($file, "w") or die("Datei konnte nicht geöffnet werden!");
+  fwrite($myfile, $output);
+}
+
+function printSignupInFileTable($uid, $file){
+  global $conn;
+  $output = '';
+  $text = '';
+  $pdf = '';
+  returnNavbar($uid);
+  returnSlider($uid);
+  $header = printRegularHeader($uid, "");
+  $footer = printRegularFooter($uid);
+  $sql = "SELECT text, file FROM signup WHERE signup_id = '$uid'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $text .= $row['text'];
+        $pdf .= $row['file'];
+    }
+  }
+  $output .= $header;
+  $output .= '<div class="container">
+                <hr><h1 class="text-center">Einschreibung</h1><hr>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-8"><p>'.$text.'</p></div>
+                  <div class="col-sm-2"></div>
+                </div>';
+  $output .= $footer;
+  return $output;
+}
+
+function printFormForSignUp($uid){
+  global $conn;
+  $output = '';
+  $text = '';
+  $pdf = '';
+  $sql = "SELECT text, file FROM signup WHERE user_id = '$uid'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $text .= $row['text'];
+        $pdf .= $row['file'];
+    }
+  }
+  $output .= '<p>Bearbeiten sie den Text</p>';
+  $output .= '<textarea name="SignUp_text" cols="40" rows="5" id="SignUp_text">'.$text.'</textarea>';
+  $output .= '<button type="button" class="btn btn-info safeSignUp" name="safeSignUp" formmethod="POST">Speichern</button>';
+  $output .= '<p>Datei, die zum Download bereitsteht</p>';
+  $output .= '<input type="text" class="form-control" id="signup_pdf" placeholder="Pfad zum Dokument" name="signup_pdf" value="'.$pdf.'">';
+  $output .= '<button type="button" class="btn btn-info safeSignUpPDF" name="safeSignUpPDF" formmethod="POST">Speichern</button>';
+
+  return $output;
+}
+
+function updateSignUp($uid, $text){
+  global $conn;
+  $stmt = $conn->prepare("UPDATE signup SET text=? WHERE user_id=?");
+  $stmt->bind_param("si", $text, $uid);
+  $stmt->execute();
+  $stmt->close();
+}
+
+function updateSignUpPDF($uid, $pdf){
+  global $conn;
+  $stmt = $conn->prepare("UPDATE signup SET file=? WHERE user_id=?");
+  $stmt->bind_param("si", $pdf, $uid);
+  $stmt->execute();
+  $stmt->close();
 }
 
 function setImpressum($uid, $text, $folder){
@@ -2834,10 +2988,10 @@ function returnNavbar($uid){
               $link8 = oneValueFromTableData($uid, "anfahrt_file_name");
               $output.= '<a href="'.'../'.$link8.'"><span class="glyphicon glyphicon-map-marker"></span> Anfahrt</a>';
               }
-              if(SignupOn($uid) == 1){
-              $link9 = oneValueFromTableData($uid, "signup_file_name");
-              $output.= '<a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span> Einschreibung</a>';
-              }
+              //if(SignupOn($uid) == 1){
+              //$link9 = oneValueFromTableData($uid, "signup_file_name");
+              //$output.= '<a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span> Einschreibung</a>';
+              //}
               $link10 = 'userid'.$uid.'/impressum_id'.$uid.'.php';
               $output.= '<a href="'.'../'.$link10.'"><span class="glyphicon glyphicon-road"></span> Impressum</a>';
               $output.=  '</div></li>';

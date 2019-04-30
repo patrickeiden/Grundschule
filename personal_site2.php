@@ -320,12 +320,13 @@ include 'functions.php';
         // Modul zur Einschreibung neuer Schüler
 
         if(SignupOn($_SESSION['u_id']) == 1){
+          $SignupText = printFormForSignUp($_SESSION['u_id']);
           echo '<div class="signupModule" onclick="clickedSignup()">
                   <p class="text">Konfiguriere das Einschreibungssytem</p>
                   <div class="su_text">
                     <p>Nehmen Sie hier Änderungen am Einschreibungsmodul vor.</p>
                     <form action="update_site.php" method="POST">
-                      <div class="form-group">
+                      <div class="form-group">'.$SignupText.'
                         <button class="go_back9" onclick="SignupBack()" name="backbutton">Zurück</button>
                       </div>
                     </form>
@@ -440,7 +441,7 @@ include 'functions.php';
       <div class="page_signup">
         <?php
         if(SignupOn($_SESSION['u_id']) == 1){
-
+          echo printSignUpInInterface($_SESSION['u_id']);
         }
         ?>
       </div>
@@ -1300,10 +1301,6 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
     document.getElementById('currentPage').getElementsByClassName('page_main')[0].style.display="none";
     document.getElementById('module_container').getElementsByClassName('su_text')[0].style.display="block";
     document.getElementById('module_container').getElementsByTagName('div')[sClick].removeAttribute("onclick");
-    var curr = -511 - (402*newsnumber);
-    var foot = 460 + (402*newsnumber);
-    document.getElementById('currentPage').style.marginTop=curr+"px";
-    document.getElementsByClassName('page-footer')[0].style.top=foot+"px";
   }
 
   function SignupBack(){
@@ -1575,7 +1572,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(signup == 0){
             signup = 1;
-            $(".signupModule").animate({height:"700px"},500);
+            $(".signupModule").animate({height:"270px"},500);
             $(".signupModule > .text").hide();
           }
           $(".go_back9").click(function() {
@@ -1660,6 +1657,32 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 NewsDate: date,
                 NewsText: text,
                 WhichOne: whichone
+            }
+          });
+        });
+        //safe all options for signup module
+        $(".safeSignUp").click(function () {
+          var text = document.getElementById('SignUp_text').value;
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                SignUpText: text,
+            }
+          });
+        });
+
+        $("#SignUp_text").keyup(function (){
+          document.getElementById("currentPage").getElementsByClassName("signuptext")[0].innerHTML = $(this).val();
+        });
+
+        $(".safeSignUpPDF").click(function () {
+          var text = document.getElementById('signup_pdf').value;
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                SignUpPDF: text,
             }
           });
         });

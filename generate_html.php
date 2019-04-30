@@ -72,10 +72,10 @@ if(isset($_POST['anfahrt_button'])){
 }
 if(isset($_POST['signup_button'])){
   $number = 1;
-  setSignup($_SESSION['u_id'], $number);
+  setSignup($_SESSION['u_id'], $number, $_POST['desciption_signup'], $_POST['pdf']);
 }else{
   $number = 0;
-  setSignup();
+  setSignup($_SESSION['u_id'], $number, "", "", $folder);
 }
 
 header('Location: http://localhost/Grundschule/generate.php?success');

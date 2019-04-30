@@ -270,6 +270,10 @@ session_start();
 
       <div id="conf-module9">
         <p>Fügt Ihrer Homepage ein Einschreibungssytem hinzu.</p>
+        <p>Beschreibung der Einschreibung:</p>
+        <textarea name="desciption_signup" cols="40" rows="5" class="desciption_signup"></textarea><br>
+        <p>Stelle eine Datei zum Download bereit:</p>
+        <input type="file" name="pdf" accept="image/*">
         <input type="checkbox" name="signup_button" value="1" />
         <p class="events">Diese Box auswählen, um Einschreibungsmodul zu integrieren</p>
       </div>
