@@ -20,4 +20,14 @@ if(isset($_POST['SignUpText'])){
 if(isset($_POST['SignUpPDF'])){
   updateSignUpPDF($_SESSION['u_id'], $_POST['SignUpPDF']);
 }
+if(isset($_POST['ClassesNumber'])){
+  var_dump($_POST['ClassesNumber']);
+  deleteClasses($_SESSION['u_id'], $_POST['ClassesNumber']);
+}
+if(isset($_POST['Classes']) && isset($_POST['Teacher']) && isset($_POST['Kids'])){
+  safeClasses($_SESSION['u_id'], $_POST['Classes'], $_POST['Teacher'], $_POST['Kids']);
+}
+if(isset($_POST['newClassClasses']) || isset($_POST['newClassTeacher']) || isset($_POST['newClassKids'])){
+  newClass($_SESSION['u_id'], $_POST['newClassClasses'], $_POST['newClassTeacher'], $_POST['newClassKids'], $_SESSION['ClassesFileName']);
+}
 ?>

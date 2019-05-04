@@ -1,15 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, "news");
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'connection.php';
 
 #News Module / einfach Datenbank Abfrage
 function returnNewsTitle(){
@@ -2179,8 +2169,204 @@ function createFile($id, $name, $folder){
   return $folder;
 }
 
-function setClasses(){
+function setClasses($uid, $number, $folder){
+  global $conn;
+  if($number == 1){
+    $stmt = $conn->prepare("UPDATE table_data SET classes_on=? WHERE user_id=?");
+    $stmt->bind_param("ii", $number, $uid);
+    $stmt->execute();
 
+    $site_name = "classes_id" .$uid .".php";
+    if($folder != ""){
+      $folder = $folder."/".$site_name;
+    }else{
+      $folder = $site_name;
+    }
+
+    $var = '<?php $file = "userid".$_SESSION["u_id"]."/classes_id".$_SESSION["u_id"].".php";';
+    $var .=  'echo printClassesInFileTable($_SESSION["u_id"], $file); ?>';
+    $stmt = $conn->prepare("UPDATE Theme1regular2 SET classes_code=?");
+    $stmt->bind_param("s", $var);
+    $stmt->execute();
+
+    printClassesInFile($uid, $folder);
+  }else{
+    $stmt = $conn->prepare("UPDATE table_data SET classes_on=? WHERE user_id=?");
+    $stmt->bind_param("ii", $number, $uid);
+    $stmt->execute();
+  }
+}
+
+function printClassesInFile($uid, $file){
+  global $conn;
+  $output = "";
+  $include = "";
+  $sql = "SELECT include FROM Theme1regular";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $include .= $row["include"];
+    }
+  }
+  $sql = "SELECT classes_code FROM Theme1regular2";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output .= $include.$row["signup_code"];
+    }
+  }
+  $myfile = fopen($file, "w") or die("Datei konnte nicht geöffnet werden!");
+  fwrite($myfile, $output);
+}
+
+function printClassesInFileTable($uid, $file){
+  global $conn;
+  $output = '';
+  $numberArray = array();
+  $teacherArray = array();
+  $kidsArray = array();
+  returnNavbar($uid);
+  returnSlider($uid);
+  $header = printRegularHeader($uid, "");
+  $footer = printRegularFooter($uid);
+  $sql = "SELECT number, teacher, kids FROM classes WHERE user_id = '$uid'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($numberArray, $row['number']);
+        array_push($teacherArray, $row['teacher']);
+        array_push($kidsArray, $row['kids']);
+    }
+  }
+  $output .= $header;
+  //generate code from the input data
+  $output .= '';
+  $output .= $footer;
+  return $output;
+}
+
+function printFormForClasses($uid){
+  global $conn;
+  $output = '';
+  $classesArray = array();
+  $numberArray = array();
+  $teacherArray = array();
+  $kidsArray = array();
+  $sql = "SELECT classes_id, number, teacher, kids FROM classes WHERE user_id = '$uid'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($numberArray, $row['number']);
+        array_push($teacherArray, $row['teacher']);
+        array_push($kidsArray, $row['kids']);
+        array_push($classesArray, $row['kids']);
+    }
+  }
+  for ($i=0; $i < sizeof($numberArray); $i++) {
+    if(($i > 0) && (($i % 3) == 0)){
+      $output .= '</div><br>';
+    }
+    //when 3 classes are in one row we create a new row
+    if(($i % 3) == 0){
+      // start the row
+      $output .= '<div class="row">';
+    }
+    $output .= '<div class="col-sm-4">';
+    $output .='<div class="class_number"><input type="text" class="form-control number_'.$classesArray[$i].'" placeholder="Klasse" name="'.'Klasse_'.$numberArray[$i].'" value="'.$numberArray[$i].'"></div>';
+    $output .='<div class="class_teacher"><input type="text" class="form-control teacher_'.$classesArray[$i].'" placeholder="Lehrer/in" name="'.'teacher_'.$numberArray[$i].'" value="'.$teacherArray[$i].'"></div>';
+    $output .='<div class="class_kids"><input type="text" class="form-control kids_'.$classesArray[$i].'" placeholder="Anzahl der Kinder" name="'.'kids_'.$numberArray[$i].'" value="'.$kidsArray[$i].'"></div>';
+    $output .= '<button type="button" class="btn btn-danger deleteClass" name="deleteClass" value="'.$classesArray[$i].'" formmethod="POST">Löschen</button>';
+    $output .= '<button type="button" class="btn btn-info safeClass" name="safeClass" value="'.$classesArray[$i].'" formmethod="POST">Speichern</button>';
+    $output .= '</div>';
+
+    if(($i == sizeof($numberArray)-1)){
+      $output .= '</div>';
+    }
+  }
+
+  $output .= '<br><br>';
+  return $output;
+}
+
+function printClassesInInterface($uid){
+  global $conn;
+  $numberArray = array();
+  $teacherArray = array();
+  $kidsArray = array();
+  $sql = "SELECT number, teacher, kids FROM classes WHERE user_id = '$uid'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($numberArray, $row['number']);
+        array_push($teacherArray, $row['teacher']);
+        array_push($kidsArray, $row['kids']);
+    }
+  }
+  $output = returnInterfaceHeader($uid);
+  //generate code for the interface from input data
+  $output .= '<div class="row">
+                <div class="col-sm-12"><hr><h1 class="text-center">Klassen</h1><hr></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">';
+  $number = 0;
+  for ($i=0; $i < sizeof($numberArray); $i++) {
+    if(($number > 0) && (($number % 3) == 0)){
+      $output .= '</div><br>';
+    }
+    //when 3 classes are in one row we create a new row
+    if(($number % 3) == 0){
+      // start the row
+      $output .= '<div class="row">';
+    }
+    $output .= '<div class="col-sm-4 text-center">
+                  <p class="classNumber classColor">Klasse: '.$numberArray[$i].'</p>
+                  <p class="classTeacher classColor">Lehrer/in: '.$teacherArray[$i].'</p>
+                  <p class="classKids classColor">Kinder: '.$kidsArray[$i].'</p>
+                </div>';
+    //close the row
+    if(($i == sizeof($numberArray)-1)){
+      $output .= '</div>';
+    }
+    $number ++;
+  }
+  $output .=   '<br></div>
+              </div>';
+  $output .= returnInterfaceFooter($uid);
+  return $output;
+}
+
+function safeClasses($uid, $number, $teacher, $kids){
+  global $conn;
+  $stmt = $conn->prepare("UPDATE classes SET number=? WHERE user_id=?");
+  $stmt->bind_param('ss', $number, $uid);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE classes SET teacher=? WHERE user_id=?");
+  $stmt->bind_param('ss', $teacher, $uid);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE classes SET kids=? WHERE user_id=?");
+  $stmt->bind_param('ss', $kids, $uid);
+  $stmt->execute();
+}
+
+function deleteClasses($uid, $number){
+  global $conn;
+  $stmt = $conn->prepare("DELETE FROM classes WHERE number = ? and user_id = ?");
+  $stmt->bind_param('ss', $number, $uid);
+  $stmt->execute();
+}
+
+function newClass($uid, $number, $teacher, $kids, $file){
+  global $conn;
+  $stmt = $conn->prepare("INSERT INTO classes (number, teacher, kids, file, user_id) VALUES (?, ?, ?, ?, ?)");
+  $stmt->bind_param("ssssi", $number, $teacher, $kids, $file, $uid);
+  $stmt->execute();
+  $stmt->close();
 }
 
 function setSignup($uid, $number, $text, $file, $folder){
@@ -2199,7 +2385,6 @@ function setSignup($uid, $number, $text, $file, $folder){
     }else{
       $folder = $site_name;
     }
-    var_dump($folder);
 
     $var = '<?php $file = "userid".$_SESSION["u_id"]."/signup_id".$_SESSION["u_id"].".php";';
     $var .=  'echo printSignupInFileTable($_SESSION["u_id"], $file); ?>';
@@ -2208,6 +2393,10 @@ function setSignup($uid, $number, $text, $file, $folder){
     $stmt->execute();
 
     printSignupInFile($uid, $folder);
+  }else{
+    $stmt = $conn->prepare("UPDATE table_data SET signup_on=? WHERE user_id=?");
+    $stmt->bind_param("ii", $number, $uid);
+    $stmt->execute();
   }
 }
 
@@ -2248,8 +2437,6 @@ function printSignUpInInterface($uid){
 }
 
 function printSignupInFile($uid, $file){
-  var_dump($file);
-  global $conn;
   global $conn;
   $output = "";
   $include = "";

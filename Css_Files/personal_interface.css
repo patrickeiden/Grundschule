@@ -603,6 +603,70 @@ footer {
     border-radius: 0px 0px 5px 0px
   }
 
+  .deleteClass{
+    width: 44%!important;
+    height: 27px;
+    border-radius: 0px 0px 0px 5px;
+    margin-top: -5px;
+  }
+
+  .safeClass{
+    width: 44%!important;
+    height: 27px;
+    border-radius: 0px 0px 5px 0px;
+    margin-top: -5px;
+  }
+
+  .class_number input[type=text]{
+    border-radius: 5px 5px 0px 0px!important;
+    width: 88%;
+  }
+
+  .class_teacher input[type=text]{
+    border-radius: 0px 0px 0px 0px!important;
+    width: 88%;
+    margin-top: -5px;
+  }
+
+  .class_kids input[type=text]{
+    border-radius: 0px 0px 0px 0px!important;
+    width: 88%;
+    margin-top: -5px;
+  }
+
+  .newClass_button{
+    width: 66%;
+  }
+
+  .new_number{
+    margin-bottom: -10px!important;
+  }
+
+  .new_number2{
+    width: 66%!important;
+    border-radius: 5px 5px 0px 0px!important;
+  }
+
+  .new_teacher{
+    margin-bottom: -10px!important;
+    border-radius: 0px 0px 0px 0px!important;
+  }
+
+  .new_teacher2{
+    width: 66%!important;
+    border-radius: 0px 0px 0px 0px!important;
+  }
+
+  .new_kids{
+    margin-bottom: -5px!important;
+    border-radius: 0px 0px 0px 0px!important;
+  }
+
+  .new_kids2{
+    width: 66%!important;
+    border-radius: 0px 0px 0px 0px!important;
+  }
+
   .safeSignUp{
     width: 91%!important;
     height: 27px;
@@ -623,6 +687,11 @@ footer {
     width: 91%;
     border-radius: 5px 5px 0px 0px;
     margin-bottom: 0px;
+  }
+
+  .classColor{
+    background-color: mintcream;
+    border-radius: 5px 5px 5px 5px;
   }
 
   .addNews{

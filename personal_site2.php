@@ -304,12 +304,19 @@ include 'functions.php';
         // Modul mit Grundinformationen zur Vorstellung der Schulklassen
 
         if(ClassesOn($_SESSION['u_id']) == 1){
+          $ClassesText = printFormForClasses($_SESSION['u_id']);
+          $ClassesName = oneValueFromTableData($_SESSION['u_id'], "classes_file_name");
+          $_SESSION['ClassesFileName'] = $ClassesName;
           echo '<div class="classesModule" onclick="clickedClasses()">
                   <p class="text">Konfiguriere alle Klassen</p>
                   <div class="cl_text">
                     <p>Nehmen Sie hier Änderungen am Klassenmodul vor.</p>
                     <form action="update_site.php" method="POST">
-                      <div class="form-group">
+                      <div class="form-group">'.$ClassesText.'
+                        <div class="new_number"><input type="text" class="form-control new_number2" placeholder="Klasse" name="new_number"></div>
+                        <div class="new_teacher"><input type="text" class="form-control new_teacher2" placeholder="Lehrer/in" name="new_number"></div>
+                        <div class="new_kids"><input type="text" class="form-control new_kids2" placeholder="Anzahl der Kinder" name="new_number"></div>
+                        <button type="button" class="btn btn-info newClass_button" name="newClass_button" formmethod="POST">Klasse hinzufügen</button>
                         <button class="go_back8" onclick="ClassesBack()" name="backbutton">Zurück</button>
                       </div>
                     </form>
@@ -434,7 +441,7 @@ include 'functions.php';
       <div class="page_classes">
         <?php
         if(ClassesOn($_SESSION['u_id']) == 1){
-
+          echo printClassesInInterface($_SESSION['u_id']);
         }
         ?>
       </div>
@@ -1557,7 +1564,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(classes == 0){
             classes = 1;
-            $(".classesModule").animate({height:"700px"},500);
+            $(".classesModule").animate({height:"550px"},500);
             $(".classesModule > .text").hide();
           }
           $(".go_back8").click(function() {
@@ -1686,6 +1693,59 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
             }
           });
         });
+
+        //delete one Class
+        $(".deleteClass").click(function () {
+          var number = $(this).val();
+          //$("input[name=Klasse_"+number+"]").hide();
+          //$("input[name=teacher_"+number+"]").hide();
+          //$("input[name=kids_"+number+"]").hide();
+          //$("button[value="+number+"]").hide();
+          $(this).hide();
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                ClassesNumber: number,
+            }
+          });
+        });
+
+        $(".safeClass").click(function () {
+          var number = $(this).val();
+          var classNumber = 'teacher_'+number;
+          var teacher = document.getElementsByClassName(classNumber)[0].value;
+          var kidsNumber = 'kids_'+number;
+          var kids = document.getElementsByClassName(kidsNumber)[0].value;
+          alert(teacher);
+          alert(kids);
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                Classes: number,
+                Teacher: teacher,
+                Kids: kids
+            }
+          });
+        });
+
+        //Delelte Class
+        $(".newClass_button").click(function () {
+          var number = document.getElementsByClassName('new_number2')[0].value;
+          var teacher = document.getElementsByClassName('new_teacher2')[0].value;
+          var kids = document.getElementsByClassName('new_kids2')[0].value;
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                newClassClasses: number,
+                newClassTeacher: teacher,
+                newClassKids: kids
+            }
+          });
+        });
+
         //left and right for currentPage news
         $(".LeftNews").click(function (){
           if(currentPageLeftRight > 1){
