@@ -221,7 +221,7 @@ include 'functions.php';
           echo '<div class="newsModule" onclick="clickedNews()">
           <p class="text">Das News-Modul ist in Ihre Homepage integriert.</p>
           <div class="n_text">
-            <p>Nehmen Sie hier Änderungen am Newsmodul vor.</p>
+            <h3>Nehmen Sie hier Änderungen am Newsmodul vor.</h3>
             <form class="md-form" action="update_site.php" method="POST">
               <div class="form-group">'.$string.'
                 <div class="news_title">
@@ -233,13 +233,12 @@ include 'functions.php';
                 <div class="News">
                   <textarea name="news_text" cols="40" rows="5" id="news_text"></textarea>
                 </div>
-
                 <button type="submit" class="btn btn-info addNews" name="newNews" value="'.$name3.'" formmethod="POST">News hinzufügen</button>
-                <button class="go_back3" onclick="NewsBack()" name="backbutton">Zurück</button>
+                <button class="btn btn-danger go_back3" onclick="NewsBack()" name="backbutton">Zurück</button>
               </div>
             </form>
-            <button name="left" value="'.$name3.'" class="left" >Left</button>
-            <button name="right" value="'.$name3.'" class="right" >Right</button>
+            <button name="left" value="'.$name3.'" class="btn btn-danger go_back left" >Left</button>
+            <button name="right" value="'.$name3.'" class="btn btn-info safeCustome right" >Right</button>
           </div>
           </div>';
         }
@@ -806,7 +805,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
   }
 
   function NewsBack(){
-    document.getElementsByClassName('page-footer')[0].style.top="200px";
+    document.getElementsByClassName('page-footer')[0].style.top="-10px";
     document.getElementById('page_news').style.display="none";
     var nClick = 3;
     if(customeon == 1){
@@ -1497,7 +1496,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(news == 0){
             news = 1;
-            var temp = 311 + (newsnumber*202);
+            var temp = 299 + (newsnumber*180);
             $(".newsModule").animate({height:temp+"px"},500);
             $(".newsModule > .text").hide();
           }
@@ -1610,7 +1609,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(start == 0){
             start = 1;
-            $(".startModule").animate({height:"500px"},500);
+            $(".startModule").animate({height:"506px"},500);
             $(".startModule > .text").hide();
           }
           $(".go_back5").click(function() {
