@@ -597,9 +597,45 @@ footer {
   }
 
   .codeModuleSave{
-    width: 66%;
+    width: 91%;
+    margin-left: 0%;
+    margin-top: 10px!important;
+    border-radius: 5px 5px 0px 0px;
+  }
+
+  .newModule{
+    width: 91%;
     margin-left: 0%;
     margin-top: 0px!important;
+    border-radius: 0px 0px 0px 0px;
+  }
+
+  .SizeCustome input[type=text]{
+    width: 91%;
+    border-radius: 5px 5px 0px 0px;
+    margin-bottom: 0px;
+  }
+
+  .NavCustome input[type=text]{
+    width: 91%;
+    border-radius: 5px 5px 5px 5px;
+    margin-bottom: 0px;
+  }
+
+  .go_back{
+    width: 46%!important;
+    margin-right: -2px;
+    border-radius: 5px 0px 0px 5px;
+  }
+
+  .safeCustome{
+    width: 45%!important;
+    margin-left: -2px;
+    border-radius: 0px 5px 5px 0px;
+  }
+
+  .NavCustome{
+    margin-bottom: 10px;
   }
 
   .AnfahrtSave{
@@ -607,24 +643,6 @@ footer {
     margin-left: 0%;
     margin-top: 0px!important;
     border-radius: 5px 0px 0px 5px;
-  }
-
-  .saveButton{
-    width: 16%!important;
-    height: 79px;
-    margin-top: -76px;
-    margin-left: -1px;
-    border-radius: 0px 5px 5px 0px;
-  }
-
-  .deleteButton{
-    width: 16%!important;
-    height: 81px;
-    margin-top: -76px;
-    margin-left: -1px;
-    border-radius: 5px 0px 0px 5px;
-    margin-top: -76px;
-    margin-left: 1px;
   }
 
   .news_title input[type=text]{
@@ -653,6 +671,18 @@ footer {
     border-radius: 0px 0px 5px 0px
   }
 
+  .deleteButton{
+    width: 46%!important;
+    height: 27px;
+    border-radius: 0px 0px 0px 5px;
+  }
+
+  .saveButton{
+    width: 45%!important;
+    height: 27px;
+    border-radius: 0px 0px 5px 0px
+  }
+
   .deleteClass{
     width: 44%!important;
     height: 27px;
@@ -665,6 +695,12 @@ footer {
     height: 27px;
     border-radius: 0px 0px 5px 0px;
     margin-top: -5px;
+  }
+
+  .newCustomeModule{
+    width: 91%!important;
+    height: 27px;
+    border-radius: 0px 0px 5px 5px
   }
 
   .class_number input[type=text]{

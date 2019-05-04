@@ -153,21 +153,22 @@ include 'functions.php';
           echo '<div class="costumeModule" onclick="clickedCustome()">
                   <p class="text">Das Custom-Modul ist in Ihre Homepage integriert.</p>
                   <div class="c_text">
-                    <p>Nehmen Sie hier Änderungen am Custom-Modul vor.</p>
+                    <h3>Nehmen Sie hier Änderungen am Custome-Modul vor.</h3>
                     <form action="update_site.php" method="POST">
                     <div class="form-group">
                       <p>Titel der Navigationsbar für Custom-Modul:</p>
+                      <div class="NavCustome">
                         <input type="text" class="form-control" id="nav_title" placeholder="Titel" maxlength="12" name="nav_title" value="'.$nav1 .'">
+                      </div>
                     </div>
-                    <div class="form-group">'.$result1.'
-                      <p>Modul hinzufügen</p>
-                      <p>Titel:</p>
+                    <div class="form-group">'.$result1.'<br><br>
+                    <div class="SizeCustome">
                       <input type="text" class="form-control" id="title" placeholder="Titel" name="custome_title">
-                      <p>Code:</p>
-                      <textarea name="custome_code" cols="40" rows="5" class="code"></textarea>
-                      <button type="submit" name="newModule" formmethod="POST" value="'.$name1.'">Modul hinzufügen</button>
-                      <button type="submit" name="changes" formmethod="POST" value="'.$name1.'">Speichern</button>
-                      <button class="go_back "onclick="CustomeBack()" name="backbutton">Zurück</button>
+                      <textarea name="custome_code" cols="40" rows="5" class="newModule"></textarea>
+                      <button type="submit" class="btn btn-info newCustomeModule" name="newModule" formmethod="POST" value="'.$name1.'">Modul hinzufügen</button>
+                    </div><br>
+                    <button class="btn btn-danger go_back"onclick="CustomeBack()" name="backbutton">Zurück</button>
+                    <button class="btn btn-info safeCustome" type="submit" name="changes" formmethod="POST" value="'.$name1.'">Speichern</button>
                     </div>
                     </form>
                   </div>
@@ -1473,7 +1474,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
       $(".costumeModule").click(function () {
         if(custome == 0){
           custome = 1;
-          var temp = 388+(customenumber*130);
+          var temp = 316+(customenumber*121);
           $(".costumeModule").animate({height:temp+"px"},500);
           $(".costumeModule > .text").hide();
         }

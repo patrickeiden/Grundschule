@@ -425,8 +425,8 @@ function printFormforCustome($file, $checkValue){
         }else{
           $id = 'code'.$i;
         }
-        $form .= '<button type="button" class="btn btn-danger deleteButton" name="delete" value="'.$a[$i-1].'" formmethod="POST">Löschen</button>';
         $form .= '<textarea style="resize: none;" name="'.$row["custome_name"].'" class="codeModuleSave" cols="40" rows="5" id="'.$id.'">'.$row["costume_code"].'</textarea>';
+        $form .= '<button type="button" class="btn btn-danger deleteButton" name="delete" value="'.$a[$i-1].'" formmethod="POST">Löschen</button>';
         $form .= '<button type="button" class="btn btn-info saveButton changes'.$i.'" name="changes'.$i.'" value="'.$a[$i-1].'" formmethod="POST">Speichern</button>';
         $name = 'changes'.$i;
         $_SESSION[$name] = $a[$i-1];
