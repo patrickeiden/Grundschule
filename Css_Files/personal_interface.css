@@ -628,6 +628,12 @@ footer {
     border-radius: 5px 0px 0px 5px;
   }
 
+  .go_back2{
+    width: 91%!important;
+    border-radius: 5px 5px 5px 5px;
+    margin-top: 20px;
+  }
+
   .safeCustome{
     width: 45%!important;
     margin-left: -2px;
@@ -636,6 +642,24 @@ footer {
 
   .NavCustome{
     margin-bottom: 10px;
+  }
+
+  #event_title{
+    width: 46%!important;
+    margin-right: -3px!important;
+    border-radius: 5px 0px 0px 0px!important;
+  }
+
+  #event_date{
+    width: 45%!important;
+    margin-left: 0px!important;
+    border-radius: 0px 5px 0px 0px!important;
+  }
+
+  .CalendarButton{
+    width: 91%!important;
+    border-radius: 0px 0px 5px 5px;
+    margin-top: -5px;
   }
 
   .AnfahrtSave{
@@ -701,6 +725,20 @@ footer {
     width: 91%!important;
     height: 27px;
     border-radius: 0px 0px 5px 5px
+  }
+
+  .newCalenderModuleAbove{
+    width: 46%!important;
+    height: 27px;
+    border-radius: 0px 0px 0px 5px;
+    margin-right: -3px;
+  }
+
+  .newCalenderModuleUnder{
+    width: 45%!important;
+    height: 27px;
+    border-radius: 0px 0px 5px 0px;
+    margin-left: 0px;
   }
 
   .class_number input[type=text]{

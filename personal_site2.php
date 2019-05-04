@@ -183,31 +183,22 @@ include 'functions.php';
           echo '<div class="calendarModule" onclick="clickedCalendar()">
                   <p class="text">Das Kalendermodul ist in Ihre Homepage integriert.</p>
                   <div class="k_text">
-                    <p>Nehmen Sie hier Änderungen am Kalender-Modul vor.</p>
+                    <h3>Nehmen Sie hier Änderungen am Kalender-Modul vor.</h3>
                     <form action="update_site.php" method="POST">
-                      <div class="form-group">'.$result2.'
-                      <p>Add an event: (Date ex.: 2018-03-27)</p>
+                      <div class="form-group">'.$result2.'<br><br>
                       <div class="event">
                         <input type="text" class="form-control" id="event_title" placeholder="Titel" name="event_title">
                         <input type="text" class="form-control" id="event_date" placeholder="Datum" name="event_date">
+                        <button class="btn btn-info CalendarButton" type="submit" name="newEvent" formmethod="POST" value="'.$name2.'">Ereignis hinzufügen (Date ex.: 2018-03-27)</button>
                       </div>
-                        <p>Modul hinzufügen:</p>
-                        <p>Titel:</p>
-                        <input type="text" class="form-control" id="title" placeholder="Title" name="calendar_title">
-                        <p>Code:</p>
-                        <textarea name="calendar_code" cols="40" rows="5" class="code"></textarea>
-                        <div class="updownmodule">
-                          <button type="submit" name="newModuleabove" formmethod="POST" value="'.$name2.'">Neues Modul über Kalender hinzuf.</button>
-                          <button type="submit" name="newModuleunder" formmethod="POST" value="'.$name2.'">Neues Modul unter Kalender hinzuf.</button>
-                        </div>
-                        <div class="updownmodule">
-                          <button type="submit" name="newEvent" formmethod="POST" value="'.$name2.'">Ereignis hinzufügen:</button>
-                          <button type="submit" name="delete2" formmethod="POST" value="'.$name2.'">Module entfernen</button>
-                        </div>
-                        <div class="updownmodule">
-                          <button type="submit" name="changes_calendar" formmethod="POST" value="'.$name2.'">Speicherns</button>
-                          <button class="go_back2" onclick="CalendarBack()" name="backbutton">Zurück</button>
-                        </div>
+                      <br>
+                      <div class="SizeCustome">
+                        <input type="text" class="form-control" id="title" placeholder="Titel" name="custome_title">
+                        <textarea name="custome_code" cols="40" rows="5" class="newModule"></textarea>
+                        <button type="submit" class="btn btn-info newCalenderModuleAbove" name="newModuleabove" formmethod="POST" value="'.$name2.'">Über Kalender</button>
+                        <button type="submit" class="btn btn-info newCalenderModuleUnder" name="newModuleunder" formmethod="POST" value="'.$name2.'">Unter Kalender</button>
+                      </div>
+                      <button class="btn btn-danger go_back2" onclick="CalendarBack()" name="backbutton">Zurück</button>
                       </div>
                     </form>
                   </div>
@@ -1490,7 +1481,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
         if(calendar == 0){
           calendar = 1;
-          var temp = 381 + (calendarnumber*170);
+          var temp = 315 + (calendarnumber*121);
           $(".calendarModule").animate({height:temp+"px"},500);
           $(".calendarModule > .text").hide();
         }
