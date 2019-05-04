@@ -196,9 +196,10 @@ function printFormForStart($file){
   $a = oneColumnFromTable("image_url", $file, "Image", "image_file_name");
   $b = oneColumnFromTable("image_id", $file, "Image", "image_file_name");
   for ($i=0; $i < sizeof($a); $i++) {
-    $form .= '<p>'.($i+1).'. Slider Bild: '.$a[$i].'</p>';
-    $form .= '<p>Bild ändern: '.($i+1).'</p>';
-    $form .= '<input type="file" id="school_slider'.($i+1).'" name="school_slider'.($i+1).'" accept="image/*">';
+    $form .= '<div class="wrapper2">';
+    $form .= '<button class="btm">Slider '.($i+1).'</button>';
+    $form .= '<input type="file" id="school_slider'.($i+1).'" name="school_slider'.($i+1).'" />';
+    $form .= '</div>';
   }
   return $form;
 }

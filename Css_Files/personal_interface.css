@@ -4,6 +4,56 @@ body {
   margin-top: 14px;
 }
 
+h3{
+  margin-bottom: 10px;
+}
+
+.wrapper2{
+  overflow: hidden!important;
+  display: inline-block;
+  width: 32%;
+  margin-bottom: 14px;
+  height: 55px;
+}
+
+.btm{
+  border: 2px solid white!important;
+  color: white!important;
+  background-color: #123C69;
+  padding: 8px 20px!important;
+  border-radius: 8px!important;
+  font-size: 20px!important;
+  font-weight: bold!important;
+  margin-top: 5px;
+}
+
+.wrapper2 input[type=file] {
+  left: 2px;
+  top: -47px;
+  opacity: 1;
+  font-size: 27px;
+  position: relative;
+  width: 100%;
+  opacity: 0;
+}
+
+.go_back5{
+  width: 49%!important;
+  height: 27px;
+  border-radius: 5px 0px 0px 5px;
+  margin-right: -3px;
+}
+
+.startButton{
+  width: 49%!important;
+  height: 27px;
+  border-radius: 0px 5px 5px 0px;
+}
+
+.contact {
+  margin-bottom: 15px;
+}
+
 #currentPage h1{
   color: black!important;
 }
@@ -732,11 +782,16 @@ footer {
     border-radius: 0px 0px 5px 5px;
 }
 
+.News textarea {
+  width: 91%;
+  border-radius: 0px 0px 0px 0px;
+}
+
 textarea {
     overflow: auto;
     text-align: center;
-    width: 91%;
-    border-radius: 0px 0px 0px 0px;
+    width: 96%;
+    border-radius: 5px 5px 5px 5px;
     border-top-color: transparent;
     background-color: #f6f6f6!important;
     margin-top: -5px;
@@ -745,6 +800,10 @@ textarea {
     margin-bottom: -1%;
     border-left: white;
     border-right: white;
+}
+
+.school input[type=text]{
+  width: 96%;
 }
 
 input[type=text] {

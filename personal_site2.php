@@ -105,15 +105,22 @@ include 'functions.php';
         echo '<div class="startModule" onclick="clickedStart()">
                 <p class="text">Konfiguriere die Startseite</p>
                 <div class="s_text">
-                  <p>Nehmen Sie hier Änderungen an der Startseite vor.</p>
+                  <h3>Nehmen Sie hier Änderungen an der Startseite vor</h3>
                   <form action="update_site.php" method="POST">
                     <div class="form-group">
-                      <p>Name der Schule:</p>
-                      <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.$Startname[0] .'">
-                      <p>Logo der Schule:</p>
-                      <input type="file" id="school_logo" name="school_logo" accept="image/*">'.$form5.'
+                      <div class="row">
+                        <div class="col-sm-12 school">
+                          <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.$Startname[0] .'">
+                        </div>
+                      </div>
+                      <div class="wrapper2">
+                      <button class="btm">Neues Logo</button>
+                       <input type="file" name="myfile" />
+                      </div>'.$form5.'
                       <p>Header der Startseite:</p>
-                      <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_header" value="'.$Startheader[0].'">
+                      <div class="school">
+                        <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_header" value="'.$Startheader[0].'">
+                      </div>
                       <p>Kurzbeschreibung der Schule:</p>
                       <textarea name="school_description" cols="40" rows="5" id="school_description" required>'.$Starttext[0].'</textarea>
                       <p>Adresse der Schule (im Footer):</p>
@@ -128,8 +135,8 @@ include 'functions.php';
                         <input type="text" class="form-control" id="school_fax" placeholder="Fax" name="school_fax" value="'.$Startfax[0].'">
                         <input type="text" class="form-control" id="school_mail" placeholder="Mail" name="school_mail" value="'.$Startmail[0].'">
                         </div>
-                      <button class="go_back5" onclick="StartBack()" name="backbutton">Zurück</button>
-                      <button class="startButton" type="button">Speichern</button>
+                      <button class="btn btn-danger go_back5" onclick="StartBack()" name="backbutton">Zurück</button>
+                      <button class="btn btn-info startButton" type="button">Speichern</button>
                     </div>
                   </form>
                 </div>
@@ -231,7 +238,9 @@ include 'functions.php';
                 <div class="news_date">
                   <input type="text" class="form-control" id="news_date" placeholder="Datum" name="news_date">
                 </div>
-                <textarea name="news_text" cols="40" rows="5" id="news_text"></textarea>
+                <div class="News">
+                  <textarea name="news_text" cols="40" rows="5" id="news_text"></textarea>
+                </div>
 
                 <button type="submit" class="btn btn-info addNews" name="newNews" value="'.$name3.'" formmethod="POST">News hinzufügen</button>
                 <button class="go_back3" onclick="NewsBack()" name="backbutton">Zurück</button>
@@ -1609,7 +1618,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(start == 0){
             start = 1;
-            $(".startModule").animate({height:"700px"},500);
+            $(".startModule").animate({height:"500px"},500);
             $(".startModule > .text").hide();
           }
           $(".go_back5").click(function() {
