@@ -44,6 +44,13 @@ h3{
   margin-right: -3px;
 }
 
+.go_back8{
+    width: 66%!important;
+    height: 27px;
+    border-radius: 5px 5px 5px 5px;
+    margin-top: 10px;
+}
+
 .go_back9{
     width: 91%!important;
     height: 27px;
@@ -889,6 +896,10 @@ footer {
 
 .signupModule textarea {
   width: 91%;
+}
+
+.anfahrtModule textarea {
+  border-radius: 5px 5px 0px 0px;
 }
 
 textarea {

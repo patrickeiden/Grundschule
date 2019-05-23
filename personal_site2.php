@@ -317,7 +317,7 @@ include 'functions.php';
                         <div class="new_teacher"><input type="text" class="form-control new_teacher2" placeholder="Lehrer/in" name="new_number"></div>
                         <div class="new_kids"><input type="text" class="form-control new_kids2" placeholder="Anzahl der Kinder" name="new_number"></div>
                         <button type="button" class="btn btn-info newClass_button" name="newClass_button" formmethod="POST">Klasse hinzufügen</button>
-                        <button class="go_back8" onclick="ClassesBack()" name="backbutton">Zurück</button>
+                        <button class="btn btn-danger go_back8" onclick="ClassesBack()" name="backbutton">Zurück</button>
                       </div>
                     </form>
                   </div>
