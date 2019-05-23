@@ -411,10 +411,24 @@ footer {
   border-radius: 5px 5px 5px 5px;
 }
 
-/*#generate_button{
-  position: relative;
-  display: none;
-}*/
+#generate_button{
+    position: absolute;
+    display: block;
+    top: -31px;
+    width: 400px;
+    left: 56px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #123C69;
+}
+
+#generate_button button{
+    background-color: #123C69;
+    border-radius: 5px;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
 
 #costume-module input[type=text]{
 

@@ -44,6 +44,21 @@ h3{
   margin-right: -3px;
 }
 
+.go_back9{
+    width: 91%!important;
+    height: 27px;
+    border-radius: 5px 5px 5px 5px;
+    margin-top: 24px;
+}
+
+.go_back10{
+    width: 48%!important;
+    height: 27px;
+    border-radius: 0px 0px 0px 5px;
+    margin-right: -3px;
+    margin-top: 3px;
+}
+
 .startButton{
   width: 49%!important;
   height: 27px;
@@ -246,8 +261,13 @@ li a {
 }
 
 #module_container .impressum button {
-    width: 38%;
-    font-size: 14px;
+}
+
+.impressum_button{
+    width: 48%!important;
+    height: 27px;
+    border-radius: 0px 5px 5px 0px;
+    margin-top: 2px;;
 }
 
 #module_container .galleryModule {
@@ -867,11 +887,15 @@ footer {
   border-radius: 0px 0px 0px 0px;
 }
 
+.signupModule textarea {
+  width: 91%;
+}
+
 textarea {
     overflow: auto;
     text-align: center;
     width: 96%;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 0px 0px;
     border-top-color: transparent;
     background-color: #f6f6f6!important;
     margin-top: -5px;

@@ -334,7 +334,7 @@ include 'functions.php';
                     <p>Nehmen Sie hier Änderungen am Einschreibungsmodul vor.</p>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$SignupText.'
-                        <button class="go_back9" onclick="SignupBack()" name="backbutton">Zurück</button>
+                        <button class="btn btn-danger go_back9" onclick="SignupBack()" name="backbutton">Zurück</button>
                       </div>
                     </form>
                   </div>
@@ -350,8 +350,8 @@ include 'functions.php';
                   <p>Nehmen Sie hier Änderungen am Impressum vor.</p>
                   <form action="update_site.php" method="POST">
                     <div class="form-group">'.$codeImpressum.'
-                    <button type="button" class="impressum_button" name="impressum_button">Speichern</button>
-                      <button class="go_back10" onclick="ImpressumBack()" name="backbutton">Zurück</button>
+                      <button class="btn btn-danger go_back10" onclick="ImpressumBack()" name="backbutton">Zurück</button>
+                      <button type="button" class="btn btn-info impressum_button">Speichern</button>
                     </div>
                   </form>
                 </div>
@@ -1579,7 +1579,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(signup == 0){
             signup = 1;
-            $(".signupModule").animate({height:"270px"},500);
+            $(".signupModule").animate({height:"301px"},500);
             $(".signupModule > .text").hide();
           }
           $(".go_back9").click(function() {
