@@ -51,6 +51,7 @@ textarea {
   border-radius: 5px 5px 5px 5px;
   margin-bottom: 20px;
   margin: 5px;
+  resize: none;
 }
 
 .navbar-inverse{
@@ -90,12 +91,21 @@ textarea {
   padding-top: 28px;
 }
 
+footer {
+  position: absolute;
+}
+
 #main-container{
    width: 500px;
    padding-top: 1px;
    padding-bottom: 43px;
    background-color: white;
    border-radius: .25rem;
+   background-color: #BAB2B5;
+}
+
+#main-container a:hover{
+  border-color: #123C69!important;
 }
 
 .moduleStart{
@@ -158,6 +168,7 @@ textarea {
   padding-top: 38px;
   padding-left: 61px;
   border-radius: .25rem;
+  display: none;
 }
 .module6{
   background-color: grey;
@@ -243,12 +254,13 @@ textarea {
   height: 200px;
   margin-bottom: 10px;
   background-color: white;
+  border-radius: 5px 5px 5px 5px;
 }
 
 #calendar_module{
   position: relative;
   left: 700px;
-  top: -1580px;
+  top: -1404px;
   display: none;
   background-color: gray;
   width: 500px;
@@ -256,12 +268,13 @@ textarea {
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 #conf-module3{
   position: relative;
   left: 700px;
-  top: -1580px;
+  top: -1404px;
   display: none;
   background-color: white;
   width: 500px;
@@ -269,12 +282,13 @@ textarea {
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 #conf-module4{
   position: relative;
   left: 700px;
-  top: -1580px;
+  top: -1404px;
   display: none;
   background-color: white;
   width: 500px;
@@ -282,12 +296,13 @@ textarea {
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 #conf-module5{
   position: relative;
   left: 700px;
-  top: -1580px;
+  top: -1404px;
   display: none;
   background-color: white;
   width: 500px;
@@ -295,11 +310,12 @@ textarea {
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
+  border-radius: 5px 5px 5px 5px;
 }
 #conf-module6{
   position: relative;
   left: 700px;
-  top: -1580px;
+  top: -1404px;
   display: none;
   background-color: white;
   width: 500px;
@@ -307,12 +323,14 @@ textarea {
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
+  border-radius: 5px 5px 5px 5px;
+  display: none;
 }
 
 #conf-module7{
   position: relative;
   left: 700px;
-  top: -1580px;
+  top: -1404px;
   display: none;
   background-color: white;
   width: 500px;
@@ -320,12 +338,13 @@ textarea {
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 #conf-module8{
   position: relative;
   left: 700px;
-  top: -1580px;
+  top: -1404px;
   display: none;
   background-color: white;
   width: 500px;
@@ -333,12 +352,13 @@ textarea {
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 #conf-module9{
   position: relative;
   left: 700px;
-  top: -1580px;
+  top: -1404px;
   display: none;
   background-color: white;
   width: 500px;
@@ -346,12 +366,13 @@ textarea {
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 #conf-module10{
   position: relative;
   left: 700px;
-  top: -1580px;
+  top: -1404px;
   display: none;
   background-color: white;
   width: 500px;
@@ -359,25 +380,27 @@ textarea {
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 #start-module{
   position: relative;
   left: 700px;
-  top: -1580px;
+  top: -1404px;
   display: none;
-  background-color: gray;
+  background-color: cadetblue!important;
   width: 500px;
   height: 400px;
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 #costume-module{
   position: relative;
   left: 700px;
-  top: -1580px;
+  top: -1404px;
   display: none;
   background-color: gray;
   width: 500px;
@@ -385,6 +408,7 @@ textarea {
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 /*#generate_button{

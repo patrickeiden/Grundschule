@@ -127,7 +127,6 @@ session_start();
     //Step 1-3. this container contains all modules available on the site
     if(isset($_SESSION['u_id'])){
     echo  '
-      <p href="#" class="show-modules btn btn-primary" onclick="vanish()">Module anzeigen lassen und aussuchen</p>
 
       <div id="main-container">
       <div class="moduleStart boxdesign">
@@ -294,12 +293,16 @@ session_start();
     ?>
 </div>
 </div>
-
-<footer class="text-center">
+<div class="row">
+  <div class="col-sm-12">
+    <footer class="text-center">
 
   <div class="footer">© 2019 Copyright</div>
 
 </footer>
+  </div>
+</div>
+
 </div>
 
 </body>
@@ -424,17 +427,7 @@ function vanish(){
   }
 }
 
-$(document).ready(function () {
 
-    $("#main-container").hide();
-    $(".show-modules").show();
-
-
-    $('.show-modules').click(function () {
-        $("#main-container").toggle("slide");
-        $(".page-footer").css({"top":"23px"});
-    });
-});
 
 
 </script>
