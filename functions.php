@@ -1647,55 +1647,47 @@ function changeWorkers(){
 
 function printFormforWorkers($uid, $file){
   global $conn;
-  $output = '<div class="workersform">';
-  $sql = "SELECT workers_id, type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='leader'";
+  $output = '';
+  $idArray = array();
+  $jobArray = array();
+  $AnredeArray = array();
+  $NameArray = array();
+  $telArray = array();
+  $sql = "SELECT workers_id, type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file'";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
-    $output .= '<div class="leader">';
     while($row = $result->fetch_assoc()) {
-        $output.= '<p>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].' | '.$row['job'].'</p>';
-        $output.= '<p>Arbeiter entfernen</p> <input type ="checkbox" name ="delete_worker_'.$row['workers_id'].'" value="'.$row['workers_id'].'"/>';
+        array_push($idArray, $row['workers_id']);
+        array_push($jobArray, $row['job']);
+        array_push($AnredeArray, $row['anrede']);
+        array_push($NameArray, $row['vorname'].' '.$row['nachname']);
+        array_push($telArray, $row['tel']);
     }
-    $output.= '</div>';
+  }
+  for ($i=0; $i < sizeof($idArray); $i++) {
+    if(($i > 0) && (($i % 3) == 0)){
+      $output .= '</div><br>';
+    }
+    //when 3 classes are in one row we create a new row
+    if(($i % 3) == 0){
+      // start the row
+      $output .= '<div class="row">';
+    }
+    $output .= '<div class="col-sm-4">';
+    $output .='<div class="class_number"><input type="text" class="form-control job_'.$idArray[$i].'" placeholder="Job" name="'.'job_'.$idArray[$i].'" value="'.$jobArray[$i].'"></div>';
+    $output .='<div class="class_teacher"><input type="text" class="form-control name_'.$idArray[$i].'" placeholder="Name" name="'.'name_'.$idArray[$i].'" value="'.$AnredeArray[$i].'"></div>';
+    $output .='<div class="class_kids"><input type="text" class="form-control tel_'.$idArray[$i].'" placeholder="Telefon" name="'.'tel_'.$idArray[$i].'" value="'.$telArray[$i].'"></div>';
+    $output .= '<button type="button" class="btn btn-danger deleteClass" name="deleteClass" value="'.$idArray[$i].'" formmethod="POST">Löschen</button>';
+    $output .= '<button type="button" class="btn btn-info safeClass" name="safeClass" value="'.$idArray[$i].'" formmethod="POST">Speichern</button>';
+    $output .= '</div>';
+
+    if(($i == sizeof($idArray)-1)){
+       $output .= '</div>';
+    }
   }
 
-  $sql = "SELECT workers_id, type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='secr'";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    $output .= '<div class="secr">';
-    while($row = $result->fetch_assoc()) {
-        $output.= '<p>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].' | '.$row['job'].'</p>';
-        $output.= '<p>Arbeiter entfernen</p> <input type ="checkbox" name ="delete_worker_'.$row['workers_id'].'" value="'.$row['workers_id'].'"/>';
-    }
-    $output.= '</div>';
-  }
-
-  $sql = "SELECT workers_id, type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='teacher'";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    $output .= '<div class="teacher">';
-    while($row = $result->fetch_assoc()) {
-        $output.= '<p>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].' | '.$row['job'].'</p>';
-        $output.= '<p>Arbeiter entfernen</p> <input type ="checkbox" name ="delete_worker_'.$row['workers_id'].'" value="'.$row['workers_id'].'"/>';
-    }
-    $output.= '</div>';
-  }
-
-  $sql = "SELECT workers_id, type, job, anrede, vorname, nachname, tel, image FROM workers WHERE workers_file_name = '$file' and type ='other'";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    $output .= '<div class="other">';
-    while($row = $result->fetch_assoc()) {
-        $output.= '<p>'.$row['anrede'].' '.$row['vorname'].' '.$row['nachname'].' | '.$row['job'].'</p>';
-        $output.= '<p>Arbeiter entfernen</p> <input type ="checkbox" name ="delete_worker_'.$row['workers_id'].'" value="'.$row['workers_id'].'"/>';
-    }
-    $output.= '</div>';
-  }
-
+  $output .= '<br><br>';
   return $output;
 }
 

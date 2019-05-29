@@ -251,32 +251,55 @@ include 'functions.php';
           echo '<div class="workersModule" onclick="clickedWorkers()">
                   <p class="text">Übersicht aller Mitarbeiter</p>
                   <div class="w_text">
-                    <p>Nehmen Sie hier Änderungen am Mitarbeitermodul vor.</p>
+                    <h3>Nehmen Sie hier Änderungen am Mitarbeitermodul vor.</h3>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$result6.'
                         <p>füge einen Mitarbeiter hinzu</p>
-                        <div class="person">
-                          <input type="text" class="form-control" id="worker_adress" placeholder="Anrede" name="workers_adress">
-                          <input type="text" class="form-control" id="worker_vorname" placeholder="Vorname" name="workers_firstname">
-                          <input type="text" class="form-control" id="worker_nachname" placeholder="Nachname" name="workers_lastname">
+                        <div class="person row">
+                        	<div class="col-sm-6">
+                        		  <input type="text" class="form-control" id="worker_adress" placeholder="Anrede" name="workers_adress">
+		                          <input type="text" class="form-control" id="worker_vorname" placeholder="Vorname" name="workers_firstname">
+		                          <div class="special">
+		                          	<input type="text" class="form-control" id="worker_job" placeholder="Job" name="workers_job">
+		                          </div>
+                        	</div>
+                        	<div class="col-sm-3">  
+                        		<div class="radio1">
+    								<p><input type ="radio" name ="workers_type" value="leader"/>Führungsposition</p>
+                        		</div>  
+                        		<div class="radio2">
+    								<p><input type ="radio" name ="workers_type" value="secr"/>Sekretariat</p>
+                        		</div>
+                        		<div class="radio3">
+    								<p><input type ="radio" name ="workers_type" value="teacher"/>Lehrer/innen</p>
+                        		</div>  
+                        	</div>
+                        	<div class="col-sm-3"></div>
                         </div>
-                        <div class="workersinfo">
-                          <input type="text" class="form-control" id="worker_job" placeholder="Job" name="workers_job">
-                          <input type="text" class="form-control" id="worker_tel" placeholder="Telefon" name="workers_tel">
+                        <div class="person row">
+                        	<div class="col-sm-6">
+                        		   <input type="text" class="form-control" id="worker_nachname" placeholder="Nachname" name="workers_lastname">
+                          		  <input type="text" class="form-control" id="worker_tel" placeholder="Telefon" name="workers_tel"> 
+                        	</div>
+                        	<div class="col-sm-3">
+                        		<div class="radio4">
+    								<p><input type ="radio" name ="workers_type" value="other"/>Andere</p>
+                        		</div>
+                        	</div>
+                        	<div class="col-sm-3">
+                        		<div class="radio5">
+    								<input type="file" class="form-control" id="worker_img" name="worker_image" accept="image/*">
+                        		</div>
+                        	</div>
                         </div>
-                        <input type="file" class="form-control" id="worker_img" name="worker_image" accept="image/*">
-                        <div class="types">
-                          <p><input type ="radio" name ="workers_type" value="leader"/>Führungsposition</p>
-                          <p><input type ="radio" name ="workers_type" value="secr"/>Sekretariat</p>
-                          <p><input type ="radio" name ="workers_type" value="teacher"/>Lehrer/innen</p>
-                          <p><input type ="radio" name ="workers_type" value="other"/>Andere</p>
-                        </div>
-                        <button type="submit" name="add_workers_button" formmethod="POST" value="'.$name6.'">Hinzuf.</button>
-                        <button type="submit" name="delete_workers_button" formmethod="POST" value="'.$name6.'">Entfernen</button>
-                        <button class="go_back6" onclick="WorkersBack()" name="backbutton">Zurück</button>
+                        <div class="workerButton1">
+	                        <button class="btn btn-danger go_back6" onclick="WorkersBack()" name="backbutton">Zurück</button>
+	           			</div>
+	           			<div class="workerButton2">
+	           				<button type="submit" name="add_workers_button" value="'.$name6.'" class="btn btn-info safeCustome right" >Hinzuf</button>
+	           			</div>
                       </div>
                     </form>
-                  </div>
                  </div>
                 </div>';
         }

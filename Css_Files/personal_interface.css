@@ -216,6 +216,27 @@ li a {
     border-radius: 5px 5px 5px 5px;
 }
 
+#module_container .special input[type=text]{
+  width: 65%;
+}
+
+.radio1{
+  margin-left: -21px;
+}
+.radio2{
+  margin-left: -49px;
+}
+.radio3{
+  margin-left: -37px;
+}
+.radio4{
+  margin-left: -61px;
+}
+.radio5{
+  margin-top: -94px;
+  margin-left: -47px;
+}
+
 #module_container .workersinfo input[type=text] {
     background-color: #f6f6f6;
     border: none;
@@ -241,6 +262,7 @@ li a {
 #module_container .workersModule input[type=file] {
     background-color: #123C69;
     border-color: #123C69;
+    color: white;
 }
 
 #module_container .workersModule button {
@@ -260,6 +282,26 @@ li a {
   width: 20%;
   text-align: center;
   margin-left: 25px;
+}
+
+.workerButton1{
+
+}
+
+.workerButton2{
+  
+}
+
+.workerButton1 button {
+    color: #fff!important;
+    background-color: #dc3545!important;
+    border-color: #dc3545!important;
+}
+
+.workerButton2 button {
+    color: #fff!important;
+    background-color: #17a2b8!important;
+    border-color: #17a2b8!important;
 }
 
 #module_container .anfahrtModule button {
@@ -745,6 +787,7 @@ footer {
     height: 27px;
     border-radius: 0px 0px 0px 5px;
     margin-top: -5px;
+    background-color: #c82333!important;
   }
 
   .safeClass{
@@ -752,6 +795,7 @@ footer {
     height: 27px;
     border-radius: 0px 0px 5px 0px;
     margin-top: -5px;
+    background-color: #17a2b8!important;
   }
 
   .newCustomeModule{
