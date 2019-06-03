@@ -121,7 +121,7 @@ session_start();
   </div>
 <!-- </div>
  -->
- <div class="row">
+ <div class="row row_modules">
   <div class="col-sm-12">
     <?php
     //Step 1-3. this container contains all modules available on the site
@@ -293,39 +293,46 @@ session_start();
     ?>
 </div>
 </div>
-<div class="row">
-  <div class="col-sm-12">
-    <footer class="text-center">
 
-  <div class="footer">© 2019 Copyright</div>
-
-</footer>
-  </div>
-</div>
 
 </div>
 
 </body>
 
 <script>
+
+var distance = 0;
 function Startmodul(){
-  if(document.getElementById('start-module').style.display=="none"){
+  if(document.getElementById('start-module').style.display!="block"){
      document.getElementById('start-module').style.display="block";
+     distance = distance - 400;
+     //document.getElementsByTagName("form")[1].getElementsByTagName("div")[0].style.marginTop=distance+"px";
+     //document.getElementById("start-module").style.top="-1000px";
   }else{
     document.getElementById('start-module').style.display="none";
+    distance = distance + 400;
+   // document.getElementsByTagName("form")[1].getElementsByTagName("div")[0].style.marginTop=distance+"px";
+    //document.getElementById("start-module").style.top="1000px";
   }
 }
 
 function module1(){
-  if(document.getElementById('costume-module').style.display=="none"){
+  if(document.getElementById('costume-module').style.display!="block"){
      document.getElementById('costume-module').style.display="block";
+     distance = distance - 231;
+    // document.getElementsByTagName("form")[1].getElementsByTagName("div")[2].style.marginTop=distance+"px";
+     temp = -931 + distance;
+    // document.getElementById("costume-module").style.top=temp+"px";
   }else{
     document.getElementById('costume-module').style.display="none";
+    distance = distance + 231;
+    // document.getElementsByTagName("form")[1].getElementsByTagName("div")[2].style.marginTop=distance+"px";
+    // document.getElementById("costume-module").style.top="-940px";
   }
 }
 
 function module2(){
-  if(document.getElementById('calendar_module').style.display=="none"){
+  if(document.getElementById('calendar_module').style.display!="block"){
      document.getElementById('calendar_module').style.display="block";
   }else{
     document.getElementById('calendar_module').style.display="none";
@@ -333,7 +340,7 @@ function module2(){
 }
 
 function module3(){
-  if(document.getElementById('conf-module3').style.display=="none"){
+  if(document.getElementById('conf-module3').style.display!="block"){
      document.getElementById('conf-module3').style.display="block";
   }else{
     document.getElementById('conf-module3').style.display="none";
@@ -341,7 +348,7 @@ function module3(){
 }
 
 function module4() {
-  if(document.getElementById('conf-module4').style.display=="none") {
+  if(document.getElementById('conf-module4').style.display!="block") {
     document.getElementById('conf-module4').style.display="block";
   } else {
     document.getElementById('conf-module4').style.display="none";
@@ -349,7 +356,7 @@ function module4() {
 }
 
 function module5() {
-  if(document.getElementById('conf-module5').style.display=="none") {
+  if(document.getElementById('conf-module5').style.display!="block") {
     document.getElementById('conf-module5').style.display="block";
   } else {
     document.getElementById('conf-module5').style.display="none";
@@ -357,7 +364,7 @@ function module5() {
 }
 
 function module6() {
-  if(document.getElementById('conf-module6').style.display=="none") {
+  if(document.getElementById('conf-module6').style.display!="block") {
     document.getElementById('conf-module6').style.display="block";
   } else {
     document.getElementById('conf-module6').style.display="none";
@@ -365,7 +372,7 @@ function module6() {
 }
 
 function module7() {
-  if(document.getElementById('conf-module7').style.display=="none") {
+  if(document.getElementById('conf-module7').style.display!="block") {
     document.getElementById('conf-module7').style.display="block";
   } else {
     document.getElementById('conf-module7').style.display="none";
@@ -373,7 +380,7 @@ function module7() {
 }
 
 function module8() {
-  if(document.getElementById('conf-module8').style.display=="none") {
+  if(document.getElementById('conf-module8').style.display!="block") {
     document.getElementById('conf-module8').style.display="block";
   } else {
     document.getElementById('conf-module8').style.display="none";
@@ -381,7 +388,7 @@ function module8() {
 }
 
 function module9() {
-  if(document.getElementById('conf-module9').style.display=="none") {
+  if(document.getElementById('conf-module9').style.display!="block") {
     document.getElementById('conf-module9').style.display="block";
   } else {
     document.getElementById('conf-module9').style.display="none";
@@ -389,7 +396,7 @@ function module9() {
 }
 
 function module10() {
-  if(document.getElementById('conf-module10').style.display=="none") {
+  if(document.getElementById('conf-module10').style.display!="block") {
     document.getElementById('conf-module10').style.display="block";
   } else {
     document.getElementById('conf-module10').style.display="none";

@@ -422,6 +422,10 @@ footer {
   border-radius: 5px 5px 5px 5px;
 }
 
+.distance{
+
+}
+
 #generate_button{
     position: absolute;
     display: block;
@@ -464,6 +468,10 @@ img{
   position: relative;
   margin-top: -20px;
   top: -20px;
+}
+
+.row_modules{
+  
 }
 
 .boxdesign{
