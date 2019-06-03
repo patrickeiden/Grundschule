@@ -258,6 +258,7 @@ footer {
 }
 
 #calendar_module{
+  background-color: cadetblue!important;
   position: relative;
   left: 700px;
   top: -1404px;
@@ -272,6 +273,7 @@ footer {
 }
 
 #conf-module3{
+  background-color: cadetblue!important;
   position: relative;
   left: 700px;
   top: -1404px;
@@ -286,6 +288,7 @@ footer {
 }
 
 #conf-module4{
+  background-color: cadetblue!important;
   position: relative;
   left: 700px;
   top: -1404px;
@@ -300,6 +303,7 @@ footer {
 }
 
 #conf-module5{
+  background-color: cadetblue!important;
   position: relative;
   left: 700px;
   top: -1404px;
@@ -312,7 +316,9 @@ footer {
   padding: 10px;
   border-radius: 5px 5px 5px 5px;
 }
+
 #conf-module6{
+  background-color: cadetblue!important;
   position: relative;
   left: 700px;
   top: -1404px;
@@ -328,6 +334,7 @@ footer {
 }
 
 #conf-module7{
+  background-color: cadetblue!important;
   position: relative;
   left: 700px;
   top: -1404px;
@@ -342,6 +349,7 @@ footer {
 }
 
 #conf-module8{
+  background-color: cadetblue!important;
   position: relative;
   left: 700px;
   top: -1404px;
@@ -356,13 +364,14 @@ footer {
 }
 
 #conf-module9{
+  background-color: cadetblue!important;
   position: relative;
   left: 700px;
   top: -1404px;
   display: none;
   background-color: white;
   width: 500px;
-  height: 230px;
+  height: 245px;
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
@@ -370,6 +379,7 @@ footer {
 }
 
 #conf-module10{
+  background-color: cadetblue!important;
   position: relative;
   left: 700px;
   top: -1404px;
@@ -398,6 +408,7 @@ footer {
 }
 
 #costume-module{
+  background-color: cadetblue!important;
   position: relative;
   left: 700px;
   top: -1404px;
