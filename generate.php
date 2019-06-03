@@ -122,7 +122,7 @@ session_start();
 <!-- </div>
  -->
  <div class="row row_modules">
-  <div class="col-sm-12">
+  <div class="col-sm-6">
     <?php
     //Step 1-3. this container contains all modules available on the site
     if(isset($_SESSION['u_id'])){
@@ -163,7 +163,8 @@ session_start();
           <a onclick="module10()" role="button">Impressumsmodul</a>
         </div>
       </div>
-
+    </div>
+    <div class ="col-sm-6">
       <form action="generate_html.php" method="POST" autocomplete="off">
       <div id="start-module">
           <div class="form-group">
@@ -293,12 +294,19 @@ session_start();
     ?>
 </div>
 </div>
+<div class="row distance">
+  <div class="col-sm-12">
+    <footer class="text-center">
 
+  <div class="footer">© 2019 Copyright</div>
+
+</footer>
+  </div>
+</div>
 
 </div>
 
 </body>
-
 <script>
 
 var distance = 0;
