@@ -43,9 +43,8 @@ session_start();
   }
 
   .btn:hover {
-   padding-top: 15px;
-   padding-left: 20px;
-   padding-right: 20px;
+   cursor: pointer;
+   padding-bottom: 5px;
  }
 
   footer {

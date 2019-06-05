@@ -70,13 +70,14 @@ session_start();
       color: white;
       margin-top: 30px;
       position: relative;
-      right: 7%;
+      right: 16%;
     }
     .text-right{
       color: white;
     }
     .navbar {
       margin-top: 8px;
+      margin-bottom: 20px;
     }
     #main-container a {
       font-size: 13px;

@@ -18,6 +18,10 @@ p:hover {
   cursor: grab;
 }
 
+.col-sm-6 {
+  margin-bottom: 50px;
+}
+
 .btn-warning{
   margin-left: 381px!important;
   margin-top: 50px!important;
@@ -38,6 +42,7 @@ input[type=text], input[type=password] {
   font-size: 10px;
   padding: 12px 32px;
   margin-bottom: 20px;
+  margin-left: 0px;
 }
 
 input[type=file]{
@@ -52,6 +57,7 @@ textarea {
   margin-bottom: 20px;
   margin: 5px;
   resize: none;
+  margin-left: 0px;
 }
 
 .navbar-inverse{

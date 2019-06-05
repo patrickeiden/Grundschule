@@ -36,14 +36,9 @@ include 'functions.php';
 <body>
 <div class="container">
   <div class="row bottom">
-    <div class="col-sm-1">
-    </div>
-    <div class="col-sm-3">
-      <h2 class="Title">PAL School</h2>
-    </div>
-
-    <div class="col-sm-8">
+    <div class="col-sm-12">
       <nav class="navbar">
+        <h2 class="Title_Pal">PAL School</h2>
         <?php
           if(isset($_SESSION['u_id'])){
           $link = oneColumnFromTable("siteone_name", $_SESSION['u_id'], "registration", "data_id");
