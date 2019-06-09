@@ -2050,14 +2050,14 @@ function printWorkersInFile($uid, $folder){
       while($row = $result->fetch_assoc()) {
 
           $output.= '<p>Text:</p> <textarea style="resize: none;" name="anfahrt_text" class="AnfahrtSave" cols="40" rows="5" id="anfahrt_text" >'.$row['text'].'</textarea>';
-          $output.= '<button type="button" class="btn btn-info saveButton button1" name="anfahrt_text_button" formmethod="POST">Speichern</button>';
+          $output.= '<button type="button" class="btn btn-info saveButton2 button1" name="anfahrt_text_button" formmethod="POST">Speichern</button>';
           $output.= '<textarea style="resize: none;" name="anfahrt_text2" class="AnfahrtSave" cols="40" rows="5" id="anfahrt_text2" >'.$row['text2'].'</textarea>';
-          $output.= '<button type="button" class="btn btn-info saveButton button2" name="building_text_button" formmethod="POST">Speichern</button>';
-          $output.= '<p>Adresse:</p>';
-          $output.= '<input type="text" class="form-control" id="streetSchool" placeholder="Straße" name="streetSchool" value="'.$row['street'].'">';
-          $output.= '<input type="text" class="form-control" id="housenumberSchool" placeholder="Nummer" name="housenumberSchool" value="'.$row['streetNumber'].'">';
-          $output.= '<input type="text" class="form-control" id="plzSchool" placeholder="PLZ" name="plzSchool" value="'.$row['plz'].'">';
-          $output.= '<input type="text" class="form-control" id="ortSchool" placeholder="Ort" name="ortSchool" value="'.$row['ort'].'">';
+          $output.= '<button type="button" class="btn btn-info saveButton2 button2" name="building_text_button" formmethod="POST">Speichern</button>';
+          $output.= '<p>Adresse:</p><div class="row"><div class="col-sm-12">';
+          $output.= '<div class="streetSchool"><input type="text" class="form-control" placeholder="Straße" name="streetSchool" value="'.$row['street'].'"></div>';
+          $output.= '<div class="housenumberSchool"><input type="text" class="form-control" placeholder="Nummer" name="housenumberSchool" value="'.$row['streetNumber'].'"></div></div></div>';
+          $output.= '<div class="plzSchool"><input type="text" class="form-control" placeholder="PLZ" name="plzSchool" value="'.$row['plz'].'"></div>';
+          $output.= '<div class="ortSchool"><input type="text" class="form-control" placeholder="Ort" name="ortSchool" value="'.$row['ort'].'"></div>';
       }
     }
     $output.= '</div>';
@@ -2560,7 +2560,7 @@ function printFormforImpressum($uid){
   $text = oneColumnFromTable("impressum", $uid, "Page", "user_id");
   if(sizeof($text) > 0){
     $output.= '<p>Ihr Impressum sieht wie folgt aus:</p>
-              <textarea style="resize: none; border-radius: 5px 5px 5px 5px;" name="school_impressum" cols="40" rows="5" id="school_impressum">'.$text[0].'</textarea>
+              <textarea style="resize: none; border-radius: 5px 5px 0px 0px; margin-bottom: -7px;" name="school_impressum" cols="40" rows="5" id="school_impressum">'.$text[0].'</textarea>
               </div>';
   }else{
     $output.= '<p>Ihr Impressum sieht wie folgt aus:</p>

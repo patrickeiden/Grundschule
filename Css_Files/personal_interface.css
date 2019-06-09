@@ -54,7 +54,7 @@ h3{
 }
 
 .go_back8{
-    width: 66%!important;
+    width: 92%!important;
     height: 27px;
     border-radius: 5px 5px 5px 5px;
     margin-top: 10px;
@@ -214,7 +214,7 @@ li a {
     display: inline-block;
     font-size: 16px;
     margin: 5px;
-    width: 31%;
+    width: 44%;
     border: 2px solid #f6f6f6;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -226,7 +226,7 @@ li a {
 }
 
 #module_container .special input[type=text]{
-  width: 65%;
+  width: 92%;
 }
 
 .radio1{
@@ -294,37 +294,62 @@ li a {
 }
 
 .workerButton1{
-
-}
-
-.workerButton2{
-  
-}
-
-.workerButton1 button {
-    color: #fff!important;
-    background-color: #dc3545!important;
-    border-color: #dc3545!important;
-}
-
-.workerButton2 button {
+    width: 46%!important;
+    margin-left: -3px!important;
+    border-radius: 0px 5px 5px 0px!important;
     color: #fff!important;
     background-color: #17a2b8!important;
     border-color: #17a2b8!important;
 }
 
-#module_container .anfahrtModule button {
-    width: 38%;
-    font-size: 14px;
+.button1{
+      width: 82%!important;
 }
 
-#module_container .impressum button {
+.button2{
+      width: 82%!important;
+}
+
+
+.workerButton2{
+    width: 50%!important;
+    margin-left: -3px!important;
+    border-radius: 5px 0px 0px 5px!important;
+    color: #fff!important;
+    background-color: #dc3545!important;
+    border-color: #dc3545!important;
+}
+
+#module_container .anfahrtModule button {
+    width: 82%;
+    font-size: 14px;
+    margin-bottom: 17px;
+    border-radius: 0px 0px 5px 5px;
+    margin-top: 2px;
+}
+
+.anfahrtback{
+    width: 46%!important;
+    margin-left: 0px!important;
+    border-radius: 0px 0px 0px 5px!important;
+    color: #fff!important;
+    background-color: #dc3545!important;
+    border-color: #dc3545!important;
+    margin-top: 5px;
+}
+
+#module_container .impressum1{
+  border-radius: 0px 0px 5px 0px;
+}
+
+#module_container .impressum2{
+  border-radius: 0px 0px 0px 5px;
 }
 
 .impressum_button{
     width: 48%!important;
     height: 27px;
-    border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 0px 5px 0px;
     margin-top: 2px;;
 }
 
@@ -724,6 +749,13 @@ footer {
     border-radius: 0px 5px 5px 0px;
   }
 
+  .safeAnfahrt{
+    width: 46%!important;
+    margin-left: -3px;
+    border-radius: 0px 0px 5px 0px!important;
+    margin-top: 5px;
+  }
+
   .NavCustome{
     margin-bottom: 10px;
   }
@@ -747,24 +779,24 @@ footer {
   }
 
   .AnfahrtSave{
-    width: 82%;
+    width: 92%;
     margin-left: 0%;
     margin-top: 0px!important;
-    border-radius: 5px 0px 0px 5px;
   }
 
   .news_title input[type=text]{
-    border-radius: 5px 0px 0px 0px!important;
-    margin-right: 40%;
+    border-radius: 5px 5px 0px 0px!important;
     margin-top: 0px;
     position: relative;
-    top: 39px;
+    top: 42px;
+    width: 91%;
   }
 
   .news_date input[type=text]{
-    border-radius: 0px 5px 0px 0px!important;
-    margin-top: 0px;
-    margin-left: 40%;
+    border-radius: 0px 0px 0px 0px!important;
+    margin-top: 44px;
+    margin-left: 0%;
+    width: 91%;
   }
 
   .deleteNews{
@@ -789,6 +821,11 @@ footer {
     width: 45%!important;
     height: 27px;
     border-radius: 0px 0px 5px 0px
+  }
+
+  .saveButton2{
+    width: 92%!important;
+    height: 27px;
   }
 
   .deleteClass{
@@ -830,22 +867,28 @@ footer {
   .class_number input[type=text]{
     border-radius: 5px 5px 0px 0px!important;
     width: 88%;
+    margin-bottom: -5px;
   }
 
   .class_teacher input[type=text]{
     border-radius: 0px 0px 0px 0px!important;
     width: 88%;
-    margin-top: -5px;
   }
 
   .class_kids input[type=text]{
     border-radius: 0px 0px 0px 0px!important;
     width: 88%;
-    margin-top: -5px;
+    margin-bottom: 5px;
+  }
+
+  .person_distance{
+    margin-bottom: 13px;
   }
 
   .newClass_button{
-    width: 66%;
+    width: 92%;
+    border-radius: 0px 0px 5px 5px;
+    margin-top: 10px;
   }
 
   .new_number{
@@ -853,7 +896,8 @@ footer {
   }
 
   .new_number2{
-    width: 66%!important;
+    width: 92%!important;
+    margin-bottom: 5px!important;
     border-radius: 5px 5px 0px 0px!important;
   }
 
@@ -863,7 +907,8 @@ footer {
   }
 
   .new_teacher2{
-    width: 66%!important;
+    width: 92%!important;
+    margin-bottom: 5px!important;
     border-radius: 0px 0px 0px 0px!important;
   }
 
@@ -873,7 +918,7 @@ footer {
   }
 
   .new_kids2{
-    width: 66%!important;
+    width: 92%!important;
     border-radius: 0px 0px 0px 0px!important;
   }
 
@@ -972,6 +1017,7 @@ textarea {
 
 .school input[type=text]{
   width: 96%;
+  margin-bottom: 6px!important;
 }
 
 input[type=text] {
@@ -983,7 +1029,7 @@ input[type=text] {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    width: 51%;
+    width: 92%;
     margin-left: 0px;
     margin-right: 0px;
     border: 2px solid #f6f6f6;
@@ -994,6 +1040,23 @@ input[type=text] {
     transition: all 0.5s ease-in-out;
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
+    margin-bottom: -5px;
+}
+
+.streetSchool input[type=text]{
+    border-radius: 5px 5px 0px 0px!important;
+}
+
+.housenumberSchool input[type=text]{
+    border-radius: 0px 0px 0px 0px!important;
+}
+
+.plzSchool input[type=text]{
+    border-radius: 0px 0px 0px 0px!important;
+}
+
+.ortSchool input[type=text]{
+    border-radius: 0px 0px 0px 0px!important;
 }
 
 .address input[type=text]{

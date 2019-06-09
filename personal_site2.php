@@ -249,7 +249,6 @@ include 'functions.php';
                     <h3>Nehmen Sie hier Änderungen am Mitarbeitermodul vor.</h3>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$result6.'
-                        <p>füge einen Mitarbeiter hinzu</p>
                         <div class="person row">
                         	<div class="col-sm-6">
                         		  <input type="text" class="form-control" id="worker_adress" placeholder="Anrede" name="workers_adress">
@@ -271,7 +270,7 @@ include 'functions.php';
                         	</div>
                         	<div class="col-sm-3"></div>
                         </div>
-                        <div class="person row">
+                        <div class="person row person_distance">
                         	<div class="col-sm-6">
                         		   <input type="text" class="form-control" id="worker_nachname" placeholder="Nachname" name="workers_lastname">
                           		  <input type="text" class="form-control" id="worker_tel" placeholder="Telefon" name="workers_tel"> 
@@ -287,12 +286,8 @@ include 'functions.php';
                         		</div>
                         	</div>
                         </div>
-                        <div class="workerButton1">
-	                        <button class="btn btn-danger go_back6" onclick="WorkersBack()" name="backbutton">Zurück</button>
-	           			</div>
-	           			<div class="workerButton2">
-	           				<button type="submit" name="add_workers_button" value="'.$name6.'" class="btn btn-info safeCustome right" >Hinzuf</button>
-	           			</div>
+	                        <button class="btn btn-danger go_back6 workerButton2" onclick="WorkersBack()" name="backbutton">Zurück</button>
+	           				      <button type="submit" name="add_workers_button" value="'.$name6.'" class="btn btn-info workerButton1 right" >Mitarbeiter hinzufügen</button>
                       </div>
                     </form>
                  </div>
@@ -308,11 +303,11 @@ include 'functions.php';
           echo '<div class="anfahrtModule" onclick="clickedAnfahrt()">
                   <p class="text">Konfiguriere die Anfahrt</p>
                   <div class="a_text">
-                    <p>Nehmen Sie hier Änderungen am Anfahrtsmodul vor.</p>
+                    <h3>Nehmen Sie hier Änderungen am Anfahrtsmodul vor.</h3>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$codeAnfahrt2.'
-                        <button type="button" class="save_changes_anfahrt" name="anfahrt_button">Speichern</button>
-                        <button class="go_back7" onclick="AnfahrtBack()" name="backbutton">Zurück</button>
+                        <button class="btn btn-danger go_back7 anfahrtback" onclick="AnfahrtBack()" name="backbutton">Zurück</button>
+                        <button type="button" name="anfahrt_button" class="safeAnfahrt btn btn-info" >Speichern</button>
                       </div>
                     </form>
                   </div>
@@ -349,7 +344,7 @@ include 'functions.php';
           echo '<div class="signupModule" onclick="clickedSignup()">
                   <p class="text">Konfiguriere das Einschreibungssytem</p>
                   <div class="su_text">
-                    <p>Nehmen Sie hier Änderungen am Einschreibungsmodul vor.</p>
+                    <h3>Nehmen Sie hier Änderungen am Einschreibungsmodul vor.</h3>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$SignupText.'
                         <button class="btn btn-danger go_back9" onclick="SignupBack()" name="backbutton">Zurück</button>
@@ -368,8 +363,8 @@ include 'functions.php';
                   <p>Nehmen Sie hier Änderungen am Impressum vor.</p>
                   <form action="update_site.php" method="POST">
                     <div class="form-group">'.$codeImpressum.'
-                      <button class="btn btn-danger go_back10" onclick="ImpressumBack()" name="backbutton">Zurück</button>
-                      <button type="button" class="btn btn-info impressum_button">Speichern</button>
+                      <button class="btn btn-danger go_back10 impressum2" onclick="ImpressumBack()" name="backbutton">Zurück</button>
+                      <button type="button" class="btn btn-info impressum_button impressum1">Speichern</button>
                     </div>
                   </form>
                 </div>
@@ -1244,7 +1239,6 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
   }
 
   function ClassesBack(){
-    document.getElementsByClassName('page-footer')[0].style.top="200px";
     document.getElementById('currentPage').getElementsByClassName('page_classes')[0].style.display="none";
     var clClick = 3;
     if(customeon == 1){
@@ -1279,6 +1273,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
     document.getElementById('module_container').getElementsByClassName('cl_text')[0].style.display="none";
     document.getElementById('module_container').getElementsByTagName('div')[clClick].setAttribute("onclick", "clickedClasses()");
     document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px";
+    document.getElementsByClassName('page-footer')[0].style.marginTop="-200px";
   }
 
   // Aufbau des Bearbeitungskastens für das Einschreibungsmodul
@@ -1329,7 +1324,6 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
   }
 
   function SignupBack(){
-    document.getElementsByClassName('page-footer')[0].style.top="200px";
     document.getElementById('currentPage').getElementsByClassName('page_signup')[0].style.display="none";
     var sClick = 3;
     if(customeon == 1){
@@ -1567,7 +1561,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(anfahrt == 0){
             anfahrt = 1;
-            $(".anfahrtModule").animate({height:"450px"},500);
+            $(".anfahrtModule").animate({height:"508px"},500);
             $(".anfahrtModule > .text").hide();
           }
           $(".go_back7").click(function() {
@@ -1627,7 +1621,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(start == 0){
             start = 1;
-            $(".startModule").animate({height:"506px"},500);
+            $(".startModule").animate({height:"507px"},500);
             $(".startModule > .text").hide();
           }
           $(".go_back5").click(function() {
