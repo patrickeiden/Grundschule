@@ -48,7 +48,7 @@ if(isset($_POST['gallery']) && isset($_POST['newGallery'])){
   createGallery($_SESSION['u_id'], $_POST['gallery'], $_POST['newGallery']);
 }
 if(isset($_POST['delete_galleries_button'])){
-  deleteGalleries($_SESSION['u_id'], $_POST['delete_galleries_button']);
+  deleteGallerie($_SESSION['u_id'], $_SESSION['GalerieFileName'], $_POST['delete_galleries_button']);
 }
 if(isset($_POST['delete_images_button'])){
   deleteImages($_SESSION['u_id'], $_POST['delete_images_button']);

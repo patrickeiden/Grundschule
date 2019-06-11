@@ -375,18 +375,15 @@ include 'functions.php';
         if(GalleryOn($_SESSION['u_id']) == 1){
           $name4 = oneValueFromTableData($_SESSION['u_id'], "gallery_file_name");
           $result4 = printFormForGallery($_SESSION['u_id'], $name4);
+          $_SESSION['GalerieFileName'] = $name4;
           echo '<div class="galleryModule" onclick="clickedGallery()">
           <p class="text">Das Galeriemodul ist in Ihre Homepage integriert.</p>
           <div class="g_text">
           <form action="update_site.php" method="POST">
             <div class="form-group">'.$result4[sizeof($result4)-1].'
-              <p>With this form you are able to add a Gallery</p>
-              <input type="text" class="form-control" id="gallery" placeholder="Gallery" name="gallery">
-              <button type="submit" name="newImages" formmethod="POST" value="'.$name4.'">Bild hinzufügen</button>
-              <button type="submit" name="newGallery" formmethod="POST" value="'.$name4.'">Galerie erstellen</button>
-              <button type="submit" name="delete_galleries_button" formmethod="POST" value="'.$name4.'">Galerien entfernen</button>
-              <button type="submit" name="delete_images_button" formmethod="POST" value="'.$name4.'">Bilder entfernen</button>
-              <button class="go_back4" onclick="GalleryBack()" name="backbutton">Zurück</button>
+              <div class="new_Gallery"><input type="text" class="form-control" id="gallery" placeholder="Gallery" name="gallery"></div>
+              <button class="btn btn-danger go_back4 gallery2 gallery_button" onclick="GalleryBack()" name="backbutton">Zurück</button>
+              <button type="submit" name="newGallery" formmethod="POST" value="'.$name4.'" class="btn btn-info gallery_button gallery1">Galerie erstellen</button>
             </div>
           </form>
           </div>
@@ -1662,6 +1659,23 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
             }
           });
         });
+
+        $(".delete_Image").click(function () {
+          var name = $(this).attr("value");
+          var gal =  $(this).attr("name");
+
+          $(this).hide();
+          $("input[value="+name+"]").hide();
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                DeleteImage: name,
+                GalleryName: gal
+            }
+          });
+        });
+
         $(".safeNews").click(function () {
           var name = $(this).attr("value");
           var title = document.getElementsByClassName('news_title')[0].getElementsByTagName('input')[0].value;
@@ -1845,18 +1859,18 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
           $temp2 = 1;
           for ($p=0; $p < sizeof($numberGalleries); $p++) {
 
-            echo '$("#gallery'.$temp2.' > .right'.($p+1).'").click(function () {
+            echo '$("#gallery'.$temp2.' .right'.($p+1).'").click(function () {
               if(leftright'.$temp2.' < '.ceil($resultGallery[$temp2-1]/3).'){
                 leftright'.$temp2.'++;
                 for (var j = 0; j < '.ceil($resultGallery[$temp2-1]/3).'; j++) {
                   if(j+1 == leftright'.$temp2.'){
                     var la = j+1;
                     var lar = la.toString();
-                    $("#gallery'.$temp2.' > .images'.$temp2.'_"+lar).show();
+                    $("#gallery'.$temp2.' .images'.$temp2.'_"+lar).show();
                   }else{
                     var la = j+1;
                     var lar = la.toString();
-                    $("#gallery'.$temp2.' > .images'.$temp2.'_"+lar).hide();
+                    $("#gallery'.$temp2.' .images'.$temp2.'_"+lar).hide();
                   }
                 }
               }
@@ -1865,18 +1879,18 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
           }
 
           for ($p=0; $p < sizeof($numberGalleries); $p++) {
-            echo '$("#gallery'.$temp.' > .left'.($p+1).'").click(function () {
+            echo '$("#gallery'.$temp.' .left'.($p+1).'").click(function () {
               if(leftright'.$temp.' > 1){
                 leftright'.$temp.'--;
                 for (var j = 0; j < '.ceil($resultGallery[$temp-1]/3).'; j++) {
                   if(j+1 == leftright'.$temp.'){
                     var la = j+1;
                     var lar = la.toString();
-                    $("#gallery'.$temp.' > .images'.$temp.'_"+lar).show();
+                    $("#gallery'.$temp.' .images'.$temp.'_"+lar).show();
                   }else{
                     var la = j+1;
                     var lar = la.toString();
-                    $("#gallery'.$temp.' > .images'.$temp.'_"+lar).hide();
+                    $("#gallery'.$temp.' .images'.$temp.'_"+lar).hide();
                   }
                 }
               }

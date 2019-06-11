@@ -342,6 +342,33 @@ li a {
   border-radius: 0px 0px 5px 0px;
 }
 
+#module_container .gallery1{
+  border-radius: 0px 0px 5px 0px;
+  margin-top: 5px;
+}
+
+#module_container .gallery2{
+  border-radius: 0px 0px 0px 5px;
+  margin-right: -3px;
+  margin-top: 5px;
+}
+
+.gallerie_name input[type=text]{
+  border-radius: 5px 5px 5px 5px;
+  margin-bottom: 0px;
+}
+
+.delete_Image button[type=button]{
+  border-radius: 0px 0px 5px 5px;
+  margin-bottom: 0px;
+  margin-top: 5px;
+}
+
+.image_name input[type=text]{
+  border-radius: 5px 5px 0px 0px;
+}
+
+
 #module_container .impressum2{
   border-radius: 0px 0px 0px 5px;
 }
@@ -353,17 +380,32 @@ li a {
     margin-top: 2px;;
 }
 
+.new_Gallery input[type=text]{
+  border-radius: 5px 5px 0px 0px!important;
+}
+
+.gallery_button{
+    width: 46%!important;
+    height: 27px;
+    border-radius: 0px 0px 5px 0px;
+    margin-top: 2px;;
+}
+
 #module_container .galleryModule {
   text-align: left;
 }
 
 #module_container .galleryModule button {
-    width: 19%;
+    width: 92%;
 }
 
 #module_container .costumeModule button {
     width: 42%;
     font-size: 14px;
+}
+
+.delete_Image button{
+
 }
 
 .logo{
@@ -1018,6 +1060,49 @@ textarea {
 .school input[type=text]{
   width: 96%;
   margin-bottom: 6px!important;
+}
+
+.lefti{
+  width: 46%!important;
+  margin-top: 10px;
+  border-radius: 5px 0px 0px 5px;
+}
+
+.righti{
+  width: 46%!important;
+  margin-top: 10px;
+  border-radius: 0px 5px 5px 0px;
+}
+
+.left_gallery{
+  width: 30%!important;
+  margin-top: 20px;
+}
+
+.right_gallery{
+  width: 30%!important;
+  margin-top: 20px;
+}
+
+.galleryModule input[type=file] {
+  color: white;
+  margin-top: 5px;
+  margin-left: 11px;
+}
+
+.add_Image button[type=button] {
+    border-radius: 0px 0px 5px 5px;
+    margin-top: 5px;
+}
+
+.delete_gallerie button[type=button] {
+    border-radius: 5px 5px 5px 5px;
+    margin-top: 5px;
+}
+
+
+.Image{
+  width: 46%!important;
 }
 
 input[type=text] {

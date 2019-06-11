@@ -30,4 +30,7 @@ if(isset($_POST['Classes']) && isset($_POST['Teacher']) && isset($_POST['Kids'])
 if(isset($_POST['newClassClasses']) || isset($_POST['newClassTeacher']) || isset($_POST['newClassKids'])){
   newClass($_SESSION['u_id'], $_POST['newClassClasses'], $_POST['newClassTeacher'], $_POST['newClassKids'], $_SESSION['ClassesFileName']);
 }
+if(isset($_POST['DeleteImage'])){
+  deleteImage($_SESSION['u_id'], $_POST['DeleteImage'], $_POST['GalleryName']);
+}
 ?>

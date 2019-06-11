@@ -1344,6 +1344,100 @@ function printFormForGallery($uid, $file){
         $iterate ++;
       }
       $gallery_name = $number_galleries[$i];
+      $form .= '<div id="gallery'.($i+1).'"><div class="row"><div class="col-sm-6">';
+      $form .= '<div class="gallerie_name"><input type="text" class="form-control gallerie_name" class="name" placeholder="Title" name="'.'name_'.$gallery_name.'" value="'.$gallery_name.'" ></div>';
+       //now we need all the images from the i-th gallery
+      $imageArray = array();
+      $sql = "SELECT image_name FROM Image WHERE gallery_name = '$gallery_name'";
+      $result = $conn->query($sql);
+      if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+            array_push($imageArray, $row['image_name']);
+        }
+      }
+      //store the size of a galerie in an array
+      array_push($output, sizeof($imageArray));
+      $size = sizeof($imageArray);
+      //now we can create a Form for all the images
+      //we need k, c and n in order to build a form with a specific hierachie, so we have always 3 images in one class
+      $n = 0;
+      $c = 1;
+      while ($size > 0) {
+        $form .= '<div class="images'.($i+1).'_'.$c.'">';
+        if($size < 4){
+            for ($k=0; $k < $size; $k++) {
+              $form .= '<div class="image_name"><input type="text" class="form-control" class="name" placeholder="Title" name="'.$gallery_name.'" value="'.$imageArray[$k+$n].'" ></div>';
+              $form .= '<div class="delete_Image"><button type="button" class="btn btn-danger delete_Image" name="'.$gallery_name.'" value="'.$imageArray[$k+$n].'">Bild löschen</button></div>';
+              if($c > 1){
+                $js .= 'document.getElementById("gallery'.($i+1).'").getElementsByClassName("images'.($i+1).'_'.$c.'")[0].style.display="none";';
+              }
+              if($k == $size-1){
+                $size = 0;
+              }
+            }
+        }
+        else if($size > 3){
+            for ($k=0; $k < 3; $k++) {
+              $form .= '<div class="image_name"><input type="text" class="form-control" class="name" placeholder="Title" name="'.$gallery_name.'" value="'.$imageArray[$k+$n].'" ></div>';
+              $form .= '<div class="delete_Image"><button type="button" class="btn btn-danger delete_Image" name="'.$gallery_name.'" value="'.$imageArray[$k+$n].'">Bild löschen</button></div>';
+              $size --;
+              if($c > 1){
+                $js .= 'document.getElementById("gallery'.($i+1).'").getElementsByClassName("images'.($i+1).'_'.$c.'")[0].style.display="none";';
+              }
+            }
+        }
+        $n += 3;
+        $c ++;
+        //close image div 
+        $form .= '</div>';
+      }
+      //left and right button 
+      $form .= '<button type="button" class="lefti left'.($i+1).' btn btn-danger" value="left'.($i+1).'"><</button>';
+      $form .= '<button type="button" class="right'.($i+1).' righti btn btn-info" value="right'.($i+1).'">></button>';
+      //close gallery div 
+      $form .= '</div>';
+      // form for new image 
+      $form .=  '<div class="col-sm-6">
+                    <input type="file" name="add_image'.($i+1).'" accept="image/*">
+                    <div class="image_name"><input type="text" class="form-control" class="name" placeholder="Title" name="'.'name_'.$number_galleries[$i].'"></div>
+                    <div class="add_Image"><button type="submit" class="btn btn-info" value="'.$file.'" name="newImages" formmethod="POST">Bild zur Galerie hinzufügen</button></div>
+                    <div class="delete_gallerie"><button type="submit" class="btn btn-danger" name ="delete_galleries_button" value="'.$number_galleries[$i].'">Gesamte Galleríe löschen</button></div>
+                 </div>';
+      //close gallerie (i) and row 
+      $form .= '</div></div><br><hr><br>';
+      //close galleries
+      if((($i+1) % 3 == 0 && $i > 0) || ($i == sizeof($number_galleries)-1)){
+        $form .= '</div>';
+      }
+      if($iterate-1 > 1 && $iterate-1 < sizeof($number_galleries)-1){
+        $js .= 'document.getElementById("galleries'.($iterate-1).'").style.display="none";';
+      }
+    }
+    $form .= '<button type="button" class="lefti btn btn-danger" value="left_gallery"><</button>';
+    $form .= '<button type="button" class="righti btn btn-info" value="right_gallery">></button>'; 
+  }
+  array_push($output, $js);
+  array_push($output, $form);
+  return $output;
+}
+
+function printFormForGallery2($uid, $file){
+  global $conn;
+  $output = array();
+  $form = '';
+  $js = '';
+  //first we need the Galeries Names and the Number of the Galleries
+  $number_galleries = oneColumnFromTable('gallery_name', $file, 'Galleries', 'gallery_file_name');
+  //now we can loop throw all the Galeries
+  if(sizeof($number_galleries)>0){
+    $iterate = 1;
+    for ($i=0; $i < sizeof($number_galleries); $i++) {
+      if($i % 3 == 0){
+        $form .= '<div id="galleries'.($iterate).'">';
+        $iterate ++;
+      }
+      $gallery_name = $number_galleries[$i];
       $form .= '<div id="gallery'.($i+1).'">';
       $form .= '<p>Gallery: '.$gallery_name.'</p>';
       //now we need all the images from the i-th gallery
@@ -1420,7 +1514,7 @@ function printFormForGallery($uid, $file){
   return $output;
 }
 
-function createImage($uid, $file){
+function createImage2($uid, $file){
   global $conn;
   $galleries = array();
   $postvalues = array();
@@ -1440,6 +1534,37 @@ function createImage($uid, $file){
     array_push($postvalues, $_POST[$var]);
     array_push($postname, $_POST[$var2]);
   }
+  for ($i=0; $i < sizeof($postvalues); $i++) {
+    if(isset($postvalues[$i]) && $postvalues[$i]!= ""){
+      $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name, gallery_name) VALUES (?, ?, ?, ?, ?)");
+      $stmt->bind_param("sisss", $postvalues[$i], $uid, $postname[$i], $file, $galleries[$i]);
+      $stmt->execute();
+    }
+  }
+}
+
+function createImage($uid, $file){
+  global $conn;
+  $galleries = array();
+  $postvalues = array();
+  $postname = array();
+  $sql = "SELECT gallery_name FROM Galleries";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($galleries, $row['gallery_name']);
+    }
+  }
+  for ($i=0; $i < sizeof($galleries); $i++) {
+    $lu = $i +1;
+    $var = 'add_image'.$lu;
+    $var2 = 'name_'.$galleries[$i];
+    array_push($postvalues, $_POST[$var]);
+    array_push($postname, $_POST[$var2]);
+  }
+  var_dump($postvalues);
+  var_dump($postname);
   for ($i=0; $i < sizeof($postvalues); $i++) {
     if(isset($postvalues[$i]) && $postvalues[$i]!= ""){
       $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name, gallery_name) VALUES (?, ?, ?, ?, ?)");
@@ -1520,7 +1645,8 @@ function deleteGalleries($uid, $file){
         array_push($b, 'delete_Gallerie_'.$row['gallery_name']);
     }
   }
-
+  var_dump($a);
+  var_dump($b);
   for ($i=0; $i < sizeof($a); $i++){
     $v = $b[$i];
       if($_POST[$v] == $a[$i]){
@@ -1532,6 +1658,17 @@ function deleteGalleries($uid, $file){
         $stmt->execute();
       }
   }
+}
+
+function deleteGallerie($uid, $file, $name){
+  global $conn;
+  $stmt = $conn->prepare("DELETE FROM galleries WHERE gallery_name = ? and gallery_file_name = ?");
+  $stmt->bind_param('ss', $name, $file);
+  ;
+  var_dump($stmt->execute());
+  $stmt = $conn->prepare("DELETE FROM image WHERE gallery_name = ? and image_file_name = ?");
+  $stmt->bind_param('ss', $name, $file);
+  $stmt->execute();
 }
 
 function deleteImages($uid, $file){
@@ -1557,6 +1694,15 @@ function deleteImages($uid, $file){
         $stmt->execute();
       }
   }
+}
+
+function deleteImage($uid, $image, $galerie){
+  var_dump($image);
+  var_dump($galerie);
+  global $conn;
+  $stmt = $conn->prepare("DELETE FROM image WHERE image_name = ? and gallery_name = ?");
+  $stmt->bind_param('ss', $image, $galerie);
+  $stmt->execute();
 }
 
 function setBuilding($number, $uid, $folder){
