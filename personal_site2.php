@@ -1522,11 +1522,11 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
           if(gallery == 0){
             gallery = 1;
             var temp = 110;
-            if(numbergalleries >3){
-             temp += 3*50;
-           }else{
-             temp += (numbergalleries*230)+(numberimages*40);
-           }
+            ng = numbergalleries;
+            if(numbergalleries > 3){
+              ng = 3
+            }
+            temp += (ng*230)+(numberimages*40);
             $(".galleryModule").animate({height:temp+"px"},500);
             $(".galleryModule > .text").hide();
           }
@@ -1899,7 +1899,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
           }
           ?>
           //left and right for the Gallery Module (Galleries)
-          $(".left_gallery").click(function () {
+          $(".lefti").click(function () {
             if(leftrightGallery > 1){
               leftrightGallery--;
               if(numbergalleries > 2){
@@ -1918,7 +1918,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
             }
           });
 
-          $(".right_gallery").click(function () {
+          $(".righti").click(function () {
             if(leftrightGallery < Math.ceil(numbergalleries/3)){
               leftrightGallery++;
               if(numbergalleries > 2){
