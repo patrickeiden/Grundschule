@@ -1414,8 +1414,8 @@ function printFormForGallery($uid, $file){
         $js .= 'document.getElementById("galleries'.($iterate-1).'").style.display="none";';
       }
     }
-    $form .= '<button type="button" class="lefti btn btn-danger" value="left_gallery"><</button>';
-    $form .= '<button type="button" class="righti btn btn-info" value="right_gallery">></button>'; 
+    $form .= '<button type="button" class="leftiGalerie btn btn-danger" value="left_gallery"><</button>';
+    $form .= '<button type="button" class="rightiGalerie btn btn-info" value="right_gallery">></button>'; 
   }
   array_push($output, $js);
   array_push($output, $form);

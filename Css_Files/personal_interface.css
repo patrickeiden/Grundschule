@@ -384,6 +384,10 @@ li a {
   border-radius: 5px 5px 0px 0px!important;
 }
 
+.new_Gallery{
+  margin-top: 10px;
+}
+
 .gallery_button{
     width: 46%!important;
     height: 27px;
@@ -1068,7 +1072,19 @@ textarea {
   border-radius: 5px 0px 0px 5px;
 }
 
+.leftiGalerie{
+  width: 46%!important;
+  margin-top: 10px;
+  border-radius: 5px 0px 0px 5px;
+}
+
 .righti{
+  width: 46%!important;
+  margin-top: 10px;
+  border-radius: 0px 5px 5px 0px;
+}
+
+.rightiGalerie{
   width: 46%!important;
   margin-top: 10px;
   border-radius: 0px 5px 5px 0px;
@@ -1088,6 +1104,7 @@ textarea {
   color: white;
   margin-top: 5px;
   margin-left: 11px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .add_Image button[type=button] {
@@ -1100,9 +1117,17 @@ textarea {
     margin-top: 5px;
 }
 
+.delete_gallerie{
+    margin-top: 155px;
+}
+
 
 .Image{
   width: 46%!important;
+}
+
+.add_Image button{
+  border-radius: 0px 0px 5px 5px;
 }
 
 input[type=text] {

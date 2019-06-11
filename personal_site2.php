@@ -1899,7 +1899,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
           }
           ?>
           //left and right for the Gallery Module (Galleries)
-          $(".lefti").click(function () {
+          $(".leftiGalerie").click(function () {
             if(leftrightGallery > 1){
               leftrightGallery--;
               if(numbergalleries > 2){
@@ -1918,7 +1918,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
             }
           });
 
-          $(".righti").click(function () {
+          $(".rightiGalerie").click(function () {
             if(leftrightGallery < Math.ceil(numbergalleries/3)){
               leftrightGallery++;
               if(numbergalleries > 2){
