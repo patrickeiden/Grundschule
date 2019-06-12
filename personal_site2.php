@@ -2170,6 +2170,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 $("#anfahrt_text2").keyup(function (){
                   document.getElementById("currentPage").getElementsByClassName("anfahrt_building")[0].innerHTML = $(this).val();
                 });
+                
                 $(".impressum_button").click(function (){
                     var impressum_text = $("#school_impressum").val();
                     $.ajax({
