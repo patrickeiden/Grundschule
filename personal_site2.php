@@ -110,7 +110,8 @@ include 'functions.php';
                       </div>
                       <div class="wrapper2">
                       <button class="btm">Neues Logo</button>
-                       <input type="file" name="myfile" />
+                       <input type="file" id="school_Logo" name="myfile" />
+
                       </div>'.$form5.'
                       <p>Header der Startseite:</p>
                       <div class="school">
@@ -2054,8 +2055,10 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 $("#school_mail").keyup(function (){
                         document.getElementById("currentPage").getElementsByClassName("mail")[0].innerHTML = $(this).val();
                 });
-                $("#school_logo").keyup(function (){
-                        document.getElementById("currentPage").getElementsByClassName("logo")[0].innerHTML = $(this).val();
+                $("#school_Logo").keyup(function (){
+                        var val = document.getElementById("school_Logo").value;
+                        var cutstring = val.substring(12)
+                        document.getElementById("currentPage").getElementsByClassName("logo")[0].src="Images/"+cutstring;
                 });
                 $(".startButton").click(function (){
                     var name = $("#school_name").val();
@@ -2067,9 +2070,17 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                     var street = $("#school_street").val();
                     var fax = $("#school_fax").val();
                     var mail = $("#school_mail").val();
-                    var logo = $("#school_logo").val();
+                    var val = document.getElementById("school_Logo").value;
+                    var logo = val.substring(12);
+
                     var slider = $("#school_slider1").val();
+                    if($("#school_slider1").val() != ""){
+                      var slider = slider.substring(12)
+                    }
                     var slider2 = $("#school_slider2").val();
+                    if($("#school_slider2").val() != ""){
+                      var slider2 = slider2.substring(12)
+                    }
                     $.ajax({
                       type:"POST",
                       url: "onChangeStart.php",

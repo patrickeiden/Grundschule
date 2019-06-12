@@ -3506,24 +3506,21 @@ function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $p
   $stmt->bind_param("ss", $fax, $file);
   $stmt->execute();
   if(isset($slider1) && $slider1 != ""){
-    $val = oneValueFromTableData($uid, 'image_folder');
-    $slider1 = str_replace('C:\\fakepath\\',$val,$slider1);
+    $slider1 = "Images/".$slider1;
     $stmt = $conn->prepare("UPDATE Image SET image_url=? WHERE gallery_name=? and image_file_name=?");
     $sl1 = "sliderImage1";
     $stmt->bind_param("sss", $slider1, $sl1, $file);
     $stmt->execute();
-    var_dump($stmt);
   }
   if(isset($slider2) && $slider2 != ""){
-    $val = oneValueFromTableData($uid, 'image_folder');
-    $slider2 = str_replace('C:\\fakepath\\',$val,$slider2);
+    $slider2 = "Images/".$slider2;
     $stmt = $conn->prepare("UPDATE Image SET image_url=? WHERE gallery_name=? and image_file_name=?");
     $sl2 = "sliderImage2";
     $stmt->bind_param("sss", $slider2, $sl2, $file);
     $stmt->execute();
   }
   if(isset($image) && $image != ""){
-    $image= str_replace('C:\\fakepath\\',"Images/",$image);
+    $image = "Images/".$image;
     $stmt = $conn->prepare("UPDATE Page SET image=? WHERE page_file_name=?");
     $stmt->bind_param("ss", $image, $file);
     $stmt->execute();
