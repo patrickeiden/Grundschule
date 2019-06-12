@@ -7,6 +7,9 @@ if(isset($_POST['Module'])){
 if(isset($_POST['DeleteCustome'])){
   deleteCustomeButton($_POST['DeleteCustome'], $_SESSION['CustomeFileName']);
 }
+if(isset($_POST['DeleteCalendar'])){
+  deleteCustomeButton($_POST['DeleteCalendar'], $_SESSION['CalendarFileName']);
+}
 if(isset($_POST['UpdateCustome'])){
   updateCustomeModule($_POST['UpdateCustome'], $_POST['TextCustome'], $_SESSION['CustomeFileName']);
 }

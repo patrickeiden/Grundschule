@@ -176,6 +176,7 @@ include 'functions.php';
         if(CalendarOn($_SESSION['u_id']) == 1){
           $name2 = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
           $result2 = printFormforCustome($name2, true);
+          $_SESSION['CalendarFileName'] = $name2;
           echo '<div class="calendarModule" onclick="clickedCalendar()">
                   <p class="text">Das Kalendermodul ist in Ihre Homepage integriert.</p>
                   <div class="k_text">
@@ -189,8 +190,8 @@ include 'functions.php';
                       </div>
                       <br>
                       <div class="SizeCustome">
-                        <input type="text" class="form-control" id="title" placeholder="Titel" name="custome_title">
-                        <textarea name="custome_code" cols="40" rows="5" class="newModule"></textarea>
+                        <input type="text" class="form-control" id="title" placeholder="Titel" name="calendar_title">
+                        <textarea name="calendar_code" cols="40" rows="5" class="newModule"></textarea>
                         <button type="submit" class="btn btn-info newCalenderModuleAbove" name="newModuleabove" formmethod="POST" value="'.$name2.'">Über Kalender</button>
                         <button type="submit" class="btn btn-info newCalenderModuleUnder" name="newModuleunder" formmethod="POST" value="'.$name2.'">Unter Kalender</button>
                       </div>
@@ -1647,8 +1648,24 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
           $(".costumeModule").animate({height:temp+"px"},500);
         });
 
-        
+        //deleteCalendarModule
+        $(".deleteButton2").click(function () {
+          var name = $(this).attr("value");
+          $(this).hide();
+          $("textarea[name='"+name+"']").hide();
+          $("button[value='"+name+"']").hide();
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                DeleteCalendar: name
+            }
+          });
+          var temp = 315 + ((calendarnumber-1)*121);
+          $(".calendarModule").animate({height:temp+"px"},500);
+        });
 
+        
         $(".deleteNews").click(function () {
           var name = $(this).attr("value");
           $(this).hide();
