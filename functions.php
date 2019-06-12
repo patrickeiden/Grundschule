@@ -2212,6 +2212,26 @@ function printWorkersInFile($uid, $folder){
     return $output;
   }
 
+  function updateGoogleAdress($file, $street, $number, $plz, $town){
+    global $conn;
+    $stmt = $conn->prepare("UPDATE anfahrt SET street=? WHERE anfahrt_file_name=?");
+    $stmt->bind_param("si", $street, $file);
+    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE anfahrt SET streetNumber=? WHERE anfahrt_file_name=?");
+    $stmt->bind_param("si", $number, $file);
+    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE anfahrt SET plz=? WHERE anfahrt_file_name=?");
+    $stmt->bind_param("si", $plz, $file);
+    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE anfahrt SET ort=? WHERE anfahrt_file_name=?");
+    $stmt->bind_param("si", $town, $file);
+    $stmt->execute();
+    $maps = 'https://maps.google.de/maps?hl=de&q=%20'.$street.'+'.$number.'%20'.$town.'&t=&z=10&ie=utf8&iwloc=b&output=embed';
+    $stmt = $conn->prepare("UPDATE anfahrt SET maps=? WHERE anfahrt_file_name=?");
+    $stmt->bind_param("si", $maps, $file);
+    $stmt->execute();
+  }
+
   function printFormforAnfahrt($uid, $file){
     global $conn;
     $output = '<div class="anfahrtform">';

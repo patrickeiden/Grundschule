@@ -309,7 +309,7 @@ include 'functions.php';
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$codeAnfahrt2.'
                         <button class="btn btn-danger go_back7 anfahrtback" onclick="AnfahrtBack()" name="backbutton">Zurück</button>
-                        <button type="button" name="anfahrt_button" class="safeAnfahrt btn btn-info" >Speichern</button>
+                        <button type="button" name="anfahrt_button" class="safeAnfahrt btn btn-info"value="'.$codeAnfahrt.'" >Speichern</button>
                       </div>
                     </form>
                   </div>
@@ -1711,6 +1711,26 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 NewsDate: date,
                 NewsText: text,
                 WhichOne: name
+            }
+          });
+        });
+
+        //Anfahrt Google maps
+        $(".safeAnfahrt").click(function () {
+          var street = $("input[name=streetSchool]")[0].value;
+          var number = $("input[name=housenumberSchool]")[0].value;
+          var plz = $("input[name=plzSchool]")[0].value;
+          var town = $("input[name=ortSchool]")[0].value;
+          var file = $("button[name=anfahrt_button]")[0].value;
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                Street: street,
+                Number: number,
+                PLZ: plz,
+                Town: town,
+                File: file
             }
           });
         });

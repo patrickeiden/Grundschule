@@ -40,14 +40,13 @@ if(isset($_POST['DeleteImage'])){
   deleteImage($_SESSION['u_id'], $_POST['DeleteImage'], $_POST['GalleryName']);
 }
 if(isset($_POST['Id'])){
-  var_dump($_POST['Id']);
-  var_dump($_POST['Job']);
-  var_dump($_POST['Name']);
-  var_dump($_POST['Tel']);
   safeWorker($_POST['Id'], $_POST['Job'], $_POST['Name'], $_POST['Tel']);
 }
 if(isset($_POST['DeleteWorker'])){
-  var_dump($_POST['DeleteWorker']);
   DeleteWorker($_POST['DeleteWorker']);
+}
+if(isset($_POST['Street'])){
+  updateGoogleAdress($_POST['File'], $_POST['Street'], $_POST['Number'], $_POST['PLZ'], $_POST['Town']);
+  printAnfahrtInInterface($_SESSION['u_id'], $_POST['File']);
 }
 ?>
