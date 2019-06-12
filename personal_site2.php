@@ -307,9 +307,26 @@ include 'functions.php';
                   <div class="a_text">
                     <h3>Nehmen Sie hier Änderungen am Anfahrtsmodul vor.</h3>
                     <form action="update_site.php" method="POST">
-                      <div class="form-group">'.$codeAnfahrt2.'
-                        <button class="btn btn-danger go_back7 anfahrtback" onclick="AnfahrtBack()" name="backbutton">Zurück</button>
-                        <button type="button" name="anfahrt_button" class="safeAnfahrt btn btn-info"value="'.$codeAnfahrt.'" >Speichern</button>
+                      <div class="form-group">
+                      <div class="wrapper2 Bild1">
+                        <button type="button" class="btm">Bild 1</button>
+                        <input type="file" id="bild1" name="myfile" />
+                      </div>
+                      <div class="wrapper2 Bild1">
+                        <button type="button" class="btm">Bild 2</button>
+                        <input type="file" id="bild2" name="myfile" />
+                      </div>
+                      <div class="wrapper2 Bild1">
+                        <button type="button" class="btm">Bild 3</button>
+                        <input type="file" id="bild3" name="myfile" />
+                      </div>
+                      <div class="wrapper2 Bild1">
+                        <button type="button" class="btm">Bild 4</button>
+                        <input type="file" id="bild4" name="myfile" />
+                      </div>
+                      '.$codeAnfahrt2.'
+                      <button class="btn btn-danger go_back7 anfahrtback" onclick="AnfahrtBack()" name="backbutton">Zurück</button>
+                      <button type="button" name="anfahrt_button" class="safeAnfahrt btn btn-info"value="'.$codeAnfahrt.'" >Speichern</button>
                       </div>
                     </form>
                   </div>
@@ -357,20 +374,21 @@ include 'functions.php';
         }
 
         // Modul für das Impressum der Homepage
-
-        $codeImpressum = printFormforImpressum($_SESSION['u_id']);
-        echo '<div class="impressum" onclick="clickedImpressum()">
-                <p class="text">Konfiguriere das Impressum </p>
-                <div class="i_text">
-                  <p>Nehmen Sie hier Änderungen am Impressum vor.</p>
-                  <form action="update_site.php" method="POST">
-                    <div class="form-group">'.$codeImpressum.'
-                      <button class="btn btn-danger go_back10 impressum2" onclick="ImpressumBack()" name="backbutton">Zurück</button>
-                      <button type="button" class="btn btn-info impressum_button impressum1">Speichern</button>
-                    </div>
-                  </form>
-                </div>
-              </div>';
+        if(ImpressumOn($_SESSION['u_id']) == 1){
+          $codeImpressum = printFormforImpressum($_SESSION['u_id']);
+          echo '<div class="impressum" onclick="clickedImpressum()">
+                  <p class="text">Konfiguriere das Impressum </p>
+                  <div class="i_text">
+                    <p>Nehmen Sie hier Änderungen am Impressum vor.</p>
+                    <form action="update_site.php" method="POST">
+                      <div class="form-group">'.$codeImpressum.'
+                        <button class="btn btn-danger go_back10 impressum2" onclick="ImpressumBack()" name="backbutton">Zurück</button>
+                        <button type="button" class="btn btn-info impressum_button impressum1">Speichern</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>';
+        }
 
         // Modul für die Bildergalerie(n)
 
@@ -399,7 +417,9 @@ include 'functions.php';
     <div id="currentPage">
       <div class="page_main">
         <?php
-        echo returninterfacecode($_SESSION['u_id']);
+        if(StartOn($_SESSION['u_id'])){
+          echo returninterfacecode($_SESSION['u_id']);
+        }
          ?>
       </div>
       <div class="page_custome">
@@ -466,7 +486,9 @@ include 'functions.php';
       </div>
       <div class="page_impressum">
         <?php
+        if(ImpressumOn($_SESSION['u_id']) == 1){
           echo printImpressumInInterface($_SESSION['u_id']);
+        }
         ?>
       </div>
     </div>
@@ -1722,6 +1744,23 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
           var plz = $("input[name=plzSchool]")[0].value;
           var town = $("input[name=ortSchool]")[0].value;
           var file = $("button[name=anfahrt_button]")[0].value;
+
+          var bild1 = $("#bild1").val();
+          if($("#bild1").val() != ""){
+            var bild1 = bild1.substring(12)
+          }
+          var bild2 = $("#bild2").val();
+          if($("#bild2").val() != ""){
+            var bild2 = bild2.substring(12)
+          }
+          var bild3 = $("#bild3").val();
+          if($("#bild3").val() != ""){
+            var bild3 = bild3.substring(12)
+          }
+          var bild4 = $("#bild4").val();
+          if($("#bild4").val() != ""){
+            var bild4 = bild4.substring(12)
+          }
           $.ajax({
             type: "POST",
             url: "onChange2.php",
@@ -1730,7 +1769,11 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 Number: number,
                 PLZ: plz,
                 Town: town,
-                File: file
+                File: file,
+                B1: bild1,
+                B2: bild2,
+                B3: bild3,
+                B4: bild4
             }
           });
         });
@@ -2170,7 +2213,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 $("#anfahrt_text2").keyup(function (){
                   document.getElementById("currentPage").getElementsByClassName("anfahrt_building")[0].innerHTML = $(this).val();
                 });
-                
+
                 $(".impressum_button").click(function (){
                     var impressum_text = $("#school_impressum").val();
                     $.ajax({
@@ -2211,7 +2254,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                   }
               });
           });';
-
+          if(CustomeOn($_SESSION['u_id'])){
             for ($i=0; $i < $numbercustome; $i++) {
               echo '$(".changes'.($i+1).'").click(function (){
                 var name = $(this).attr("value");
@@ -2224,6 +2267,8 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 });
               });';
             }
+          }
+            
 
           ?>
       });

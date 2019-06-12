@@ -244,6 +244,27 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   if($number == 1){
     printCustomeInFileTable($uid, $folder);
   }
+
+
+  //if the user does not want to intecrate the custome modul it is still procuced. Maybe the user wants to have it intecrated later on
+  if($number == 0){
+    $site_name = "custome_id" .$uid .".php";
+  if($folder != ""){
+    $folder = $folder."/".$site_name;
+  }else{
+    $folder = $site_name;
+  }
+  //create a File for this module
+  $myfile = fopen($folder, "w") or die("Datei konnte nicht geöffnet werden!");
+  //write file in Database
+  $stmt = $conn->prepare("UPDATE table_data SET custome_file_name=? WHERE user_id=?");
+  $stmt->bind_param("si", $folder, $uid);
+  $stmt->execute();
+
+  createCustome($_SESSION['u_id'], "Muster", "<p>Dies ist ein Mustermodul.</p>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>", "Beispiel");
+  printAllCustomeFromFile($_SESSION["u_id"]);
+  }
 }
 
 //this funtion will ne printed in the generated page in order to always print the latest version on the site
@@ -444,29 +465,30 @@ function printFormforCustome($file, $checkValue){
 
 function setNews($number, $news_number, $uid, $folder){
   global $conn;
-  if($number == 1){
-    $stmt = $conn->prepare("UPDATE table_data SET news_on=? WHERE user_id=?");
-    $stmt->bind_param("ii", $number, $uid);
-    $stmt->execute();
-    $stmt = $conn->prepare("UPDATE table_data SET news_number=? WHERE user_id=?");
-    $stmt->bind_param("ii", $news_number, $uid);
-    $stmt->execute();
-    $site_name = "news_id" .$uid .".php";
-    if($folder != ""){
-      $folder = $folder."/".$site_name;
-    }else{
-      $folder = $site_name;
-    }
-      //create a File for this module
-    $myfile = fopen($folder, "w") or die("Datei konnte nicht geöffnet werden!");
-    //write file in Database
-    $stmt = $conn->prepare("UPDATE table_data SET news_file_name=? WHERE user_id=?");
-    $stmt->bind_param("si", $folder, $uid);
-    $stmt->execute();
-    $stmt->close();
-
-    printNewsInFile($uid, $folder);
+  if($number == 0){
+    $news_number = 0;
   }
+  $stmt = $conn->prepare("UPDATE table_data SET news_on=? WHERE user_id=?");
+  $stmt->bind_param("ii", $number, $uid);
+  $stmt->execute();
+  $stmt = $conn->prepare("UPDATE table_data SET news_number=? WHERE user_id=?");
+  $stmt->bind_param("ii", $news_number, $uid);
+  $stmt->execute();
+  $site_name = "news_id" .$uid .".php";
+  if($folder != ""){
+    $folder = $folder."/".$site_name;
+  }else{
+    $folder = $site_name;
+  }
+    //create a File for this module
+  $myfile = fopen($folder, "w") or die("Datei konnte nicht geöffnet werden!");
+  //write file in Database
+  $stmt = $conn->prepare("UPDATE table_data SET news_file_name=? WHERE user_id=?");
+  $stmt->bind_param("si", $folder, $uid);
+  $stmt->execute();
+  $stmt->close();
+
+  printNewsInFile($uid, $folder);
 }
 
 function printNewsInFile($uid, $site_name){
@@ -840,7 +862,7 @@ function setCalendar($number, $uid, $folder){
   $stmt->bind_param("ii", $number, $uid);
   $stmt->execute();
   $stmt->close();
-  if($number == 1){
+
   $site_name = "calendar_id" .$uid .".php";
   if($folder != ""){
     $folder = $folder."/".$site_name;
@@ -870,7 +892,6 @@ function setCalendar($number, $uid, $folder){
   returnEvents($uid);
   //no extra nav item in code
   printCalendarInFile($uid, $folder);
-  }
 }
 
 function printCalendarAbove($uid){
@@ -1142,38 +1163,32 @@ function printImage(){
 
 function setGallery($number, $uid, $folder){
   global $conn;
-  if($number == 1){
-    $stmt = $conn->prepare("UPDATE table_data SET gallery_on=? WHERE user_id=?");
-    $stmt->bind_param("ii", $number, $uid);
-    $stmt->execute();
+  $stmt = $conn->prepare("UPDATE table_data SET gallery_on=? WHERE user_id=?");
+  $stmt->bind_param("ii", $number, $uid);
+  $stmt->execute();
 
-    $site_name = "gallery_id" .$uid .".php";
-    if($folder != ""){
-      $folder = $folder."/".$site_name;
-    }else{
-      $folder = $site_name;
-    }
-    //create a File for this module
-    $myfile = fopen($folder, "w") or die("Unable to open file!");
-    //write file in Database
-    $stmt = $conn->prepare("UPDATE table_data SET gallery_file_name=? WHERE user_id=?");
-    $stmt->bind_param("si", $folder, $uid);
-    $stmt->execute();
-
-    $var = '<?php $file = "userid".$_SESSION["u_id"]."/gallery_id".$_SESSION["u_id"].".php";';
-    $var .=  'allGalleries($_SESSION["u_id"], $file); ?>';
-    $stmt = $conn->prepare("UPDATE Theme1regular SET gallery_code2=?");
-    $stmt->bind_param("s", $var);
-    $stmt->execute();
-
-    createGallery($uid, "Mustergalerie", $folder);
-
-    printGalleryInFile($uid, $folder);
+  $site_name = "gallery_id" .$uid .".php";
+  if($folder != ""){
+    $folder = $folder."/".$site_name;
   }else{
-    $stmt = $conn->prepare("UPDATE table_data SET gallery_on=? WHERE user_id=?");
-    $stmt->bind_param("ii", $number, $uid);
-    $stmt->execute();
+    $folder = $site_name;
   }
+  //create a File for this module
+  $myfile = fopen($folder, "w") or die("Unable to open file!");
+  //write file in Database
+  $stmt = $conn->prepare("UPDATE table_data SET gallery_file_name=? WHERE user_id=?");
+  $stmt->bind_param("si", $folder, $uid);
+  $stmt->execute();
+
+  $var = '<?php $file = "userid".$_SESSION["u_id"]."/gallery_id".$_SESSION["u_id"].".php";';
+  $var .=  'allGalleries($_SESSION["u_id"], $file); ?>';
+  $stmt = $conn->prepare("UPDATE Theme1regular SET gallery_code2=?");
+  $stmt->bind_param("s", $var);
+  $stmt->execute();
+
+  createGallery($uid, "Mustergalerie", $folder);
+
+  printGalleryInFile($uid, $folder);
 }
 //returns the number of all images in all Galleries for one user
 function allImages($uid, $galleries){
@@ -1549,10 +1564,11 @@ function createImage2($uid, $file){
 
 function createImage($uid, $file){
   global $conn;
+  echo $file;
   $galleries = array();
   $postvalues = array();
   $postname = array();
-  $sql = "SELECT gallery_name FROM Galleries";
+  $sql = "SELECT gallery_name FROM galleries WHERE gallery_file_name='$file'";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
@@ -1571,7 +1587,12 @@ function createImage($uid, $file){
   var_dump($postname);
   for ($i=0; $i < sizeof($postvalues); $i++) {
     if(isset($postvalues[$i]) && $postvalues[$i]!= ""){
-      $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name, gallery_name) VALUES (?, ?, ?, ?, ?)");
+      echo  $postvalues[$i].'<br>';
+      echo $uid.'<br>';
+      echo $postname[$i].'<br>';
+      echo $file.'<br>';
+      echo $galleries[$i].'<br>';
+      $stmt = $conn->prepare("INSERT INTO image (Image_url, user_id, image_name, image_file_name, gallery_name) VALUES (?, ?, ?, ?, ?)");
       $stmt->bind_param("sisss", $postvalues[$i], $uid, $postname[$i], $file, $galleries[$i]);
       $stmt->execute();
     }
@@ -1735,7 +1756,6 @@ function setWorkers($number, $uid, $folder){
   $stmt = $conn->prepare("UPDATE table_data SET workers_on=? WHERE user_id=?");
   $stmt->bind_param("ii", $number, $uid);
   $stmt->execute();
-  if($number == 1){
   $site_name = "workers_id" .$uid .".php";
   if($folder != ""){
     $folder = $folder."/".$site_name;
@@ -1758,7 +1778,6 @@ function setWorkers($number, $uid, $folder){
   createWorkers($uid, "Herr", "Max", "Mustermann", "Musterjob", "leader", $folder, "00000", "grundschule.jpg");
 
   printWorkersInFile($uid, $folder);
-  }
 }
 
 function createWorkers($uid, $adress, $firstname, $lastname, $job, $choice, $file, $tel, $image){
@@ -2086,8 +2105,30 @@ function printWorkersInFile($uid, $folder){
     $stmt->bind_param("si", $folder, $uid);
     $stmt->execute();
     $maps = 'https://maps.google.de/maps?hl=de&q=%20'.$street.'+'.$housenumber.'%20'.$ort.'&t=&z=10&ie=utf8&iwloc=b&output=embed';
-    $stmt = $conn->prepare("INSERT INTO anfahrt (maps, text, text2 street, streetNumber, plz, ort, user_id, anfahrt_file_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO anfahrt (maps, text, text2, street, streetNumber, plz, ort, user_id, anfahrt_file_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssissis", $maps, $text, $text2, $street, $housenumber, $plz, $ort, $uid, $folder);
+    $stmt->execute();
+
+    $var = '<?php $file = "userid".$_SESSION["u_id"]."/anfahrt_id".$_SESSION["u_id"].".php";';
+    $var .=  'echo allAnfahrtFiles($_SESSION["u_id"], $file); ?>';
+    $stmt = $conn->prepare("UPDATE Theme1regular SET allAnfahrt=?");
+    $stmt->bind_param("s", $var);
+    $stmt->execute();
+
+    printAnfahrtInFile($uid, $folder);
+    }
+    else if($number == 0){
+       $site_name = "anfahrt_id" .$uid .".php";
+    if($folder != ""){
+      $folder = $folder."/".$site_name;
+    }else{
+      $folder = $site_name;
+    }
+    //create a File for this module
+    $myfile = fopen($folder, "w") or die("Unable to open file!");
+    //write file in Database
+    $stmt = $conn->prepare("UPDATE table_data SET anfahrt_file_name=? WHERE user_id=?");
+    $stmt->bind_param("si", $folder, $uid);
     $stmt->execute();
 
     $var = '<?php $file = "userid".$_SESSION["u_id"]."/anfahrt_id".$_SESSION["u_id"].".php";';
@@ -2137,26 +2178,28 @@ function printWorkersInFile($uid, $folder){
     $link = oneColumnFromTable("maps", $uid, "anfahrt", "user_id");
     $text = oneColumnFromTable("text", $uid, "anfahrt", "user_id");
     $text2 = oneColumnFromTable("text2", $uid, "anfahrt", "user_id");
-    $image1 = oneColumnFromTable("Image_building1", $uid, "anfahrt", "anfahrt_id");
-    if($image1[0] == '#'){
+    $image1 = oneColumnFromTable("Image_building1", $uid, "anfahrt", "user_id");
+    var_dump($image1);
+
+    if(empty($image1)){
       $image1 = '';
     }else{
       $image1 = $image1[0];
     }
-    $image2 = oneColumnFromTable("Image_building2", $uid, "anfahrt", "anfahrt_id");
-    if($image2[0] == '#'){
+    $image2 = oneColumnFromTable("Image_building2", $uid, "anfahrt", "user_id");
+    if(empty($image2) == '#'){
       $image2 = '';
     }else{
       $image2 = $image2[0];
     }
-    $image3 = oneColumnFromTable("Image_building3", $uid, "anfahrt", "anfahrt_id");
-    if($image3[0] == '#'){
+    $image3 = oneColumnFromTable("Image_building3", $uid, "anfahrt", "user_id");
+    if(empty($image3) == '#'){
       $image3 = '';
     }else{
       $image3 = $image3[0];
     }
-    $image4 = oneColumnFromTable("Image_building4", $uid, "anfahrt", "anfahrt_id");
-    if($image4[0] == '#'){
+    $image4 = oneColumnFromTable("Image_building4", $uid, "anfahrt", "user_id");
+    if(empty($image4) == '#'){
       $image4 = '';
     }else{
       $image4 = $image4[0];
@@ -2184,17 +2227,17 @@ function printWorkersInFile($uid, $folder){
          </div>
          <div class="col-sm-1"></div>
          <div class="col-sm-5">
-          <img class="bigimage" src="'.$image1.'">
+          <img class="bigimage" src="Images/'.$image1.'">
          </div>
     </div>
     <div class="row">
       <div class="col-sm-7"></div>
       <div class="col-sm-5">
         <div class="row">
-        <div class="col-sm-3"><img onclick="image1()" class="image1" src="'.$image1.'"></div>
-        <div class="col-sm-3"><img onclick="image2()" class="image2" src="'.$image2.'"></div>
-        <div class="col-sm-3"><img onclick="image3()" class="image3" src="'.$image3.'"></div>
-        <div class="col-sm-3"><img onclick="image4()" class="image4" src="'.$image4.'"></div>
+        <div class="col-sm-3"><img onclick="image1()" class="image1" src="Images/'.$image1.'"></div>
+        <div class="col-sm-3"><img onclick="image2()" class="image2" src="Images/'.$image2.'"></div>
+        <div class="col-sm-3"><img onclick="image3()" class="image3" src="Images/'.$image3.'"></div>
+        <div class="col-sm-3"><img onclick="image4()" class="image4" src="Images/'.$image4.'"></div>
         </div>
       </div>
 
@@ -2230,6 +2273,30 @@ function printWorkersInFile($uid, $folder){
     $stmt = $conn->prepare("UPDATE anfahrt SET maps=? WHERE anfahrt_file_name=?");
     $stmt->bind_param("si", $maps, $file);
     $stmt->execute();
+  }
+
+  function updatePictures($file, $b1, $b2, $b3, $b4){
+    global $conn;
+    if($b1 != ""){
+      $stmt = $conn->prepare("UPDATE anfahrt SET  Image_building1=? WHERE anfahrt_file_name=?");
+    $stmt->bind_param("si", $b1, $file);
+    $stmt->execute();
+    }
+    if($b2 != ""){
+      $stmt = $conn->prepare("UPDATE anfahrt SET  Image_building2=? WHERE anfahrt_file_name=?");
+    $stmt->bind_param("si", $b2, $file);
+    $stmt->execute();
+    }
+    if($b3 != ""){
+      $stmt = $conn->prepare("UPDATE anfahrt SET  Image_building3=? WHERE anfahrt_file_name=?");
+    $stmt->bind_param("si", $b3, $file);
+    $stmt->execute();
+    }
+    if($b4 != ""){
+    $stmt = $conn->prepare("UPDATE anfahrt SET  Image_building4=? WHERE anfahrt_file_name=?");
+    $stmt->bind_param("si", $b4, $file);
+    $stmt->execute();
+    }
   }
 
   function printFormforAnfahrt($uid, $file){
@@ -2356,30 +2423,24 @@ function createFile($id, $name, $folder){
 
 function setClasses($uid, $number, $folder){
   global $conn;
-  if($number == 1){
-    $stmt = $conn->prepare("UPDATE table_data SET classes_on=? WHERE user_id=?");
-    $stmt->bind_param("ii", $number, $uid);
-    $stmt->execute();
+  $stmt = $conn->prepare("UPDATE table_data SET classes_on=? WHERE user_id=?");
+  $stmt->bind_param("ii", $number, $uid);
+  $stmt->execute();
 
-    $site_name = "classes_id" .$uid .".php";
-    if($folder != ""){
-      $folder = $folder."/".$site_name;
-    }else{
-      $folder = $site_name;
-    }
-
-    $var = '<?php $file = "userid".$_SESSION["u_id"]."/classes_id".$_SESSION["u_id"].".php";';
-    $var .=  'echo printClassesInFileTable($_SESSION["u_id"], $file); ?>';
-    $stmt = $conn->prepare("UPDATE Theme1regular2 SET classes_code=?");
-    $stmt->bind_param("s", $var);
-    $stmt->execute();
-
-    printClassesInFile($uid, $folder);
+  $site_name = "classes_id" .$uid .".php";
+  if($folder != ""){
+    $folder = $folder."/".$site_name;
   }else{
-    $stmt = $conn->prepare("UPDATE table_data SET classes_on=? WHERE user_id=?");
-    $stmt->bind_param("ii", $number, $uid);
-    $stmt->execute();
+    $folder = $site_name;
   }
+
+  $var = '<?php $file = "userid".$_SESSION["u_id"]."/classes_id".$_SESSION["u_id"].".php";';
+  $var .=  'echo printClassesInFileTable($_SESSION["u_id"], $file); ?>';
+  $stmt = $conn->prepare("UPDATE Theme1regular2 SET classes_code=?");
+  $stmt->bind_param("s", $var);
+  $stmt->execute();
+
+  printClassesInFile($uid, $folder);
 }
 
 function printClassesInFile($uid, $file){
@@ -2584,6 +2645,21 @@ function setSignup($uid, $number, $text, $file, $folder){
     $stmt = $conn->prepare("UPDATE table_data SET signup_on=? WHERE user_id=?");
     $stmt->bind_param("ii", $number, $uid);
     $stmt->execute();
+
+    $site_name = "signup_id" .$uid .".php";
+    if($folder != ""){
+      $folder = $folder."/".$site_name;
+    }else{
+      $folder = $site_name;
+    }
+
+    $var = '<?php $file = "userid".$_SESSION["u_id"]."/signup_id".$_SESSION["u_id"].".php";';
+    $var .=  'echo printSignupInFileTable($_SESSION["u_id"], $file); ?>';
+    $stmt = $conn->prepare("UPDATE Theme1regular2 SET signup_code=?");
+    $stmt->bind_param("s", $var);
+    $stmt->execute();
+
+    printSignupInFile($uid, $folder);
   }
 }
 
@@ -2732,6 +2808,10 @@ function updateSignUpPDF($uid, $pdf){
 
 function setImpressum($uid, $text, $folder){
   global $conn;
+  $stmt = $conn->prepare("UPDATE table_data SET impressum_on=? WHERE user_id=?");
+  $number = 1;
+  $stmt->bind_param("ii", $number, $uid);
+  $stmt->execute();
   $stmt = $conn->prepare("UPDATE Page SET impressum=? WHERE user_id=?");
   $stmt->bind_param("si", $text, $uid);
   $stmt->execute();
@@ -2880,19 +2960,19 @@ function checkDoubleRegistration($mail){
 
 function createAccount($email, $pswd, $pswd_repeat, $firstname, $lastname, $gender, $birth, $Adress, $plz, $payment, $note){
     global $conn;
-    echo $email;
     $mail = mysqli_real_escape_string($conn, $email);
+    var_dump($mail);
     $psw = mysqli_real_escape_string($conn, $pswd);
     $psw_repeat = mysqli_real_escape_string($conn, $pswd_repeat);
     //Error Handler
     //Check for empty fields
-    if(empty($mail) || empty($psw) || empty($psw_repeat)){
+    if(empty($email) || empty($pswd) || empty($pswd_repeat)){
       header('Location: http://localhost/Grundschule/create_account.php?signup=empty');
       exit();
-    }else if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
+    }else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
       header('Location: http://localhost/Grundschule/create_account.php?signup=email');
       exit();
-    }else if(checkDoubleRegistration($mail) == 1){
+    }else if(checkDoubleRegistration($email) == 1){
     header('Location: http://localhost/Grundschule/create_account.php?signup=DoubleEmail');
       exit();
     }else{
@@ -3063,6 +3143,20 @@ function WorkersOn($uid){
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $number = $row['workers_on'];
+    }
+  }
+  return $number;
+}
+
+function ImpressumOn($uid){
+  global $conn;
+  $number = 0;
+  $sql = "SELECT impressum_on FROM table_data WHERE user_id = $uid";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $number = $row['impressum_on'];
     }
   }
   return $number;

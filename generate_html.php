@@ -68,7 +68,7 @@ if(isset($_POST['anfahrt_button'])){
   setAnfahrt($number, $_SESSION['u_id'], $folder, $_POST['street_school'], $_POST['plz_school'], $_POST['ort_school'], $_POST['desciption_anfahrt'], $_POST['desciption_building'], $_POST['number_school']);
 }else{
   $number = 0;
-  setAnfahrt($number, $_SESSION['u_id'], $folder, $_POST['street_school'], $_POST['plz_school'], $_POST['ort_school'], $_POST['desciption_anfahrt'], $_POST['number_school']);
+  setAnfahrt($number, $_SESSION['u_id'], $folder, $_POST['street_school'], $_POST['plz_school'], $_POST['ort_school'], $_POST['desciption_anfahrt'], $_POST['desciption_building'], $_POST['number_school']);
 }
 if(isset($_POST['signup_button'])){
   $number = 1;
@@ -79,10 +79,10 @@ if(isset($_POST['signup_button'])){
 }
 if(isset($_POST['classes_button'])){
   $number = 1;
-  setClasses($_SESSION['u_id'], $number, $folder)
+  setClasses($_SESSION['u_id'], $number, $folder);
 }else{
   $number = 0;
-  setClasses($_SESSION['u_id'], $number, $folder)
+  setClasses($_SESSION['u_id'], $number, $folder);
 }
 
 header('Location: http://localhost/Grundschule/generate.php?success');

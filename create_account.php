@@ -131,43 +131,43 @@ include 'functions.php';
 
         <div class="col-sm-6 text-center">
           <!-- <div> -->
-            <input type="text" class="form-control" placeholder="E-Mail" name="E-Mail" required>
+            <input type="text" class="form-control" placeholder="E-Mail" name="Email" required>
           <!-- </div> -->
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="password" class="form-control" placeholder="Passwort" name="Passwort" required>
+            <input type="password" class="form-control" placeholder="Passwort" name="Password" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Vorname" name="Vorname" required>
+            <input type="text" class="form-control" placeholder="Vorname" name="Firstname" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Nachname" name="Nachname" required>
+            <input type="text" class="form-control" placeholder="Nachname" name="Lastname" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Geschlecht" name="Geschlecht" required>
+            <input type="text" class="form-control" placeholder="Geschlecht" name="Gender" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Geburtsdatum" name="Geburtsdatum" required>
+            <input type="text" class="form-control" placeholder="Geburtsdatum" name="Birthdate" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Adresse" name="Adresse" required>
+            <input type="text" class="form-control" placeholder="Adresse" name="Adress" required>
           </div>
         </div>
 
@@ -179,13 +179,13 @@ include 'functions.php';
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" rows="3" placeholder="Bezahlungsart" name="Zahlungsart" required>
+            <input type="text" class="form-control" rows="3" placeholder="Bezahlungsart" name="Payment" required>
           </div>
         </div>
 
         <div class="col-sm-6 text-center">
           <div>
-            <input type="text" class="form-control" placeholder="Notiz" name="Notiz" required>
+            <input type="text" class="form-control" placeholder="Notiz" name="Note">
           </div>
         </div>
 

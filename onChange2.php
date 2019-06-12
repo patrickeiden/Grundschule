@@ -50,6 +50,7 @@ if(isset($_POST['DeleteWorker'])){
 }
 if(isset($_POST['Street'])){
   updateGoogleAdress($_POST['File'], $_POST['Street'], $_POST['Number'], $_POST['PLZ'], $_POST['Town']);
+  updatePictures($_POST['File'], $_POST['B1'], $_POST['B2'], $_POST['B3'], $_POST['B4']);
   printAnfahrtInInterface($_SESSION['u_id'], $_POST['File']);
 }
 ?>
