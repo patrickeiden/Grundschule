@@ -1669,11 +1669,10 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
         $(".deleteNews").click(function () {
           var name = $(this).attr("value");
           $(this).hide();
-          $("input[name=title_"+name+"]").hide();
-          $("input[name=date_"+name+"]").hide();
-          $("textarea[name=text_"+name+"]").hide();
-          $("button[value="+name+"]").hide();
-          $("button[value=safe_"+name+"]").hide();
+          $("input[name=title_"+name+"]")[0].style.display="none";
+          $("input[name=date_"+name+"]")[0].style.display="none";
+          $("textarea[name=text_"+name+"]")[0].style.display="none";
+          $("button[value="+name+"]")[1].style.display="none"
           $.ajax({
             type: "POST",
             url: "onChange2.php",
@@ -1701,10 +1700,9 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
         $(".safeNews").click(function () {
           var name = $(this).attr("value");
-          var title = document.getElementsByClassName('news_title')[0].getElementsByTagName('input')[0].value;
-          var date = document.getElementsByClassName('news_date')[0].getElementsByTagName('input')[0].value;
-          var text = document.getElementsByClassName('news_text')[0].value;
-          var whichone = document.getElementsByClassName('safeNews')[0].value;
+          var title = $("input[name=title_"+name+"]")[0].value;
+          var date = $("input[name=date_"+name+"]")[0].value;
+          var text = $("textarea[name=text_"+name+"]")[0].value;
           $.ajax({
             type: "POST",
             url: "onChange2.php",
@@ -1712,10 +1710,11 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 NewsTitle: title,
                 NewsDate: date,
                 NewsText: text,
-                WhichOne: whichone
+                WhichOne: name
             }
           });
         });
+
         //safe all options for signup module
         $(".safeSignUp").click(function () {
           var text = document.getElementById('SignUp_text').value;
@@ -1833,12 +1832,8 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 var lar = la.toString();
                 $("#news"+lar).show();
                 $("#page_news > "+".newsInterface"+lar).show();
-                var temp = 511 + (newsnumber*402);
-                var curr = -511 - (402*newsnumber);
-                var foot = 460 + (402*newsnumber);
+                var temp = 299 + (newsnumber*180);
                 $(".newsModule").animate({height:temp+"px"},500);
-                $(".page-footer").css('top',foot);
-                $("#currentPage").css('margin-top',curr);
               }else{
                 var la = i+1;
                 var lar = la.toString();
@@ -1859,12 +1854,8 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 var lar = la.toString();
                 $("#news"+lar).show();
                 $("#page_news > "+".newsInterface"+lar).show();
-                var temp = 511 + (newsnumber*402);
-                var curr = -511 - (402*newsnumber);
-                var foot = 460 + (402*newsnumber);
+                var temp = 299 + (newsnumber*180);
                 $(".newsModule").animate({height:temp+"px"},500);
-                $(".page-footer").css('top',foot);
-                $("#currentPage").css('margin-top',curr);
               }else{
                 var la = i+1;
                 var lar = la.toString();

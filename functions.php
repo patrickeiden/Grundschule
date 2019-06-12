@@ -3570,11 +3570,6 @@ function updateNews($file, $uid){
 }
 
 function updateNews2($file, $whichone, $title, $date, $text){
-  var_dump($file);
-  var_dump($whichone);
-  var_dump($title);
-  var_dump($date);
-  var_dump($text);
   global $conn;
   $stmt = $conn->prepare("UPDATE new_news SET date=? WHERE title=? and news_file=?");
   $stmt->bind_param("sss", $date, $whichone, $file);
