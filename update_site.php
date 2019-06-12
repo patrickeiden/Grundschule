@@ -3,15 +3,15 @@
 session_start();
 include 'functions.php';
 
-if(isset($_SESSION['changes'])){
-  updateCustome($_SESSION['changes'], $_SESSION['u_id'], false);
+if(isset($_POST['changes'])){
+  var_dump($_POST['nav_title']);
+  updateCustome($_POST['changes'], $_SESSION['u_id'], false, $_POST['nav_title']);
 }
 if(isset($_POST['newModule'])){
   createCustome($_SESSION['u_id'], $_POST['custome_title'], $_POST['custome_code'], $_POST['newModule']);
 }
 if(isset($_POST['delete'])){
   //deleteCustome($_SESSION['u_id'], $_POST['delete']); this is for the checkbox variant
-  var_dump($_POST['delete']);
   deleteCustome($_POST['delete'], $_SESSION['CustomeFileName']);
 }
 if(isset($_POST['newModuleabove'])){

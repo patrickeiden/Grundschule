@@ -3447,31 +3447,11 @@ function ThemeOne($site_name){
 }
 
 //updatet die Werte und den Code innerhalb einer File im custome Module
-function updateCustome($file, $uid, $newsuse){
+function updateCustome($file, $uid, $newsuse, $nav){
   global $conn;
-  $a = array();
-  $post = array();
-  $sql = "SELECT custome_name FROM Module WHERE custome_file='$file'";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $v = $row['custome_name'];
-        array_push($a, $row['custome_name']);
-        $val = $_POST[$v];
-        array_push($post, $val);
-    }
-    for ($i=0; $i < sizeof($a); $i++) {
-      $name = $a[$i];
-      $code = $post[$i];
-      $stmt = $conn->prepare("UPDATE Module SET costume_code=? WHERE custome_name=? and custome_file=?");
-      $stmt->bind_param("sss", $code, $name, $file);
-      $stmt->execute();
-    }
-  }
   if(!$newsuse){
     $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
-    $stmt->bind_param("ss", $_POST['nav_title'], $uid);
+    $stmt->bind_param("ss", $nav, $uid);
     $stmt->execute();
   }
 }
@@ -3532,14 +3512,9 @@ function updateOneModule($uid, $file, $name, $code){
     $code = "empty";
   }
   global $conn;
-  $numberCustome = oneColumnFromTable("custome_name", $file, "Module", "custome_file");
-  for ($i=0; $i < sizeof($numberCustome); $i++) {
-    if($numberCustome[$i] == $name){
-      $stmt = $conn->prepare("UPDATE Module SET costume_code=? WHERE custome_name=? and custome_file=?");
-      $stmt->bind_param("sss", $code, $name, $file);
-      $stmt->execute();
-    }
-  }
+  $stmt = $conn->prepare("UPDATE Module SET costume_code=? WHERE custome_name=? and custome_file=?");
+  $stmt->bind_param("sss", $code, $name, $file);
+  $stmt->execute();
 }
 
 function updateNews($file, $uid){

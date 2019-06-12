@@ -1630,6 +1630,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
           });
         });
 
+        //deleteCustomeModule
         $(".deleteButton").click(function () {
           var name = $(this).attr("value");
           $(this).hide();
@@ -1642,7 +1643,11 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 DeleteCustome: name
             }
           });
+          var temp = 316+((customenumber-1)*121);
+          $(".costumeModule").animate({height:temp+"px"},500);
         });
+
+        
 
         $(".deleteNews").click(function () {
           var name = $(this).attr("value");
@@ -1946,7 +1951,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
             echo 'var customeRows ='.$num_rowsCustome.';';
             //for the navbar
             echo '$("#nav_title").keyup(function(){
-              document.getElementById("currentPage").getElementsByClassName("navbar2")[0].getElementsByClassName("custome")[0].textContent = $(this).val();;
+              document.getElementById("currentPage").getElementsByClassName("navbar2")[0].getElementsByClassName("custome")[0].textContent = $(this).val();
             });';
             for ($i=0; $i < $num_rowsCustome; $i++) {
               echo 'var numberLoop'.($i+1).' ='.($i+1).';';
@@ -1956,12 +1961,13 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 $("#code'.($i+1).'").keyup(function (){
                   document.getElementById("currentPage").getElementsByClassName("custome_'.$numberCustome[$i].'")[0].innerHTML = $(this).val();
                 });
-                $("#code'.($i+1).'").change(function() {
+                $(".changes'.($i+1).'").click(function() {
                     var text = $("#code'.($i+1).'").val();
+                    var module = $(this).val();
                     $.ajax({
                       type:"POST",
                       url: "onChange.php",
-                      data: {ajaxCode:text, number:numberLoop'.($i+1).'},
+                      data: {ajaxCode:text, number:numberLoop'.($i+1).', Module: module},
                       success: function (data) {
                       }
                   });

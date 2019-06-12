@@ -6,8 +6,8 @@ include 'functions.php';
 $checkValue = true;
 if(isset($_POST['ajaxCode']) && $_POST['ajaxCode'] != "" && $checkValue){
   $val = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
-  $arg = 'customeName_'.$_POST['number'];
-  updateOneModule($_SESSION['u_id'], $val, $_SESSION[$arg], $_POST['ajaxCode']);
+  //$arg = 'customeName_'.$_POST['number'];
+  updateOneModule($_SESSION['u_id'], $val, $_POST['Module'], $_POST['ajaxCode']);
   $_SESSION['CustomeNumber'] = $_POST['number'];
   $checkValue = false;
 
