@@ -18,10 +18,6 @@ if(isset($_POST['DeleteNews'])){
   deleteNews2($_SESSION['u_id'], $_POST['DeleteNews'], $_SESSION['NewsFileName']);
 }
 if(isset($_POST['NewsTitle']) && isset($_POST['NewsDate']) && isset($_POST['NewsText'])){
-  var_dump($_POST['NewsTitle']);
-  var_dump($_POST['NewsDate']);
-  var_dump($_POST['NewsText']);
-  var_dump($_POST['WhichOne']);
   updateNews2($_SESSION['NewsFileName'], $_POST['WhichOne'], $_POST['NewsTitle'], $_POST['NewsDate'], $_POST['NewsText']);
 }
 if(isset($_POST['SignUpText'])){
@@ -42,5 +38,16 @@ if(isset($_POST['newClassClasses']) || isset($_POST['newClassTeacher']) || isset
 }
 if(isset($_POST['DeleteImage'])){
   deleteImage($_SESSION['u_id'], $_POST['DeleteImage'], $_POST['GalleryName']);
+}
+if(isset($_POST['Id'])){
+  var_dump($_POST['Id']);
+  var_dump($_POST['Job']);
+  var_dump($_POST['Name']);
+  var_dump($_POST['Tel']);
+  safeWorker($_POST['Id'], $_POST['Job'], $_POST['Name'], $_POST['Tel']);
+}
+if(isset($_POST['DeleteWorker'])){
+  var_dump($_POST['DeleteWorker']);
+  DeleteWorker($_POST['DeleteWorker']);
 }
 ?>

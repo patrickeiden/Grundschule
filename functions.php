@@ -1791,6 +1791,15 @@ function deleteWorkers($uid, $file){
   }
 }
 
+//delete only one worker
+function deleteWorker($id){
+  global $conn;
+  $stmt = $conn->prepare("DELETE FROM workers WHERE workers_id = ?");
+  $stmt->bind_param('s', $id);
+  $stmt->execute();
+  $stmt->close();
+}
+
 function changeWorkers(){
 //later
 }
@@ -1826,10 +1835,10 @@ function printFormforWorkers($uid, $file){
     }
     $output .= '<div class="col-sm-4">';
     $output .='<div class="class_number"><input type="text" class="form-control job_'.$idArray[$i].'" placeholder="Job" name="'.'job_'.$idArray[$i].'" value="'.$jobArray[$i].'"></div>';
-    $output .='<div class="class_teacher"><input type="text" class="form-control name_'.$idArray[$i].'" placeholder="Name" name="'.'name_'.$idArray[$i].'" value="'.$AnredeArray[$i].'"></div>';
+    $output .='<div class="class_teacher"><input type="text" class="form-control name_'.$idArray[$i].'" placeholder="Name" name="'.'name_'.$idArray[$i].'" value="'.$AnredeArray[$i].$NameArray[$i].'"></div>';
     $output .='<div class="class_kids"><input type="text" class="form-control tel_'.$idArray[$i].'" placeholder="Telefon" name="'.'tel_'.$idArray[$i].'" value="'.$telArray[$i].'"></div>';
-    $output .= '<button type="button" class="btn btn-danger deleteClass" name="deleteClass" value="'.$idArray[$i].'" formmethod="POST">Löschen</button>';
-    $output .= '<button type="button" class="btn btn-info safeClass" name="safeClass" value="'.$idArray[$i].'" formmethod="POST">Speichern</button>';
+    $output .= '<button type="button" class="btn btn-danger deleteWorker" name="deleteWorker" value="'.$idArray[$i].'" formmethod="POST">Löschen</button>';
+    $output .= '<button type="button" class="btn btn-info safeWorker" name="safeWorker" value="'.$idArray[$i].'" formmethod="POST">Speichern</button>';
     $output .= '</div>';
 
     if(($i == sizeof($idArray)-1)){
@@ -2089,6 +2098,19 @@ function printWorkersInFile($uid, $folder){
 
     printAnfahrtInFile($uid, $folder);
     }
+  }
+
+  function safeWorker($id, $job, $name, $number){
+    global $conn;
+    $stmt = $conn->prepare("UPDATE workers SET job=? WHERE workers_id=?");
+    $stmt->bind_param("si", $job, $id);
+    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE workers SET anrede=? WHERE workers_id=?");
+    $stmt->bind_param("si", $name, $id);
+    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE workers SET tel=? WHERE workers_id=?");
+    $stmt->bind_param("si", $number, $id);
+    $stmt->execute();
   }
 
   function printAnfahrtInFile($uid, $folder){

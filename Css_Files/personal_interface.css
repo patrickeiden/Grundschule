@@ -900,6 +900,22 @@ footer {
     background-color: #17a2b8!important;
   }
 
+  .deleteWorker{
+    width: 44%!important;
+    height: 27px;
+    border-radius: 0px 0px 0px 5px;
+    margin-top: -5px;
+    background-color: #c82333!important;
+  }
+
+  .safeWorker{
+    width: 44%!important;
+    height: 27px;
+    border-radius: 0px 0px 5px 0px;
+    margin-top: -5px;
+    background-color: #17a2b8!important;
+  }
+
   .newCustomeModule{
     width: 91%!important;
     height: 27px;

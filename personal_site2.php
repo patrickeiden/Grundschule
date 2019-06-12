@@ -1759,21 +1759,37 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
           });
         });
 
-        $(".safeClass").click(function () {
-          var number = $(this).val();
-          var classNumber = 'teacher_'+number;
-          var teacher = document.getElementsByClassName(classNumber)[0].value;
-          var kidsNumber = 'kids_'+number;
-          var kids = document.getElementsByClassName(kidsNumber)[0].value;
-          alert(teacher);
-          alert(kids);
+        
+
+        $(".safeWorker").click(function () {
+          var number = $(this).attr("value");
+          var job =  $("input[name=job_"+number+"]")[0].value;
+          var name = $("input[name=name_"+number+"]")[0].value;
+          var tel = $("input[name=tel_"+number+"]")[0].value;
           $.ajax({
             type: "POST",
             url: "onChange2.php",
             data: {
-                Classes: number,
-                Teacher: teacher,
-                Kids: kids
+                Id: number,
+                Job: job,
+                Name: name,
+                Tel: tel
+            }
+          });
+        });
+
+        $(".deleteWorker").click(function () {
+          var name = $(this).attr("value");
+          $(this).hide();
+          $("input[name=job_"+name+"]")[0].style.display="none";
+          $("input[name=name_"+name+"]")[0].style.display="none";
+          $("input[name=tel_"+name+"]")[0].style.display="none";
+          $("button[value="+name+"]")[1].style.display="none"
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                DeleteWorker: name
             }
           });
         });
