@@ -30,8 +30,11 @@ if(isset($_POST['ClassesNumber'])){
   var_dump($_POST['ClassesNumber']);
   deleteClasses($_SESSION['u_id'], $_POST['ClassesNumber']);
 }
-if(isset($_POST['Classes']) && isset($_POST['Teacher']) && isset($_POST['Kids'])){
-  safeClasses($_SESSION['u_id'], $_POST['Classes'], $_POST['Teacher'], $_POST['Kids']);
+if(isset($_POST['IdClasses']) && isset($_POST['Klasse']) && isset($_POST['Teacher'])){
+  safeClasses($_POST['IdClasses'], $_POST['Klasse'], $_POST['Teacher'], $_POST['Anzahl']);
+}
+if(isset($_POST['DeleteClass'])){
+  deleteClasses($_POST['DeleteClass']);
 }
 if(isset($_POST['newClassClasses']) || isset($_POST['newClassTeacher']) || isset($_POST['newClassKids'])){
   newClass($_SESSION['u_id'], $_POST['newClassClasses'], $_POST['newClassTeacher'], $_POST['newClassKids'], $_SESSION['ClassesFileName']);

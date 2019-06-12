@@ -2440,6 +2440,7 @@ function printFormForClasses($uid){
   $numberArray = array();
   $teacherArray = array();
   $kidsArray = array();
+  $idArray = array();
   $sql = "SELECT classes_id, number, teacher, kids FROM classes WHERE user_id = '$uid'";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
@@ -2449,6 +2450,7 @@ function printFormForClasses($uid){
         array_push($teacherArray, $row['teacher']);
         array_push($kidsArray, $row['kids']);
         array_push($classesArray, $row['kids']);
+        array_push($idArray, $row['classes_id']);
     }
   }
   for ($i=0; $i < sizeof($numberArray); $i++) {
@@ -2461,11 +2463,11 @@ function printFormForClasses($uid){
       $output .= '<div class="row">';
     }
     $output .= '<div class="col-sm-4">';
-    $output .='<div class="class_number"><input type="text" class="form-control number_'.$classesArray[$i].'" placeholder="Klasse" name="'.'Klasse_'.$numberArray[$i].'" value="'.$numberArray[$i].'"></div>';
-    $output .='<div class="class_teacher"><input type="text" class="form-control teacher_'.$classesArray[$i].'" placeholder="Lehrer/in" name="'.'teacher_'.$numberArray[$i].'" value="'.$teacherArray[$i].'"></div>';
-    $output .='<div class="class_kids"><input type="text" class="form-control kids_'.$classesArray[$i].'" placeholder="Anzahl der Kinder" name="'.'kids_'.$numberArray[$i].'" value="'.$kidsArray[$i].'"></div>';
-    $output .= '<button type="button" class="btn btn-danger deleteClass" name="deleteClass" value="'.$classesArray[$i].'" formmethod="POST">Löschen</button>';
-    $output .= '<button type="button" class="btn btn-info safeClass" name="safeClass" value="'.$classesArray[$i].'" formmethod="POST">Speichern</button>';
+    $output .='<div class="class_number"><input type="text" class="form-control number_'.$classesArray[$i].'" placeholder="Klasse" name="'.'classe_'.$idArray[$i].'" value="'.$numberArray[$i].'"></div>';
+    $output .='<div class="class_teacher"><input type="text" class="form-control teacher_'.$classesArray[$i].'" placeholder="Lehrer/in" name="'.'teacher_'.$idArray[$i].'" value="'.$teacherArray[$i].'"></div>';
+    $output .='<div class="class_kids"><input type="text" class="form-control kids_'.$classesArray[$i].'" placeholder="Anzahl der Kinder" name="'.'amount_'.$idArray[$i].'" value="'.$kidsArray[$i].'"></div>';
+    $output .= '<button type="button" class="btn btn-danger deleteClass" name="deleteClass" value="'.$idArray[$i].'" formmethod="POST">Löschen</button>';
+    $output .= '<button type="button" class="btn btn-info safeClass" name="safeClass" value="'.$idArray[$i].'" formmethod="POST">Speichern</button>';
     $output .= '</div>';
 
     if(($i == sizeof($numberArray)-1)){
@@ -2526,23 +2528,23 @@ function printClassesInInterface($uid){
   return $output;
 }
 
-function safeClasses($uid, $number, $teacher, $kids){
+function safeClasses($id, $number, $teacher, $kids){
   global $conn;
-  $stmt = $conn->prepare("UPDATE classes SET number=? WHERE user_id=?");
-  $stmt->bind_param('ss', $number, $uid);
+  $stmt = $conn->prepare("UPDATE classes SET number=? WHERE classes_id=?");
+  $stmt->bind_param('si', $number, $id);
   $stmt->execute();
-  $stmt = $conn->prepare("UPDATE classes SET teacher=? WHERE user_id=?");
-  $stmt->bind_param('ss', $teacher, $uid);
+  $stmt = $conn->prepare("UPDATE classes SET teacher=? WHERE classes_id=?");
+  $stmt->bind_param('si', $teacher, $id);
   $stmt->execute();
-  $stmt = $conn->prepare("UPDATE classes SET kids=? WHERE user_id=?");
-  $stmt->bind_param('ss', $kids, $uid);
+  $stmt = $conn->prepare("UPDATE classes SET kids=? WHERE classes_id=?");
+  $stmt->bind_param('ii', $kids, $id);
   $stmt->execute();
 }
 
-function deleteClasses($uid, $number){
+function deleteClasses($id){
   global $conn;
-  $stmt = $conn->prepare("DELETE FROM classes WHERE number = ? and user_id = ?");
-  $stmt->bind_param('ss', $number, $uid);
+  $stmt = $conn->prepare("DELETE FROM classes WHERE classes_id = ?");
+  $stmt->bind_param('i', $id);
   $stmt->execute();
 }
 

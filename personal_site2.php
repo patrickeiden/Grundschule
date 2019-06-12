@@ -331,7 +331,7 @@ include 'functions.php';
                         <div class="new_number"><input type="text" class="form-control new_number2" placeholder="Klasse" name="new_number"></div>
                         <div class="new_teacher"><input type="text" class="form-control new_teacher2" placeholder="Lehrer/in" name="new_number"></div>
                         <div class="new_kids"><input type="text" class="form-control new_kids2" placeholder="Anzahl der Kinder" name="new_number"></div>
-                        <button type="button" class="btn btn-info newClass_button" name="newClass_button" formmethod="POST">Klasse hinzufügen</button>
+                        <button type="submit" class="btn btn-info newClass_button" name="newClass_button" formmethod="POST">Klasse hinzufügen</button>
                         <button class="btn btn-danger go_back8" onclick="ClassesBack()" name="backbutton">Zurück</button>
                       </div>
                     </form>
@@ -1763,18 +1763,36 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
         });
 
         //delete one Class
+
         $(".deleteClass").click(function () {
-          var number = $(this).val();
-          //$("input[name=Klasse_"+number+"]").hide();
-          //$("input[name=teacher_"+number+"]").hide();
-          //$("input[name=kids_"+number+"]").hide();
-          //$("button[value="+number+"]").hide();
+          var id = $(this).attr("value");
           $(this).hide();
+          $("input[name=classe_"+id+"]")[0].style.display="none";
+          $("input[name=teacher_"+id+"]")[0].style.display="none";
+          $("input[name=amount_"+id+"]")[0].style.display="none";
+          $("button[value="+id+"]")[1].style.display="none";
           $.ajax({
             type: "POST",
             url: "onChange2.php",
             data: {
-                ClassesNumber: number,
+                DeleteClass: id
+            }
+          });
+        });
+
+        $(".safeClass").click(function () {
+          var id = $(this).attr("value");
+          var classe =  $("input[name=classe_"+id+"]")[0].value;
+          var teacher = $("input[name=teacher_"+id+"]")[0].value;
+          var amount = $("input[name=amount_"+id+"]")[0].value;
+          $.ajax({
+            type: "POST",
+            url: "onChange2.php",
+            data: {
+                IdClasses: id,
+                Klasse: classe,
+                Teacher: teacher,
+                Anzahl: amount
             }
           });
         });
