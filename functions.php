@@ -2088,34 +2088,47 @@ function printWorkersInFile($uid, $folder){
     if($text2==""){
       $text2 = "Mustertext";
     }
+    if($street == ""){
+      $street = "Weiherberg";
+    }
+    if($housenumber == ""){
+      $housenumber = "36";
+    }
+    if($plz == ""){
+      $plz = "66679";
+    }
+    if($ort == ""){
+      $ort = "Losheim";
+    }
     $stmt = $conn->prepare("UPDATE table_data SET anfahrt_on=? WHERE user_id=?");
     $stmt->bind_param("ii", $number, $uid);
     $stmt->execute();
     if($number == 1){
-    $site_name = "anfahrt_id" .$uid .".php";
-    if($folder != ""){
-      $folder = $folder."/".$site_name;
-    }else{
-      $folder = $site_name;
-    }
-    //create a File for this module
-    $myfile = fopen($folder, "w") or die("Unable to open file!");
-    //write file in Database
-    $stmt = $conn->prepare("UPDATE table_data SET anfahrt_file_name=? WHERE user_id=?");
-    $stmt->bind_param("si", $folder, $uid);
-    $stmt->execute();
-    $maps = 'https://maps.google.de/maps?hl=de&q=%20'.$street.'+'.$housenumber.'%20'.$ort.'&t=&z=10&ie=utf8&iwloc=b&output=embed';
-    $stmt = $conn->prepare("INSERT INTO anfahrt (maps, text, text2, street, streetNumber, plz, ort, user_id, anfahrt_file_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssissis", $maps, $text, $text2, $street, $housenumber, $plz, $ort, $uid, $folder);
-    $stmt->execute();
+      $site_name = "anfahrt_id" .$uid .".php";
+      if($folder != ""){
+        $folder = $folder."/".$site_name;
+      }else{
+        $folder = $site_name;
+      }
+      //create a File for this module
+      $myfile = fopen($folder, "w") or die("Unable to open file!");
+      //write file in Database
+      $stmt = $conn->prepare("UPDATE table_data SET anfahrt_file_name=? WHERE user_id=?");
+      $stmt->bind_param("si", $folder, $uid);
+      $stmt->execute();
+      $maps = 'https://maps.google.de/maps?hl=de&q=%20'.$street.'+'.$housenumber.'%20'.$ort.'&t=&z=10&ie=utf8&iwloc=b&output=embed';
+      $stmt = $conn->prepare("INSERT INTO anfahrt (maps, text, text2, street, streetNumber, plz, ort, user_id, anfahrt_file_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      $stmt->bind_param("ssssissis", $maps, $text, $text2, $street, $housenumber, $plz, $ort, $uid, $folder);
+      $stmt->execute();
 
-    $var = '<?php $file = "userid".$_SESSION["u_id"]."/anfahrt_id".$_SESSION["u_id"].".php";';
-    $var .=  'echo allAnfahrtFiles($_SESSION["u_id"], $file); ?>';
-    $stmt = $conn->prepare("UPDATE Theme1regular SET allAnfahrt=?");
-    $stmt->bind_param("s", $var);
-    $stmt->execute();
+      $var = '<?php $file = "userid".$_SESSION["u_id"]."/anfahrt_id".$_SESSION["u_id"].".php";';
+      $var .=  'echo allAnfahrtFiles($_SESSION["u_id"], $file); ?>';
+      $stmt = $conn->prepare("UPDATE Theme1regular SET allAnfahrt=?");
+      $stmt->bind_param("s", $var);
+      $stmt->execute();
 
-    printAnfahrtInFile($uid, $folder);
+
+      printAnfahrtInFile($uid, $folder);
     }
     else if($number == 0){
        $site_name = "anfahrt_id" .$uid .".php";
@@ -2139,6 +2152,28 @@ function printWorkersInFile($uid, $folder){
 
     printAnfahrtInFile($uid, $folder);
     }
+  }
+
+  function setAnfahrtAgain($number, $uid, $folder, $street, $plz, $ort, $text, $text2, $housenumber){
+    global $conn;
+    $stmt = $conn->prepare("UPDATE anfahrt SET text=? WHERE user_id=?");
+    $stmt->bind_param("si", $text, $uid);
+    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE anfahrt SET text2=? WHERE user_id=?");
+    $stmt->bind_param("si", $text2, $uid);
+    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE anfahrt SET street=? WHERE user_id=?");
+    $stmt->bind_param("si", $street, $uid);
+    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE anfahrt SET housenumber=? WHERE user_id=?");
+    $stmt->bind_param("si", $housenumber, $uid);
+    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE anfahrt SET plz=? WHERE user_id=?");
+    $stmt->bind_param("si", $plz, $uid);
+    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE anfahrt SET ort=? WHERE user_id=?");
+    $stmt->bind_param("si", $ort, $uid);
+    $stmt->execute();
   }
 
   function safeWorker($id, $job, $name, $number){
@@ -2460,7 +2495,7 @@ function printClassesInFile($uid, $file){
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output .= $include.$row["signup_code"];
+        $output .= $include.$row["classes_code"];
     }
   }
   $myfile = fopen($file, "w") or die("Datei konnte nicht geöffnet werden!");
@@ -2936,6 +2971,11 @@ function fileInDatabase($dname, $did, $didvalue, $dvalue, $fname, $folder, $imag
 
   $stmt = $conn->prepare("UPDATE table_data SET image_folder=? WHERE user_id=?");
   $stmt->bind_param("si", $imagefolder, $didvalue);
+  $stmt->execute();
+  $stmt->close();
+  $stmt = $conn->prepare("UPDATE table_data SET generiert=? WHERE user_id=?");
+  $number = 1;
+  $stmt->bind_param("si", $number, $didvalue);
   $stmt->execute();
   $stmt->close();
   return $filename;
@@ -3596,6 +3636,20 @@ function updateCustome($file, $uid, $newsuse, $nav){
     $stmt->bind_param("ss", $nav, $uid);
     $stmt->execute();
   }
+}
+
+function updateOnValueTableData($uid, $col, $val){
+  global $conn;
+  $stmt = $conn->prepare("UPDATE table_data SET $col=? WHERE user_id=?");
+  $stmt->bind_param("ii", $val, $uid);
+  $stmt->execute();
+}
+
+function updateOneValueTableDataString($uid, $col, $val){
+  global $conn;
+  $stmt = $conn->prepare("UPDATE table_data SET $col=? WHERE user_id=?");
+  $stmt->bind_param("si", $val, $uid);
+  $stmt->execute();
 }
 
 function updateStartsite($uid, $file, $name, $image, $header, $text, $street, $plz, $ort, $tel, $fax, $mail, $slider1, $slider2){

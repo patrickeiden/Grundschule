@@ -172,13 +172,13 @@ session_start();
             <h5>Name der Schule:</h5>
             <input type="text" class="form-control" id="nameSchool" placeholder="Name der Schule" name="nameSchool" >
             <h5>Logo der Schule auswählen:</h5>
-            <input type="file" name="logo" accept="image/*" required>
+            <input type="file" name="logo" accept="image/*">
             <h5>Zwei Bilder für Slider wählen:</h5>
             <input type="file" id="school_slider2" name="school_slider2" accept="image/*">
             <h5>Überschrift des Textes:</h5>
-            <input type="text" class="form-control" id="header" placeholder="Überschrift" name="header" required>
+            <input type="text" class="form-control" id="header" placeholder="Überschrift" name="header">
             <h5>Kurzbeschreibung:</h5>
-            <textarea name="desciption" cols="40" rows="5" class="desciption" required></textarea>
+            <textarea name="desciption" cols="40" rows="5" class="desciption"></textarea>
           </div>
       </div>
       <div id="costume-module">
