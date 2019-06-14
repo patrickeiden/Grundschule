@@ -1,0 +1,1 @@
+<?php include '../functions.php'; session_start(); ?><?php echo printRegularHeader($_SESSION["u_id"], "calendar"); ?><?php echo printCalendarAbove($_SESSION["u_id"]);?><div id="calendar"></div><?php echo printCalendarUnder($_SESSION["u_id"]);?><?php echo printRegularFooter($_SESSION["u_id"]); ?>

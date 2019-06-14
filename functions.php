@@ -80,8 +80,7 @@ function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider2){
   $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name, gallery_name) VALUES (?, ?, ?, ?, ?)");
   $name = 'slider'.$uid;
   $img1 = "sliderImage1";
-  $value = "empty";
-  $stmt->bind_param("sisss", $value, $uid, $name, $file, $img1);
+  $stmt->bind_param("sisss", $slider2, $uid, $name, $file, $img1);
   $stmt->execute();
   $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name, gallery_name) VALUES (?, ?, ?, ?, ?)");
   $name = 'slider'.$uid;
@@ -2215,7 +2214,6 @@ function printWorkersInFile($uid, $folder){
     $text = oneColumnFromTable("text", $uid, "anfahrt", "user_id");
     $text2 = oneColumnFromTable("text2", $uid, "anfahrt", "user_id");
     $image1 = oneColumnFromTable("Image_building1", $uid, "anfahrt", "user_id");
-    var_dump($image1);
 
     if(empty($image1)){
       $image1 = '';
@@ -2223,19 +2221,19 @@ function printWorkersInFile($uid, $folder){
       $image1 = $image1[0];
     }
     $image2 = oneColumnFromTable("Image_building2", $uid, "anfahrt", "user_id");
-    if(empty($image2) == '#'){
+    if(empty($image2)){
       $image2 = '';
     }else{
       $image2 = $image2[0];
     }
     $image3 = oneColumnFromTable("Image_building3", $uid, "anfahrt", "user_id");
-    if(empty($image3) == '#'){
+    if(empty($image3)){
       $image3 = '';
     }else{
       $image3 = $image3[0];
     }
     $image4 = oneColumnFromTable("Image_building4", $uid, "anfahrt", "user_id");
-    if(empty($image4) == '#'){
+    if(empty($image4)){
       $image4 = '';
     }else{
       $image4 = $image4[0];
@@ -2363,29 +2361,29 @@ function printWorkersInFile($uid, $folder){
     global $conn;
     $link = oneColumnFromTable("maps", $uid, "anfahrt", "user_id");
     $text = oneColumnFromTable("text", $uid, "anfahrt", "user_id");
-    $image1 = oneColumnFromTable("Image_building1", $uid, "anfahrt", "anfahrt_id");
-    if($image1[0] == '#'){
+    $image1 = oneColumnFromTable("Image_building1", $uid, "anfahrt", "user_id");
+    if(empty($image1)){
       $image1 = '';
     }else{
-      $image1 = '../'.$image1[0];
+      $image1 = '../Images/'.$image1[0];
     }
-    $image2 = oneColumnFromTable("Image_building2", $uid, "anfahrt", "anfahrt_id");
-    if($image2[0] == '#'){
+    $image2 = oneColumnFromTable("Image_building2", $uid, "anfahrt", "user_id");
+    if(empty($image2)){
       $image2 = '';
     }else{
-      $image2 = '../'.$image2[0];
+      $image2 = '../Images/'.$image2[0];
     }
-    $image3 = oneColumnFromTable("Image_building3", $uid, "anfahrt", "anfahrt_id");
-    if($image3[0] == '#'){
+    $image3 = oneColumnFromTable("Image_building3", $uid, "anfahrt", "user_id");
+   if(empty($image3)){
       $image3 = '';
     }else{
-      $image3 = '../'.$image3[0];
+      $image3 = '../Images/'.$image3[0];
     }
-    $image4 = oneColumnFromTable("Image_building4", $uid, "anfahrt", "anfahrt_id");
-    if($image4[0] == '#'){
+    $image4 = oneColumnFromTable("Image_building4", $uid, "anfahrt", "user_id");
+    if(empty($image4)){
       $image4 = '';
     }else{
-      $image4 = '../'.$image4[0];
+      $image4 = '../Images/'.$image4[0];
     }
     $output = "";
     $output .= '<div class="container">
@@ -2410,7 +2408,7 @@ function printWorkersInFile($uid, $folder){
          </div>
          <div class="col-sm-1"></div>
          <div class="col-sm-5">
-          <img class="bigimage" src="'.$image1.'">
+          <img class="bigimage" src="../Images/'.$image1.'">
          </div>
     </div>
     <div class="row">
