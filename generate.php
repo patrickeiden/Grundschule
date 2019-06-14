@@ -169,21 +169,23 @@ session_start();
       <form action="generate_html.php" method="POST" autocomplete="off">
       <div id="start-module">
           <div class="form-group">
-            <h5>Name der Schule:</h5>
+            <h5>Füge Ihrer Website ein Startseitenmodul hinzu.</h5>
+            <p>Name der Schule:</p>
             <input type="text" class="form-control" id="nameSchool" placeholder="Name der Schule" name="nameSchool" >
-            <h5>Logo der Schule auswählen:</h5>
+            <p>Logo der Schule auswählen:</p>
             <input type="file" name="logo" accept="image/*">
-            <h5>Erstes Bild für Slider wählen:</h5>
+            <p>Erstes Bild für Slider wählen:</p>
             <input type="file" id="school_slider2" name="school_slider2" accept="image/*">
-            <h5>Überschrift des Textes:</h5>
+            <p>Überschrift des Textes:</p>
             <input type="text" class="form-control" id="header" placeholder="Überschrift" name="header">
-            <h5>Kurzbeschreibung:</h5>
+            <p>Kurzbeschreibung:</p>
             <textarea name="desciption" cols="40" rows="5" class="desciption"></textarea>
           </div>
       </div>
       <div id="costume-module">
           <div class="form-group">
-            <h5>Title:</h5>
+            <h5>Füge Ihrer Website einen Titel hinzu.</h5>
+            <p>Title:</p>
               <input type="text" class="form-control" id="title" placeholder="Title" name="title"></br>
               <input type ="checkbox" name ="costume_button" value="1"/>
               <p class="events">Diese Box auswählen, um Startseitenmodul abzuschließen</p>
@@ -258,19 +260,19 @@ session_start();
       </div>
 
       <div id="conf-module7">
-        <p>Fügt Ihrer Homepage eine Auflistung der Mitarbeiter hinzu, die Sie eintragen.</p>
+        <h5>Fügt Ihrer Homepage eine Auflistung der Mitarbeiter hinzu, die Sie eintragen.</h5>
         <input type="checkbox" name="worker_button" value="1" />
         <p class="events">Diese Box auswählen, um Mitarbeitermodul zu integrieren</p>
       </div>
 
       <div id="conf-module8">
-        <p>Fügt Ihrer Homepage eine Auflistung aller Klassen hinzu, die Sie eintragen.</p>
+        <h5>Fügt Ihrer Homepage eine Auflistung aller Klassen hinzu, die Sie eintragen.</h5>
         <input type="checkbox" name="classes_button" value="1" />
         <p class="events">Diese Box auswählen, um Klassenmodul zu integrieren</p>
       </div>
 
       <div id="conf-module9">
-        <p>Fügt Ihrer Homepage ein Einschreibungssytem hinzu.</p>
+        <h5>Fügt Ihrer Homepage ein Einschreibungssytem hinzu.</h5>
         <p>Beschreibung der Einschreibung:</p>
         <textarea name="desciption_signup" cols="40" rows="5" class="desciption_signup"></textarea><br>
         <p>Stelle eine Datei zum Download bereit:</p>
@@ -280,7 +282,7 @@ session_start();
       </div>
 
       <div id="conf-module10">
-        <p>Ihre Homepage enthält ein Impressum.</p>
+        <h5>Ihre Homepage enthält ein Impressum.</h5>
         <textarea name="impressum" cols="40" rows="5" class="impressum" ></textarea><br><br>
       </div>
 

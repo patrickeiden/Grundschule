@@ -395,7 +395,7 @@ footer {
   display: none;
   background-color: cadetblue!important;
   width: 500px;
-  height: 400px;
+  height: 440px;
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
@@ -455,7 +455,7 @@ img{
 
 .events{
   margin-left: 21px;
-  margin-top: -15px;
+  margin-top: -14.5px;
 }
 
 #currentPage .navbar{
