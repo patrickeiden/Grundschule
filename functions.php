@@ -64,11 +64,11 @@ function returnNewsImage(){
 # Ende News Module
 
 #Anfang start-Modul
-function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider, $slider2){
+function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider2){
   global $conn;
   $val = oneValueFromTableData($uid, 'image_folder');
   $logo = $val.$logo;
-  $slider = $val.$slider;
+  //$slider = $val.$slider;
   $slider2 = $val.$slider2;
   $stmt = $conn->prepare("UPDATE table_data SET start_on=? WHERE user_id=?");
   $number = 1;
@@ -80,7 +80,8 @@ function setStart($uid, $file, $name, $logo, $text, $header, $folder, $slider, $
   $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name, gallery_name) VALUES (?, ?, ?, ?, ?)");
   $name = 'slider'.$uid;
   $img1 = "sliderImage1";
-  $stmt->bind_param("sisss", $slider, $uid, $name, $file, $img1);
+  $value = "empty";
+  $stmt->bind_param("sisss", $value, $uid, $name, $file, $img1);
   $stmt->execute();
   $stmt = $conn->prepare("INSERT INTO Image (image_url, user_id, image_name, image_file_name, gallery_name) VALUES (?, ?, ?, ?, ?)");
   $name = 'slider'.$uid;
@@ -3537,32 +3538,52 @@ function returnSlider($uid){
   $output = '';
   $output2 = '';
   $name = 'slider'.$uid;
-  $slider = oneColumnFromTable("image_url", $name, "Image", "image_name");
+  $slider = oneColumnFromTable("image_url", $name, "image", "image_name");
   $size = 0;
   if(sizeof($slider) > 2){
     $size = 2;
   }else{
     $size = sizeof($slider);
   }
+  $check = 0;
   for ($i=0; $i < $size; $i++) {
     if($i == 0){
-      $output .= '<div class="item active">
+      if($slider[$i] != "empty"){
+        $output .= '<div class="item active">
                   <img src="'.$slider[$i].'">
                 </div>';
+        $check = 1;
+      }
     }else{
-      $output .= '<div class="item">
+      if($check = 1){
+        $output .= '<div class="item">
                   <img src="'.$slider[$i].'">
                 </div>';
+      }else{
+        $output .= '<div class="item active">
+                  <img src="'.$slider[$i].'">
+                </div>';
+      }
     }
 
+    $check = 0;
     if($i == 0){
-      $output2 .= '<div class="item active">
+      if($slider[$i] != "empty"){
+        $output2 .= '<div class="item active">
                   <img src="../'.$slider[$i].'">
                 </div>';
+        $check = 1;
+      }
     }else{
-      $output2 .= '<div class="item">
+      if($check = 1){
+        $output2 .= '<div class="item">
                   <img src="../'.$slider[$i].'">
                 </div>';
+      }else{
+        $output2 .= '<div class="item active">
+                  <img src="../'.$slider[$i].'">
+                </div>';
+      }
     }
   }
   $stmt = $conn->prepare("UPDATE Theme1 SET slider=?");

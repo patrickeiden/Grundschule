@@ -12,7 +12,7 @@ if(isset($_POST['test'])){
 	  $filename = fileInDatabase("registration", "reg_id", $_SESSION['u_id'], "siteone_name", "frontpageUser", $folder, "Images/");
 	  //ThemeOne($filename);
 	  #creates a start site
-	  setStart($_SESSION['u_id'], $filename, $_POST['nameSchool'], $_POST['logo'], $_POST['desciption'], $_POST['header'], $folder, $_POST['school_slider2'], $_POST['school_slider2']);
+	  setStart($_SESSION['u_id'], $filename, $_POST['nameSchool'], $_POST['logo'], $_POST['desciption'], $_POST['header'], $folder, $_POST['school_slider2']);
 	  setImpressum($_SESSION['u_id'], $_POST['impressum'], $folder);
 	  #creates multiple modules
 	  if(isset($_POST['costume_button']) && $_POST['costume_button']==1){
