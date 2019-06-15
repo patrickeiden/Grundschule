@@ -1,0 +1,35 @@
+.question{
+	background-color: #123C69;
+    border-radius: 5px;
+    height: 81px;
+    text-align: center;
+    padding-top: 26px;
+    margin-bottom: 15px;
+}
+
+.question_title{
+	border-radius: 5px 5px 0px 0px!important;
+    position: relative;
+    left: -5px;
+    margin-bottom: -1px!important;
+    width: 86%!important;
+}
+
+.question_text{
+	resize: none;
+    width: 86%;
+    border-radius: 0px 0px 0px 0px;
+    border-right-color: white;
+    border-left-color: white;
+    margin-bottom: -4px;
+}
+
+button:hover{
+	margin-top: 0px!important;
+}
+
+.newQuestion{
+	width: 86%!important;
+	border-radius: 0px 0px 5px 5px!important;
+	height: 27px;
+}

@@ -53,4 +53,7 @@ if(isset($_POST['Street'])){
   updatePictures($_POST['File'], $_POST['B1'], $_POST['B2'], $_POST['B3'], $_POST['B4']);
   printAnfahrtInInterface($_SESSION['u_id'], $_POST['File']);
 }
+if(isset($_POST['ForumTitle'])){
+  createQuestion($_SESSION['u_id'], $_POST['ForumTitle'], $_POST['ForumText']);
+}
 ?>

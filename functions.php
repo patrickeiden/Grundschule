@@ -3885,6 +3885,45 @@ function createImageFolder($uid, $folder){
   return $name;
 }
 
+function allQuestions(){
+  global $conn;
+  $output = "";
+  $autorArray = array();
+  $dateArray = array();
+  $frageArray = array();
+  $user_idArray = array();
+  $titleArray = array();
+
+  $sql = "SELECT autor, date, frage, user_id, title FROM questions";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        array_push($autorArray, $row['autor']);
+        array_push($dateArray, $row['date']);
+        array_push($frageArray, $row['frage']);
+        array_push($user_idArray, $row['user_id']);
+        array_push($titleArray, $row['title']);
+    }
+  }
+  $i=sizeof($autorArray)-1;
+  for ($i; $i > -1; $i--) { 
+    $output .= '<div class="question">';
+    $output .= '<h3>Von '.$autorArray[$i].' :<br>'.$titleArray[$i].'<h3>';
+    $output .= '</div>';
+  }
+
+  return $output;
+}
+
+function createQuestion($uid, $title, $text){
+  global $conn;
+  $autor = 'autor_'.$uid;
+  $stmt = $conn->prepare("INSERT INTO questions (frage, user_id, title, autor) VALUES (?, ?, ?, ?)");
+  $stmt->bind_param("siss", $text, $uid, $title, $autor);
+  $stmt->execute();
+}
+
 
 
 //fuer jedes modul muss eine file erstellt werden und dann in die database eingetragen werden
