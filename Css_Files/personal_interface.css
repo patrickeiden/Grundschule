@@ -61,7 +61,7 @@ h3{
 }
 
 .go_back9{
-    width: 91%!important;
+    width: 96%!important;
     height: 27px;
     border-radius: 5px 5px 5px 5px;
     margin-top: 24px;
@@ -325,7 +325,7 @@ li a {
 }
 
 #module_container .anfahrtModule button {
-    width: 82%;
+    width: 100%;
     font-size: 14px;
     margin-bottom: 17px;
     border-radius: 0px 0px 5px 5px;
@@ -750,45 +750,45 @@ footer {
   }
 
   .codeModuleSave{
-    width: 91%;
+    width: 96%;
     margin-left: 0%;
     margin-top: 10px!important;
     border-radius: 5px 5px 0px 0px;
   }
 
   .newModule{
-    width: 91%;
+    width: 96%;
     margin-left: 0%;
     margin-top: 0px!important;
     border-radius: 0px 0px 0px 0px;
   }
 
   .SizeCustome input[type=text]{
-    width: 91%;
+    width: 96%;
     border-radius: 5px 5px 0px 0px;
     margin-bottom: 0px;
   }
 
   .NavCustome input[type=text]{
-    width: 91%;
+    width: 96%;
     border-radius: 5px 5px 5px 5px;
     margin-bottom: 0px;
   }
 
   .go_back{
-    width: 46%!important;
+    width: 51%!important;
     margin-right: -2px;
     border-radius: 5px 0px 0px 5px;
   }
 
   .go_back2{
-    width: 91%!important;
+    width: 96%!important;
     border-radius: 5px 5px 5px 5px;
     margin-top: 20px;
   }
 
   .go_back3{
-    width: 91%!important;
+    width: 96%!important;
     border-radius: 5px 5px 5px 5px;
     margin-top: 20px;
   }
@@ -811,7 +811,7 @@ footer {
   }
 
   #event_title{
-    width: 46%!important;
+    width: 51%!important;
     margin-right: -3px!important;
     border-radius: 5px 0px 0px 0px!important;
   }
@@ -823,7 +823,7 @@ footer {
   }
 
   .CalendarButton{
-    width: 91%!important;
+    width: 96%!important;
     border-radius: 0px 0px 5px 5px;
     margin-top: -5px;
   }
@@ -839,18 +839,18 @@ footer {
     margin-top: 0px;
     position: relative;
     top: 42px;
-    width: 91%;
+    width: 96%;
   }
 
   .news_date input[type=text]{
     border-radius: 0px 0px 0px 0px!important;
     margin-top: 44px;
     margin-left: 0%;
-    width: 91%;
+    width: 96%;
   }
 
   .deleteNews{
-    width: 46%!important;
+    width: 51%!important;
     height: 27px;
     border-radius: 0px 0px 0px 5px;
   }
@@ -862,7 +862,7 @@ footer {
   }
 
   .deleteButton{
-    width: 46%!important;
+    width: 51%!important;
     height: 27px;
     border-radius: 0px 0px 0px 5px;
   }
@@ -917,7 +917,7 @@ footer {
   }
 
   .newCustomeModule{
-    width: 91%!important;
+    width: 96%!important;
     height: 27px;
     border-radius: 0px 0px 5px 5px
   }
@@ -930,7 +930,7 @@ footer {
   }
 
   .newCalenderModuleUnder{
-    width: 45%!important;
+    width: 51%!important;
     height: 27px;
     border-radius: 0px 0px 5px 0px;
     margin-left: 0px;
@@ -995,13 +995,13 @@ footer {
   }
 
   .safeSignUp{
-    width: 91%!important;
+    width: 96%!important;
     height: 27px;
     border-radius: 0px 0px 5px 5px;
   }
 
   .safeSignUpPDF{
-    width: 91%!important;
+    width: 96%!important;
     height: 27px;
     border-radius: 0px 0px 5px 5px;
   }
@@ -1011,7 +1011,7 @@ footer {
   }
 
   #signup_pdf{
-    width: 91%;
+    width: 96%;
     border-radius: 5px 5px 0px 0px;
     margin-bottom: 0px;
   }
@@ -1022,7 +1022,7 @@ footer {
   }
 
   .addNews{
-    width: 91%;
+    width: 96%;
     height: 27px;
     border-radius: 0px 0px 5px 5px;
   }
@@ -1060,12 +1060,12 @@ footer {
 }
 
 .News textarea {
-  width: 91%;
+  width: 96%;
   border-radius: 0px 0px 0px 0px;
 }
 
 .signupModule textarea {
-  width: 91%;
+  width: 96%;
 }
 
 .anfahrtModule textarea {

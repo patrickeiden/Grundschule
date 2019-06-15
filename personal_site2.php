@@ -1513,7 +1513,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
         if(calendar == 0){
           calendar = 1;
-          var temp = 315 + (calendarnumber*121);
+          var temp = 350 + (calendarnumber*121);
           $(".calendarModule").animate({height:temp+"px"},500);
           $(".calendarModule > .text").hide();
         }
@@ -1529,7 +1529,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(news == 0){
             news = 1;
-            var temp = 299 + (newsnumber*180);
+            var temp = 400 + (newsnumber*180);
             $(".newsModule").animate({height:temp+"px"},500);
             $(".newsModule > .text").hide();
           }
@@ -1550,7 +1550,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
             if(numbergalleries > 3){
               ng = 3
             }
-            temp += (ng*230)+(numberimages*40);
+            temp += (ng*250)+(numberimages*40);
             $(".galleryModule").animate({height:temp+"px"},500);
             $(".galleryModule > .text").hide();
           }
@@ -1566,7 +1566,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(workers == 0){
             workers = 1;
-            var temp = 236 + (workersnumber*64);
+            var temp = 330 + (workersnumber*64);
             $(".workersModule").animate({height:temp+"px"},500);
             $(".workersModule > .text").hide();
           }
@@ -1582,7 +1582,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(anfahrt == 0){
             anfahrt = 1;
-            $(".anfahrtModule").animate({height:"508px"},500);
+            $(".anfahrtModule").animate({height:"660px"},500);
             $(".anfahrtModule > .text").hide();
           }
           $(".go_back7").click(function() {
@@ -1597,7 +1597,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(classes == 0){
             classes = 1;
-            $(".classesModule").animate({height:"550px"},500);
+            $(".classesModule").animate({height:"400px"},500);
             $(".classesModule > .text").hide();
           }
           $(".go_back8").click(function() {
@@ -1612,7 +1612,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(signup == 0){
             signup = 1;
-            $(".signupModule").animate({height:"301px"},500);
+            $(".signupModule").animate({height:"320px"},500);
             $(".signupModule > .text").hide();
           }
           $(".go_back9").click(function() {

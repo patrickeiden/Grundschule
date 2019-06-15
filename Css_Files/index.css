@@ -22,6 +22,11 @@ p:hover {
   margin-bottom: 50px;
 }
 
+
+.checkbox.checkbox-circle {
+  border-radius: 50%;
+}
+
 .btn-warning{
   margin-left: 381px!important;
   margin-top: 50px!important;
