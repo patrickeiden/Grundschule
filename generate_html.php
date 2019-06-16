@@ -99,14 +99,21 @@ if(isset($_POST['test'])){
 	  }
 	#function for News Modul
 	  if(isset($_POST['news_number']) && ($_POST['news_number']==3 || $_POST['news_number']==4 || $_POST['news_number']==5) && $_POST['news_button']){
-	    updateOnValueTableData($_SESSION['u_id'], "news_on", 1);
-	    updateOnValueTableData($_SESSION['u_id'], "news_number", $_POST['news_number']);
+	  	if(NewsOn($_SESSION['u_id']) == 0){
+  	 		updateOnValueTableData($_SESSION['u_id'], "news_on", 1);
+	    	updateOnValueTableData($_SESSION['u_id'], "news_number", $_POST['news_number']);
+  	 	}else if(NewsOn($_SESSION['u_id']) == 1){
+			updateOnValueTableData($_SESSION['u_id'], "news_on", 0);
+  	 	}
 	  }
 	#function for Calendar Modul
 	if(isset($_POST['calendar'])){
-	  var_dump("calendar");
-	  $var = "calendar_on";
-	  updateOnValueTableData($_SESSION['u_id'], $var, 1);
+		 $var = "calendar_on";
+		if(CalendarOn($_SESSION['u_id']) == 0){
+  	 		updateOnValueTableData($_SESSION['u_id'], $var, 1);
+  	 	}else if(CalendarOn($_SESSION['u_id']) == 1){
+			updateOnValueTableData($_SESSION['u_id'], $var, 0);
+  	 	}
 	}
 	#function for Job Modul
 	/*if(isset($_POST['job_number']) && isset($_POST['job_button'])){
@@ -126,22 +133,42 @@ if(isset($_POST['test'])){
 	} */
 	#function for Gallery Module
 	if(isset($_POST['gallery_button'])){
-	  updateOnValueTableData($_SESSION['u_id'], "gallery_on", 1);
+		if(GalleryOn($_SESSION['u_id']) == 0){
+  	 		updateOnValueTableData($_SESSION['u_id'], "gallery_on", 1);
+  	 	}else if(GalleryOn($_SESSION['u_id']) == 1){
+			updateOnValueTableData($_SESSION['u_id'], "gallery_on", 0);
+  	 	}
 	}
 	if(isset($_POST['worker_button'])){
-	  updateOnValueTableData($_SESSION['u_id'], "workers_on", 1);
+		if(WorkersOn($_SESSION['u_id']) == 0){
+  	 		 updateOnValueTableData($_SESSION['u_id'], "workers_on", 1);
+  	 	}else if(WorkersOn($_SESSION['u_id']) == 1){
+			 updateOnValueTableData($_SESSION['u_id'], "workers_on", 0);
+  	 	}
 	}
 	if(isset($_POST['anfahrt_button'])){
-	 setAnfahrtAgain($number, $_SESSION['u_id'], $folder, $_POST['street_school'], $_POST['plz_school'], $_POST['ort_school'], $_POST['desciption_anfahrt'], $_POST['desciption_building'], $_POST['number_school']);
-	 updateOnValueTableData($_SESSION['u_id'], "anfahrt_on", 1);
+		if(AnfahrtOn($_SESSION['u_id']) == 0){
+			  setAnfahrtAgain($number, $_SESSION['u_id'], $folder, $_POST['street_school'], $_POST['plz_school'], $_POST['ort_school'], $_POST['desciption_anfahrt'], $_POST['desciption_building'], $_POST['number_school']);
+  	 		  updateOnValueTableData($_SESSION['u_id'], "anfahrt_on", 1);
+  	 	}else if(AnfahrtOn($_SESSION['u_id']) == 1){
+			  updateOnValueTableData($_SESSION['u_id'], "anfahrt_on", 0);
+  	 	}
 	}
 	if(isset($_POST['signup_button'])){
-	  updateSignUp($_SESSION['u_id'], $number, $_POST['desciption_signup']);
-	  updateSignUpPDF($_SESSION['u_id'], $_POST['pdf']);
-	  updateOnValueTableData($_SESSION['u_id'], "signup_on", 1);
+		if(SignupOn($_SESSION['u_id']) == 0){
+			updateSignUp($_SESSION['u_id'], $number, $_POST['desciption_signup']);
+	 		updateSignUpPDF($_SESSION['u_id'], $_POST['pdf']);
+  	 		updateOnValueTableData($_SESSION['u_id'], "signup_on", 1);
+  	 	}else if(SignupOn($_SESSION['u_id']) == 1){
+			 updateOnValueTableData($_SESSION['u_id'], "signup_on", 0);
+  	 	}
 	}
 	if(isset($_POST['classes_button'])){
-	 updateOnValueTableData($_SESSION['u_id'], "classes_on", 1);
+		if(ClassesOn($_SESSION['u_id']) == 0){
+  	 		 updateOnValueTableData($_SESSION['u_id'], "classes_on", 1);
+  	 	}else if(ClassesOn($_SESSION['u_id']) == 1){
+			 updateOnValueTableData($_SESSION['u_id'], "classes_on", 0);
+  	 	}
 	}
   }	
   

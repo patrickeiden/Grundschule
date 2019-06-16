@@ -3509,7 +3509,7 @@ function returnNavbar($uid){
                   $output2 .= $output;
                   $link5 = oneValueFromTableData($uid, "classes_file_name");
                   $output.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-picture"></span>Klassen</a></li>';
-                  $outpu2.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-picture"></span>Klassen</a></li>';
+                  $output2.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-picture"></span>Klassen</a></li>';
                 }else{
                   $output2 .= $output;
                   $link5 = oneValueFromTableData($uid, "classes_file_name");
