@@ -2386,7 +2386,7 @@ function printWorkersInFile($uid, $folder){
       $image4 = '../Images/'.$image4[0];
     }
     $output = "";
-    $output .= '<div class="container">
+    $output .= '<div class="container anfahrtimage">
       <hr>
         <h1 class="text-center">Anfahrt</h1>
       <hr>
