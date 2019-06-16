@@ -173,6 +173,7 @@ if(isset($_POST['test'])){
   }	
   
 updateOnValueTableData($_SESSION['u_id'], "generiert", 1);
+
 header('Location: http://localhost/Grundschule/personal_site2.php?success');
 }
 ?>
