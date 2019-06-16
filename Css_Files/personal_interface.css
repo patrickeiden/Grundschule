@@ -666,8 +666,16 @@ footer {
     display: none;
   }
 
+  #currentPage .page_workers img{
+    border-radius: 5px;
+  }
+
   #currentPage .page_anfahrt{
     display: none;
+  }
+
+  #currentPage .page_anfahrt img{
+    border-radius: 5px;
   }
 
   #currentPage .page_classes{
@@ -840,6 +848,7 @@ footer {
     position: relative;
     top: 42px;
     width: 96%;
+    margin-bottom: -2px;
   }
 
   .news_date input[type=text]{
@@ -847,6 +856,7 @@ footer {
     margin-top: 44px;
     margin-left: 0%;
     width: 96%;
+    margin-bottom: 5px;
   }
 
   .deleteNews{
@@ -868,13 +878,13 @@ footer {
   }
 
   .deleteButton2{
-    width: 46%!important;
+    width: 48%!important;
     height: 27px;
     border-radius: 0px 0px 0px 5px;
   }
 
   .saveButton{
-    width: 45%!important;
+    width: 48%!important;
     height: 27px;
     border-radius: 0px 0px 5px 0px
   }
@@ -923,17 +933,17 @@ footer {
   }
 
   .newCalenderModuleAbove{
-    width: 46%!important;
+    width: 48%!important;
     height: 27px;
     border-radius: 0px 0px 0px 5px;
-    margin-right: -3px;
+    margin-right: -2px;
   }
 
   .newCalenderModuleUnder{
-    width: 51%!important;
+    width: 49%!important;
     height: 27px;
     border-radius: 0px 0px 5px 0px;
-    margin-left: 0px;
+    margin-left: -6px;  
   }
 
   .class_number input[type=text]{

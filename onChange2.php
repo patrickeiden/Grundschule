@@ -37,6 +37,7 @@ if(isset($_POST['DeleteClass'])){
   deleteClasses($_POST['DeleteClass']);
 }
 if(isset($_POST['newClassClasses']) || isset($_POST['newClassTeacher']) || isset($_POST['newClassKids'])){
+  var_dump($_SESSION['ClassesFileName']);
   newClass($_SESSION['u_id'], $_POST['newClassClasses'], $_POST['newClassTeacher'], $_POST['newClassKids'], $_SESSION['ClassesFileName']);
 }
 if(isset($_POST['DeleteImage'])){

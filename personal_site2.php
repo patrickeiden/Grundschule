@@ -342,7 +342,7 @@ include 'functions.php';
           echo '<div class="classesModule" onclick="clickedClasses()">
                   <p class="text">Konfiguriere alle Klassen</p>
                   <div class="cl_text">
-                    <p>Nehmen Sie hier Änderungen am Klassenmodul vor.</p>
+                    <h3>Nehmen Sie hier Änderungen am Klassenmodul vor.</h3>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$ClassesText.'
                         <div class="new_number"><input type="text" class="form-control new_number2" placeholder="Klasse" name="new_number"></div>
@@ -379,7 +379,7 @@ include 'functions.php';
           echo '<div class="impressum" onclick="clickedImpressum()">
                   <p class="text">Konfiguriere das Impressum </p>
                   <div class="i_text">
-                    <p>Nehmen Sie hier Änderungen am Impressum vor.</p>
+                    <h3>Nehmen Sie hier Änderungen am Impressum vor.</h3>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$codeImpressum.'
                         <button class="btn btn-danger go_back10 impressum2" onclick="ImpressumBack()" name="backbutton">Zurück</button>
@@ -399,6 +399,7 @@ include 'functions.php';
           echo '<div class="galleryModule" onclick="clickedGallery()">
           <p class="text">Das Galeriemodul ist in Ihre Homepage integriert.</p>
           <div class="g_text">
+          <h3>Nehmen Sie hier Änderungen am Galeriemodul vor.</h3>
           <form action="update_site.php" method="POST">
             <div class="form-group">'.$result4[sizeof($result4)-1].'
               <div class="new_Gallery"><input type="text" class="form-control" id="gallery" placeholder="Gallery" name="gallery"></div>
@@ -604,6 +605,11 @@ if(AnfahrtOn($_SESSION['u_id']) == 1){
 }
 
 if(ClassesOn($_SESSION['u_id']) == 1){
+  $fileName = 'userid'.$_SESSION['u_id'].'/classes_id'.$_SESSION['u_id'].'.php';
+  $sql = "SELECT classes_id FROM classes WHERE file='$fileName'";
+  $result = $conn->query($sql);
+  $classesnumber = $result->num_rows;
+  echo 'var classesnumber=  '.$classesnumber.';';
   echo 'var classeson = 1;';
 }else{
   echo 'var classeson = 0;';
@@ -1497,7 +1503,12 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
       $(".costumeModule").click(function () {
         if(custome == 0){
           custome = 1;
-          var temp = 316+(customenumber*121);
+          var temp = 0;
+          if(customenumber > 1){
+            temp = 335+(customenumber*101)+((customenumber-1)*14);
+          }else{
+            temp = 335+(customenumber*101);
+          }
           $(".costumeModule").animate({height:temp+"px"},500);
           $(".costumeModule > .text").hide();
         }
@@ -1513,7 +1524,12 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
         if(calendar == 0){
           calendar = 1;
-          var temp = 350 + (calendarnumber*121);
+          var temp = 0;
+          if(calendarnumber > 1){
+            temp = 337 + (calendarnumber*102)+((calendarnumber-1)*14);
+          }else{
+            temp = 337 + (calendarnumber*102);
+          }
           $(".calendarModule").animate({height:temp+"px"},500);
           $(".calendarModule > .text").hide();
         }
@@ -1529,7 +1545,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(news == 0){
             news = 1;
-            var temp = 400 + (newsnumber*180);
+            var temp = 335 + (newsnumber*216);
             $(".newsModule").animate({height:temp+"px"},500);
             $(".newsModule > .text").hide();
           }
@@ -1545,12 +1561,17 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(gallery == 0){
             gallery = 1;
-            var temp = 110;
+            var temp = 107;
             ng = numbergalleries;
-            if(numbergalleries > 3){
-              ng = 3
+            if(numbergalleries == 1){
+              temp += 359;
             }
-            temp += (ng*250)+(numberimages*40);
+            if(numbergalleries == 2){
+              temp += 674;
+            }
+            if(numbergalleries == 3 || numbergalleries > 3){
+              temp += 989;
+            }
             $(".galleryModule").animate({height:temp+"px"},500);
             $(".galleryModule > .text").hide();
           }
@@ -1566,7 +1587,13 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(workers == 0){
             workers = 1;
-            var temp = 330 + (workersnumber*64);
+            var temp = 248;
+            if(workersnumber > 0){
+              temp = 248 + Math.ceil(workersnumber/3)*134;
+              if(workersnumber > 3){
+                temp += Math.ceil((workersnumber-1)/3)*15;
+              }
+            }
             $(".workersModule").animate({height:temp+"px"},500);
             $(".workersModule > .text").hide();
           }
@@ -1582,7 +1609,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(anfahrt == 0){
             anfahrt = 1;
-            $(".anfahrtModule").animate({height:"660px"},500);
+            $(".anfahrtModule").animate({height:"654px"},500);
             $(".anfahrtModule > .text").hide();
           }
           $(".go_back7").click(function() {
@@ -1597,7 +1624,14 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(classes == 0){
             classes = 1;
-            $(".classesModule").animate({height:"400px"},500);
+            var temp = 239;
+            if(classesnumber > 0){
+              temp += Math.ceil(classesnumber/3)*134;
+              if(classesnumber > 3){
+                temp += Math.ceil((classesnumber-1)/3)*15;
+              }
+            }
+            $(".classesModule").animate({height:temp+"px"},500);
             $(".classesModule > .text").hide();
           }
           $(".go_back8").click(function() {
@@ -1612,7 +1646,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(signup == 0){
             signup = 1;
-            $(".signupModule").animate({height:"320px"},500);
+            $(".signupModule").animate({height:"308px"},500);
             $(".signupModule > .text").hide();
           }
           $(".go_back9").click(function() {
@@ -1627,7 +1661,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
 
           if(impressum == 0){
             impressum = 1;
-            $(".impressum").animate({height:"180px"},500);
+            $(".impressum").animate({height:"168px"},500);
             $(".impressum > .text").hide();
           }
           $(".go_back10").click(function() {
@@ -1929,7 +1963,16 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 var lar = la.toString();
                 $("#news"+lar).show();
                 $("#page_news > "+".newsInterface"+lar).show();
-                var temp = 299 + (newsnumber*180);
+                var temp = 335;
+                if((number/3) < 1.5 && (number/3) >= 1){
+                  temp += 216;
+                }
+                if((number/3) > 1.5 && (number/3) < 2){
+                  temp += 432;
+                }
+                if((number/3) == 2 || (number/3) > 2){
+                  temp += 648;
+                }
                 $(".newsModule").animate({height:temp+"px"},500);
               }else{
                 var la = i+1;
@@ -1950,8 +1993,17 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                 var la = i+1;
                 var lar = la.toString();
                 $("#news"+lar).show();
+                var temp = 335;
+                if((number/3) < 1.5 && (number/3) >= 1){
+                  temp += 216;
+                }
+                if((number/3) > 1.5 && (number/3) < 2){
+                  temp += 432;
+                }
+                if((number/3) == 2 || (number/3) > 2){
+                  temp += 648;
+                }
                 $("#page_news > "+".newsInterface"+lar).show();
-                var temp = 299 + (newsnumber*180);
                 $(".newsModule").animate({height:temp+"px"},500);
               }else{
                 var la = i+1;
@@ -2019,6 +2071,7 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                     var la = i+1;
                     var lar = la.toString();
                     $("#galleries"+lar).show();
+                    $(".galleryModule").animate({height:"1096px"},500);
                   }else{
                     var la = i+1;
                     var lar = la.toString();
@@ -2037,7 +2090,18 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                   if(i+1 == leftrightGallery){
                     var la = i+1;
                     var lar = la.toString();
+                    var temp = 107;
                     $("#galleries"+lar).show();
+                    if((numbergalleries/3) < 1.5 && (numbergalleries/3) >= 1){
+                      temp += 359;
+                    }
+                    if((numbergalleries/3) > 1.5 && (numbergalleries/3) < 2){
+                      temp += 674;
+                    }
+                    if((numbergalleries/3) == 2 || (numbergalleries/3) > 2){
+                      temp += 989;
+                    }
+                    $(".galleryModule").animate({height:temp+"px"},500);
                   }else{
                     var la = i+1;
                     var lar = la.toString();
@@ -2199,8 +2263,8 @@ document.getElementById('currentPage').style.marginTop=marginTopCurrentPage+"px"
                       success: function (data) {
                       }
                   });
-
-
+                  location.reload();
+   
               });
             ';
           //show changes directy in the Impressum Modul

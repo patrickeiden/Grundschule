@@ -1969,7 +1969,7 @@ function printWorkersInInterface($uid, $file){
 function allWorkers($uid, $folder){
   global $conn;
   $output = "";
-  $output .= '<div class="container">
+  $output .= '<div class="container workersimg">
     <hr>
       <h1 class="text-center">Leiter/innen</h1>
     <hr>
@@ -2255,7 +2255,7 @@ function printWorkersInFile($uid, $folder){
 
         <div class="col-sm-6">
                 <div style="height:300px;width:100%;"><iframe width="" height="300" src="'.$link[0].'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="height:300px;width:100%;"></iframe>
-                	<p style="text-align:right; margin:0px; padding-top:-10px; line-height:10px;font-size:10px;margin-top: -25px;"><a href="http://www.checkpoll.de/google-maps-generator/" style="font-size:10px;" target="_blank">Google Maps Generator</a> von <a href="https://www.on-projects.de/" style="font-size:10px;" title="Webdesign in Stuttgart" target="_blank">on-projects</a>
+                	<p style="text-align:right; margin:0px; padding-top:-10px; line-height:10px;font-size:10px;margin-top: -25px;"><a href="http://www.checkpoll.de/google-maps-generator/" style="font-size:10px; border-radius: 5px;" target="_blank">Google Maps Generator</a> von <a href="https://www.on-projects.de/" style="font-size:10px;" title="Webdesign in Stuttgart" target="_blank">on-projects</a>
                 	</p>
                 </div>
          </div>
