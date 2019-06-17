@@ -166,7 +166,7 @@ function printStartInFileTable($uid, $file){
     $NewsCode .= $allnews[0];
     $NewsCode .= $allnews[1];
   }
-  $allnews = allNewsForFile($uid, $NewsFile);
+  //$allnews = allNewsForFile($uid, $NewsFile);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
@@ -213,7 +213,6 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
   $stmt->bind_param("si", $name, $uid);
   $stmt->execute();
-  if($number == 1){
   $site_name = "custome_id" .$uid .".php";
   if($folder != ""){
     $folder = $folder."/".$site_name;
@@ -233,38 +232,15 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   $stmt->execute();
   //standart value for custome Module
   createCustome($_SESSION['u_id'], "Muster", "<p>Dies ist ein Mustermodul.</p>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>", "Beispiel");
-  printAllCustomeFromFile($_SESSION["u_id"]);
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>", $folder);
 
-  $code = $name;
-  $stmt = $conn->prepare("UPDATE table_data SET custome_name=? WHERE user_id=?");
-  $stmt->bind_param("si", $code, $uid);
+  $var = '<?php $file = "userid".$_SESSION["u_id"]."/custome_id".$_SESSION["u_id"].".php";';
+  $var .=  'echo printCustomeInFileTable($_SESSION["u_id"], $file); ?>';
+  $stmt = $conn->prepare("UPDATE Theme1regular SET allcustome=?");
+  $stmt->bind_param("s", $var);
   $stmt->execute();
-  }
-  if($number == 1){
-    printCustomeInFileTable($uid, $folder);
-  }
+  printCustomeInFile($uid, $folder);
 
-
-  //if the user does not want to intecrate the custome modul it is still procuced. Maybe the user wants to have it intecrated later on
-  if($number == 0){
-    $site_name = "custome_id" .$uid .".php";
-  if($folder != ""){
-    $folder = $folder."/".$site_name;
-  }else{
-    $folder = $site_name;
-  }
-  //create a File for this module
-  $myfile = fopen($folder, "w") or die("Datei konnte nicht geöffnet werden!");
-  //write file in Database
-  $stmt = $conn->prepare("UPDATE table_data SET custome_file_name=? WHERE user_id=?");
-  $stmt->bind_param("si", $folder, $uid);
-  $stmt->execute();
-
-  createCustome($_SESSION['u_id'], "Muster", "<p>Dies ist ein Mustermodul.</p>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>", "Beispiel");
-  printAllCustomeFromFile($_SESSION["u_id"]);
-  }
 }
 
 //this funtion will ne printed in the generated page in order to always print the latest version on the site
@@ -345,36 +321,30 @@ function updateAboveUnder($number, $name, $file){
 
 function printCustomeInFileTable($uid, $site_name){
   global $conn;
-  $output = "";
+  $output = '';
+  returnNavbar($uid);
+  returnSlider($uid);
   $output .= printRegularHeader($uid, "");
+  $output .= printAllCustomeFromFile($uid);
+  $output .= printRegularFooter($uid);
+  $myfile = fopen('../'.$site_name, "w") or die("Datei konnte nicht geöffnet werden!");
+  fwrite($myfile, $output);
+}
+
+function printCustomeInFile($uid, $file){
+  global $conn;
+  $output = "";
+  $include = "";
   $sql = "SELECT include, allcustome FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.= $row["allcustome"];
+        $output.=  $row["include"].$row["allcustome"];
     }
   }
-  $output .= printRegularFooter($uid);
-  $myfile = fopen($site_name, "w") or die("Datei konnte nicht geöffnet werden!");
+  $myfile = fopen($file, "w") or die("Datei konnte nicht geöffnet werden!");
   fwrite($myfile, $output);
-}
-
-function printCustomeInFile($uid, $site_name){
-  global $conn;
-  $output = '';
-  $output .= printRegularHeader($uid, "");
-
-  $sql = "SELECT allcustome FROM Theme1regular";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["allcustome"];
-    }
-  }
-  $output .= printRegularFooter($uid);
-  return $output;
 }
 
 function printCustomeInInterface($uid, $file){
@@ -425,9 +395,7 @@ function printAllCustomeFromFile($uid){
         $output.= '</div>';
     }
   }
-  $stmt = $conn->prepare("UPDATE Theme1regular SET allcustome=?");
-  $stmt->bind_param("s", $output);
-  $stmt->execute();
+  return $output;
 }
 
 //printet dynamisch alle Module die in einer File benutzt werden und gibt die Möglicheit den Code innerhalb der Module zu verändern
