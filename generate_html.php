@@ -148,7 +148,9 @@ if(isset($_POST['test'])){
 	}
 	if(isset($_POST['anfahrt_button'])){
 		if(AnfahrtOn($_SESSION['u_id']) == 0){
-			  setAnfahrtAgain($number, $_SESSION['u_id'], $folder, $_POST['street_school'], $_POST['plz_school'], $_POST['ort_school'], $_POST['desciption_anfahrt'], $_POST['desciption_building'], $_POST['number_school']);
+				$number = 1;
+				$folder = 'userid'.$_SESSION['u_id'];
+			  	setAnfahrtAgain($number, $_SESSION['u_id'], $folder, $_POST['street_school'], $_POST['plz_school'], $_POST['ort_school'], $_POST['desciption_anfahrt'], $_POST['desciption_building'], $_POST['number_school']);
   	 		  updateOnValueTableData($_SESSION['u_id'], "anfahrt_on", 1);
   	 	}else if(AnfahrtOn($_SESSION['u_id']) == 1){
 			  updateOnValueTableData($_SESSION['u_id'], "anfahrt_on", 0);

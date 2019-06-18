@@ -239,6 +239,7 @@ function setCustome($name, $number, $uid, $folder){  //later +1 arguments for th
   $stmt = $conn->prepare("UPDATE Theme1regular SET allcustome=?");
   $stmt->bind_param("s", $var);
   $stmt->execute();
+
   printCustomeInFile($uid, $folder);
 
 }
@@ -322,29 +323,49 @@ function updateAboveUnder($number, $name, $file){
 function printCustomeInFileTable($uid, $site_name){
   global $conn;
   $output = '';
-  returnNavbar($uid);
-  returnSlider($uid);
-  $output .= printRegularHeader($uid, "");
-  $output .= printAllCustomeFromFile($uid);
-  $output .= printRegularFooter($uid);
-  $myfile = fopen('../'.$site_name, "w") or die("Datei konnte nicht geöffnet werden!");
-  fwrite($myfile, $output);
+  $sql = "SELECT costume_code FROM Module WHERE custome_file='$site_name'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["costume_code"];
+    }
+  }
+  return $output;
+}
+
+function printCalendarAbove($uid){
+  global $conn;
+  $output = '';
+  $file = 'userid'.$uid.'/calendar_id'.$uid.'.php';
+  $sql = "SELECT costume_code FROM Module WHERE custome_file='$file' and above_under=0";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $output.= $row["costume_code"];
+    }
+  }
+  return $output;
 }
 
 function printCustomeInFile($uid, $file){
   global $conn;
   $output = "";
   $include = "";
+  $header =  '<?php echo printRegularHeader($_SESSION["u_id"], ""); ?>';
   $sql = "SELECT include, allcustome FROM Theme1regular";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $output.=  $row["include"].$row["allcustome"];
+        $output.=  $row["include"].$header.$row["allcustome"];
     }
   }
+  $output .= '<?php echo printRegularFooter($_SESSION["u_id"]); ?>';
   $myfile = fopen($file, "w") or die("Datei konnte nicht geöffnet werden!");
   fwrite($myfile, $output);
+  return $output;
 }
 
 function printCustomeInInterface($uid, $file){
@@ -381,9 +402,8 @@ function printCustomeTitel($uid){
 }
 
 //gibt alle Module, die in einer File sind in Reihenfolge aus (innerhalb eines Strings)
-function printAllCustomeFromFile($uid){
+function printAllCustomeFromFile($uid, $file){
   global $conn;
-  $file = 'userid'.$uid.'/custome_id'.$uid.'.php';
   $output = "";
   $sql = "SELECT costume_code, custome_name FROM Module WHERE custome_file='$file'";
   $result = $conn->query($sql);
@@ -860,21 +880,6 @@ function setCalendar($number, $uid, $folder){
   returnEvents($uid);
   //no extra nav item in code
   printCalendarInFile($uid, $folder);
-}
-
-function printCalendarAbove($uid){
-  global $conn;
-  $output = '';
-  $file = 'userid'.$uid.'/calendar_id'.$uid.'.php';
-  $sql = "SELECT costume_code FROM Module WHERE custome_file='$file' and above_under=0";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $output.= $row["costume_code"];
-    }
-  }
-  return $output;
 }
 
 function printCalendarUnder($uid){
@@ -2133,8 +2138,8 @@ function printWorkersInFile($uid, $folder){
     $stmt = $conn->prepare("UPDATE anfahrt SET street=? WHERE user_id=?");
     $stmt->bind_param("si", $street, $uid);
     $stmt->execute();
-    $stmt = $conn->prepare("UPDATE anfahrt SET housenumber=? WHERE user_id=?");
-    $stmt->bind_param("si", $housenumber, $uid);
+    $stmt = $conn->prepare("UPDATE anfahrt SET streetNumber=? WHERE user_id=?");
+    $stmt->bind_param("ii", $housenumber, $uid);
     $stmt->execute();
     $stmt = $conn->prepare("UPDATE anfahrt SET plz=? WHERE user_id=?");
     $stmt->bind_param("si", $plz, $uid);
