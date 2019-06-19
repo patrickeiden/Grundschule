@@ -2508,10 +2508,32 @@ function printClassesInFileTable($uid, $file){
     array_push($kidsArray, "0 Kinder");
   }
   $output .= $header;
+  $output .= '<div class="container">
+                <hr><h1 class="text-center">Klassen</h1><hr>
+                <div class="row">';
   //generate code from the input data
-  $output .= $numberArray[0];
-  $output .= $teacherArray[0];
-  $output .= $kidsArray[0];
+  for ($i = 0; $i < sizeof($numberArray); $i++) {
+
+    if(($i > 0) && (($i % 3) == 0)){
+      $output .= '</div><br>';
+    }
+
+   $output .= '<div class="col-sm-4">
+                  <div class="col-sm-8"><p>' . '<b>Klasse: </b>' . $numberArray[$i] . '</p></div>
+
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-8"><p>' . '<b>Lehrer/in: </b>'.$teacherArray[$i].'</p></div>
+                  <div class="col-sm-2"></div>
+
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-8"><p>' . '<b>Anzahl der Kinder: </b>'.$kidsArray[$i].'</p></div>
+                  <div class="col-sm-2"></div>
+              </div>';      
+  }
+  $output .= '</div>                   
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+              </div>';
+
   //end generate code from the unput data
   $output .= $footer;
   return $output;
