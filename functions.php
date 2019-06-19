@@ -2642,48 +2642,31 @@ function newClass($uid, $number, $teacher, $kids, $file){
 
 function setSignup($uid, $number, $text, $file, $folder){
   global $conn;
-  if($number == 1){
-    $stmt = $conn->prepare("UPDATE table_data SET signup_on=? WHERE user_id=?");
-    $stmt->bind_param("ii", $number, $uid);
-    $stmt->execute();
-    $stmt = $conn->prepare("INSERT INTO signup (text, file, user_id) VALUES (?, ?, ?)");
-    $stmt->bind_param("ssi", $text, $file, $uid);
-    $stmt->execute();
+  $stmt = $conn->prepare("UPDATE table_data SET signup_on=? WHERE user_id=?");
+  $stmt->bind_param("ii", $number, $uid);
+  $stmt->execute();
+  $stmt = $conn->prepare("INSERT INTO signup (text, file, user_id) VALUES (?, ?, ?)");
+  $stmt->bind_param("ssi", $text, $file, $uid);
+  $stmt->execute();
 
-    $site_name = "signup_id" .$uid .".php";
-    if($folder != ""){
-      $folder = $folder."/".$site_name;
-    }else{
-      $folder = $site_name;
-    }
-
-    $var = '<?php $file = "userid".$_SESSION["u_id"]."/signup_id".$_SESSION["u_id"].".php";';
-    $var .=  'echo printSignupInFileTable($_SESSION["u_id"], $file); ?>';
-    $stmt = $conn->prepare("UPDATE Theme1regular2 SET signup_code=?");
-    $stmt->bind_param("s", $var);
-    $stmt->execute();
-
-    printSignupInFile($uid, $folder);
+  $site_name = "signup_id" .$uid .".php";
+  if($folder != ""){
+    $folder = $folder."/".$site_name;
   }else{
-    $stmt = $conn->prepare("UPDATE table_data SET signup_on=? WHERE user_id=?");
-    $stmt->bind_param("ii", $number, $uid);
-    $stmt->execute();
-
-    $site_name = "signup_id" .$uid .".php";
-    if($folder != ""){
-      $folder = $folder."/".$site_name;
-    }else{
-      $folder = $site_name;
-    }
-
-    $var = '<?php $file = "userid".$_SESSION["u_id"]."/signup_id".$_SESSION["u_id"].".php";';
-    $var .=  'echo printSignupInFileTable($_SESSION["u_id"], $file); ?>';
-    $stmt = $conn->prepare("UPDATE Theme1regular2 SET signup_code=?");
-    $stmt->bind_param("s", $var);
-    $stmt->execute();
-
-    printSignupInFile($uid, $folder);
+    $folder = $site_name;
   }
+
+  $stmt = $conn->prepare("UPDATE table_data SET signup_file_name=? WHERE user_id=?");
+  $stmt->bind_param("si", $folder, $uid);
+  $stmt->execute();
+
+  $var = '<?php $file = "userid".$_SESSION["u_id"]."/signup_id".$_SESSION["u_id"].".php";';
+  $var .=  'echo printSignupInFileTable($_SESSION["u_id"], $file); ?>';
+  $stmt = $conn->prepare("UPDATE Theme1regular2 SET signup_code=?");
+  $stmt->bind_param("s", $var);
+  $stmt->execute();
+
+  printSignupInFile($uid, $folder);
 }
 
 function printSignUpInInterface($uid){
