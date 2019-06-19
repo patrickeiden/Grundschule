@@ -3507,7 +3507,7 @@ function returnNavbar($uid){
               if(SignupOn($uid) == 1){
                 $link9 = oneValueFromTableData($uid, "signup_file_name");
                 $output.= '<a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span>Anme</a>';
-                $output2.= '<li><a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span> Einschreibung</a></li>';
+                $output2.= '<li><a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span> Anmelden</a></li>';
               }
               $link10 = 'userid'.$uid.'/impressum_id'.$uid.'.php';
               $output.= '<a href="'.'../'.$link10.'"><span class="glyphicon glyphicon-road"></span> Impressum</a>';
