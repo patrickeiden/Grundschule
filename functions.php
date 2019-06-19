@@ -3481,40 +3481,38 @@ function returnNavbar($uid){
                 if($count < 3){
                   $output2 .= $output;
                   $link5 = oneValueFromTableData($uid, "classes_file_name");
-                  $output.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-picture"></span>Klassen</a></li>';
-                  $output2.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-picture"></span>Klassen</a></li>';
+                  $output.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-picture"></span> Klassen</a></li>';
+                  $output2.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-picture"></span> Klassen</a></li>';
                 }else{
-                  $output2 .= $output;
                   $link5 = oneValueFromTableData($uid, "classes_file_name");
-                  $output2.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-picture"></span>Klassen</a></li>';
+                  $output2 .= $output;
+                  $output2.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-picture"></span>  Klassen</a></li>';
                 }
+              }else{
+                $output2 .= $output;
               }
               $output.= '<li class="dropdown">
-                        <a href="javascript:void(0)"><span class="glyphicon glyphicon-picture"></span> Organisation</a>
-                        <div class="dropdown-content">';
-              $output2.= '<li class="dropdown">
                         <a href="javascript:void(0)"><span class="glyphicon glyphicon-picture"></span> Organisation</a>
                         <div class="dropdown-content">';
               if(WorkersOn($uid) == 1){
               $link7 = oneValueFromTableData($uid, "workers_file_name");
               $output.= '<a href="'.'../'.$link7.'"><span class="glyphicon glyphicon-th"></span> Mitarbeiter</a>';
-              $output2.= '<a href="'.'../'.$link7.'"><span class="glyphicon glyphicon-th"></span> Mitarbeiter</a>';
+              $output2.= '<li><a href="'.'../'.$link7.'"><span class="glyphicon glyphicon-th"></span> Mitarbeiter</a></li>';
               }
               if(AnfahrtOn($uid) == 1){
               $link8 = oneValueFromTableData($uid, "anfahrt_file_name");
               $output.= '<a href="'.'../'.$link8.'"><span class="glyphicon glyphicon-map-marker"></span> Anfahrt</a>';
-              $output2.= '<a href="'.'../'.$link8.'"><span class="glyphicon glyphicon-map-marker"></span> Anfahrt</a>';
+              $output2.= '<li><a href="'.'../'.$link8.'"><span class="glyphicon glyphicon-map-marker"></span> Anfahrt</a></li>';
               }
               if(SignupOn($uid) == 1){
                 $link9 = oneValueFromTableData($uid, "signup_file_name");
                 $output.= '<a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span>Anme</a>';
-                $output2.= '<a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span>Anme</a>';
+                $output2.= '<li><a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span> Einschreibung</a></li>';
               }
               $link10 = 'userid'.$uid.'/impressum_id'.$uid.'.php';
               $output.= '<a href="'.'../'.$link10.'"><span class="glyphicon glyphicon-road"></span> Impressum</a>';
               $output.=  '</div></li>';
-              $output2.= '<a href="'.'../'.$link10.'"><span class="glyphicon glyphicon-road"></span> Impressum</a>';
-              $output2.=  '</div></li>';
+              $output2.= '<li><a href="'.'../'.$link10.'"><span class="glyphicon glyphicon-road"></span> Impressum</a></li>';
   $output .= '</ul>
             </nav>
           </div>
@@ -3529,6 +3527,14 @@ function returnNavbar($uid){
   $stmt = $conn->prepare("UPDATE Theme1regular SET navfunktion=?");
   $stmt->bind_param("s", $output2);
   $stmt->execute();
+  if($count == 0){
+    $_SESSION['li']=75;
+  }else if($count == 1){
+    $_SESSION['li']=55;
+  }else{
+    $_SESSION['li']=42;
+  }
+  $_SESSION['count'] = $count;
   return $output;
 }
 
