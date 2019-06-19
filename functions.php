@@ -2498,9 +2498,21 @@ function printClassesInFileTable($uid, $file){
         array_push($kidsArray, $row['kids']);
     }
   }
+  if(sizeof($numberArray) == 0){
+    array_push($numberArray, "0");
+  }
+  if(sizeof($teacherArray) == 0){
+    array_push($teacherArray, "Kein Lehrer verfügbar");
+  }
+  if(sizeof($kidsArray) == 0){
+    array_push($kidsArray, "0 Kinder");
+  }
   $output .= $header;
   //generate code from the input data
-  $output .= '';
+  $output .= $numberArray[0];
+  $output .= $teacherArray[0];
+  $output .= $kidsArray[0];
+  //end generate code from the unput data
   $output .= $footer;
   return $output;
 }
