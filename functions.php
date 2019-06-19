@@ -1193,12 +1193,23 @@ function allGalleries($uid, $gallery){
     if(sizeof($number) == 0){
       array_push($number, "Leere Galerie");
     }
+    $bilder = "";
+    if(empty($number)){
+      $bilder = "Bilder";
+    }else{
+      if(sizeof($number) == 1){
+        $bilder = "Bild";
+      }else{
+        $bilder = "Bilder";
+      }
+    }
+    
     $output.= '<div class="col-md-4 col-sm-4 col-xs-6 col-xxs-12 animate-box">
       <div class="img-grid">
         <img src="../GallerieCSS/images/pic_'.(($i%12)+1).'.jpg" class="img-responsive">
         <a class="transition" href="'.$hrefGallery[0].'" target="_blank">
           <div>
-            <span class="fh5co-meta">'.sizeof($number).' Bilder</span>
+            <span class="fh5co-meta">'.sizeof($number).' '.$bilder.'</span>
             <h2 class="fh5co-title noHover">'.$number[0].'</h2>
           </div>
         </a>
@@ -3476,60 +3487,60 @@ function returnNavbar($uid){
   		<div class="col">
   			<nav class="navbar2">
   			      <ul style="list-style-type: none;">
-              <li><a href="'.$home.'"><span class="glyphicon glyphicon-home"></span> Home</a></li>';
+              <li><a href="'.$home.'">Home</a></li>';
                $count = 0;
               if(CustomeOn($uid) == 1){
                 $count += 1;
                 $var = printCustomeTitel($uid);
                 $link = oneValueFromTableData($uid, "custome_file_name");
-                $output.= '<li><a  class="custome" href="'.'../'.$link.'"><span class="glyphicon glyphicon-star"></span>'.$var.'</a></li>';
+                $output.= '<li><a  class="custome" href="'.'../'.$link.'">'.$var.'</a></li>';
               }
               if(CalendarOn($uid) == 1){
                 $count += 1;
                 $link2 = oneValueFromTableData($uid, "calendar_file");
-                $output.= '<li><a href="'.'../'.$link2.'"><span class="glyphicon glyphicon-calendar"></span> Events</a></li>';
+                $output.= '<li><a href="'.'../'.$link2.'">Events</a></li>';
               }
               if(GalleryOn($uid) == 1){
                 $count += 1;
                 $link4 = oneValueFromTableData($uid, "gallery_file_name");
-                $output.= '<li><a href="'.'../'.$link4.'"><span class="glyphicon glyphicon-picture"></span> Galerie</a></li>';
+                $output.= '<li><a href="'.'../'.$link4.'">Galerie</a></li>';
               }
               if(ClassesOn($uid) == 1){
                 if($count < 3){
                   $output2 .= $output;
                   $link5 = oneValueFromTableData($uid, "classes_file_name");
-                  $output.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-picture"></span> Klassen</a></li>';
-                  $output2.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-picture"></span> Klassen</a></li>';
+                  $output.= '<li><a href="'.'../'.$link5.'">Klassen</a></li>';
+                  $output2.= '<li><a href="'.'../'.$link5.'">Klassen</a></li>';
                 }else{
                   $link5 = oneValueFromTableData($uid, "classes_file_name");
                   $output2 .= $output;
-                  $output2.= '<li><a href="'.'../'.$link5.'"><span class="glyphicon glyphicon-picture"></span>  Klassen</a></li>';
+                  $output2.= '<li><a href="'.'../'.$link5.'">Klassen</a></li>';
                 }
               }else{
                 $output2 .= $output;
               }
               $output.= '<li class="dropdown">
-                        <a href="javascript:void(0)"><span class="glyphicon glyphicon-picture"></span> Organisation</a>
+                        <a href="javascript:void(0)">Organisation</a>
                         <div class="dropdown-content">';
               if(WorkersOn($uid) == 1){
               $link7 = oneValueFromTableData($uid, "workers_file_name");
-              $output.= '<a href="'.'../'.$link7.'"><span class="glyphicon glyphicon-th"></span> Mitarbeiter</a>';
-              $output2.= '<li><a href="'.'../'.$link7.'"><span class="glyphicon glyphicon-th"></span> Mitarbeiter</a></li>';
+              $output.= '<a href="'.'../'.$link7.'">Mitarbeiter</a>';
+              $output2.= '<li><a href="'.'../'.$link7.'">Mitarbeiter</a></li>';
               }
               if(AnfahrtOn($uid) == 1){
               $link8 = oneValueFromTableData($uid, "anfahrt_file_name");
-              $output.= '<a href="'.'../'.$link8.'"><span class="glyphicon glyphicon-map-marker"></span> Anfahrt</a>';
-              $output2.= '<li><a href="'.'../'.$link8.'"><span class="glyphicon glyphicon-map-marker"></span> Anfahrt</a></li>';
+              $output.= '<a href="'.'../'.$link8.'">Anfahrt</a>';
+              $output2.= '<li><a href="'.'../'.$link8.'">Anfahrt</a></li>';
               }
               if(SignupOn($uid) == 1){
                 $link9 = oneValueFromTableData($uid, "signup_file_name");
-                $output.= '<a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span>Anme</a>';
-                $output2.= '<li><a href="'.'../'.$link9.'"><span class="glyphicon glyphicon-pencil"></span> Anmelden</a></li>';
+                $output.= '<a href="'.'../'.$link9.'">Anmelden</a>';
+                $output2.= '<li><a href="'.'../'.$link9.'">Anmelden</a></li>';
               }
               $link10 = 'userid'.$uid.'/impressum_id'.$uid.'.php';
-              $output.= '<a href="'.'../'.$link10.'"><span class="glyphicon glyphicon-road"></span> Impressum</a>';
+              $output.= '<a href="'.'../'.$link10.'">Impressum</a>';
               $output.=  '</div></li>';
-              $output2.= '<li><a href="'.'../'.$link10.'"><span class="glyphicon glyphicon-road"></span> Impressum</a></li>';
+              $output2.= '<li><a href="'.'../'.$link10.'">Impressum</a></li>';
   $output .= '</ul>
             </nav>
           </div>
