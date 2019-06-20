@@ -98,7 +98,7 @@ if(isset($_POST['test'])){
   	 	}
 	  }
 	#function for News Modul
-	  if(isset($_POST['news_number']) && ($_POST['news_number']==3 || $_POST['news_number']==4 || $_POST['news_number']==5) && $_POST['news_button']){
+	  if($_POST['news_button']){
 	  	if(NewsOn($_SESSION['u_id']) == 0){
   	 		updateOnValueTableData($_SESSION['u_id'], "news_on", 1);
 	    	updateOnValueTableData($_SESSION['u_id'], "news_number", $_POST['news_number']);

@@ -394,8 +394,10 @@ include 'functions.php';
         } else if(NewsOn($_SESSION['u_id']) == 1){
             echo '<div id="conf-module3">
                     <h5>Wählen Sie die Einstellungen für das Newsmodul.</h5>
+                    <div class="form-group">
                     <input type ="checkbox" name ="news_button" value="1"/>
                     <p class="events">Diese Box auswählen, um Newsmodul zu entfernen.</p>
+                    </div>
                   </div>';
         }
 
