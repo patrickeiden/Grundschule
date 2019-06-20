@@ -339,6 +339,10 @@ footer {
   display: none;
 }
 
+#conf-module6.entf {
+  height: 200px!important;
+}
+
 #conf-module7{
   background-color: cadetblue!important;
   position: relative;

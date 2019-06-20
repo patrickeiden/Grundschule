@@ -203,7 +203,7 @@ include 'functions.php';
           <p>Fügt Ihrer Homepage einen Kalender hinzu, in den Ereignisse und wichtige Daten eingetragen werden können.</p>
           <div class="form-group">
           <input type="checkbox" name="calendar" value="1"/>
-          <p class="events">Diese Box auswählen, um Kalendermodul zu integrieren</p>
+          <p class="events">Diese Box auswählen, um Kalendermodul zu integrieren.</p>
           </div>
         </div>
 
@@ -220,32 +220,14 @@ include 'functions.php';
           <p class="events">5</p>
           </div>
           <input type ="checkbox" name ="news_button" value="1"/>
-          <p class="events">Diese Box auswählen, um Newsmodul zu integrieren</p>
+          <p class="events">Diese Box auswählen, um Newsmodul zu integrieren.</p>
         </div>
 
         <div id="conf-module4">
           <h5>Fügt Ihrer Homepage eine Galerie hinzu, in der Bilder präsentiert werden können.</h5>
              <p>Sie können verschiedene Galerien anlegen. </p>
           <input type ="checkbox" name ="gallery_button" value="1"/>
-          <p class="events">Diese Box auswählen, um Galeriemodul zu integrieren</p>
-        </div>
-
-        <div id="conf-module5">
-          <h5>Fügt Ihrer Website einen Bereich für offene Stellen und Bewerbungen hinzu.</h5>
-          <input type="checkbox" name="jobs_form" value="Form" />
-          <p>Integriertes Bewerbungsformular</p>
-          <p>Wählen Sie, wieviele Stellenangebote pro Seite angezeigt werden sollen (3 bis 5)</p>
-          <div class="form-group">
-          <p class="events_h">Anzahl der Anzeigen:</p>
-          <input type ="radio" name ="job_number" value="3"/>
-          <p class="events">3</p>
-          <input type ="radio" name ="job_number" value="4"/>
-          <p class="events">4</p>
-          <input type ="radio" name ="job_number" value="5"/>
-          <p class="events">5</p>
-          </div>
-          <input type="checkbox" name="job_button" value="1" />
-          <p class="events">Diese Box auswählen, um Jobmodul zu integrieren</p>
+          <p class="events">Diese Box auswählen, um Galeriemodul zu integrieren.</p>
         </div>
 
         <div id="conf-module6">
@@ -262,19 +244,19 @@ include 'functions.php';
           <input type="text" class="form-control" id="ort_school" placeholder="Ort" name="ort_school" >
         </div>
           <input type="checkbox" name="anfahrt_button" value="1" />
-          <p class="events">Diese Box auswählen, um Anfahrtsmodul zu integrieren</p>
+          <p class="events">Diese Box auswählen, um Anfahrtsmodul zu integrieren.</p>
         </div>
 
         <div id="conf-module7">
           <h5>Fügt Ihrer Homepage eine Auflistung der Mitarbeiter hinzu, die Sie eintragen.</h5>
           <input type="checkbox" name="worker_button" value="1" />
-          <p class="events">Diese Box auswählen, um Mitarbeitermodul zu integrieren</p>
+          <p class="events">Diese Box auswählen, um Mitarbeitermodul zu integrieren.</p>
         </div>
 
         <div id="conf-module8">
           <h5>Fügt Ihrer Homepage eine Auflistung aller Klassen hinzu, die Sie eintragen.</h5>
           <input type="checkbox" name="classes_button" value="1" />
-          <p class="events">Diese Box auswählen, um Klassenmodul zu integrieren</p>
+          <p class="events">Diese Box auswählen, um Klassenmodul zu integrieren.</p>
         </div>
 
         <div id="conf-module9">
@@ -284,7 +266,7 @@ include 'functions.php';
           <p>Stelle eine Datei zum Download bereit:</p>
           <input type="file" name="pdf" accept="image/*">
           <input type="checkbox" name="signup_button" value="1" />
-          <p class="events">Diese Box auswählen, um Einschreibungsmodul zu integrieren</p>
+          <p class="events">Diese Box auswählen, um Einschreibungsmodul zu integrieren.</p>
         </div>
 
         <div id="conf-module10">
@@ -355,116 +337,175 @@ include 'functions.php';
 
         if(CustomeOn($_SESSION['u_id']) == 0){
           echo '<div id="costume-module">
-              <div class="form-group">
-                <h5>Füge Ihrer Website einen Titel hinzu.</h5>
-                <p>Title:</p>
-                  <input type="text" class="form-control" id="title" placeholder="Title" name="title"></br>
-                  <input type ="checkbox" name ="costume_button" value="1"/>
-                  <p id="costume_button" class="events">Diese Box auswählen, um Startseitenmodul abzuschließen</p>
-              </div>
-          </div>';
+                    <div class="form-group">
+                      <h5>Füge Ihrer Website einen Titel hinzu.</h5>
+                      <p>Title:</p>
+                        <input type="text" class="form-control" id="title" placeholder="Title" name="title"></br>
+                        <input type ="checkbox" name ="costume_button" value="1"/>
+                        <p id="costume_button" class="events">Diese Box auswählen, um Startseitenmodul abzuschließen</p>
+                    </div>
+                </div>';
         } else if (CustomeOn($_SESSION['u_id']) == 1){
           echo '<div id="costume-module">
-            <div class="form-group">
-              <h5>Füge Ihrer Website einen Titel hinzu.</h5>
-              <p>Title:</p>
-                <input type="text" class="form-control" id="title" placeholder="Title" name="title"></br>
-                <input type ="checkbox" name ="costume_button" value="1"/>
-                <p id="costume_button" class="events">Diese Box auswählen, um Startseitenmodul zu entfernen.</p>
-            </div>
-          </div>';
+                  <div class="form-group">
+                    <h5>Füge Ihrer Website einen Titel hinzu.</h5>
+                      <input type ="checkbox" name ="costume_button" value="1"/>
+                      <p id="costume_button" class="events">Diese Box auswählen, um Startseitenmodul zu entfernen.</p>
+                  </div>
+                </div>';
         }
 
-         echo '<div id="calendar_module">
-          <h5>Kalendermodul</h5>
-          <p>Fügt Ihrer Homepage einen Kalender hinzu, in den Ereignisse und wichtige Daten eingetragen werden können.</p>
-          <div class="form-group">
-          <input type="checkbox" name="calendar" value="1"/>
-          <p class="events">Diese Box auswählen, um Kalendermodul zu integrieren</p>
-          </div>
-        </div>
+        if(CalendarOn($_SESSION['u_id']) == 0){
+          echo '<div id="calendar_module">
+                  <h5>Kalendermodul</h5>
+                  <p>Fügt Ihrer Homepage einen Kalender hinzu, in den Ereignisse und wichtige Daten eingetragen werden können.</p>
+                  <div class="form-group">
+                  <input type="checkbox" name="calendar" value="1"/>
+                  <p class="events">Diese Box auswählen, um Kalendermodul zu integrieren.</p>
+                  </div>
+                </div>';
+        }else if(CalendarOn($_SESSION['u_id']) == 1){
+          echo '<div id="calendar_module">
+                  <h5>Kalendermodul</h5>
+                  <p>Fügt Ihrer Homepage einen Kalender hinzu, in den Ereignisse und wichtige Daten eingetragen werden können.</p>
+                  <div class="form-group">
+                  <input type="checkbox" name="calendar" value="1"/>
+                  <p class="events">Diese Box auswählen, um Kalendermodul zu entfernen.</p>
+                  </div>
+                </div>';
+        } 
 
-        <div id="conf-module3">
-          <h5>Wählen Sie die Einstellungen für das Newsmodul.</h5>
-          <p>Wählen Sie, wieviele News pro Seite angezeigt werden sollen (3 bis 5)</p>
-          <div class="form-group">
-          <p class="events_h">Anzahl der news:</p>
-          <input type ="radio" name ="news_number" value="3"/>
-          <p class="events">3</p>
-          <input type ="radio" name ="news_number" value="4"/>
-          <p class="events">4</p>
-          <input type ="radio" name ="news_number" value="5"/>
-          <p class="events">5</p>
-          </div>
-          <input type ="checkbox" name ="news_button" value="1"/>
-          <p class="events">Diese Box auswählen, um Newsmodul zu integrieren</p>
-        </div>
+        if(NewsOn($_SESSION['u_id']) == 0){
+          echo '<div id="conf-module3">
+                  <h5>Wählen Sie die Einstellungen für das Newsmodul.</h5>
+                  <p>Wählen Sie, wieviele News pro Seite angezeigt werden sollen (3 bis 5)</p>
+                  <div class="form-group">
+                  <p class="events_h">Anzahl der news:</p>
+                  <input type ="radio" name ="news_number" value="3"/>
+                  <p class="events">3</p>
+                  <input type ="radio" name ="news_number" value="4"/>
+                  <p class="events">4</p>
+                  <input type ="radio" name ="news_number" value="5"/>
+                  <p class="events">5</p>
+                  </div>
+                  <input type ="checkbox" name ="news_button" value="1"/>
+                  <p class="events">Diese Box auswählen, um Newsmodul zu integrieren.</p>
+                </div>';
+        } else if(NewsOn($_SESSION['u_id']) == 1){
+            echo '<div id="conf-module3">
+                    <h5>Wählen Sie die Einstellungen für das Newsmodul.</h5>
+                    <input type ="checkbox" name ="news_button" value="1"/>
+                    <p class="events">Diese Box auswählen, um Newsmodul zu entfernen.</p>
+                  </div>';
+        }
 
-        <div id="conf-module4">
-          <h5>Fügt Ihrer Homepage eine Galerie hinzu, in der Bilder präsentiert werden können.</h5>
-             <p>Sie können verschiedene Galerien anlegen. </p>
-          <input type ="checkbox" name ="gallery_button" value="1"/>
-          <p class="events">Diese Box auswählen, um Galeriemodul zu integrieren</p>
-        </div>
+        if(GalleryOn($_SESSION['u_id']) == 0){
+        echo '<div id="conf-module4">
+                <h5>Fügt Ihrer Homepage eine Galerie hinzu, in der Bilder präsentiert werden können.</h5>
+                   <p>Sie können verschiedene Galerien anlegen. </p>
+                <input type ="checkbox" name ="gallery_button" value="1"/>
+                <p class="events">Diese Box auswählen, um Galeriemodul zu integrieren.</p>
+              </div>';
+        }else if(GalleryOn($_SESSION['u_id']) == 1){
+          echo '<div id="conf-module4">
+                  <h5>Fügt Ihrer Homepage eine Galerie hinzu, in der Bilder präsentiert werden können.</h5>
+                     <p>Sie können verschiedene Galerien anlegen. </p>
+                  <input type ="checkbox" name ="gallery_button" value="1"/>
+                  <p class="events">Diese Box auswählen, um Galeriemodul zu entfernen.</p>
+                </div>';
+        }
 
-        <div id="conf-module5">
-          <h5>Fügt Ihrer Website einen Bereich für offene Stellen und Bewerbungen hinzu.</h5>
-          <input type="checkbox" name="jobs_form" value="Form" />
-          <p>Integriertes Bewerbungsformular</p>
-          <p>Wählen Sie, wieviele Stellenangebote pro Seite angezeigt werden sollen (3 bis 5)</p>
-          <div class="form-group">
-          <p class="events_h">Anzahl der Anzeigen:</p>
-          <input type ="radio" name ="job_number" value="3"/>
-          <p class="events">3</p>
-          <input type ="radio" name ="job_number" value="4"/>
-          <p class="events">4</p>
-          <input type ="radio" name ="job_number" value="5"/>
-          <p class="events">5</p>
-          </div>
-          <input type="checkbox" name="job_button" value="1" />
-          <p class="events">Diese Box auswählen, um Jobmodul zu integrieren</p>
-        </div>
+        // echo '<div id="conf-module5">
+        //         <h5>Fügt Ihrer Website einen Bereich für offene Stellen und Bewerbungen hinzu.</h5>
+        //         <input type="checkbox" name="jobs_form" value="Form" />
+        //         <p>Integriertes Bewerbungsformular</p>
+        //         <p>Wählen Sie, wieviele Stellenangebote pro Seite angezeigt werden sollen (3 bis 5)</p>
+        //         <div class="form-group">
+        //         <p class="events_h">Anzahl der Anzeigen:</p>
+        //         <input type ="radio" name ="job_number" value="3"/>
+        //         <p class="events">3</p>
+        //         <input type ="radio" name ="job_number" value="4"/>
+        //         <p class="events">4</p>
+        //         <input type ="radio" name ="job_number" value="5"/>
+        //         <p class="events">5</p>
+        //         </div>
+        //         <input type="checkbox" name="job_button" value="1" />
+        //         <p class="events">Diese Box auswählen, um Jobmodul zu integrieren.</p>
+        //       </div>';
 
-        <div id="conf-module6">
-        <div class="form-group">
-        <h5> Fügt Ihrer Wesbite ein Anfahrtsmodul hinzu.</h5>
-          <p>Beschreibung Anfahrt:</p>
-          <textarea name="desciption_anfahrt" cols="40" rows="5" class="desciption_anfahrt"></textarea>
-          <p>Beschreibung Gebäude:</p>
-          <textarea name="desciption_building" cols="40" rows="5" class="desciption_building"></textarea>
-          <p>Adresse:</p>
-          <input type="text" class="form-control" id="street_school" placeholder="Straße" name="street_school" >
-          <input type="text" class="form-control" id="number_school" placeholder="Nummer" name="number_school" >
-          <input type="text" class="form-control" id="plz_school" placeholder="PLZ" name="plz_school" >
-          <input type="text" class="form-control" id="ort_school" placeholder="Ort" name="ort_school" >
-        </div>
-          <input type="checkbox" name="anfahrt_button" value="1" />
-          <p class="events">Diese Box auswählen, um Anfahrtsmodul zu integrieren</p>
-        </div>
 
-        <div id="conf-module7">
-          <h5>Fügt Ihrer Homepage eine Auflistung der Mitarbeiter hinzu, die Sie eintragen.</h5>
-          <input type="checkbox" name="worker_button" value="1" />
-          <p class="events">Diese Box auswählen, um Mitarbeitermodul zu integrieren</p>
-        </div>
+        if(AnfahrtOn($_SESSION['u_id']) == 0){
+        echo '<div id="conf-module6">
+                <div class="form-group">
+                <h5> Fügt Ihrer Wesbite ein Anfahrtsmodul hinzu.</h5>
+                  <p>Beschreibung Anfahrt:</p>
+                  <textarea name="desciption_anfahrt" cols="40" rows="5" class="desciption_anfahrt"></textarea>
+                  <p>Beschreibung Gebäude:</p>
+                  <textarea name="desciption_building" cols="40" rows="5" class="desciption_building"></textarea>
+                  <p>Adresse:</p>
+                  <input type="text" class="form-control" id="street_school" placeholder="Straße" name="street_school" >
+                  <input type="text" class="form-control" id="number_school" placeholder="Nummer" name="number_school" >
+                  <input type="text" class="form-control" id="plz_school" placeholder="PLZ" name="plz_school" >
+                  <input type="text" class="form-control" id="ort_school" placeholder="Ort" name="ort_school" >
+                </div>
+                  <input type="checkbox" name="anfahrt_button" value="1" />
+                  <p class="events">Diese Box auswählen, um Anfahrtsmodul zu integrieren.</p>
+              </div>';
+        }else if(AnfahrtOn($_SESSION['u_id']) == 1){
+          echo '<div id="conf-module6" class="entf">
+                  <h5> Fügt Ihrer Wesbite ein Anfahrtsmodul hinzu.</h5>
+                    <input type="checkbox" name="anfahrt_button" value="1" />
+                    <p class="events">Diese Box auswählen, um Anfahrtsmodul zu entfernen.</p>
+                </div>';
+        }
 
-        <div id="conf-module8">
-          <h5>Fügt Ihrer Homepage eine Auflistung aller Klassen hinzu, die Sie eintragen.</h5>
-          <input type="checkbox" name="classes_button" value="1" />
-          <p class="events">Diese Box auswählen, um Klassenmodul zu integrieren</p>
-        </div>
+        if(WorkersOn($_SESSION['u_id']) == 0){
+         echo '<div id="conf-module7">
+                <h5>Fügt Ihrer Homepage eine Auflistung der Mitarbeiter hinzu, die Sie eintragen.</h5>
+                <input type="checkbox" name="worker_button" value="1" />
+                <p class="events">Diese Box auswählen, um Mitarbeitermodul zu integrieren.</p>
+              </div>';
+        }else if(WorkersOn($_SESSION['u_id']) == 1){
+          echo '<div id="conf-module7">
+                <h5>Fügt Ihrer Homepage eine Auflistung der Mitarbeiter hinzu, die Sie eintragen.</h5>
+                <input type="checkbox" name="worker_button" value="1" />
+                <p class="events">Diese Box auswählen, um Mitarbeitermodul zu entfernen.</p>
+              </div>';
+        }
 
-        <div id="conf-module9">
-          <h5>Fügt Ihrer Homepage ein Einschreibungssytem hinzu.</h5>
-          <p>Beschreibung der Einschreibung:</p>
-          <textarea name="desciption_signup" cols="40" rows="5" class="desciption_signup"></textarea><br>
-          <p>Stelle eine Datei zum Download bereit:</p>
-          <input type="file" name="pdf" accept="image/*">
-          <input type="checkbox" name="signup_button" value="1" />
-          <p class="events">Diese Box auswählen, um Einschreibungsmodul zu integrieren</p>
-        </div>
+        if(ClassesOn($_SESSION['u_id']) == 0){
+         echo '<div id="conf-module8">
+                <h5>Fügt Ihrer Homepage eine Auflistung aller Klassen hinzu, die Sie eintragen.</h5>
+                <input type="checkbox" name="classes_button" value="1" />
+                <p class="events">Diese Box auswählen, um Klassenmodul zu integrieren.</p>
+              </div>';
+        }else if(ClassesOn($_SESSION['u_id']) == 1){
+          echo '<div id="conf-module8">
+                <h5>Fügt Ihrer Homepage eine Auflistung aller Klassen hinzu, die Sie eintragen.</h5>
+                <input type="checkbox" name="classes_button" value="1" />
+                <p class="events">Diese Box auswählen, um Klassenmodul zu entfernen.</p>
+              </div>';
+        }
 
-        <div id="conf-module10">
+        if(SignupOn($_SESSION['u_id']) == 0){
+          echo '<div id="conf-module9">
+                  <h5>Fügt Ihrer Homepage ein Einschreibungssytem hinzu.</h5>
+                  <p>Beschreibung der Einschreibung:</p>
+                  <textarea name="desciption_signup" cols="40" rows="5" class="desciption_signup"></textarea><br>
+                  <p>Stelle eine Datei zum Download bereit:</p>
+                  <input type="file" name="pdf" accept="image/*">
+                  <input type="checkbox" name="signup_button" value="1" />
+                  <p class="events">Diese Box auswählen, um Einschreibungsmodul zu integrieren.</p>
+                </div>';
+        }else if(SignupOn($_SESSION['u_id']) == 1){
+          echo '<div id="conf-module9">
+                  <h5>Fügt Ihrer Homepage ein Einschreibungssytem hinzu.</h5>
+                  <input type="checkbox" name="signup_button" value="1" />
+                  <p class="events">Diese Box auswählen, um Einschreibungsmodul zu entfernen.</p>
+                </div>';
+        }
+
+        echo '<div id="conf-module10">
           <h5>Ihre Homepage enthält ein Impressum.</h5>
           <textarea name="impressum" cols="40" rows="5" class="impressum" ></textarea><br><br>
         </div>
