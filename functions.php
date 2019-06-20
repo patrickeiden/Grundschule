@@ -1190,10 +1190,8 @@ function allGalleries($uid, $gallery){
     $hrefGallery = oneColumnFromTable("image_site", $galleryArray[$i], "Galleries", "gallery_name");
     //check the number of images in this gallerie
     $number = oneColumnFromTable("gallery_name", $galleryArray[$i], "Image", "gallery_name");
-    if(sizeof($number) == 0){
-      array_push($number, "Leere Galerie");
-    }
     $bilder = "";
+    $size = sizeof($number);
     if(empty($number)){
       $bilder = "Bilder";
     }else{
@@ -1203,13 +1201,16 @@ function allGalleries($uid, $gallery){
         $bilder = "Bilder";
       }
     }
+    if($size == 0){
+      array_push($number, "Leere Galerie");
+    }
     
     $output.= '<div class="col-md-4 col-sm-4 col-xs-6 col-xxs-12 animate-box">
       <div class="img-grid">
         <img src="../GallerieCSS/images/pic_'.(($i%12)+1).'.jpg" class="img-responsive">
         <a class="transition" href="'.$hrefGallery[0].'" target="_blank">
           <div>
-            <span class="fh5co-meta">'.sizeof($number).' '.$bilder.'</span>
+            <span class="fh5co-meta">'.$size.' '.$bilder.'</span>
             <h2 class="fh5co-title noHover">'.$number[0].'</h2>
           </div>
         </a>
