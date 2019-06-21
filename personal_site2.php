@@ -100,12 +100,12 @@ include 'functions.php';
         echo '<div class="startModule" onclick="clickedStart()">
                 <p class="text">Konfiguriere die Startseite</p>
                 <div class="s_text">
-                  <h3>Nehmen Sie hier Änderungen an der Startseite vor</h3>
+                 <h3>Hier können Sie Änderungen an der Startseite vornehmen.</h3>
                   <form action="update_site.php" method="POST">
                     <div class="form-group">
                       <div class="row">
                         <div class="col-sm-12 school">
-                          <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.$Startname[0] .'">
+                          <input type="text" class="form-control" id="school_name" placeholder="Name der Schule" name="school_name" value="'.$Startname[0] .'">
                         </div>
                       </div>
                       <div class="wrapper2">
@@ -115,7 +115,7 @@ include 'functions.php';
                       </div>'.$form5.'
                       <p>Header der Startseite:</p>
                       <div class="school">
-                        <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_header" value="'.$Startheader[0].'">
+                        <input type="text" class="form-control" id="school_header" placeholder="Überschrift der Website" name="school_header" value="'.$Startheader[0].'">
                       </div>
                       <p>Kurzbeschreibung der Schule:</p>
                       <textarea name="school_description" cols="40" rows="5" id="school_description" required>'.$Starttext[0].'</textarea>
@@ -149,7 +149,7 @@ include 'functions.php';
           echo '<div class="costumeModule" onclick="clickedCustome()">
                   <p class="text">Das Custom-Modul ist in Ihre Homepage integriert.</p>
                   <div class="c_text">
-                    <h3>Nehmen Sie hier Änderungen am Custome-Modul vor.</h3>
+                    <h3>Hier können Sie Änderungen am Custom-Modul vornehmen.</h3>
                     <form action="update_site.php" method="POST">
                     <div class="form-group">
                       <p>Titel der Navigationsbar für Custom-Modul:</p>
@@ -160,7 +160,7 @@ include 'functions.php';
                     <div class="form-group">'.$result1.'<br><br>
                     <div class="SizeCustome">
                       <input type="text" class="form-control" id="title" placeholder="Titel" name="custome_title">
-                      <textarea name="custome_code" cols="40" rows="5" class="newModule"></textarea>
+                      <textarea name="custome_code" cols="40" rows="5" class="newModule" placeholder="Code"></textarea>
                       <button type="submit" class="btn btn-info newCustomeModule" name="newModule" formmethod="POST" value="'.$name1.'">Modul hinzufügen</button>
                     </div><br>
                     <button class="btn btn-danger go_back"onclick="CustomeBack()" name="backbutton">Zurück</button>
@@ -180,20 +180,20 @@ include 'functions.php';
           echo '<div class="calendarModule" onclick="clickedCalendar()">
                   <p class="text">Das Kalendermodul ist in Ihre Homepage integriert.</p>
                   <div class="k_text">
-                    <h3>Nehmen Sie hier Änderungen am Kalender-Modul vor.</h3>
+                    <h3>Hier können Sie Änderungen am Kalendermodul vornehmen.</h3>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$result2.'<br><br>
                       <div class="event">
-                        <input type="text" class="form-control" id="event_title" placeholder="Titel" name="event_title">
-                        <input type="text" class="form-control" id="event_date" placeholder="Datum" name="event_date">
-                        <button class="btn btn-info CalendarButton" type="submit" name="newEvent" formmethod="POST" value="'.$name2.'">Ereignis hinzufügen (Date ex.: 2018-03-27)</button>
+                        <input type="text" class="form-control" id="event_title" placeholder="Ereignisname" name="event_title">
+                        <input type="text" class="form-control" id="event_date" placeholder="Datum (Bsp.: 2018-03-27)" name="event_date">
+                        <button class="btn btn-info CalendarButton" type="submit" name="newEvent" formmethod="POST" value="'.$name2.'">Ereignis hinzufügen</button>
                       </div>
                       <br>
                       <div class="SizeCustome">
-                        <input type="text" class="form-control" id="title" placeholder="Titel" name="calendar_title">
-                        <textarea name="calendar_code" cols="40" rows="5" class="newModule"></textarea>
-                        <button type="submit" class="btn btn-info newCalenderModuleAbove" name="newModuleabove" formmethod="POST" value="'.$name2.'">Über Kalender</button>
-                        <button type="submit" class="btn btn-info newCalenderModuleUnder" name="newModuleunder" formmethod="POST" value="'.$name2.'">Unter Kalender</button>
+                        <input type="text" class="form-control" id="title" placeholder="Kalendertitel" name="calendar_title">
+                        <textarea name="calendar_code" cols="40" rows="5" class="newModule" placeholder="Code"></textarea>
+                        <button type="submit" class="btn btn-info newCalenderModuleAbove" name="newModuleabove" formmethod="POST" value="'.$name2.'">Modul über Kalender</button>
+                        <button type="submit" class="btn btn-info newCalenderModuleUnder" name="newModuleunder" formmethod="POST" value="'.$name2.'">Model unter Kalender</button>
                       </div>
                       <button class="btn btn-danger go_back2" onclick="CalendarBack()" name="backbutton">Zurück</button>
                       </div>
@@ -216,26 +216,26 @@ include 'functions.php';
             $string .= $result3[$i];
           }
           echo '<div class="newsModule" onclick="clickedNews()">
-          <p class="text">Das News-Modul ist in Ihre Homepage integriert.</p>
+          <p class="text">Das Newsmodul ist in Ihre Homepage integriert.</p>
           <div class="n_text">
-            <h3>Nehmen Sie hier Änderungen am Newsmodul vor.</h3>
+            <h3>Hier können Sie Änderungen am Newsmodul vornehmen.</h3>
             <form class="md-form" action="update_site.php" method="POST">
               <div class="form-group">'.$string.'
                 <div class="news_title">
-                  <input type="text" class="form-control" placeholder="Titel" name="news_title">
+                  <input type="text" class="form-control" placeholder="Überschrift" name="news_title">
                 </div>
                 <div class="news_date">
                   <input type="text" class="form-control" id="news_date" placeholder="Datum" name="news_date">
                 </div>
                 <div class="News">
-                  <textarea name="news_text" cols="40" rows="5" id="news_text"></textarea>
+                  <textarea name="news_text" cols="40" rows="5" id="news_text" placeholder="Text"></textarea>
                 </div>
                 <button type="submit" class="btn btn-info addNews" name="newNews" value="'.$name3.'" formmethod="POST">News hinzufügen</button>
                 <button class="btn btn-danger go_back3" onclick="NewsBack()" name="backbutton">Zurück</button>
               </div>
             </form>
-            <button name="left" value="'.$name3.'" class="btn btn-danger go_back left" >Left</button>
-            <button name="right" value="'.$name3.'" class="btn btn-info safeCustome right" >Right</button>
+            <button name="left" value="'.$name3.'" class="btn btn-danger go_back left" >Links</button>
+            <button name="right" value="'.$name3.'" class="btn btn-info safeCustome right" >Rechts</button>
           </div>
           </div>';
         }
@@ -248,7 +248,7 @@ include 'functions.php';
           echo '<div class="workersModule" onclick="clickedWorkers()">
                   <p class="text">Übersicht aller Mitarbeiter</p>
                   <div class="w_text">
-                    <h3>Nehmen Sie hier Änderungen am Mitarbeitermodul vor.</h3>
+                    <h3>Hier können Sie Änderungen am Mitarbeitermodul vornehmen.</h3>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$result6.'
                         <div class="person row">
@@ -399,7 +399,7 @@ include 'functions.php';
           echo '<div class="galleryModule" onclick="clickedGallery()">
           <p class="text">Das Galeriemodul ist in Ihre Homepage integriert.</p>
           <div class="g_text">
-          <h3>Nehmen Sie hier Änderungen am Galeriemodul vor.</h3>
+          <h3>Hier können Sie Ihre Bildergalerien bearbeiten.</h3>
           <form action="update_site.php" method="POST">
             <div class="form-group">'.$result4[sizeof($result4)-1].'
               <div class="new_Gallery"><input type="text" class="form-control" id="gallery" placeholder="Gallery" name="gallery"></div>

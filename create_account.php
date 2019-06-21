@@ -90,10 +90,10 @@ include 'functions.php';
                   </ul>
                   </nav>
                   <form action="fun_exe/LogOut_function.php" method="POST">
-                          <p class="loggedIn text-right">Eingeloggt als: ';
+                          <p class="loggedIn text-right">Angemeldet als: ';
                   echo $_SESSION['u_mail'];
                   // echo "<br>";
-                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Ausloggen</button>
+                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Abmelden</button>
 
                   </form>';
         }else{
@@ -117,7 +117,7 @@ include 'functions.php';
 
     <div class="abstand">
     <hr/>
-      <p class="title">Ihr Konto erstellen</p>
+      <p class="title">Konto erstellen</p>
     <hr/>
     </div>
   </div>

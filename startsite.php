@@ -73,10 +73,10 @@ session_start();
                   </ul>
                   </nav>
                   <form action="fun_exe/LogOut_function.php" method="POST">
-                          <p class="loggedIn text-right">Eingeloggt als: ';
+                          <p class="loggedIn text-right">Angemeldet als: ';
                   echo $_SESSION['u_mail'];
                   // echo "<br>";
-                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Ausloggen</button>
+                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Abmelden</button>
 
                   </form>';
         }else{
@@ -108,7 +108,7 @@ session_start();
         <div id="formContent">
           <h3>Willkommen bei PAL School!</h3>
          <br>
-         <h4>Um zu beginnen, loggen Sie sich bitte ein.
+         <h4>Um zu beginnen, melden Sie sich bitte an.
            <br>(im Menü oben rechts)
          </h4>
         </div>

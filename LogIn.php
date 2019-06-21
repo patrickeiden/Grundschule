@@ -10,7 +10,7 @@
 
 
   <link rel="stylesheet" type="text/css" href="Css_Files/LogIn.css">
-<title>Sign Up</title>
+<title>Registrieren</title>
 </head>
 <body>
   <nav class="navbar navbar-inverse">
@@ -20,12 +20,12 @@
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span>Registrieren</a></li>
-      <li><a href="LogIn.php"><span class="glyphicon glyphicon-log-in"></span>Einloggen</a></li>
+      <li><a href="LogIn.php"><span class="glyphicon glyphicon-log-in"></span>Anmelden</a></li>
     </ul>
   </div>
   </nav>
 
-  <h2>Login Form</h2>
+  <h2>Anmeldung</h2>
 
   <form action="fun_exe/LogIn_function.php" method="POST">
     <div class="imgcontainer">
@@ -33,21 +33,21 @@
     </div>
 
     <div class="container">
-      <label for="uname"><b>Email</b></label>
+      <label for="uname"><b>E-Mail</b></label>
       <input type="text" placeholder="Enter Email" name="email" required>
 
-      <label for="psw"><b>Password</b></label>
+      <label for="psw"><b>Passwort</b></label>
       <input type="password" placeholder="Enter Password" name="psw" required>
 
-      <button type="submit" name="login" formmethod="POST">Einloggen</button>
+      <button type="submit" name="login" formmethod="POST">Anmelden</button>
       <label>
-        <input type="checkbox" checked="checked" name="remember">Eingeloggt bleiben
+        <input type="checkbox" checked="checked" name="remember">Angemeldet bleiben
       </label>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
       <button type="button" class="cancelbtn">Abbrechen</button>
-      <span class="psw"><a href="#">Passwort</a> vergessen?</span>
+      <span class="psw"><a href="#">Passwort vergessen?</a></span>
     </div>
   </form>
 

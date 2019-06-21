@@ -36,9 +36,9 @@ if(isset($_SESSION['u_id'])){
     <?php
       if(isset($_SESSION['u_id'])){
         echo '<form action="fun_exe/LogOut_function.php" method="POST">
-          <p class="loggedIn">Eingeloggt als: ';
+          <p class="loggedIn">Angemeldet als: ';
         echo $_SESSION['u_mail'];
-        echo '<button type="submit" name="logout" formmethod="POST" class="logout">Ausloggen</button></li>
+        echo '<button type="submit" name="logout" formmethod="POST" class="logout">Abmelden</button></li>
       </form> </div>
     </nav>';
   }else{
@@ -50,11 +50,11 @@ if(isset($_SESSION['u_id'])){
         <label for="psw"><b>Passwort</b></label>
         <input type="password" placeholder="Passwort eingeben" name="psw" required>
         <label>
-          <input type="checkbox" checked="checked" name="remember">Eingeloggt bleiben
+          <input type="checkbox" checked="checked" name="remember">Angemeldet bleiben
         </label>
       </div>
       <ul class="nav navbar-nav navbar-right">
-        <li><button type="submit" name="login" formmethod="POST"><span class="glyphicon glyphicon-log-in"></span>Einloggen</button></li>
+        <li><button type="submit" name="login" formmethod="POST"><span class="glyphicon glyphicon-log-in"></span>Anmelden</button></li>
         <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span>Registrieren</a></li>
       </ul>
     </div>
