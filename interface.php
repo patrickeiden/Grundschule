@@ -143,7 +143,7 @@ session_start();
         <a class="btn btn-primary btn-lg" href="personal_site2.php" role="button">Website</a>
         <br>
         <br>
-        <p> Wenn Sie Website bereits erzeugt haben, können Sie diese hier vollständig an Ihre Wünsche anpassen und die einzelnen Komponenten mit Inhalten füllen. </p>
+        <p> Wenn Sie die Website bereits erzeugt haben, können Sie diese hier vollständig an Ihre Wünsche anpassen und die einzelnen Komponenten mit Inhalten füllen. </p>
       </div>
   </div>
 </div>
