@@ -178,7 +178,7 @@ include 'functions.php';
         	<h5>Startseite</h5>
          	<p>Konfigurieren Sie hier die Startseite der Website. (Wählen Sie anzuzeigende Bilder, wie z.B. das Logo, aus, und stellen Sie die Schule kurz vor.)</p>
             <div class="form-group">
-              <h5>Fügen Sie Ihrer Website ein Startseitenmodul hinzu.</h5>
+             
               <p>Name der Schule:</p>
               <input type="text" class="form-control" id="nameSchool" placeholder="Name der Schule" name="nameSchool" >
               <p>Logo der Schule auswählen:</p>
@@ -195,11 +195,11 @@ include 'functions.php';
         <div id="costume-module">
             <div class="form-group">
             <h5>Custom-Modul</h5>
-          	<p>(Für fortgeschrittene Nutzer) Hier können Sie sich frei definierbare (als HTML-Code) Module anlegen.</p>
+          	<p>Hier können Sie sich frei definierbare (mittels HTML-Code) Module anlegen. (Für fortgeschrittene Nutzer)</p>
               <p>Titel:</p>
-                <input type="text" class="form-control" id="title" placeholder="Title" name="title"></br>
+                <input type="text" class="form-control" id="title" placeholder="Titel" name="title"></br>
                 <input type ="checkbox" name ="costume_button" value="1"/>
-                <p id="costume_button" class="events">Diese Box auswählen, um das Startseitenmodul zu bestätigen</p>
+                <p id="costume_button" class="events">Diese Box auswählen, um das Custom-Modul zu bestätigen</p>
             </div>
         </div>
 
@@ -208,7 +208,7 @@ include 'functions.php';
           <p>Fügt Ihrer Homepage einen Kalender hinzu, in dem Ereignisse und wichtige Daten eingetragen werden können.</p>
           <div class="form-group">
           <input type="checkbox" name="calendar" value="1"/>
-          <p class="events">Diese Box auswählen, um das Kalendermodul in die Website zu integrieren.</p>
+          <p class="events">Diese Box auswählen, um das Kalendermodul in die Website zu integrieren</p>
           </div>
         </div>
 
@@ -225,7 +225,7 @@ include 'functions.php';
           <p class="events">5</p>
           </div>
           <input type ="checkbox" name ="news_button" value="1"/>
-          <p class="events">Diese Box auswählen, um das Newsmodul in die Website zu integrieren.</p>
+          <p class="events">Diese Box auswählen, um das Newsmodul in die Website zu integrieren</p>
         </div>
 
         <div id="conf-module4">
@@ -250,7 +250,7 @@ include 'functions.php';
           <input type="text" class="form-control" id="ort_school" placeholder="Ort" name="ort_school" >
         </div>
           <input type="checkbox" name="anfahrt_button" value="1" />
-          <p class="events">Diese Box auswählen, um das Anfahrtsmodul in die Website zu integrieren.</p>
+          <p class="events">Diese Box auswählen, um das Anfahrtsmodul in die Website zu integrieren</p>
         </div>
 
         <div id="conf-module7">
@@ -263,6 +263,7 @@ include 'functions.php';
         <div id="conf-module8">
           <h5>Schulklassen</h5>
         	<p>Fügt Ihrer Homepage eine Auflistung von Klassen hinzu, die Sie frei eintragen können.</p>
+          <input type="checkbox" name="classes_button" value="1" />
           <p class="events">Diese Box auswählen, um das Klassenmodul in die Website zu integrieren.</p>
         </div>
 
@@ -273,7 +274,7 @@ include 'functions.php';
           <p>Stelle eine Datei (z.B. ein Formular) zum Download bereit:</p>
           <input type="file" name="pdf" accept="image/*">
           <input type="checkbox" name="signup_button" value="1" />
-          <p class="events">Diese Box auswählen, um das Einschreibungsmodul in die Website zu integrieren.</p>
+          <p class="events">Diese Box auswählen, um das Einschreibungsmodul in die Website zu integrieren</p>
         </div>
 
         <div id="conf-module10">
@@ -329,7 +330,7 @@ include 'functions.php';
         <form action="generate_html.php" method="POST" autocomplete="off">
         <div id="start-module">
             <div class="form-group">
-              <h5>Fügen Sie Ihrer Website ein Startseitenmodul hinzu.</h5>
+             
               <p>Name der Schule:</p>
               <input type="text" class="form-control" id="nameSchool" placeholder="Name der Schule" name="nameSchool" >
               <p>Logo der Schule auswählen:</p>
@@ -350,7 +351,7 @@ include 'functions.php';
                       <p>Title:</p>
                         <input type="text" class="form-control" id="title" placeholder="Title" name="title"></br>
                         <input type ="checkbox" name ="costume_button" value="1"/>
-                        <p id="costume_button" class="events">Diese Box auswählen, um Startseitenmodul abzuschließen</p>
+                        <p id="costume_button" class="events">Diese Box auswählen, um Custom-Modul hinzuzufügen</p>
                     </div>
                 </div>';
         } else if (CustomeOn($_SESSION['u_id']) == 1){
@@ -358,7 +359,7 @@ include 'functions.php';
                   <div class="form-group">
                     <h5>Integrieren Sie das Custom-Modul in Ihre Website.</h5>
                       <input type ="checkbox" name ="costume_button" value="1"/>
-                      <p id="costume_button" class="events">Diese Box auswählen, um Custom-Modul zu entfernen.</p>
+                      <p id="costume_button" class="events">Diese Box auswählen, um Custom-Modul zu entfernen</p>
                   </div>
                 </div>';
         }
@@ -369,7 +370,7 @@ include 'functions.php';
                   <p>Fügt Ihrer Homepage einen Kalender hinzu, in den Ereignisse und wichtige Daten eingetragen werden können.</p>
                   <div class="form-group">
                   <input type="checkbox" name="calendar" value="1"/>
-                  <p class="events">Diese Box auswählen, um Kalendermodul zu integrieren.</p>
+                  <p class="events">Diese Box auswählen, um Kalendermodul zu integrieren</p>
                   </div>
                 </div>';
         }else if(CalendarOn($_SESSION['u_id']) == 1){
@@ -378,7 +379,7 @@ include 'functions.php';
                   <p>Fügt Ihrer Homepage einen Kalender hinzu, in den Ereignisse und wichtige Daten eingetragen werden können.</p>
                   <div class="form-group">
                   <input type="checkbox" name="calendar" value="1"/>
-                  <p class="events">Diese Box auswählen, um Kalendermodul zu entfernen.</p>
+                  <p class="events">Diese Box auswählen, um Kalendermodul zu entfernen</p>
                   </div>
                 </div>';
         } 
@@ -397,14 +398,14 @@ include 'functions.php';
                   <p class="events">5</p>
                   </div>
                   <input type ="checkbox" name ="news_button" value="1"/>
-                  <p class="events">Diese Box auswählen, um Newsmodul zu integrieren.</p>
+                  <p class="events">Diese Box auswählen, um Newsmodul in die Website zu integrieren</p>
                 </div>';
         } else if(NewsOn($_SESSION['u_id']) == 1){
             echo '<div id="conf-module3">
                     <h5>Wählen Sie die Einstellungen für das Newsmodul.</h5>
                     <div class="form-group">
                     <input type ="checkbox" name ="news_button" value="1"/>
-                    <p class="events">Diese Box auswählen, um Newsmodul zu entfernen.</p>
+                    <p class="events">Diese Box auswählen, um Newsmodul zu entfernen</p>
                     </div>
                   </div>';
         }
@@ -414,14 +415,14 @@ include 'functions.php';
                 <h5>Fügt Ihrer Homepage eine Galerie hinzu, in der Bilder präsentiert werden können.</h5>
                    <p>Sie können verschiedene Galerien anlegen. </p>
                 <input type ="checkbox" name ="gallery_button" value="1"/>
-                <p class="events">Diese Box auswählen, um Galeriemodul zu integrieren.</p>
+                <p class="events">Diese Box auswählen, um Galeriemodul in die Website zu integrieren</p>
               </div>';
         }else if(GalleryOn($_SESSION['u_id']) == 1){
           echo '<div id="conf-module4">
                   <h5>Fügt Ihrer Homepage eine Galerie hinzu, in der Bilder präsentiert werden können.</h5>
                      <p>Sie können verschiedene Galerien anlegen. </p>
                   <input type ="checkbox" name ="gallery_button" value="1"/>
-                  <p class="events">Diese Box auswählen, um Galeriemodul zu entfernen.</p>
+                  <p class="events">Diese Box auswählen, um Galeriemodul zu entfernen</p>
                 </div>';
         }
 
@@ -459,13 +460,13 @@ include 'functions.php';
                   <input type="text" class="form-control" id="ort_school" placeholder="Ort" name="ort_school" >
                 </div>
                   <input type="checkbox" name="anfahrt_button" value="1" />
-                  <p class="events">Diese Box auswählen, um Anfahrtsmodul zu integrieren.</p>
+                  <p class="events">Diese Box auswählen, um Anfahrtsmodul in Website zu integrieren</p>
               </div>';
         }else if(AnfahrtOn($_SESSION['u_id']) == 1){
           echo '<div id="conf-module6" class="entf">
                   <h5> Fügt Ihrer Wesbite ein Anfahrtsmodul hinzu.</h5>
                     <input type="checkbox" name="anfahrt_button" value="1" />
-                    <p class="events">Diese Box auswählen, um Anfahrtsmodul zu entfernen.</p>
+                    <p class="events">Diese Box auswählen, um Anfahrtsmodul zu entfernen</p>
                 </div>';
         }
 
@@ -473,13 +474,13 @@ include 'functions.php';
          echo '<div id="conf-module7">
                 <h5>Fügt Ihrer Homepage eine Auflistung der Mitarbeiter hinzu, die Sie eintragen.</h5>
                 <input type="checkbox" name="worker_button" value="1" />
-                <p class="events">Diese Box auswählen, um Mitarbeitermodul zu integrieren.</p>
+                <p class="events">Diese Box auswählen, um Mitarbeitermodul in Website zu integrieren</p>
               </div>';
         }else if(WorkersOn($_SESSION['u_id']) == 1){
           echo '<div id="conf-module7">
                 <h5>Fügt Ihrer Homepage eine Auflistung der Mitarbeiter hinzu, die Sie eintragen.</h5>
                 <input type="checkbox" name="worker_button" value="1" />
-                <p class="events">Diese Box auswählen, um Mitarbeitermodul zu entfernen.</p>
+                <p class="events">Diese Box auswählen, um Mitarbeitermodul zu entfernen</p>
               </div>';
         }
 
@@ -487,13 +488,13 @@ include 'functions.php';
          echo '<div id="conf-module8">
                 <h5>Fügt Ihrer Homepage eine Auflistung aller Klassen hinzu, die Sie eintragen.</h5>
                 <input type="checkbox" name="classes_button" value="1" />
-                <p class="events">Diese Box auswählen, um Klassenmodul zu integrieren.</p>
+                <p class="events">Diese Box auswählen, um Klassenmodul in Website zu integrieren</p>
               </div>';
         }else if(ClassesOn($_SESSION['u_id']) == 1){
           echo '<div id="conf-module8">
                 <h5>Fügt Ihrer Homepage eine Auflistung aller Klassen hinzu, die Sie eintragen.</h5>
                 <input type="checkbox" name="classes_button" value="1" />
-                <p class="events">Diese Box auswählen, um Klassenmodul zu entfernen.</p>
+                <p class="events">Diese Box auswählen, um Klassenmodul zu entfernen</p>
               </div>';
         }
 
@@ -505,13 +506,13 @@ include 'functions.php';
                   <p>Stelle eine Datei zum Download bereit:</p>
                   <input type="file" name="pdf" accept="image/*">
                   <input type="checkbox" name="signup_button" value="1" />
-                  <p class="events">Diese Box auswählen, um Einschreibungsmodul zu integrieren.</p>
+                  <p class="events">Diese Box auswählen, um Einschreibungsmodul in Website zu integrieren</p>
                 </div>';
         }else if(SignupOn($_SESSION['u_id']) == 1){
           echo '<div id="conf-module9">
                   <h5>Fügt Ihrer Homepage ein Einschreibungssytem hinzu.</h5>
                   <input type="checkbox" name="signup_button" value="1" />
-                  <p class="events">Diese Box auswählen, um Einschreibungsmodul zu entfernen.</p>
+                  <p class="events">Diese Box auswählen, um Einschreibungsmodul zu entfernen</p>
                 </div>';
         }
 
@@ -521,7 +522,7 @@ include 'functions.php';
         </div>
 
         <div id="generate_button">
-         <button type="submit" name="test" formmethod="POST">Generate</button>
+         <button type="submit" name="test" formmethod="POST">Generieren</button>
         </div>
         </form>';
       }
