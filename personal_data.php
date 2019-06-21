@@ -188,10 +188,10 @@ if ($result->num_rows > 0) {
                   </nav>
                   <hr>
                   <form action="fun_exe/LogOut_function.php" method="POST">
-                          <p class="loggedIn text-right">Eingeloggt als: ';
+                          <p class="loggedIn text-right">Angemeldet als: ';
                   echo $_SESSION['u_mail'];
                   // echo "<br>";
-                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Ausloggen</button>
+                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Abmelden</button>
 
                   </form>';
         }else{
@@ -211,7 +211,7 @@ if ($result->num_rows > 0) {
   <div class="row">
     <div class="col-sm-12">
       <hr/>
-        <p class="title">Ihre persönliche Daten editieren</p>
+        <p class="title">Bearbeiten Sie Ihre persönlichen Daten</p>
       <hr/>
     </div>
   </div>

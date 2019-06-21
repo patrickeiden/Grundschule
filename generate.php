@@ -102,10 +102,10 @@ include 'functions.php';
                   </nav>
                   <hr>
                   <form action="fun_exe/LogOut_function.php" method="POST">
-                          <p class="loggedIn text-right">Eingeloggt als: ';
+                          <p class="loggedIn text-right">Angemeldet als: ';
                   echo $_SESSION['u_mail'];
                   // echo "<br>";
-                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Ausloggen</button>
+                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Abmelden</button>
 
                   </form>';
         }else{
@@ -171,45 +171,50 @@ include 'functions.php';
           </div>
         </div>
       </div>
+
       <div class ="col-sm-6">
         <form action="generate_html.php" method="POST" autocomplete="off">
         <div id="start-module">
+        	<h5>Startseite</h5>
+         	<p>Konfigurieren Sie hier die Startseite der Website. (Wählen Sie anzuzeigende Bilder, wie z.B. das Logo, aus, und stellen Sie die Schule kurz vor.)</p>
             <div class="form-group">
-              <h5>Füge Ihrer Website ein Startseitenmodul hinzu.</h5>
+              <h5>Fügen Sie Ihrer Website ein Startseitenmodul hinzu.</h5>
               <p>Name der Schule:</p>
               <input type="text" class="form-control" id="nameSchool" placeholder="Name der Schule" name="nameSchool" >
               <p>Logo der Schule auswählen:</p>
               <input type="file" name="logo" accept="image/*">
-              <p>Erstes Bild für Slider wählen:</p>
+              <p>Erstes Bild für den Slider wählen:</p>
               <input type="file" id="school_slider2" name="school_slider2" accept="image/*">
               <p>Überschrift des Textes:</p>
               <input type="text" class="form-control" id="header" placeholder="Überschrift" name="header">
-              <p>Kurzbeschreibung:</p>
+              <p>Kurzbeschreibung der Schule:</p>
               <textarea name="desciption" cols="40" rows="5" class="desciption"></textarea>
             </div>
         </div>
+
         <div id="costume-module">
             <div class="form-group">
-              <h5>Füge Ihrer Website einen Titel hinzu.</h5>
-              <p>Title:</p>
+            <h5>Custom-Modul</h5>
+          	<p>(Für fortgeschrittene Nutzer) Hier können Sie sich frei definierbare (als HTML-Code) Module anlegen.</p>
+              <p>Titel:</p>
                 <input type="text" class="form-control" id="title" placeholder="Title" name="title"></br>
                 <input type ="checkbox" name ="costume_button" value="1"/>
-                <p id="costume_button" class="events">Diese Box auswählen, um Startseitenmodul abzuschließen</p>
+                <p id="costume_button" class="events">Diese Box auswählen, um das Startseitenmodul zu bestätigen</p>
             </div>
         </div>
 
          <div id="calendar_module">
-          <h5>Kalendermodul</h5>
-          <p>Fügt Ihrer Homepage einen Kalender hinzu, in den Ereignisse und wichtige Daten eingetragen werden können.</p>
+          <h5>Kalender</h5>
+          <p>Fügt Ihrer Homepage einen Kalender hinzu, in dem Ereignisse und wichtige Daten eingetragen werden können.</p>
           <div class="form-group">
           <input type="checkbox" name="calendar" value="1"/>
-          <p class="events">Diese Box auswählen, um Kalendermodul zu integrieren.</p>
+          <p class="events">Diese Box auswählen, um das Kalendermodul in die Website zu integrieren.</p>
           </div>
         </div>
 
         <div id="conf-module3">
-          <h5>Wählen Sie die Einstellungen für das Newsmodul.</h5>
-          <p>Wählen Sie, wieviele News pro Seite angezeigt werden sollen (3 bis 5)</p>
+        	<h5>News</h5>
+        	<p>Nehmen Sie die Einstellungen für das Newsmodul (News pro Seite: 3-5) vor.</p>
           <div class="form-group">
           <p class="events_h">Anzahl der news:</p>
           <input type ="radio" name ="news_number" value="3"/>
@@ -220,19 +225,20 @@ include 'functions.php';
           <p class="events">5</p>
           </div>
           <input type ="checkbox" name ="news_button" value="1"/>
-          <p class="events">Diese Box auswählen, um Newsmodul zu integrieren.</p>
+          <p class="events">Diese Box auswählen, um das Newsmodul in die Website zu integrieren.</p>
         </div>
 
         <div id="conf-module4">
-          <h5>Fügt Ihrer Homepage eine Galerie hinzu, in der Bilder präsentiert werden können.</h5>
-             <p>Sie können verschiedene Galerien anlegen. </p>
+        <h5>Bildergalerie</h5>
+        <p>Fügt Ihrer Homepage eine Galeriefunktion hinzu, in der Bilder präsentiert werden können. Es können mehrere Galerien angelegt werden.</p>
           <input type ="checkbox" name ="gallery_button" value="1"/>
-          <p class="events">Diese Box auswählen, um Galeriemodul zu integrieren.</p>
+          <p class="events">Diese Box auswählen, um das Galeriemodul in die Website zu integrieren.</p>
         </div>
 
         <div id="conf-module6">
+         <h5>Anfahrt</h5>
+        <p>Fügt Ihrer Website einen Bereich mit Informationen zur Lage der Schule sowie Anfahrtsanweisungen hinzu.</p>
         <div class="form-group">
-        <h5> Fügt Ihrer Wesbite ein Anfahrtsmodul hinzu.</h5>
           <p>Beschreibung Anfahrt:</p>
           <textarea name="desciption_anfahrt" cols="40" rows="5" class="desciption_anfahrt"></textarea>
           <p>Beschreibung Gebäude:</p>
@@ -244,38 +250,40 @@ include 'functions.php';
           <input type="text" class="form-control" id="ort_school" placeholder="Ort" name="ort_school" >
         </div>
           <input type="checkbox" name="anfahrt_button" value="1" />
-          <p class="events">Diese Box auswählen, um Anfahrtsmodul zu integrieren.</p>
+          <p class="events">Diese Box auswählen, um das Anfahrtsmodul in die Website zu integrieren.</p>
         </div>
 
         <div id="conf-module7">
-          <h5>Fügt Ihrer Homepage eine Auflistung der Mitarbeiter hinzu, die Sie eintragen.</h5>
+          <h5>Personen</h5>
+        	<p>Fügt Ihrer Homepage eine Auflistung von Mitarbeitern und engagierten Personen hinzu, die Sie frei eintragen können.</p>
           <input type="checkbox" name="worker_button" value="1" />
-          <p class="events">Diese Box auswählen, um Mitarbeitermodul zu integrieren.</p>
+          <p class="events">Diese Box auswählen, um das Mitarbeitermodul in die Website zu integrieren.</p>
         </div>
 
         <div id="conf-module8">
-          <h5>Fügt Ihrer Homepage eine Auflistung aller Klassen hinzu, die Sie eintragen.</h5>
-          <input type="checkbox" name="classes_button" value="1" />
-          <p class="events">Diese Box auswählen, um Klassenmodul zu integrieren.</p>
+          <h5>Schulklassen</h5>
+        	<p>Fügt Ihrer Homepage eine Auflistung von Klassen hinzu, die Sie frei eintragen können.</p>
+          <p class="events">Diese Box auswählen, um das Klassenmodul in die Website zu integrieren.</p>
         </div>
 
         <div id="conf-module9">
-          <h5>Fügt Ihrer Homepage ein Einschreibungssytem hinzu.</h5>
-          <p>Beschreibung der Einschreibung:</p>
+          <h5>Einschreibung</h5>
+        	<p>Fügt Ihrer Homepage ein einfaches System für Einschreibungen hinzu.</p>
           <textarea name="desciption_signup" cols="40" rows="5" class="desciption_signup"></textarea><br>
-          <p>Stelle eine Datei zum Download bereit:</p>
+          <p>Stelle eine Datei (z.B. ein Formular) zum Download bereit:</p>
           <input type="file" name="pdf" accept="image/*">
           <input type="checkbox" name="signup_button" value="1" />
-          <p class="events">Diese Box auswählen, um Einschreibungsmodul zu integrieren.</p>
+          <p class="events">Diese Box auswählen, um das Einschreibungsmodul in die Website zu integrieren.</p>
         </div>
 
         <div id="conf-module10">
-          <h5>Ihre Homepage enthält ein Impressum.</h5>
+          <h5>Impressum</h5>
+        	<p>Geben Sie ein Impressum für die Schulwebsite an.</p>
           <textarea name="impressum" cols="40" rows="5" class="impressum" ></textarea><br><br>
         </div>
 
         <div id="generate_button">
-         <button type="submit" name="test" formmethod="POST">Generate</button>
+         <button type="submit" name="test" formmethod="POST">Generieren</button>
         </div>
         </form>';
       } else if($check == 1) {
@@ -321,7 +329,7 @@ include 'functions.php';
         <form action="generate_html.php" method="POST" autocomplete="off">
         <div id="start-module">
             <div class="form-group">
-              <h5>Füge Ihrer Website ein Startseitenmodul hinzu.</h5>
+              <h5>Fügen Sie Ihrer Website ein Startseitenmodul hinzu.</h5>
               <p>Name der Schule:</p>
               <input type="text" class="form-control" id="nameSchool" placeholder="Name der Schule" name="nameSchool" >
               <p>Logo der Schule auswählen:</p>
@@ -338,7 +346,7 @@ include 'functions.php';
         if(CustomeOn($_SESSION['u_id']) == 0){
           echo '<div id="costume-module">
                     <div class="form-group">
-                      <h5>Füge Ihrer Website einen Titel hinzu.</h5>
+                      <h5>Fügen Sie Ihrer Website einen Titel hinzu.</h5>
                       <p>Title:</p>
                         <input type="text" class="form-control" id="title" placeholder="Title" name="title"></br>
                         <input type ="checkbox" name ="costume_button" value="1"/>
@@ -348,9 +356,9 @@ include 'functions.php';
         } else if (CustomeOn($_SESSION['u_id']) == 1){
           echo '<div id="costume-module">
                   <div class="form-group">
-                    <h5>Füge Ihrer Website einen Titel hinzu.</h5>
+                    <h5>Integrieren Sie das Custom-Modul in Ihre Website.</h5>
                       <input type ="checkbox" name ="costume_button" value="1"/>
-                      <p id="costume_button" class="events">Diese Box auswählen, um Startseitenmodul zu entfernen.</p>
+                      <p id="costume_button" class="events">Diese Box auswählen, um Custom-Modul zu entfernen.</p>
                   </div>
                 </div>';
         }
@@ -377,7 +385,7 @@ include 'functions.php';
 
         if(NewsOn($_SESSION['u_id']) == 0){
           echo '<div id="conf-module3">
-                  <h5>Wählen Sie die Einstellungen für das Newsmodul.</h5>
+                  <h5>Newsmodul</h5>
                   <p>Wählen Sie, wieviele News pro Seite angezeigt werden sollen (3 bis 5)</p>
                   <div class="form-group">
                   <p class="events_h">Anzahl der news:</p>
@@ -518,7 +526,7 @@ include 'functions.php';
         </form>';
       }
     } else{
-      echo  'Bitte loggen Sie sich zuerst ein.';
+      echo  'Bitte melden Sie sich zuerst an.';
     }
 
     ?>

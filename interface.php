@@ -97,10 +97,10 @@ session_start();
                   </nav>
                   <hr>
                   <form action="fun_exe/LogOut_function.php" method="POST">
-                          <p class="loggedIn text-right">Eingeloggt als: ';
+                          <p class="loggedIn text-right">Angemeldet als: ';
                   echo $_SESSION['u_mail'];
                   // echo "<br>";
-                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Ausloggen</button>
+                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Abmelden</button>
 
                   </form>';
         }else{
@@ -121,7 +121,7 @@ session_start();
   <div class="col-sm-12">
     <div class="col-sm-4 text-center">
       <div id="interface_generate_button">
-        <h3 class="text">Generate your Website</h3>
+        <h3 class="text">Generieren Sie Ihre Website</h3>
         <a class="btn btn-primary btn-lg" href="generate.php" role="button">Generieren</a>
         <br>
         <br>
@@ -130,8 +130,8 @@ session_start();
     </div>
     <div class="col-sm-4 text-center">
       <div id="interface_personal_button">
-        <h3 class="text">Change your personal data</h3>
-        <a class="btn btn-primary btn-lg" href="personal_data.php" role="button">Daten</a>
+        <h3 class="text">Bearbeiten Sie Ihre persönlichen Daten</h3>
+        <a class="btn btn-primary btn-lg" href="personal_data.php" role="button">Persönliche Daten</a>
         <br>
         <br>
         <p> Text </p>
@@ -139,8 +139,8 @@ session_start();
     </div>
     <div class="col-sm-4 text-center">
       <div id="interface_manage_button">
-        <h3 class="text">Change settings on your generated site</h3>
-        <a class="btn btn-primary btn-lg" href="personal_site2.php" role="button">Persönliche Seite</a>
+        <h3 class="text">Bearbeiten Sie Ihre Website</h3>
+        <a class="btn btn-primary btn-lg" href="personal_site2.php" role="button">Website</a>
         <br>
         <br>
         <p> Text </p>

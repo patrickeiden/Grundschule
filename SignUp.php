@@ -21,7 +21,7 @@
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span>Registrieren</a></li>
-      <li><a href="LogIn.php"><span class="glyphicon glyphicon-log-in"></span>Einloggen</a></li>
+      <li><a href="LogIn.php"><span class="glyphicon glyphicon-log-in"></span>Anmelden</a></li>
     </ul>
   </div>
   </nav>
@@ -45,7 +45,7 @@
       <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
 
       <label>
-        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px">Eingeloggt bleiben
+        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px">Angemeldet bleiben
       </label>
 
       <p>Durch das Erstellen eines Kontos stimmen Sie unseren <a href="#" style="color:dodgerblue">AGBs und Datenschutzrichtlinien</a> zu.</p>

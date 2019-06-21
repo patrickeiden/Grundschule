@@ -95,10 +95,10 @@ session_start();
                   </nav>
                   <hr>
                   <form action="fun_exe/LogOut_function.php" method="POST">
-                          <p class="loggedIn text-right"> Logged in with: ';
+                          <p class="loggedIn text-right">Angemeldet als: ';
                   echo $_SESSION['u_mail'];
                   // echo "<br>";
-                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Logout</button>
+                  echo    '<button type="submit" name="logout" formmethod="POST" class="logout text-right">Abmelden</button>
 
                   </form>';
         }else{
@@ -134,24 +134,24 @@ session_start();
         echo '<div class="startModule" onclick="clickedStart()">
                 <p class="text">Konfiguriere die Startseite</p>
                 <div class="s_text">
-                  <p>This module exists in order to change important settings on the Start site</p>
+                  <p>Nehmen Sie hier Einstellungen an der Startseite vor.</p>
                   <form action="update_site.php" method="POST">
                     <div class="form-group">
-                      <p>Change the Name of your school:</p>
+                      <p>Name der Schule:</p>
                       <input type="text" class="form-control" id="school_name" placeholder="Name" name="school_name" value="'.$Startname[0] .'">
-                      <p>Setzen sie das Logo ihrer Schule:</p>
+                      <p>Wählen Sie ein Schullogo:</p>
                       <input type="file" id="school_logo" name="school_logo" accept="image/*">'.$form5.'
-                      <p>Change the header of your school:</p>
+                      <p>Wählen Sie einen Header für die Website:</p>
                       <input type="text" class="form-control" id="school_header" placeholder="Überschrift" name="school_header" value="'.$Startheader[0].'">
-                      <p>Change the text of your school:</p>
+                      <p>Kurzbeschreibung der Schule:</p>
                       <textarea name="school_description" cols="40" rows="5" id="school_description" required>'.$Starttext[0].'</textarea>
-                      <p>Verändere die Adresse im Footer:</p>
+                      <p>Adresse der Schule:</p>
                       <div class="address">
                         <input type="text" class="form-control" id="school_street" placeholder="Straße" name="school_street" value="'.$Startstreet[0].'">
                         <input type="text" class="form-control" id="school_plz" placeholder="PLZ" name="school_plz" value="'.$Startplz[0].'">
                         <input type="text" class="form-control" id="school_ort" placeholder="Ort" name="school_ort" value="'.$Startort[0].'">
                       </div>
-                      <p>Verändere Kontaktdaten im Footer:</p>
+                      <p>Kontaktdaten der Schule:</p>
                       <div class="contact">
                         <input type="text" class="form-control" id="school_tel" placeholder="Telefon" name="school_tel" value="'.$Startnumber[0].'">
                         <input type="text" class="form-control" id="school_fax" placeholder="Fax" name="school_fax" value="'.$Startfax[0].'">
@@ -169,24 +169,24 @@ session_start();
           $name1 = oneValueFromTableData($_SESSION['u_id'], "custome_file_name");
           $result1 = printFormforCustome($name1, false);
           echo '<div class="costumeModule" onclick="clickedCustome()">
-                  <p class="text"> the costume module is currently intergrated on your website</p>
+                  <p class="text">Das Custom-Mo</p>
                   <div class="c_text">
-                    <p>This module exists in order to change important settings on the custome module</p>
+                    <p>Hier kann das Custom-Modul bearbeitet werden.</p>
                     <form action="update_site.php" method="POST">
                     <div class="form-group">
-                      <p>Change the titel of the nav bar for this module:</p>
-                        <input type="text" class="form-control" id="nav_title" placeholder="Title" name="nav_title" value="'.$nav1 .'">
+                      <p>Titel der Navigationsbar für dieses Modul:</p>
+                        <input type="text" class="form-control" id="nav_title" placeholder="Titel" name="nav_title" value="'.$nav1 .'">
                     </div>
                     <div class="form-group">'.$result1.'
-                      <p>add a Module</p>
-                      <p>Title:</p>
-                      <input type="text" class="form-control" id="title" placeholder="Title" name="custome_title">
-                      <p>Code</p>
-                      <textarea name="custome_code" cols="40" rows="5" class="code"></textarea>
-                      <button type="submit" name="newModule" formmethod="POST" value="'.$name1.'">add a new Module</button>
-                      <button type="submit" name="delete" formmethod="POST" value="'.$name1.'">delete Modules</button>
-                      <button type="submit" name="changes" formmethod="POST" value="'.$name1.'">Save Changes</button>
-                      <button class="go_back "onclick="CustomeBack()" name="backbutton">Go Back</button>
+                      <p>Modul hinzuf.</p>
+                      <p>Titel:</p>
+                      <input type="text" class="form-control" id="title" placeholder="Titel" name="custome_title">
+                      <p>Code:</p>
+                      <textarea name="custome_code" cols="40" rows="5" class="code" placeholder="code"></textarea>
+                      <button type="submit" name="newModule" formmethod="POST" value="'.$name1.'">Neues Modul hinzuf.</button>
+                      <button type="submit" name="delete" formmethod="POST" value="'.$name1.'">Module löschen</button>
+                      <button type="submit" name="changes" formmethod="POST" value="'.$name1.'">Änderungen speichern</button>
+                      <button class="go_back "onclick="CustomeBack()" name="backbutton">Zurück</button>
                     </div>
                     </form>
                   </div>
@@ -196,25 +196,25 @@ session_start();
           $name2 = oneValueFromTableData($_SESSION['u_id'], "calendar_file");
           $result2 = printFormforCustome($name2, true);
           echo '<div class="calendarModule" onclick="clickedCalendar()">
-                  <p class="text"> the calendar module is currently intergrated on your website</p>
+                  <p class="text">Das Kalendermodul ist aktuell in Ihre Website integriert.</p>
                   <div class="k_text">
-                    <p>This module exists in order to change important settings on the calendar module</p>
+                    <p>Hier können Sie Änderungen am Kalender für die Schule vornehmen.</p>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$result2.'
                       <p>Add an event: (Date ex.: 2018-03-27)</p>
-                        <input type="text" class="form-control" id="event_title" placeholder="Title" name="event_title">
-                        <input type="text" class="form-control" id="event_date" placeholder="Date" name="event_date"><br>
-                        <p>add a Module</p>
-                        <p>Title:</p>
-                        <input type="text" class="form-control" id="title" placeholder="Title" name="calendar_title">
-                        <p>Code</p>
-                        <textarea name="calendar_code" cols="40" rows="5" class="code"></textarea>
-                        <button type="submit" name="newEvent" formmethod="POST" value="'.$name2.'">add a new event</button>
-                        <button type="submit" name="newModuleabove" formmethod="POST" value="'.$name2.'">add a new Module above the calendar</button>
-                        <button type="submit" name="newModuleunder" formmethod="POST" value="'.$name2.'">add a new Module under the calendar</button>
-                        <button type="submit" name="delete2" formmethod="POST" value="'.$name2.'">delete Modules</button>
-                        <button type="submit" name="changes_calendar" formmethod="POST" value="'.$name2.'">Save Changes</button>
-                        <button class="go_back2" onclick="CalendarBack()" name="backbutton">Go Back</button>
+                        <input type="text" class="form-control" id="event_title" placeholder="Kalendertitel" name="event_title">
+                        <input type="text" class="form-control" id="event_date" placeholder="Datum" name="event_date"><br>
+                        <p>Modul hinzuf.</p>
+                        <p>Titel:</p>
+                        <input type="text" class="form-control" id="title" placeholder="Titel" name="calendar_title">
+                        <p>Code:</p>
+                        <textarea name="calendar_code" cols="40" rows="5" class="code" placeholder="code"></textarea>
+                        <button type="submit" name="newEvent" formmethod="POST" value="'.$name2.'">Ereignis hinzufügen</button>
+                        <button type="submit" name="newModuleabove" formmethod="POST" value="'.$name2.'">Modul über Kalender einfügen</button>
+                        <button type="submit" name="newModuleunder" formmethod="POST" value="'.$name2.'">Modul unter Kalender einfügen</button>
+                        <button type="submit" name="delete2" formmethod="POST" value="'.$name2.'">Module löschen</button>
+                        <button type="submit" name="changes_calendar" formmethod="POST" value="'.$name2.'">Änderungen speichern</button>
+                        <button class="go_back2" onclick="CalendarBack()" name="backbutton">Zurück</button>
                       </div>
                     </form>
                   </div>
@@ -231,24 +231,25 @@ session_start();
             $string .= $result3[$i];
           }
           echo '<div class="newsModule" onclick="clickedNews()">
-          <p class="text"> the news module is currently intergrated on your website</p>
+          <p class="text">Das Newsmodul ist momentan in Ihre Website integriert.</p>
           <div class="n_text">
-            <p>This module exists in order to change important settings on the news module</p>
+            <p>Hier können Sie Änderungen an den Neuigkeiten Ihrer Schule vornehmen.</p>
             <form action="update_site.php" method="POST">
               <div class="form-group">'.$string.'
-                <p>With this form you are able to add news</p>
-                <input type="text" class="form-control" id="news_title" placeholder="Title" name="news_title">
-                <input type="text" class="form-control" id="news_date" placeholder="Date" name="news_date">
-                <textarea name="news_text" cols="40" rows="5" id="news_text"></textarea>
+                <p>Neue News hinzufügen:</p>
+                <input type="text" class="form-control" id="news_title" placeholder="Überschrift" name="news_title">
+                <input type="text" class="form-control" id="news_date" placeholder="Datum" name="news_date">
+                <textarea name="news_text" cols="40" rows="5" id="news_text" placeholder="Text"></textarea>
+                <p>Bild:</p>
                 <input type="file" class="form-control" id="news_img" name="news_image" accept="image/*">
-                <button type="submit" name="newNews" formmethod="POST" value="'.$name3.'">add new News</button>
-                <button type="submit" name="changes_news" formmethod="POST" value="'.$name3.'">Save Changes</button>
-                <button type="submit" name="delete_news_button" formmethod="POST" value="'.$name3.'">Delete</button>
-                <button class="go_back3" onclick="NewsBack()" name="backbutton">Go Back</button>
+                <button type="submit" name="newNews" formmethod="POST" value="'.$name3.'">News hinzufügen</button>
+                <button type="submit" name="changes_news" formmethod="POST" value="'.$name3.'">Änderungen speichern</button>
+                <button type="submit" name="delete_news_button" formmethod="POST" value="'.$name3.'">Löschen</button>
+                <button class="go_back3" onclick="NewsBack()" name="backbutton">Zurück</button>
               </div>
             </form>
-            <button name="left" value="'.$name3.'" class="left" >Left</button>
-            <button name="right" value="'.$name3.'" class="right" >Right</button>
+            <button name="left" value="'.$name3.'" class="left" >Links</button>
+            <button name="right" value="'.$name3.'" class="right" >Rechts</button>
           </div>
           </div>';
         }
@@ -258,23 +259,24 @@ session_start();
           echo '<div class="workersModule" onclick="clickedWorkers()">
                   <p class="text">Übersicht aller Mitarbeiter</p>
                   <div class="w_text">
-                    <p>Dieses Modul existiert um alle Mitarbeiter zu bearbeiten Modul</p>
+                    <p>Hier können Sie Änderungen am Mitarbeitermodul, das eine Auswahl an Mitarbeitern auflistet, vornehmen.</p>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$result6.'
-                        <p>füge einen Mitarbeiter hinzu</p>
+                        <p>Mitarbeiter hinzufügen:</p>
                         <input type="text" class="form-control" id="worker_adress" placeholder="Anrede" name="workers_adress">
                         <input type="text" class="form-control" id="worker_vorname" placeholder="Vorname" name="workers_firstname">
                         <input type="text" class="form-control" id="worker_nachname" placeholder="Nachname" name="workers_lastname">
                         <input type="text" class="form-control" id="worker_job" placeholder="Job" name="workers_job">
                         <input type="text" class="form-control" id="worker_tel" placeholder="Telefon" name="workers_tel">
+                        <p>Foto:</p>
                         <input type="file" class="form-control" id="worker_img" name="worker_image" accept="image/*">
                         <p><input type ="radio" name ="workers_type" value="leader"/>Führungsposition</p>
                         <p><input type ="radio" name ="workers_type" value="secr"/>Sekretariat</p>
                         <p><input type ="radio" name ="workers_type" value="teacher"/>Lehrer/innen</p>
                         <p><input type ="radio" name ="workers_type" value="other"/>Andere</p>
-                        <button type="submit" name="add_workers_button" formmethod="POST" value="'.$name6.'">Add</button>
-                        <button type="submit" name="delete_workers_button" formmethod="POST" value="'.$name6.'">Delete</button>
-                        <button class="go_back6" onclick="WorkersBack()" name="backbutton">Go Back</button>
+                        <button type="submit" name="add_workers_button" formmethod="POST" value="'.$name6.'">Hinzufügen</button>
+                        <button type="submit" name="delete_workers_button" formmethod="POST" value="'.$name6.'">Löschen</button>
+                        <button class="go_back6" onclick="WorkersBack()" name="backbutton">Zurück</button>
                       </div>
                     </form>
                   </div>
@@ -287,11 +289,11 @@ session_start();
           echo '<div class="anfahrtModule" onclick="clickedAnfahrt()">
                   <p class="text">Konfiguriere die Anfahrt</p>
                   <div class="a_text">
-                    <p>Dieses Modul existiert um die Anfahrt zu bearbeiten</p>
+                    <p>Hier können Sie Änderungen am Anfahrtsmodul vornehmen.</p>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">'.$codeAnfahrt2.'
-                        <button type="button" class="save_changes_anfahrt" name="anfahrt_button">Speichere Veränderungen</button>
-                        <button class="go_back7" onclick="AnfahrtBack()" name="backbutton">Go Back</button>
+                        <button type="button" class="save_changes_anfahrt" name="anfahrt_button">Änderungen speichern</button>
+                        <button class="go_back7" onclick="AnfahrtBack()" name="backbutton">Zurück</button>
                       </div>
                     </form>
                   </div>
@@ -301,10 +303,10 @@ session_start();
           echo '<div class="classesModule" onclick="clickedClasses()">
                   <p class="text">Konfiguriere alle Klassen</p>
                   <div class="cl_text">
-                    <p>Dieses Modul existiert um alle vorhandenen klassen zu bearbeiten</p>
+                    <p>Hier können Sie Änderungen am Klassenmodul (mit Auflistung der Schulklassen) vornehmen.</p>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">
-                        <button class="go_back8" onclick="ClassesBack()" name="backbutton">Go Back</button>
+                        <button class="go_back8" onclick="ClassesBack()" name="backbutton">Zurück</button>
                       </div>
                     </form>
                   </div>
@@ -314,10 +316,10 @@ session_start();
           echo '<div class="signupModule" onclick="clickedSignup()">
                   <p class="text">Konfiguriere das Einschreibungssytem</p>
                   <div class="su_text">
-                    <p>Dieses Modul existiert um das Einschreibungssytem zu bearbeiten</p>
+                    <p>Hier können Sie Änderungen am Einschreibungsmodul vornehmen.</p>
                     <form action="update_site.php" method="POST">
                       <div class="form-group">
-                        <button class="go_back9" onclick="SignupBack()" name="backbutton">Go Back</button>
+                        <button class="go_back9" onclick="SignupBack()" name="backbutton">Zurück</button>
                       </div>
                     </form>
                   </div>
@@ -325,13 +327,13 @@ session_start();
         }
         $codeImpressum = printFormforImpressum($_SESSION['u_id']);
         echo '<div class="impressum" onclick="clickedImpressum()">
-                <p class="text">Konfiguriere das Impressum </p>
+                <p class="text">Impressum konfigurieren</p>
                 <div class="i_text">
-                  <p>Dieses Modul existiert um das Impressum zu bearbeiten</p>
+                  <p>Hier können Sie Änderungen am Impressum der Schulwebsite vornehmen.</p>
                   <form action="update_site.php" method="POST">
                     <div class="form-group">'.$codeImpressum.'
-                    <button type="button" class="impressum_button" name="impressum_button">Speichere Veränderungen</button>
-                      <button class="go_back10" onclick="ImpressumBack()" name="backbutton">Go Back</button>
+                    <button type="button" class="impressum_button" name="impressum_button">Änderungen speichern</button>
+                      <button class="go_back10" onclick="ImpressumBack()" name="backbutton">Zurück</button>
                     </div>
                   </form>
                 </div>
@@ -340,17 +342,17 @@ session_start();
           $name4 = oneValueFromTableData($_SESSION['u_id'], "gallery_file_name");
           $result4 = printFormForGallery($_SESSION['u_id'], $name4);
           echo '<div class="galleryModule" onclick="clickedGallery()">
-          <p class="text"> the gallery module is currently intergrated on your website</p>
+          <p class="text">Das Galeriemodul ist aktuell in Ihre Website integriert.</p>
           <div class="g_text">
           <form action="update_site.php" method="POST">
             <div class="form-group">'.$result4[sizeof($result4)-1].'
               <p>With this form you are able to add a Gallery</p>
-              <input type="text" class="form-control" id="gallery" placeholder="Gallery" name="gallery">
-              <button type="submit" name="newImages" formmethod="POST" value="'.$name4.'">add a new Images</button>
-              <button type="submit" name="newGallery" formmethod="POST" value="'.$name4.'">add a new Gallery</button>
-              <button type="submit" name="delete_galleries_button" formmethod="POST" value="'.$name4.'">Delete Galleries</button>
-              <button type="submit" name="delete_images_button" formmethod="POST" value="'.$name4.'">Delete Images</button>
-              <button class="go_back4" onclick="GalleryBack()" name="backbutton">Go Back</button>
+              <input type="text" class="form-control" id="gallery" placeholder="Galerie" name="gallery">
+              <button type="submit" name="newImages" formmethod="POST" value="'.$name4.'">Neue Bilder hinzuf.</button>
+              <button type="submit" name="newGallery" formmethod="POST" value="'.$name4.'">Neue Galerie</button>
+              <button type="submit" name="delete_galleries_button" formmethod="POST" value="'.$name4.'">Galerie(n) löschen</button>
+              <button type="submit" name="delete_images_button" formmethod="POST" value="'.$name4.'">Bild(er) löschen</button>
+              <button class="go_back4" onclick="GalleryBack()" name="backbutton">Zurück</button>
             </div>
           </form>
           </div>
