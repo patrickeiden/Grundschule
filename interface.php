@@ -125,7 +125,7 @@ session_start();
         <a class="btn btn-primary btn-lg" href="generate.php" role="button">Generieren</a>
         <br>
         <br>
-        <p> Text </p>
+        <p> Stellen Sie sich hier Ihre Schulwebsite zusammen, indem sie aus einer Vielzahl vorgefertigter Komponenten die gewünschten aussuchen und automatisch in die Website integrieren lassen. </p>
       </div>
     </div>
     <div class="col-sm-4 text-center">
@@ -134,7 +134,7 @@ session_start();
         <a class="btn btn-primary btn-lg" href="personal_data.php" role="button">Persönliche Daten</a>
         <br>
         <br>
-        <p> Text </p>
+        <p> Hier können Sie persönliche, also auf Ihr Benutzerkonto bei PAL bezogene Daten überprüfen und bearbeiten. </p>
       </div>
     </div>
     <div class="col-sm-4 text-center">
@@ -143,7 +143,7 @@ session_start();
         <a class="btn btn-primary btn-lg" href="personal_site2.php" role="button">Website</a>
         <br>
         <br>
-        <p> Text </p>
+        <p> Wenn Sie Website bereits erzeugt haben, können Sie diese hier vollständig an Ihre Wünsche anpassen und die einzelnen Komponenten mit Inhalten füllen. </p>
       </div>
   </div>
 </div>
