@@ -108,7 +108,7 @@ session_start();
         <div id="formContent">
           <h3>Willkommen bei PAL School!</h3>
          <br>
-         <h4>Um zu beginnen, melden Sie sich bitte an.
+         <h4>Um zu beginnen, melden Sie sich bitte an und wechseln Sie in Ihr persönliches Interface.
            <br>(im Menü oben rechts)
          </h4>
         </div>

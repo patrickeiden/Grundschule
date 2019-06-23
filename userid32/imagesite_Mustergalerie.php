@@ -1,0 +1,1 @@
+<?php include '../functions.php'; session_start(); ?><?php echo printImagesonSite(32, "userid32/gallery_id32.php", "Mustergalerie"); ?>
