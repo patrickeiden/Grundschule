@@ -2381,7 +2381,7 @@ function printWorkersInFile($uid, $folder){
           <p class="anfahrt_text">'.$text[0].'</p>
         </div>
         <div class="col-sm-1"></div>
-        <div class="col-sm-5"><p class="anfahrt_building">hier sehen sie einen Lageplan</p></div>
+        <div class="col-sm-5"><p class="anfahrt_building">Hier sehen Sie einen Lageplan:</p></div>
       </div>
       <div class="row">
           <div class="col-sm-6">
