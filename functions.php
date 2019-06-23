@@ -2726,7 +2726,7 @@ function printSignUpInInterface($uid){
               </div>
               <div class="row">
                 <div class="col-sm-2"></div>
-                <div class="col-sm-8 text-center"><p>Sie können das unten gelistete Dokument downloaden, um sich einzuschreiben</p></div>
+                <div class="col-sm-8 text-center"><p>Sie können das unten gelistete Dokument downloaden, um sich einzuschreiben: <br></p></div>
                 <div class="col-sm-2"></div>
               </div>
               <div class="row">
