@@ -1,0 +1,1 @@
+<?php include '../functions.php'; session_start(); ?><?php echo printRegularHeader($_SESSION["u_id"], ""); ?><?php $folder = "userid".$_SESSION["u_id"]."/workers_id".$_SESSION["u_id"].".php";echo allWorkers($_SESSION["u_id"], $folder); ?><?php echo printRegularFooter($_SESSION["u_id"]); ?>

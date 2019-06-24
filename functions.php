@@ -2381,7 +2381,7 @@ function printWorkersInFile($uid, $folder){
           <p class="anfahrt_text">'.$text[0].'</p>
         </div>
         <div class="col-sm-1"></div>
-        <div class="col-sm-5"><p class="anfahrt_building">hier sehen sie einen Lageplan</p></div>
+        <div class="col-sm-5"><p class="anfahrt_building">Hier sehen Sie einen Lageplan:</p></div>
       </div>
       <div class="row">
           <div class="col-sm-6">
@@ -2726,7 +2726,7 @@ function printSignUpInInterface($uid){
               </div>
               <div class="row">
                 <div class="col-sm-2"></div>
-                <div class="col-sm-8 text-center"><p>Sie können das unten gelistete Dokument downloaden um sich einzuschreiben</p></div>
+                <div class="col-sm-8 text-center"><p>Sie können das unten gelistete Dokument downloaden, um sich einzuschreiben: <br></p></div>
                 <div class="col-sm-2"></div>
               </div>
               <div class="row">
@@ -2792,7 +2792,7 @@ function printSignupInFileTable($uid, $file){
                 </div>
                 <div class="row">
                   <div class="col-sm-2"></div>
-                  <div class="col-sm-8 text-center"><p>Sie können das unten gelistete Dokument downloaden um sich einzuschreiben</p></div>
+                  <div class="col-sm-8 text-center"><p>Sie können das unten gelistete Dokument downloaden, um sich einzuschreiben</p></div>
                   <div class="col-sm-2"></div>
                 </div>
                 <div class="row">
@@ -3012,13 +3012,16 @@ function createAccount($email, $pswd, $pswd_repeat, $firstname, $lastname, $gend
     //Error Handler
     //Check for empty fields
     if(empty($email) || empty($pswd) || empty($pswd_repeat)){
-      header('Location: http://localhost/Grundschule/create_account.php?signup=empty');
+      //header('Location: http://localhost/Grundschule/create_account.php?signup=empty');
+      header('Location: ../create_account.php?signup=empty');
       exit();
     }else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-      header('Location: http://localhost/Grundschule/create_account.php?signup=email');
+      //header('Location: http://localhost/Grundschule/create_account.php?signup=email');
+      header('Location: ../create_account.php?signup=email');
       exit();
     }else if(checkDoubleRegistration($email) == 1){
-    header('Location: http://localhost/Grundschule/create_account.php?signup=DoubleEmail');
+      //header('Location: http://localhost/Grundschule/create_account.php?signup=DoubleEmail');
+      header('Location: ../create_account.php?signup=DoubleEmail');
       exit();
     }else{
       //Hasing the password
@@ -3037,7 +3040,8 @@ function createAccount($email, $pswd, $pswd_repeat, $firstname, $lastname, $gend
       $stmt = $conn->prepare("INSERT INTO Person(Email, Password, Firstname, Lastname, Gender, Birthdate, Adress, PLZ, Payment, Note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
       $stmt->bind_param("sssssssiss", $mail, $psw, $firstname, $lastname, $gender, $birth, $Adress, $plz, $payment, $note);
       $stmt->execute();
-      header('Location: http://localhost/Grundschule/create_account.php?signup=success');
+      //header('Location: http://localhost/Grundschule/create_account.php?signup=success');
+      header('Location: ../create_account.php?signup=success');
       exit();
     }
 }
@@ -3050,28 +3054,32 @@ function logIn($email, $pswd){
     //Error Handlers
     //Check for empty fields
     if(empty($mail) || empty($psw)){
-      header('Location: http://localhost/Grundschule/SignUp.php?login=empty');
+      //header('Location: http://localhost/Grundschule/SignUp.php?login=empty');
+      header('Location: ../SignUp.php?login=empty');
       exit();
     }else{
       $sql = "SELECT reg_id, mail, password FROM registration WHERE mail='$mail'";
       $result = mysqli_query($conn, $sql);
       $resultCheck = mysqli_num_rows($result);
       if($resultCheck < 1){
-        header('Location: http://localhost/Grundschule/startsite.php?login=error1');
+        //header('Location: http://localhost/Grundschule/startsite.php?login=error1');
+        header('Location: ../startsite.php?login=error1');
         exit();
       }else{
         if($row = mysqli_fetch_assoc($result)){
           //De-hashing the Password
           $hashedPwdCheck = strcmp($psw, $row['password']);
           if($hashedPwdCheck < 0 ||  $hashedPwdCheck > 0){
-            header('Location: http://localhost/Grundschule/startsite.php?login=error2');
+            //header('Location: http://localhost/Grundschule/startsite.php?login=error2');
+            header('Location: ../startsite.php?login=error2');
             exit();
           }else if($hashedPwdCheck == 0){
             //Log In the user here
             $_SESSION['u_id'] = $row['reg_id'];
             $_SESSION['u_mail'] = $row['mail'];
             $_SESSION['u_pwd'] = $row['password'];
-            header('Location: http://localhost/Grundschule/interface.php?login=success');
+            //header('Location: http://localhost/Grundschule/interface.php?login=success');
+            header('Location: ../interface.php?login=success');
             exit();
           }
         }
@@ -3083,7 +3091,8 @@ function logout(){
   session_start();
   session_unset();
   session_destroy();
-  header("Location: http://localhost/Grundschule/startsite.php?logout=success");
+  //header("Location: http://localhost/Grundschule/startsite.php?logout=success");
+  header("Location: ../startsite.php?logout=success");
   exit();
 }
 

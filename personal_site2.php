@@ -185,7 +185,7 @@ include 'functions.php';
                       <div class="form-group">'.$result2.'<br><br>
                       <div class="event">
                         <input type="text" class="form-control" id="event_title" placeholder="Ereignisname" name="event_title">
-                        <input type="text" class="form-control" id="event_date" placeholder="Datum (Bsp.: 2018-03-27)" name="event_date">
+                        <input type="text" class="form-control" id="event_date" placeholder="Datum (Bsp : 2018-03-27)" name="event_date">
                         <button class="btn btn-info CalendarButton" type="submit" name="newEvent" formmethod="POST" value="'.$name2.'">Ereignis hinzufügen</button>
                       </div>
                       <br>

@@ -16,7 +16,7 @@
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost/Grundschule/test.php">PAL School</a>
+      <a class="navbar-brand" href="startsite.php">PAL School</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="SignUp.php"><span class="glyphicon glyphicon-user"></span>Registrieren</a></li>
