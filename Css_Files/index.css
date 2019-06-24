@@ -116,6 +116,11 @@ footer {
    background-color: #BAB2B5;
 }
 
+input[type=checkbox], input[type=radio] {
+    position: relative!important;
+    top: 4px!important;
+}
+
 #main-container a:hover{
   border-color: #123C69!important;
 }

@@ -2346,6 +2346,7 @@ function printWorkersInFile($uid, $folder){
     global $conn;
     $link = oneColumnFromTable("maps", $uid, "anfahrt", "user_id");
     $text = oneColumnFromTable("text", $uid, "anfahrt", "user_id");
+    $text2 = oneColumnFromTable("text2", $uid, "anfahrt", "user_id");
     $image1 = oneColumnFromTable("Image_building1", $uid, "anfahrt", "user_id");
     if(empty($image1)){
       $image1 = '';
@@ -2381,7 +2382,7 @@ function printWorkersInFile($uid, $folder){
           <p class="anfahrt_text">'.$text[0].'</p>
         </div>
         <div class="col-sm-1"></div>
-        <div class="col-sm-5"><p class="anfahrt_building">Hier sehen Sie einen Lageplan:</p></div>
+        <div class="col-sm-5"><p class="anfahrt_building">'.$text2[0].'</p></div>
       </div>
       <div class="row">
           <div class="col-sm-6">
