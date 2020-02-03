@@ -1,0 +1,1 @@
+<?php include '../functions.php'; session_start(); ?><?php $file = "userid".$_SESSION["u_id"]."/classes_id".$_SESSION["u_id"].".php";echo printClassesInFileTable($_SESSION["u_id"], $file); ?>

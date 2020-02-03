@@ -1563,7 +1563,7 @@ function createImage($uid, $file){
   }
   for ($i=0; $i < sizeof($galleries); $i++) {
     $lu = $i +1;
-    $var = 'add_image'.$lu;
+    $var = 'add_image'.$lu;;
     $var2 = 'name_'.$galleries[$i];
     array_push($postvalues, $_POST[$var]);
     array_push($postname, $_POST[$var2]);

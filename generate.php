@@ -137,37 +137,37 @@ include 'functions.php';
 
         <div id="main-container">
         <div class="moduleStart boxdesign">
-          <a onclick="Startmodul()" role="button">Startseitenmodul</a>
+          <a onclick="Startmodul()" role="button">Startseiten-Modul</a>
         </div>
           <div class="module1 boxdesign">
             <a onclick="module1()" role="button">Custom-Modul</a>
           </div>
           <div class="module2 boxdesign">
-            <a onclick="module2()" role="button">Kalendermodul</a>
+            <a onclick="module2()" role="button">Kalender-Modul</a>
           </div>
           <div class="module3 boxdesign">
-            <a onclick="module3()" role="button">Newsmodul</a>
+            <a onclick="module3()" role="button">News-Modul</a>
           </div>
           <div class="module4 boxdesign">
-            <a onclick="module4()" role="button">Galeriemodul</a>
+            <a onclick="module4()" role="button">Galerie-Modul</a>
           </div>
           <div class="module5 boxdesign">
-            <a onclick="module5()" role="button">Jobmodul</a>
+            <a onclick="module5()" role="button">Job-Modul</a>
           </div>
           <div class="module6 boxdesign">
-            <a onclick="module6()" role="button">Anfahrtsmodul</a>
+            <a onclick="module6()" role="button">Anfahrt-Modul</a>
           </div>
           <div class="module7 boxdesign">
-            <a onclick="module7()" role="button">Mitarbeitermodul</a>
+            <a onclick="module7()" role="button">Mitarbeiter-Modul</a>
           </div>
           <div class="module8 boxdesign">
-            <a onclick="module8()" role="button">Klassenmodul</a>
+            <a onclick="module8()" role="button">Klassen-Modul</a>
           </div>
           <div class="module9 boxdesign">
-            <a onclick="module9()" role="button">Einschreibungsmodul</a>
+            <a onclick="module9()" role="button">Einschreibungs-Modul</a>
           </div>
           <div class="module10 boxdesign">
-            <a onclick="module10()" role="button">Impressumsmodul</a>
+            <a onclick="module10()" role="button">Impressum-Modul</a>
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ if(isset($_POST['ajaxCode']) && $_POST['ajaxCode'] != "" && $checkValue){
   echo $val[0];
 }
 $file = "userid".$_SESSION["u_id"]."/custome_id".$_SESSION["u_id"].".php";
-printAllCustomeFromFile($_SESSION['u_id']);
+printAllCustomeFromFile($_SESSION['u_id'], $file);
 printCustomeInInterface($_SESSION['u_id'], $file);
 printCustomeInFileTable($_SESSION['u_id'], $file);
 

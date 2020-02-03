@@ -14,6 +14,7 @@ if(isset($_POST['ajaxCode']) && $_POST['ajaxCode'] != "" && $checkValue){
 }else{
   //$id = 'userid'.$_SESSION['u_id'].'/custome_id'.$_SESSION['u_id'].'php';
   $checkValue = true;
+  
   $arg = 'calendarName_'.$_SESSION['CalendarNumber'];
   $val = oneColumnFromTable("costume_code", $_SESSION[$arg], "Module", "custome_name");
   echo $val[0];
